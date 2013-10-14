@@ -8,6 +8,4 @@
 /build/
 /vendor/
 /bin/
-/composer.phar
-/planillas_v0_1.sql
 .idea
