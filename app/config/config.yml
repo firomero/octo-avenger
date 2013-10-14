@@ -31,7 +31,7 @@ assetic:
     debug:          %kernel.debug%
     use_controller: false
     bundles:        ['MopaBootstrapBundle','PlanillasTemplateBundle']
-    java: 'C:\Archivos de programa\Java\jre6\bin\java.exe'
+    java: '/usr/bin/java'
     filters:
         cssrewrite: ~
         #closure:
