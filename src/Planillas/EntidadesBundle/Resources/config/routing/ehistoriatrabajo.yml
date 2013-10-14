@@ -1,0 +1,30 @@
+historiatrabajo:
+    pattern:  /{id}/trabajo
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaTrabajo:index" }
+
+historiatrabajo_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaTrabajo:show" }
+
+historiatrabajo_new:
+    pattern:  /{id_empleado}/trabajo/new
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaTrabajo:new" }
+
+historiatrabajo_create:
+    pattern:  /{id_empleado}/trabajo/create
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaTrabajo:create" }
+    requirements: { _method: post }
+
+historiatrabajo_edit:
+    pattern:  /{id}/trabajo/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaTrabajo:edit" }
+
+historiatrabajo_update:
+    pattern:  /{id}/trabajo/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaTrabajo:update" }
+    requirements: { _method: post }
+
+historiatrabajo_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaTrabajo:delete" }
+    requirements: { _method: get|delete }

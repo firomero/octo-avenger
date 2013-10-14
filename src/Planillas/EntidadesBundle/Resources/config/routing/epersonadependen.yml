@@ -1,0 +1,30 @@
+personadepende:
+    pattern:  /{id_empleado}/personadepende
+    defaults: { _controller: "PlanillasEntidadesBundle:EPersonaDependen:index" }
+
+personadepende_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EPersonaDependen:show" }
+
+personadepende_new:
+    pattern:  /{id_empleado}/personadepende/new
+    defaults: { _controller: "PlanillasEntidadesBundle:EPersonaDependen:new" }
+
+personadepende_create:
+    pattern:  /personadepende/create
+    defaults: { _controller: "PlanillasEntidadesBundle:EPersonaDependen:create" }
+    requirements: { _method: post }
+
+personadepende_edit:
+    pattern:  /{id}/personadepende/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EPersonaDependen:edit" }
+
+personadepende_update:
+    pattern:  /{id}/personadepende/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EPersonaDependen:update" }
+    requirements: { _method: post|put }
+
+personadepende_delete:
+    pattern:  /{id}/personadepende/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EPersonaDependen:delete" }
+    requirements: { _method: post|delete }

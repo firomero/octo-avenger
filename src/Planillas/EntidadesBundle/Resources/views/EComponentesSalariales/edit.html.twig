@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modicar Componentes Salariales
+{% endblock %}
+{% block content_content %}
+    
+   {% for mensaje in app.session.flashbag.get('info') %}
+    <div class="alert alert-info">{{ mensaje }}</div>
+   {% endfor %}
+    
+    <div class="row">
+     {% block content %} 
+         <div class="col-lg-9">
+          <div class="panel panel-default">
+            <div class="panel-heading"> <!-- Encabezado panel central -->
+                <h2 class="panel-title">Modificar Componente Salarial</h2>
+            </div>
+            <div class="panel-body">
+                {{ form_start(edit_form) }}
+               <!-- <form class="form-horizontal" action="{# path('cursos_create') #}"
+                        method="post" {# form_enctype(form) #}>  -->
+					 {{ form_errors(edit_form) }}
+                        <fieldset>
+                            <legend></legend>
+                           
+                            <div class="row-fluid">
+                                <div class="col-lg-5">{{ form_row(edit_form.componente) }}</div>
+                                <div class="col-lg-5">{{ form_row(edit_form.cantidad) }}</div>
+                                <div class="col-lg-5">{{ form_row(edit_form.moneda) }}</div>
+								
+                            </div>
+                        </fieldset>
+						 
+						 <fieldset>
+                            <legend></legend>
+                           
+                            <div class="row-fluid">
+							    <div class="col-lg-4">{{form_label(edit_form.fechaVencimiento,'Vencimiento')}}{{ form_widget(edit_form.fechaVencimiento) }}</div>
+                                <div class="col-lg-6">{{ form_row(edit_form.descripcion) }}</div>
+                                
+                            </div>
+                        </fieldset>
+						<hr/>
+                    {{ form_rest(edit_form) }}
+					
+					<fieldset>
+					<div class="btn-group">
+					  <button type="submit" class="btn btn-success">
+						Actualizar
+					  </button>
+					</div>
+					<div class="btn-group">
+					  <a class="btn btn-default" href="{{ path('salariobase_new',{'id_empleado':entity.empleado.id})}}">
+						Regresar
+					  </a>
+					</div>
+					</fieldset>
+                    {{ form_end(edit_form) }}    
+            </div>
+          </div>          
+         </div>  
+         <div class="col-sm-3"> <!-- Menu derecho de empleado -->
+		 {{ macros.empleado_foto() }}
+	     {{ macros.menu_empleado('sueldo',entity.empleado) }}
+         </div>
+     {% endblock content %} 
+    </div>     
+{% endblock %}
+
+
+
+
+
+
+
+

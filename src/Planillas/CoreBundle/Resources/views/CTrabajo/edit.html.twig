@@ -1,0 +1,71 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Historial de trabajo
+{% endblock %}
+{% block content_content %}
+    {% for mensaje in app.session.flashbag.get('info') %}
+        <div class="alert alert-info">{{ mensaje }}</div>
+    {% endfor %}
+    <div class="row">
+        {% block content %}
+            <div class="col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Trabajo Actual</h2>
+                    </div>
+                    <div class="panel-body">
+                        {{ form_start(edit_form) }}
+
+                        <fieldset>
+
+
+                            <div class="row-fluid">
+                                <div class="col-lg-6">{{ form_row(edit_form.nombre) }}</div>
+                                <div class="col-lg-6">{{ form_row(edit_form.fechaTrabajo) }}</div>
+
+                            </div>
+
+                        </fieldset>
+                        {{ form_rest(edit_form) }}
+                        {{ form_end(edit_form) }}
+
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Trabajos Anteriores</h2>
+                    </div>
+                    <div class="panel-body">
+
+
+                        <a href="{{ path('historiatrabajo_new',{'id_empleado': eEmpleado.id}) }}" class="btn btn-primary">Nuevo</a>
+                        <hr/>
+                        {{ render(controller('PlanillasEntidadesBundle:EHistoriaTrabajo:index',{'id':eEmpleado.id}))}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                {{ macros.empleado_foto()}}
+                {{ macros.menu_empleado('historiatrabajo',eEmpleado) }}
+            </div>
+        {% endblock  %}
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

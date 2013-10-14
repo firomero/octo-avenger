@@ -1,0 +1,30 @@
+datolegal:
+    pattern:  /
+    defaults: { _controller: "PlanillasEntidadesBundle:EDatoLegal:index" }
+
+datolegal_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EDatoLegal:show" }
+
+datolegal_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasEntidadesBundle:EDatoLegal:new" }
+
+datolegal_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasEntidadesBundle:EDatoLegal:create" }
+    requirements: { _method: post }
+
+datolegal_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EDatoLegal:edit" }
+
+datolegal_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EDatoLegal:update" }
+    requirements: { _method: post|put }
+
+datolegal_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EDatoLegal:delete" }
+    requirements: { _method: post|delete }

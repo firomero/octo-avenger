@@ -1,0 +1,30 @@
+elicencia:
+    pattern:  /{id_empleado}/licencias
+    defaults: { _controller: "PlanillasEntidadesBundle:ELicencia:index" }
+
+elicencia_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:ELicencia:show" }
+
+elicencia_new:
+    pattern:  /{id_empleado}/licencias/new
+    defaults: { _controller: "PlanillasEntidadesBundle:ELicencia:new" }
+
+elicencia_create:
+    pattern:  /{id_empleado}/licencias/create
+    defaults: { _controller: "PlanillasEntidadesBundle:ELicencia:create" }
+    requirements: { _method: post }
+
+elicencia_edit:
+    pattern:  /{id}/licencias/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:ELicencia:edit" }
+
+elicencia_update:
+    pattern:  /{id}/licencias/update
+    defaults: { _controller: "PlanillasEntidadesBundle:ELicencia:update" }
+    requirements: { _method: post|put }
+
+elicencia_delete:
+    pattern:  /{id}/licencias/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:ELicencia:delete" }
+    requirements: { _method: post|delete }

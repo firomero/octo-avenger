@@ -1,0 +1,32 @@
+{% extends '::base.html.twig' %}
+
+{% block content_content %}
+    <h1>EDatoLegal</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Fechavisitadomiciliaria</th>
+                <td>{{ entity.fechaVisitaDomiciliaria|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('datolegal') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('datolegal_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

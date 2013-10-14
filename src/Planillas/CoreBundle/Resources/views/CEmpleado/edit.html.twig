@@ -1,0 +1,91 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar Empleado
+{% endblock %}
+{% block content_content %}
+    {% for mensaje in app.session.flashbag.get('info') %}
+        <div class="alert alert-info">{{ mensaje }}</div>
+    {% endfor %}
+    <div class="row">
+        {% block content %}
+            <div class="col-lg-9">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Datos personales</h2>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="{{ path('empleado_update',{ 'id': entity.id }) }}"
+                              method="post" {{ form_enctype(edit_form) }}>
+                            <fieldset>
+
+                                {{ form_errors(edit_form) }}
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{ form_row(edit_form.nombre) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.primerApellido) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.segundoApellido) }}</div>
+                                </div>
+                                <div class="col">
+                                    <div class="col-lg-4">{{ form_row(edit_form.cedula) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.estadoCivil) }}</div>
+                                </div>
+
+                            </fieldset>
+                            <fieldset>
+                                <legend></legend>
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{ form_row(edit_form.sexo) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.peso) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.estatura) }}</div>
+                                </div>
+
+                            </fieldset>
+                            <fieldset>
+                                <legend></legend>
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{ form_row(edit_form.email) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.salario) }}</div>
+
+                                </div>
+
+                            </fieldset>
+                            <fieldset>
+                                <legend></legend>
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{ form_row(edit_form.tallaCamisa) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.tallaPantalon) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.tallaCalzado) }}</div>
+                                </div>
+
+                            </fieldset>
+                            <fieldset>
+                                <legend></legend>
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{ form_row(edit_form.cantidadDeuda) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.otroIngreso) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.tipoPagoCasa) }}</div>
+                                </div>
+
+                            </fieldset>
+                            {{ form_rest(edit_form) }}
+                            <button type="submit" name="submit_button" class="btn btn-success">Guardar</button>
+                            <form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                {{ macros.empleado_foto() }}
+                {{ macros.menu_empleado('personales',entity) }}
+
+
+
+            </div>
+        {% endblock content %}
+    </div>
+
+
+
+
+{% endblock %}

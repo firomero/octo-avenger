@@ -1,0 +1,43 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar idioma
+{% endblock %}
+{% block content_content %}
+   {% for mensaje in app.session.flashbag.get('info') %}
+    <div class="alert alert-info">{{ mensaje }}</div>
+   {% endfor %}
+   
+    <div class="row">
+        {% block content %}   
+            <div class="col-lg-9">
+             <div class="panel panel-default"> <!-- Panel central -->
+                    <div class="panel-heading"> <!-- Encabezado panel central -->
+                     <h2 class="panel-title">Idioma</h2>
+                    </div>
+                     <div class="panel-body">
+                      {{ form_start(edit_form) }}
+                            <fieldset>
+                                <legend></legend>
+                                {{ form_errors(edit_form) }}
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{ form_row(edit_form.idioma) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.porientoIdioma) }}</div>
+                                </div>
+                            </fieldset>
+                            <button type="submit" name="submit_button" class="btn btn-success">Actualizar</button>
+							<a  class="btn btn-success" href="{{ path('educacionidiomas', { 'id_empleado': entity.empleado.id } ) }}">
+								Regresar
+							</a>
+                        {{ form_end(edit_form) }} 
+                    </div> 
+					
+             </div>
+            </div>
+            <div class="col-sm-3"> <!-- Menu derecho de empleado -->
+	      {{ macros.empleado_foto() }}
+	     {{ macros.menu_empleado('educacionidiomas',entity.empleado) }}
+            </div>
+        {% endblock content %}  
+    </div>
+{% endblock %}

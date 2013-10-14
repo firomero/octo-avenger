@@ -1,0 +1,30 @@
+cursos:
+    pattern:  /{id_empleado}/cursos
+    defaults: { _controller: "PlanillasEntidadesBundle:ECursos:index" }
+
+cursos_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:ECursos:show" }
+
+cursos_new:
+    pattern:  /{id_empleado}/cursos/new
+    defaults: { _controller: "PlanillasEntidadesBundle:ECursos:new" }
+
+cursos_create:
+    pattern:  /{id_empleado}/cursos/create
+    defaults: { _controller: "PlanillasEntidadesBundle:ECursos:create" }
+    requirements: { _method: post }
+
+cursos_edit:
+    pattern:  /{id}/cursos/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:ECursos:edit" }
+
+cursos_update:
+    pattern:  /{id}/cursos/update
+    defaults: { _controller: "PlanillasEntidadesBundle:ECursos:update" }
+    requirements: { _method: post|put }
+
+cursos_delete:
+    pattern:  /{id}/cursos/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:ECursos:delete" }
+    requirements: { _method: post|delete }

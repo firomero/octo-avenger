@@ -1,0 +1,47 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar licencia
+{% endblock %}
+    
+{% block content_content %}
+   {% for mensaje in app.session.flashbag.get('success') %}
+    mensajes_flash (success,{{mensaje}})
+   {% endfor %}
+   
+    <div class="row">
+        {% block content %}   
+            <div class="col-lg-9">
+             <div class="panel panel-default"> <!-- Panel central -->
+                    <div class="panel-heading"> <!-- Encabezado panel central -->
+                     <h2 class="panel-title">Licencia</h2>
+                    </div>  
+                    <div class="panel-body">
+                      {{ form_start(edit_form) }}
+                            <fieldset>
+                                <legend></legend>
+                                {{ form_errors(edit_form) }}
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{ form_row(edit_form.tipoLicencia) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.vence) }}</div>
+                                </div>
+                            </fieldset>
+                            <ul class="record_actions">
+                            <li>
+                                <a href="{{ path('elicencia', { 'id_empleado': entity.empleado.id } ) }}">
+                                Lista de licencias
+                                </a>
+                            </li>
+                        <!-- <li>{# form(delete_form) #}</li> -->
+                        </ul>
+                        {{ form_end(edit_form) }} 
+                    </div> 
+             </div>
+            </div> 
+            <div class="col-sm-3"> <!-- Menu derecho de empleado -->
+			         {{ macros.empleado_foto() }}         
+	                 {{ macros.menu_empleado('licencia',entity.empleado) }}
+         </div>
+        {% endblock content %}          
+    </div>        
+{% endblock %}

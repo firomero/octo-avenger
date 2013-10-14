@@ -1,0 +1,63 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Nuevo Curso
+{% endblock %}
+{% block content_content %}
+    
+   {% for mensaje in app.session.flashbag.get('info') %}
+    <div class="alert alert-info">{{ mensaje }}</div>
+   {% endfor %}
+    
+    <div class="row">
+     {% block content %} 
+         <div class="col-lg-9">
+          <div class="panel panel-default">
+            <div class="panel-heading"> <!-- Encabezado panel central -->
+                <h2 class="panel-title">Agregar Componente Salarial</h2>
+            </div>
+            <div class="panel-body">
+                {{ form_start(form) }}
+               <!-- <form class="form-horizontal" action="{# path('cursos_create') #}"
+                        method="post" {{ form_enctype(form) }}>  -->
+					 {{ form_errors(form) }}
+                        <fieldset>
+                            <legend></legend>
+                           
+                            <div class="row-fluid">
+                                <div class="col-lg-5">{{ form_row(form.componente) }}</div>
+                                <div class="col-lg-5">{{ form_row(form.cantidad) }}</div>
+                                <div class="col-lg-5">{{ form_row(form.moneda) }}</div>
+								
+                            </div>
+                        </fieldset>
+						 
+						 <fieldset>
+                            <legend></legend>
+                           
+                            <div class="row-fluid">
+							    <div class="col-lg-4">{{form_label(form.fechaVencimiento,'Vencimiento')}}{{ form_widget(form.fechaVencimiento) }}</div>
+                                <div class="col-lg-6">{{ form_row(form.descripcion) }}</div>
+                                
+                            </div>
+                        </fieldset>
+						<hr/>
+                    {{ form_rest(form) }}
+                    {{ form_end(form) }}    
+            </div>
+          </div>          
+         </div>  
+         <div class="col-sm-3"> <!-- Menu derecho de empleado -->
+		 {{ macros.empleado_foto() }}
+	     {{ macros.menu_empleado('sueldo',eEmpleado) }}
+         </div>
+     {% endblock content %} 
+    </div>     
+{% endblock %}
+
+
+
+
+
+
+

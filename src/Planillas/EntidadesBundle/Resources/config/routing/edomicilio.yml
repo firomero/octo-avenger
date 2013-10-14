@@ -1,0 +1,30 @@
+domicilio:
+    pattern:  /
+    defaults: { _controller: "PlanillasEntidadesBundle:EDomicilio:index" }
+
+domicilio_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EDomicilio:show" }
+
+domicilio_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasEntidadesBundle:EDomicilio:new" }
+
+domicilio_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasEntidadesBundle:EDomicilio:create" }
+    requirements: { _method: post }
+
+domicilio_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EDomicilio:edit" }
+
+domicilio_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EDomicilio:update" }
+    requirements: { _method: post|put }
+
+domicilio_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EDomicilio:delete" }
+    requirements: { _method: post|delete }

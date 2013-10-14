@@ -1,0 +1,211 @@
+{# trans_default_domain 'BusBPMCoreBundle' #}
+
+{# *** BLOCKS *** #}
+
+
+
+{% block primary_button %}
+    <a href="{{ path(route) }}" class="btn btn-primary" style="margin-bottom: 8px;"><i class="icon icon-plus-sign icon-white"></i>{{ label | trans }}</a>
+{% endblock %}
+
+{% block link %}
+    {% if parameters is defined and parameters is not empty %}
+        <a href="{{ path(route,parameters) }}" class="btn">{{ label | trans }}</a>
+    {% else %}
+        <a href="{{ path(route) }}" class="btn">{{ label | trans }}</a>
+    {% endif %}
+{% endblock %}
+
+{% block action_link %}
+    <a href="{{ path(route, {'id': id}) }}" title="{{ label | trans }}" class="btn btn-mini"><i class="icon {% if action == 'edit' %}icon-edit{% else %}icon-eye-open{% endif %}"></i>{{ label | trans }}</a>
+{% endblock %}
+
+
+{# *** MACROS *** #}
+{% macro empleado_foto ()%}
+<div class="panel panel-default">
+   
+				<a href="#" class="thumbnail">
+				 <img src="{{
+					 asset('bundles/planillastemplate/img/54.png')
+				  }}" alt="" width="253" height="200" />
+				</a>
+			 
+
+       
+    
+  </div>
+
+{%endmacro%}
+{% macro menu_empleado(active='personales',eEmpleado) %}
+ 
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">{{ eEmpleado.nombre }} {{ eEmpleado.primerApellido }}</h2>
+    </div>
+    <div class="panel-body">
+		   
+
+        <ul class="nav nav-pills nav-stacked">
+            {% if(active=='personales') %}
+			
+                <li class="active"><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a></li>
+            {% else %}
+                <li class><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a></li>
+            {%endif%}
+            
+            {% if(active=='familiares') %}
+                <li class="active"><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos Familiares</a></li>
+            {% else %}
+                <li><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos Familiares</a></li>
+            {%endif%}
+            {% if(active=='personadepende') %}
+                <li class="active"><a href="{{ path('personadepende',{ 'id_empleado': eEmpleado.id }) }}">Dependientes</a></li>
+            {% else %}
+                <li><a href="{{ path('personadepende',{ 'id_empleado': eEmpleado.id }) }}">Dependientes</a></li>
+            {%endif%}
+			{% if(active=='historiatrabajo') %}
+                <li class="active"><a href="{{ path('ctrabajo_new',{ 'id_empleado': eEmpleado.id }) }}">Trabajo</a></li>
+            {% else %}
+                <li><a href="{{ path('ctrabajo_new',{ 'id_empleado': eEmpleado.id }) }}">Trabajo</a></li>
+            {%endif%}
+			{% if(active=='cursos') %}
+			  <li class="active"><a href="{{ path('cursos',{ 'id_empleado': eEmpleado.id }) }}">Cursos</a></li>
+			  {% else %}
+			  <li><a href="{{ path('cursos',{ 'id_empleado': eEmpleado.id }) }}">Cursos</a></li>
+			  {%endif%}
+				  {% if(active=='educacionidiomas') %}
+			  <li class="active"><a href="{{ path('educacionidiomas',{ 'id_empleado': eEmpleado.id }) }}">Idiomas</a></li>
+			  {% else %}
+			  <li><a href="{{ path('educacionidiomas',{ 'id_empleado': eEmpleado.id }) }}">Idiomas</a></li>
+	     {%endif%}
+             {% if active == 'sueldo'%}
+              <li class="active"><a href="{{ path('salariobase_new',{ 'id_empleado': eEmpleado.id }) }}">Sueldo</a></li>                
+             {% else %}
+              <li><a href="{{ path('salariobase_new',{ 'id_empleado': eEmpleado.id }) }}">Sueldo</a></li>
+             {%endif %}
+ {% if(active=='antecedentepenal') %}
+            <li class="active"><a href="{{ path('antecedentepenal',{ 'id_empleado': eEmpleado.id }) }}">Antecedentes penales</a></li>
+            {% else %}
+            <li><a href="{{ path('antecedentepenal',{ 'id_empleado': eEmpleado.id }) }}">Antecedentes penales</a></li>
+            {%endif%}
+         <!-- Licencia -->    
+            {% if(active=='licencia') %}
+            <li class="active"><a href="{{ path('elicencia',{ 'id_empleado': eEmpleado.id }) }}">Licencias</a></li>
+            {% else %}
+            <li><a href="{{ path('elicencia',{ 'id_empleado': eEmpleado.id }) }}">Licencias</a></li>
+            {%endif%}   
+        </ul>
+    </div>
+  </div>
+
+{% endmacro %}
+{% macro mensajes_flash (mensaje='success',cuerpomensaje)%}
+ <div class="alert alert-mensaje">cuerpomensaje</div>
+
+
+
+{% endmacro%}
+{% macro show_styles() %}
+    {{ 'table table-striped' }}
+{% endmacro %}
+
+{% macro table_styles() %}
+    {{ _self.show_styles() ~ ' table-bordered table-condensed table-hover' }}
+{% endmacro %}
+
+{% macro no_elements(colspan=8)%}
+    <tr><td colspan="{{ colspan }}">No existen elementos que mostrar.</td></tr>
+{% endmacro %}
+
+{% macro create_button(label, route) %}
+    {{ block('primary_button') }}
+{% endmacro %}
+
+{% macro submit_button(label) %}
+    <input type="submit" class="btn btn-primary" value="{{ label | trans }}" />
+{% endmacro %}
+
+{% macro action_button(label, route, id, action) %}
+    {{ block('action_link') }}
+{% endmacro %}
+
+{% macro delete_button(label) %}
+    <input type="submit" class="btn btn-danger" value="{{ label | trans }}" />
+{% endmacro %}
+
+{% macro directional_link(label, route, parameters = {}) %}
+    {{ block('link') }}
+{% endmacro %}
+
+{% macro show_boolean(value,color='black') %}
+    {% if color != 'black' %}
+        {% set extracolor = ' icon-white' %}
+    {% else %}
+        {% set extracolor = '' %}
+    {% endif %}
+
+    {% if value %}
+        <i class="icon-ok{{ extracolor }}"></i>
+    {% else %}
+        <i class="icon-remove{{ extracolor }}"></i>
+    {% endif %}
+{% endmacro %}
+
+{% macro table_of_content(header_content,table_content,route_create_new,trans_domain) %}
+    <div class="block">
+        <div class="navbar navbar-inner block-header">
+            <div class="muted pull-left">
+                {# HEADER TEXT #}
+                {{ header_content | trans({},trans_domain) }}
+            </div>
+            <div class="muted pull-right">
+                {# SOMETHING IN HERE #}
+            </div>
+        </div>
+        <div class="block-content collapse in">
+            {# CREATE BUTTON #}
+            {{ _self.create_button('action.nuevo' , route_create_new) }}
+            {# TABLE HERE #}
+            {{ table_content }}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro container_content(header_content,table_content,trans_domain) %}
+    <div class="block">
+        <div class="navbar navbar-inner block-header">
+            <div class="muted pull-left">
+                {# HEADER TEXT #}
+                {{ header_content | trans({},trans_domain) }}
+            </div>
+            <div class="muted pull-right">
+                {# SOMETHING IN HERE #}
+            </div>
+        </div>
+        <div class="block-content collapse in">
+            {# TABLE HERE #}
+            {{ table_content }}
+        </div>
+    </div>
+{% endmacro %}
+
+
+{% macro flash(message,type='success') %}
+    <div class="alert alert-{{ type }}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {% if type == 'error' %}
+            <h4>Error</h4>
+        {% elseif type == 'success' %}
+            <h4>Satisfactorio</h4>
+        {% elseif type == 'info' %}
+            <h4>Información</h4>
+        {% endif %}
+        {{ message }}
+    </div>
+{% endmacro %}
+
+{% macro badget(content,style='success') %}
+    <span class="label label-{{ style }}">{{ content }}</span>
+{% endmacro %}

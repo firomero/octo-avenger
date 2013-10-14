@@ -1,0 +1,71 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Gestionar Dependencias
+{% endblock %}
+
+{% block content_content %}
+
+    <div class="row">
+    {% block content %}
+        <div class="col-lg-9">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Adicionar Dependencia</h2>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="{{ path('personadepende_create') }}"
+                          method="post" {{ form_enctype(form) }}>
+                        <fieldset>
+
+                            {{ form_errors(form) }}
+                            <div class="row-fluid">
+                                <div class="col-lg-4">{{ form_row(form.parentesco) }}</div>
+                                <div class="col-lg-4">{{ form_row(form.nombre) }}</div>
+                                <div class="col-lg-4">{{ form_row(form.edad) }}</div>
+                                
+                            </div>
+							
+							 
+							 
+
+                        </fieldset>
+						<fieldset>
+						 <div class="row-fluid">
+                               
+                              <div class="col-lg-4">{{ form_row(form.ocupacion) }}</div>  
+                          </div>
+						</fieldset>
+                        
+						
+                        {{ form_rest(form) }}
+                        <!--<input type="hidden" value="{# eEmpleado.id #}" name="empleadoid">-->
+
+                        <form>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+            {{ macros.empleado_foto() }}
+            {{ macros.menu_empleado('personadepende',eEmpleado) }}
+
+
+        </div>
+
+
+
+        </div>
+    {% endblock content %}
+    </div>
+
+{% endblock %}
+
+
+
+
+
+
+
+

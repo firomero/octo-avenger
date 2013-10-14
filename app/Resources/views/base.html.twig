@@ -1,0 +1,100 @@
+{% from 'MopaBootstrapBundle::flash.html.twig' import session_flash %}
+
+{% extends 'MopaBootstrapBundle::base.html.twig' %}
+
+    {% block head_style %}
+      <link href="{{ asset('bundles/planillastemplate/css/compiled_bootstrap.css') }}" type="text/css" rel="stylesheet" media="screen" />
+    {% endblock head_style %}
+
+    {% block head_script %}
+        <script src="{{ asset('bundles/planillastemplate/js/less-1.4.1.min.js') }}"></script>
+		
+    {% endblock head_script %}
+
+    {% block title %}{{ 'system_tittle' | trans({},'PlanillasCoreBundle') }}{% endblock %}
+
+    {% block head_bottom %}{% endblock head_bottom %}
+
+    {% block body_tag %}
+    <body data-spy="scroll" data-offset="50" data-target=".subnav">
+    {% endblock body_tag %}
+
+    {% block body_start %}{% endblock body_start %}
+
+    {% block navbar %}
+        {{ mopa_bootstrap_navbar('frontendNavbar') }}
+    {% endblock navbar %}
+
+    {% block container %}
+        {% block container_div_start %}<div class="{% block container_class %}container{% endblock container_class %}">{% endblock container_div_start %}
+        {% block header %}
+
+        {% endblock header %}
+
+        {% block content_div_start %}<div class="content">{% endblock content_div_start %}
+        {% block page_header %}
+            <div class="page-header">
+                <h1>{% block headline %}{{ 'system_tittle' | trans({},'PlanillasCoreBundle') }}{% endblock headline %}</h1>
+                {{ mopa_bootstrap_navbar('sandboxNavbarsSubNavbar') }}
+            </div>
+        {% endblock page_header %}
+
+        {% block flashes %}
+            {% if app.session.flashbag.peekAll|length > 0 %}
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{ session_flash() }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endblock flashes %}
+
+        {% block content_row %}
+            <div class="row">
+                {% block content %}
+                    <div class="col-lg-12">
+                        {% block content_content %}
+                            <strong>Hier könnte Ihre Werbung stehen ... </strong>
+                        {% endblock content_content %}
+                    </div>
+                    <!--<div class="col-sm-3">
+                        {# block content_sidebar #}
+                            <h2>Sidebar</h2>
+                        {# endblock content_sidebar #}
+                    </div>-->
+                {% endblock content %}
+            </div>
+        {% endblock content_row %}
+        {% block content_div_end %}</div>{% endblock content_div_end %}
+
+        <footer>
+            {% block footer %}
+                <p>&copy; <a href="http://www.mohrenweiserpartner.de" target="_blank">Mohrenweiser & Partner</a> 2011-2013</p>
+            {% endblock footer %}
+        </footer>
+
+        {% block container_div_end %}</div><!-- /container -->{% endblock container_div_end %}
+    {% endblock container %}
+
+    {% block foot_script %}
+        {% javascripts 
+        '@PlanillasTemplateBundle/Resources/public/js/jquery-1.10.2.min.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/tooltip.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/affix.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/alert.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/button.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/carousel.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/collapse.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/dropdown.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/modal.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/popover.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/scrollspy.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/tab.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/js/transition.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+        '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock foot_script %}

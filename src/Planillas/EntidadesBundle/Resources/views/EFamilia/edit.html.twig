@@ -1,0 +1,54 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar familiar
+{% endblock %}
+
+{% block content_content %}
+
+    <div class="row">
+        {% block content %}
+            <div class="col-lg-9">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Adicionar Familiar</h2>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="{{ path('familia_update',{ 'id': entity.id }) }}"
+                              method="post" {{ form_enctype(edit_form) }}>
+                            <fieldset>
+
+                                {{ form_errors(edit_form) }}
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{ form_row(edit_form.parentesco) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.nombre) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.edad) }}</div>
+                                    <div class="col-lg-4">{{ form_row(edit_form.ocupacion) }}</div>
+                                </div>
+
+                            </fieldset>
+                            
+                            <button type="submit" name="submit_button" class="btn btn-success">Actualizar</button>
+							<a href="{{ path('familia',{ 'id': eEmpleado.id }) }}" class="btn btn-success">Regresar</a>
+							{# form_end(edit_form) #}
+                            {{ form_rest(edit_form) }}
+                            <form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                {{ macros.empleado_foto() }}
+                {{ macros.menu_empleado('familiares',eEmpleado) }}
+
+
+                </div>
+
+
+
+            </div>
+        {% endblock content %}
+    </div>
+
+{% endblock %}

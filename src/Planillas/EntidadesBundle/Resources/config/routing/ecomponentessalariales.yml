@@ -1,0 +1,30 @@
+ecomponentessalariales:
+    pattern:  /
+    defaults: { _controller: "PlanillasEntidadesBundle:EComponentesSalariales:index" }
+
+ecomponentessalariales_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EComponentesSalariales:show" }
+
+ecomponentessalariales_new:
+    pattern:  /{id_empleado}/componentes/new
+    defaults: { _controller: "PlanillasEntidadesBundle:EComponentesSalariales:new" }
+
+ecomponentessalariales_create:
+    pattern:  /{id_empleado}/componentes/create
+    defaults: { _controller: "PlanillasEntidadesBundle:EComponentesSalariales:create" }
+    requirements: { _method: post }
+
+ecomponentessalariales_edit:
+    pattern:  /{id}/componentes/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EComponentesSalariales:edit" }
+
+ecomponentessalariales_update:
+    pattern:  /{id}/componentes/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EComponentesSalariales:update" }
+    requirements: { _method: post|put }
+
+ecomponentessalariales_delete:
+    pattern:  /{id}/componentes/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EComponentesSalariales:delete" }
+    requirements: { _method: get|delete }

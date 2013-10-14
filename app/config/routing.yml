@@ -1,0 +1,16 @@
+planillas_template:
+    resource: "@PlanillasTemplateBundle/Resources/config/routing.yml"
+    prefix:   /
+
+planillas_entidades:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing.yml"
+    prefix:   /entidad
+
+planillas_nomenclador:
+    resource: "@PlanillasNomencladorBundle/Resources/config/routing.yml"
+    prefix:   /nomenclador
+
+planillas_core:
+    resource: "@PlanillasCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+

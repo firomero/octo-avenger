@@ -1,0 +1,53 @@
+planillas_core_homepage:
+    pattern:  /
+    defaults: { _controller: PlanillasCoreBundle:Default:index }
+planillas_core_empleados:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/empleado.yml"
+    prefix:   /empleado
+
+planillas_core_domicilio:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/edomicilio.yml"
+    prefix:   /empleado/domicilio
+    
+planillas_core_antecedente_penal:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/eantecedentepenal.yml"
+    prefix:   /empleado/antecedentepenal    
+    
+planillas_core_cursos:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/ecursos.yml"
+    prefix:   /empleado/curso
+
+planillas_core_dato_legal:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/edatolegal.yml"
+    prefix:   /empleado/datolegal  
+    
+planillas_core_educacion:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/eeducacion.yml"
+    prefix:   /empleado/educacion
+    
+planillas_core_idiomas:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/eeducacionidiomas.yml"
+    prefix:   /empleado/idiomas 
+    
+planillas_core_familia:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/efamilia.yml"
+    prefix:   /empleado/familia
+    
+planillas_core_persona_depende:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/epersonadependen.yml"
+    prefix:   /empleado/
+planillas_core_historia_trabajo:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/ehistoriatrabajo.yml"
+    prefix:   /empleado/
+planillas_core_salario:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/csalariobase.yml"
+    prefix:   /empleado/
+planillas_entidades_componentes_salariales:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/ecomponentessalariales.yml"
+    prefix:   /empleado/
+planillas_core_trabajo:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/ctrabajo.yml"
+    prefix:   /empleado/
+planillas_core_licencias:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/elicencia.yml"
+    prefix:   /empleado/licencias

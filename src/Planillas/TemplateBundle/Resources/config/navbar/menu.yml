@@ -1,0 +1,18 @@
+services:
+    planillas_template.menu_builder:
+        class: Planillas\TemplateBundle\Navbar\MenuBuilder
+        arguments: ["@knp_menu.factory"]
+
+    planillas_template.menu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: planillas_template.menu_builder
+        factory_method: createMainMenu
+        tags:
+            - { name: knp_menu.menu, alias: menu_main } # The alias is what is used to retrieve the menu
+
+    planillas_template.sub_menu:
+        class: Knp\Menu\MenuItem # the service definition requires setting the class
+        factory_service: planillas_template.menu_builder
+        factory_method: subNavbar
+        tags:
+           - { name: knp_menu.menu, alias: menu_sub } # The alias is what is used to retrieve the menu

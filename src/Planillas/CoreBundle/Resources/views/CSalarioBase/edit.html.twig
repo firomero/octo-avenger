@@ -1,0 +1,71 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Salario
+{% endblock %}
+
+{% block content_content %}
+
+    <div class="row">
+    {% block content %}
+        <div class="col-lg-9">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Salario Base</h2>
+                </div>
+                <div class="panel-body">
+				
+                    {{ form_errors(edit_form) }}
+                    {{form_start(edit_form)}}
+                        <fieldset>
+
+                            
+                            <div class="row-fluid">
+                                <div class="col-lg-4">{{ form_row(edit_form.salarioBase) }}</div>
+                                <div class="col-lg-4">{{ form_widget(edit_form.seguro) }}</div>
+                                 <div class="col-lg-4">{{ form_row(edit_form.periodoPago) }}</div>
+                               
+                            </div>
+
+                        </fieldset>
+                        
+                       
+
+                        {{ form_rest(edit_form) }}
+                       {{form_end(edit_form)}}
+
+                    
+                </div>
+            </div>
+             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Asignacion de Componentes Salariales</h2>
+                </div>
+                <div class="panel-body">
+				    <fieldset>
+					 <a class="btn btn-success" href="{{ path('ecomponentessalariales_new',{'id_empleado':eEmpleado.id}) }}">Adicionar</a>
+					</fieldset>
+					<hr/>
+					 <fieldset>
+					
+                    {{ render(controller('PlanillasEntidadesBundle:EComponentesSalariales:componentesByIdEmpleado',{'id_empleado':eEmpleado.id}))}}
+                      
+					</fieldset>     
+                </div>
+            </div>
+
+        </div>
+            <div class="col-sm-3">
+                {{ macros.empleado_foto() }}
+                {{ macros.menu_empleado('sueldo',eEmpleado) }}
+            </div>
+        
+
+
+
+        </div>
+    {% endblock content %}
+    </div>
+
+{% endblock %}

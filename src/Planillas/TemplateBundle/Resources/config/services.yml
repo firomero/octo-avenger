@@ -1,0 +1,5 @@
+parameters:
+#    planillas_template.example.class: Planillas\TemplateBundle\Example
+
+services:
+

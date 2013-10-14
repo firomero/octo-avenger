@@ -1,0 +1,92 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Historial de Trabajo
+{% endblock %}
+
+{% block content_content %}
+
+    <div class="row">
+        {% block content %}
+            <div class="col-lg-9">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Modificar Historial de Trabajo</h2>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="{{ path('historiatrabajo_update',{ 'id': entity.id }) }}"
+                              method="post" {{ form_enctype(edit_form) }}>
+                           <fieldset>
+
+                            {{ form_errors(edit_form) }}
+							 <div class="row-fluid">
+							   
+                                
+                               
+                           
+							    <div class="col-lg-4">{{ form_row(edit_form.nombreJefe) }}</div>
+								<div class="col-lg-4">{{ form_row(edit_form.puesto) }}</div>
+							    <div class="col-lg-4">{{ form_row(edit_form.tiempo) }}</div>
+                                
+                            </div> 
+                            <div class="row-fluid">
+                                
+                                <div class="col-lg-4">{{ form_row(edit_form.fechaInicio) }}</div>
+                                <div class="col-lg-4">{{ form_row(edit_form.fechaFin) }}</div>
+								<div class="col-lg-4">{{ form_row(edit_form.telefono) }}</div>
+                            </div>
+							 <div class="row-fluid">
+							<div class="col-lg-4">{{ form_row(edit_form.momento) }}</div>
+							<div class="col-lg-4">{{ form_row(edit_form.direccion) }}</div>
+                            <div class="col-lg-4">{{ form_row(edit_form.empresaPatrono) }}</div>
+							</div>
+                        </fieldset>
+						 <fieldset>
+
+                          
+                            <div class="row-fluid">
+                                
+                                <div class="col-lg-4">{{ form_row(edit_form.salario) }}</div> 
+														
+                                <div class="col-lg-4">{{ form_row(edit_form.motivoSalida) }}</div>
+                            </div>
+
+                        </fieldset>
+                            
+                            {{ form_rest(edit_form) }}
+                            <fieldset>
+                                <div class="btn-group">
+                                    <input type="submit" class="btn btn-primary" value="Actualizar">
+                                </div>
+                                <div class="btn-group">
+                                    <a href="{{ path('ctrabajo_new',{'id_empleado':entity.empleado.id}) }}" class="btn btn-primary">Regresar</a>
+                                </div>
+                            </fieldset>
+
+                            
+                         </form>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-3">
+                {{ macros.empleado_foto() }}
+                {{ macros.menu_empleado('historiatrabajo',eEmpleado) }}
+
+
+                </div>
+
+
+
+            </div>
+        {% endblock content %}
+    </div>
+
+{% endblock %}
+
+
+
+
+

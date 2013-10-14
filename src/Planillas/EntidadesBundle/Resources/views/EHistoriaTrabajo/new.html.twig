@@ -1,0 +1,86 @@
+
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar familiar
+{% endblock %}
+
+{% block content_content %}
+
+    <div class="row">
+    {% block content %}
+        <div class="col-lg-9">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Adicionar Historico Trabajo</h2>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="{{ path('historiatrabajo_create',{'id_empleado':eEmpleado.id}) }}"
+                          method="post" {{ form_enctype(form) }}>
+                        <fieldset>
+
+                            {{ form_errors(form) }}
+							 <div class="row-fluid">
+							   
+                                
+                               
+                           
+							    <div class="col-lg-4">{{ form_row(form.nombreJefe) }}</div>
+								<div class="col-lg-4">{{ form_row(form.puesto) }}</div>
+							    <div class="col-lg-4">{{ form_row(form.tiempo) }}</div>
+                                
+                            </div> 
+                           
+							
+                        </fieldset>
+						<fieldset>
+						 <div class="row-fluid">
+                                
+                                <div class="col-lg-4">{{ form_row(form.fechaInicio) }}</div>
+                                <div class="col-lg-4">{{ form_row(form.fechaFin) }}</div>
+								<div class="col-lg-4">{{ form_row(form.telefono) }}</div>
+                            </div>
+						</fieldset>
+						<fieldset>
+						   <div class="row-fluid">
+							<div class="col-lg-4">{{ form_row(form.momento) }}</div>
+							<div class="col-lg-4">{{ form_row(form.direccion) }}</div>
+                            <div class="col-lg-4">{{ form_row(form.empresaPatrono) }}</div>
+							</div>
+						</fieldset>
+						 <fieldset>
+
+                          
+                            <div class="row-fluid">
+                                
+                                <div class="col-lg-4">{{ form_row(form.salario) }}</div> 
+								<div class="col-lg-4">{{ form_row(form.empleado) }}</div> 								
+                                <div class="col-lg-4">{{ form_row(form.motivoSalida) }}</div>
+                            </div>
+
+                        </fieldset>
+                         
+                        {{ form_rest(form) }}
+                        
+
+                        <form>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+            {{ macros.empleado_foto() }}
+            {{ macros.menu_empleado('historiatrabajo',eEmpleado) }}
+
+
+        </div>
+
+
+
+        </div>
+    {% endblock content %}
+    </div>
+
+{% endblock %}
+

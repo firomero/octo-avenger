@@ -1,0 +1,30 @@
+ctrabajo:
+    pattern:  /
+    defaults: { _controller: "PlanillasCoreBundle:CTrabajo:index" }
+
+ctrabajo_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CTrabajo:show" }
+
+ctrabajo_new:
+    pattern:  /{id_empleado}/new/trabajo
+    defaults: { _controller: "PlanillasCoreBundle:CTrabajo:new" }
+
+ctrabajo_create:
+    pattern:  /{id_empleado}/create/trabajo
+    defaults: { _controller: "PlanillasCoreBundle:CTrabajo:create" }
+    requirements: { _method: post }
+
+ctrabajo_edit:
+    pattern:  /{id}/edit/trabajo
+    defaults: { _controller: "PlanillasCoreBundle:CTrabajo:edit" }
+
+ctrabajo_update:
+    pattern:  /{id}/update/trabajo
+    defaults: { _controller: "PlanillasCoreBundle:CTrabajo:update" }
+    requirements: { _method: post|put }
+
+ctrabajo_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CTrabajo:delete" }
+    requirements: { _method: post|delete }

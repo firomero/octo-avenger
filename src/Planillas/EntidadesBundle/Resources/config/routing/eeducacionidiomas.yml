@@ -1,0 +1,30 @@
+educacionidiomas:
+    pattern:  /{id_empleado}/idiomas
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacionIdiomas:index" }
+
+educacionidiomas_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacionIdiomas:show" }
+
+educacionidiomas_new:
+    pattern:  /{id_empleado}/idiomas/new
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacionIdiomas:new" }
+
+educacionidiomas_create:
+    pattern:  /{id_empleado}/idiomas/create
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacionIdiomas:create" }
+    requirements: { _method: post }
+
+educacionidiomas_edit:
+    pattern:  /{id}/idiomas/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacionIdiomas:edit" }
+
+educacionidiomas_update:
+    pattern:  /{id}/idiomas/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacionIdiomas:update" }
+    requirements: { _method: post|put }
+
+educacionidiomas_delete:
+    pattern:  /{id}/idiomas/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacionIdiomas:delete" }
+    requirements: { _method: post|delete }

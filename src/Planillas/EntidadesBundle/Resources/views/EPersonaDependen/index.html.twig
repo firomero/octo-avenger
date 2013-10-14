@@ -1,0 +1,56 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block content_content %}
+   <div class="row">
+                {% block content %}
+                    <div class="col-lg-9">
+                        
+                     <div class="panel panel-default">
+						<div class="panel-heading">
+							<h2 class="panel-title">Personas que dependen</h2>
+						</div>
+						<div class="panel-body">
+						<table class="table table-bordered table-hover table-responsive">
+						<thead>
+							<tr>
+								<th>Parentesco</th>
+								<th>Nombre</th>
+								<th>Edad</th>
+								<th>Ocupacion</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+						{% for entity in entities %}
+							<tr>
+								<td><a href="{{ path('personadepende_edit', { 'id': entity.id }) }}">{{ entity.parentesco }}</a></td>
+								<td><a href="{{ path('personadepende_edit', { 'id': entity.id }) }}">{{ entity.nombre }}</a></td>
+								<td><a href="{{ path('personadepende_edit', { 'id': entity.id }) }}">{{ entity.edad }}</a></td>
+								<td><a href="{{ path('personadepende_edit', { 'id': entity.id }) }}">{{ entity.ocupacion }}</a></td>
+								<td>
+								<ul>
+								   <!-- <li>
+										<a href="{{ path('personadepende_show', { 'id': entity.id }) }}">show</a>
+									</li> -->
+									<li>
+										<a href="{{ path('personadepende_edit', { 'id': entity.id }) }}">Editar</a>
+									</li>
+								</ul>
+								</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+
+						<a href="{{ path('personadepende_new',{ 'id_empleado': eEmpleado.id }) }}" class="btn btn-success">Nuevo</a>
+						</div>
+					</div>
+                       
+                    </div>
+                    <div class="col-sm-3">
+					{{ macros.empleado_foto() }}
+					{{ macros.menu_empleado('personadepende',eEmpleado) }}
+                    </div>
+                {% endblock content %}
+    </div>
+    {% endblock %}

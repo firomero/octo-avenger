@@ -1,0 +1,8 @@
+parameters:
+    planillas.core.empleado.manager: Planillas\CoreBundle\Form\Managers\EmpleadoManager
+
+services:
+    core.empleado.manager:
+        class: %planillas.core.empleado.manager%
+        arguments:
+            - @doctrine.orm.entity_manager

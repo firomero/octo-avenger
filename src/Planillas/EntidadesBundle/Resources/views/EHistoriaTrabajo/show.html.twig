@@ -1,0 +1,72 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>EHistoriaTrabajo</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Momento</th>
+                <td>{{ entity.momento }}</td>
+            </tr>
+            <tr>
+                <th>Empresapatrono</th>
+                <td>{{ entity.empresaPatrono }}</td>
+            </tr>
+            <tr>
+                <th>Direccion</th>
+                <td>{{ entity.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Telefono</th>
+                <td>{{ entity.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Salario</th>
+                <td>{{ entity.salario }}</td>
+            </tr>
+            <tr>
+                <th>Nombrejefe</th>
+                <td>{{ entity.nombreJefe }}</td>
+            </tr>
+            <tr>
+                <th>Puesto</th>
+                <td>{{ entity.puesto }}</td>
+            </tr>
+            <tr>
+                <th>Fechainicio</th>
+                <td>{{ entity.fechaInicio|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Fechafin</th>
+                <td>{{ entity.fechaFin|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Tiempo</th>
+                <td>{{ entity.tiempo }}</td>
+            </tr>
+            <tr>
+                <th>Motivosalida</th>
+                <td>{{ entity.motivoSalida }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('historiatrabajo') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('historiatrabajo_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,30 @@
+antecedentepenal:
+    pattern:  /{id_empleado}/antecedentespenales
+    defaults: { _controller: "PlanillasEntidadesBundle:EAntecedentePenal:index" }
+
+antecedentepenal_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EAntecedentePenal:show" }
+
+antecedentepenal_new:
+    pattern:  /{id_empleado}/antecedentespenales/new
+    defaults: { _controller: "PlanillasEntidadesBundle:EAntecedentePenal:new" }
+
+antecedentepenal_create:
+    pattern:  /{id_empleado}/antecedentespenales/create
+    defaults: { _controller: "PlanillasEntidadesBundle:EAntecedentePenal:create" }
+    requirements: { _method: post }
+
+antecedentepenal_edit:
+    pattern:  /{id}/antecedentespenales/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EAntecedentePenal:edit" }
+
+antecedentepenal_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EAntecedentePenal:update" }
+    requirements: { _method: post|put }
+
+antecedentepenal_delete:
+    pattern:  /{id}/antecedentespenales/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EAntecedentePenal:delete" }
+    requirements: { _method: post|delete }

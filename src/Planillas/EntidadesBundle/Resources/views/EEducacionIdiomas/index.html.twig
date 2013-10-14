@@ -1,0 +1,57 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar Idiomas
+{% endblock %}
+{% block content_content %}
+    {% for mensaje in app.session.flashbag.get('info') %}
+		<div class="alert alert-info">{{ mensaje }}</div>
+    {% endfor %}
+    <div class="row">
+        {% block content %}
+            <div class="col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                            <h2 class="panel-title">Idiomas</h2>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Idioma</th>
+                                    <th>Porciento</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for entity in entities %}
+                                <tr>
+                                    <td><a href="{{ path('educacionidiomas_edit', { 'id': entity.id }) }}">{{ entity.idioma.nombre }}</a></td>
+                                    <td><a href="{{ path('educacionidiomas_edit', { 'id': entity.id }) }}">{{ entity.porientoIdioma }}</a></td>
+                                    <td>
+                                       <div style="float: left">
+                                            <a class="btn btn-success" href="{{ path('educacionidiomas_edit', { 'id': entity.id }) }}">Editar</a>
+                                       </div>
+                                       <div style="float: left; padding-left: 10px">
+                                            {{ form_start(aDeleteForm[entity.id]) }}
+                                            {{ form_errors(aDeleteForm[entity.id]) }}
+                                            {{ form_end(aDeleteForm[entity.id]) }} 
+                                        </div>     
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                            <a class="btn btn-success" href="{{ path('educacionidiomas_new', { 'id_empleado': eEmpleado.id }) }}">
+                              Nuevo
+                            </a>
+                    </div>    
+                </div>        
+            </div>
+            <div class="col-sm-3">
+			    {{ macros.empleado_foto() }}
+                {{ macros.menu_empleado('educacionidiomas',eEmpleado) }}
+            </div>
+        {% endblock content %}    
+    </div>
+    {% endblock %}

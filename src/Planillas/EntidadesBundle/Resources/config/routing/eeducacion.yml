@@ -1,0 +1,30 @@
+educacion:
+    pattern:  /
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacion:index" }
+
+educacion_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacion:show" }
+
+educacion_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacion:new" }
+
+educacion_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacion:create" }
+    requirements: { _method: post }
+
+educacion_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacion:edit" }
+
+educacion_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacion:update" }
+    requirements: { _method: post|put }
+
+educacion_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EEducacion:delete" }
+    requirements: { _method: post|delete }

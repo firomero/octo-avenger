@@ -1,0 +1,30 @@
+csalariobase:
+    pattern:  /{id_empleado}/salario
+    defaults: { _controller: "PlanillasCoreBundle:CSalarioBase:index" }
+
+csalariobase_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CSalarioBase:show" }
+
+salariobase_new:
+    pattern:  /{id_empleado}/sueldo
+    defaults: { _controller: "PlanillasCoreBundle:CSalarioBase:new" }
+
+csalariobase_create:
+    pattern:  /{id_empleado}/create
+    defaults: { _controller: "PlanillasCoreBundle:CSalarioBase:create" }
+    requirements: { _method: post }
+
+csalariobase_edit:
+    pattern:  /{id}/edit/salario
+    defaults: { _controller: "PlanillasCoreBundle:CSalarioBase:edit" }
+
+csalariobase_update:
+    pattern:  /{id}/update/salario
+    defaults: { _controller: "PlanillasCoreBundle:CSalarioBase:update" }
+    requirements: { _method: post|put }
+
+csalariobase_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CSalarioBase:delete" }
+    requirements: { _method: post|delete }

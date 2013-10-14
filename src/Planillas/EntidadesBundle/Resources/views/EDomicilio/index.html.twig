@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    Domicilios anteriores Empleado
+{% endblock %}
+{% block content_content -%}
+    <h1>Domicilios</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+
+                <th style="width: 50%" >Direccion Exacta</th>
+                <th>Canton</th>
+                <th>Tiempo Residencia</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('domicilio_show', { 'id': entity.id }) }}">{{ entity.direccionExacta }}</a></td>
+
+                <td>{{ entity.canton }}</td>
+                <td>{{ entity.tiempoResidencia }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('domicilio_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('domicilio_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('domicilio_new') }}">
+               Nuevo
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

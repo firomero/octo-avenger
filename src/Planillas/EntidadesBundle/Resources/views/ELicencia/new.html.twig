@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Nueva Licencia
+{% endblock %}
+{% block content_content %}
+    
+   {% for mensaje in app.session.flashbag.get('info') %}
+    <div class="alert alert-info">{{ mensaje }}</div>
+   {% endfor %}
+    
+    <div class="row">
+     {% block content %} 
+         <div class="col-lg-9">
+          <div class="panel panel-default">
+            <div class="panel-heading"> <!-- Encabezado panel central -->
+                <h2 class="panel-title">Nueva licencia</h2>
+            </div>
+            <div class="panel-body">
+                {{ form_start(form) }}
+               <!-- <form class="form-horizontal" action="{# path('cursos_create') #}"
+                        method="post" {{ form_enctype(form) }}>  -->
+
+                        <fieldset>
+                            <legend></legend>
+                            {{ form_errors(form) }}
+                            <div class="row-fluid">
+                                <div class="col-lg-4">{{ form_row(form.tipoLicencia) }}</div>
+                                <div class="col-lg-4">{{ form_row(form.vence) }}</div>
+                            </div>
+                        </fieldset>
+                    <ul class="record_actions">
+                        <li>
+                            <a href="{{ path('elicencia', {'id_empleado': entity.empleado.id }) }}">
+                                Lista de licencias
+                            </a>
+                        </li>
+                    </ul>
+                    {{ form_end(form) }}    
+            </div>
+          </div>          
+         </div>  
+         <div class="col-sm-3"> <!-- Menu derecho de empleado -->
+		 {{ macros.empleado_foto() }}
+	     {{ macros.menu_empleado('licencia',entity.empleado) }}
+         </div>
+     {% endblock content %} 
+    </div>     
+{% endblock %}

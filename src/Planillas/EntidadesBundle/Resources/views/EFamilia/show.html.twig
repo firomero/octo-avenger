@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block content_content %}
+    <h1>EFamilia</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Edad</th>
+                <td>{{ entity.edad }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ entity.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Empleado</th>
+                <td>{{ entity.empleado.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('familia', {'id': entity.empleado.id}) }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('familia_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,21 @@
+empleado_index:
+    defaults: { _controller: PlanillasCoreBundle:CEmpleado:index }
+    pattern:   /
+empleado_show:
+    defaults: { _controller: PlanillasCoreBundle:CEmpleado:show}
+    pattern:   /empleado/{id}/show
+empleado_update:
+    defaults: { _controller: PlanillasCoreBundle:CEmpleado:update}
+    pattern:   /empleado/{id}/update
+empleado_new:
+    defaults: { _controller: PlanillasCoreBundle:CEmpleado:new}
+    pattern:   /empleado/new
+empleado_create:
+    defaults: { _controller: PlanillasCoreBundle:CEmpleado:create}
+    pattern:   /empleado/create
+empleado_edit:
+    defaults: { _controller: PlanillasCoreBundle:CEmpleado:edit}
+    pattern:   /empleado/{id}/edit
+empleado_delete:
+    defaults: { _controller: PlanillasCoreBundle:CEmpleado:delete}
+    pattern:   /empleado/{id}/delete

@@ -1,0 +1,30 @@
+familia:
+    pattern:  /{id}/familia
+    defaults: { _controller: "PlanillasEntidadesBundle:EFamilia:index" }
+
+familia_show:
+    pattern:  /{id}/familia/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EFamilia:show" }
+
+familia_new:
+    pattern:  /{id_empleado}/familia/new
+    defaults: { _controller: "PlanillasEntidadesBundle:EFamilia:new" }
+
+familia_create:
+    pattern:  /familia/create
+    defaults: { _controller: "PlanillasEntidadesBundle:EFamilia:create" }
+    requirements: { _method: post }
+
+familia_edit:
+    pattern:  /{id}/familia/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EFamilia:edit" }
+
+familia_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EFamilia:update" }
+    requirements: { _method: post|put }
+
+familia_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EFamilia:delete" }
+    requirements: { _method: post|delete }

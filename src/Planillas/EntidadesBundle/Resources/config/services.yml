@@ -1,0 +1,8 @@
+parameters:
+    planillas.entidades.domicilio.manager: Planillas\EntidadesBundle\Form\Managers\DomicilioManager
+
+services:
+    core.domicilio.manager:
+        class: %planillas.entidades.domicilio.manager%
+        arguments:
+            - @doctrine.orm.entity_manager

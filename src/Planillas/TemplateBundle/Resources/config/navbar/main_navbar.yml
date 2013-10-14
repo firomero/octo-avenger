@@ -1,0 +1,25 @@
+services:
+    mopa_bootstrap.example.navbar:
+        class: %mopa_bootstrap.navbar.generic%
+        arguments:
+            # first argument: a named array of menues:
+            - { leftmenu: @planillas_template.menu= }
+            # second argument: a named array of FormType Classes
+            - { }
+            # third argument: a named array of options
+            - { title: "Sistema de Planillas", inverse: false, titleRoute: "planillas_core_homepage", titleRouteParams: [], fixedTop: true, template: MopaBootstrapBundle:Navbar:navbar.html.twig }
+        tags:
+            # The alias is used to retrieve the navbar in templates
+            - { name: mopa_bootstrap.navbar, alias: frontendNavbar }
+
+    mopa_bootstrap.example.navbarssubnavbar:
+        class: %mopa_bootstrap.navbar.generic%
+        arguments:
+            # first argument: a named array of menues:
+            - { menu: @planillas_template.sub_menu= }
+            - {}
+            # third argument: a named array of options
+            - { fixedTop: true, isFluid: true, inverse: true, template: PlanillasTemplateBundle:Navbar:subnavbar.html.twig }
+        tags:
+            # The alias is used to retrieve the navbar in templates
+            - { name: mopa_bootstrap.navbar, alias: sandboxNavbarsSubNavbar }
