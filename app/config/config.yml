@@ -76,9 +76,21 @@ sonata_block:
             contexts:   [admin]
         # Your other blocks
 
+sonata_admin:
+    templates:
+        layout:  PlanillasNomencladorBundle::standard_layout.html.twig
+        ajax:    PlanillasNomencladorBundle::ajax_layout.html.twig
+        list:    PlanillasNomencladorBundle:CRUD:list.html.twig
+        show:    PlanillasNomencladorBundle:CRUD:show.html.twig
+        edit:    PlanillasNomencladorBundle:CRUD:edit.html.twig
+        action:  PlanillasNomencladorBundle:CRUD:action.html.twig
+        inner_list_row:      PlanillasNomencladorBundle:CRUD:list_inner_row.html.twig
+        base_list_field:     PlanillasNomencladorBundle:CRUD:base_list_field.html.twig
+
 # MopaBootstrap
 mopa_bootstrap:
     navbar: ~
+
 #KnpPaginator
 knp_paginator:
     page_range: 1                      # default page range used in pagination control
