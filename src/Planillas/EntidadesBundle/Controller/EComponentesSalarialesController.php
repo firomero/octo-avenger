@@ -116,7 +116,7 @@ class EComponentesSalarialesController extends Controller
 			'attr'=>array('class'=>"form-horizontal")
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Agregar','attr'=>array('class'=>"btn btn-success")));
+        $form->add('submit', 'submit', array('label' => 'Agregar','attr'=>array('class'=>"btn btn-primary")));
 
         return $form;
     }

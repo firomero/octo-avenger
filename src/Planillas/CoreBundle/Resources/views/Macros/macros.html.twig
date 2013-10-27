@@ -5,7 +5,8 @@
 
 
 {% block primary_button %}
-    <a href="{{ path(route) }}" class="btn btn-primary" style="margin-bottom: 8px;"><i class="icon icon-plus-sign icon-white"></i>{{ label | trans }}</a>
+    <a href="{{ path(route) }}" class="btn btn-primary" style="margin-bottom: 8px;"><i
+                class="icon icon-plus-sign icon-white"></i>{{ label | trans }}</a>
 {% endblock %}
 
 {% block link %}
@@ -17,96 +18,106 @@
 {% endblock %}
 
 {% block action_link %}
-    <a href="{{ path(route, {'id': id}) }}" title="{{ label | trans }}" class="btn btn-mini"><i class="icon {% if action == 'edit' %}icon-edit{% else %}icon-eye-open{% endif %}"></i>{{ label | trans }}</a>
+    <a href="{{ path(route, {'id': id}) }}" title="{{ label | trans }}" class="btn btn-mini"><i
+                class="icon {% if action == 'edit' %}icon-edit{% else %}icon-eye-open{% endif %}"></i>{{ label | trans }}
+    </a>
 {% endblock %}
 
 
 {# *** MACROS *** #}
-{% macro empleado_foto ()%}
-<div class="panel panel-default">
-   
-				<a href="#" class="thumbnail">
-				 <img src="{{
-					 asset('bundles/planillastemplate/img/54.png')
-				  }}" alt="" width="253" height="200" />
-				</a>
-			 
+{% macro empleado_foto (eEmpleado) %}
+    <div class="panel panel-default">
 
-       
-    
-  </div>
+        <a href="{{ path('empleado_foto',{'id':eEmpleado.id}) }}" class="thumbnail">
+            {% if eEmpleado.foto is null %}
+            <img src="{{ asset('bundles/planillastemplate/img/54.png') }}" alt="" width="253" height="200"/>
+            {% else %}
+            <img src="{{ asset('employee/fotos/') }}{{eEmpleado.foto }}" alt="" width="253" height="200"/>
+            {% endif %}
+        </a>
 
-{%endmacro%}
-{% macro menu_empleado(active='personales',eEmpleado) %}
- 
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="panel-title">{{ eEmpleado.nombre }} {{ eEmpleado.primerApellido }}</h2>
     </div>
-    <div class="panel-body">
-		   
-
-        <ul class="nav nav-pills nav-stacked">
-            {% if(active=='personales') %}
-			
-                <li class="active"><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a></li>
-            {% else %}
-                <li class><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a></li>
-            {%endif%}
-            
-            {% if(active=='familiares') %}
-                <li class="active"><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos Familiares</a></li>
-            {% else %}
-                <li><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos Familiares</a></li>
-            {%endif%}
-            {% if(active=='personadepende') %}
-                <li class="active"><a href="{{ path('personadepende',{ 'id_empleado': eEmpleado.id }) }}">Dependientes</a></li>
-            {% else %}
-                <li><a href="{{ path('personadepende',{ 'id_empleado': eEmpleado.id }) }}">Dependientes</a></li>
-            {%endif%}
-			{% if(active=='historiatrabajo') %}
-                <li class="active"><a href="{{ path('ctrabajo_new',{ 'id_empleado': eEmpleado.id }) }}">Trabajo</a></li>
-            {% else %}
-                <li><a href="{{ path('ctrabajo_new',{ 'id_empleado': eEmpleado.id }) }}">Trabajo</a></li>
-            {%endif%}
-			{% if(active=='cursos') %}
-			  <li class="active"><a href="{{ path('cursos',{ 'id_empleado': eEmpleado.id }) }}">Cursos</a></li>
-			  {% else %}
-			  <li><a href="{{ path('cursos',{ 'id_empleado': eEmpleado.id }) }}">Cursos</a></li>
-			  {%endif%}
-				  {% if(active=='educacionidiomas') %}
-			  <li class="active"><a href="{{ path('educacionidiomas',{ 'id_empleado': eEmpleado.id }) }}">Idiomas</a></li>
-			  {% else %}
-			  <li><a href="{{ path('educacionidiomas',{ 'id_empleado': eEmpleado.id }) }}">Idiomas</a></li>
-	     {%endif%}
-             {% if active == 'sueldo'%}
-              <li class="active"><a href="{{ path('salariobase_new',{ 'id_empleado': eEmpleado.id }) }}">Sueldo</a></li>                
-             {% else %}
-              <li><a href="{{ path('salariobase_new',{ 'id_empleado': eEmpleado.id }) }}">Sueldo</a></li>
-             {%endif %}
- {% if(active=='antecedentepenal') %}
-            <li class="active"><a href="{{ path('antecedentepenal',{ 'id_empleado': eEmpleado.id }) }}">Antecedentes penales</a></li>
-            {% else %}
-            <li><a href="{{ path('antecedentepenal',{ 'id_empleado': eEmpleado.id }) }}">Antecedentes penales</a></li>
-            {%endif%}
-         <!-- Licencia -->    
-            {% if(active=='licencia') %}
-            <li class="active"><a href="{{ path('elicencia',{ 'id_empleado': eEmpleado.id }) }}">Licencias</a></li>
-            {% else %}
-            <li><a href="{{ path('elicencia',{ 'id_empleado': eEmpleado.id }) }}">Licencias</a></li>
-            {%endif%}   
-        </ul>
-    </div>
-  </div>
 
 {% endmacro %}
-{% macro mensajes_flash (mensaje='success',cuerpomensaje)%}
- <div class="alert alert-mensaje">cuerpomensaje</div>
+{% macro menu_empleado(active='personales',eEmpleado) %}
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">{{ eEmpleado.nombre }} {{ eEmpleado.primerApellido }}</h2>
+        </div>
+        <div class="panel-body">
+
+
+            <ul class="nav nav-pills nav-stacked">
+                {% if(active=='personales') %}
+
+                    <li class="active"><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a>
+                    </li>
+                {% else %}
+                    <li class><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a></li>
+                {% endif %}
+
+                {% if(active=='familiares') %}
+                    <li class="active"><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos Familiares</a></li>
+                {% else %}
+                    <li><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos Familiares</a></li>
+                {% endif %}
+                {% if(active=='personadepende') %}
+                    <li class="active"><a href="{{ path('personadepende',{ 'id_empleado': eEmpleado.id }) }}">Dependientes</a>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('personadepende',{ 'id_empleado': eEmpleado.id }) }}">Dependientes</a></li>
+                {% endif %}
+                {% if(active=='historiatrabajo') %}
+                    <li class="active"><a href="{{ path('ctrabajo_new',{ 'id_empleado': eEmpleado.id }) }}">Trabajo</a>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('ctrabajo_new',{ 'id_empleado': eEmpleado.id }) }}">Trabajo</a></li>
+                {% endif %}
+                {% if(active=='cursos') %}
+                    <li class="active"><a href="{{ path('cursos',{ 'id_empleado': eEmpleado.id }) }}">Cursos</a></li>
+                {% else %}
+                    <li><a href="{{ path('cursos',{ 'id_empleado': eEmpleado.id }) }}">Cursos</a></li>
+                {% endif %}
+                {% if(active=='educacionidiomas') %}
+                    <li class="active"><a
+                                href="{{ path('educacionidiomas',{ 'id_empleado': eEmpleado.id }) }}">Idiomas</a></li>
+                {% else %}
+                    <li><a href="{{ path('educacionidiomas',{ 'id_empleado': eEmpleado.id }) }}">Idiomas</a></li>
+                {% endif %}
+                {% if active == 'sueldo' %}
+                    <li class="active"><a
+                                href="{{ path('salariobase_new',{ 'id_empleado': eEmpleado.id }) }}">Sueldo</a></li>
+                {% else %}
+                    <li><a href="{{ path('salariobase_new',{ 'id_empleado': eEmpleado.id }) }}">Sueldo</a></li>
+                {% endif %}
+                {% if(active=='antecedentepenal') %}
+                    <li class="active"><a href="{{ path('antecedentepenal',{ 'id_empleado': eEmpleado.id }) }}">Antecedentes
+                            penales</a></li>
+                {% else %}
+                    <li><a href="{{ path('antecedentepenal',{ 'id_empleado': eEmpleado.id }) }}">Antecedentes
+                            penales</a></li>
+                {% endif %}
+                <!-- Licencia -->
+                {% if(active=='licencia') %}
+                    <li class="active"><a href="{{ path('elicencia',{ 'id_empleado': eEmpleado.id }) }}">Licencias</a>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('elicencia',{ 'id_empleado': eEmpleado.id }) }}">Licencias</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+{% endmacro %}
+{% macro mensajes_flash (mensaje='success',cuerpomensaje) %}
+    <div class="alert alert-mensaje">cuerpomensaje</div>
 
 
 
-{% endmacro%}
+{% endmacro %}
 {% macro show_styles() %}
     {{ 'table table-striped' }}
 {% endmacro %}
@@ -115,8 +126,10 @@
     {{ _self.show_styles() ~ ' table-bordered table-condensed table-hover' }}
 {% endmacro %}
 
-{% macro no_elements(colspan=8)%}
-    <tr><td colspan="{{ colspan }}">No existen elementos que mostrar.</td></tr>
+{% macro no_elements(colspan=8) %}
+    <tr>
+        <td colspan="{{ colspan }}">No existen elementos que mostrar.</td>
+    </tr>
 {% endmacro %}
 
 {% macro create_button(label, route) %}
@@ -124,7 +137,7 @@
 {% endmacro %}
 
 {% macro submit_button(label) %}
-    <input type="submit" class="btn btn-primary" value="{{ label | trans }}" />
+    <input type="submit" class="btn btn-primary" value="{{ label | trans }}"/>
 {% endmacro %}
 
 {% macro action_button(label, route, id, action) %}
@@ -132,7 +145,7 @@
 {% endmacro %}
 
 {% macro delete_button(label) %}
-    <input type="submit" class="btn btn-danger" value="{{ label | trans }}" />
+    <input type="submit" class="btn btn-danger" value="{{ label | trans }}"/>
 {% endmacro %}
 
 {% macro directional_link(label, route, parameters = {}) %}

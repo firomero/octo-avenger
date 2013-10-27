@@ -31,7 +31,7 @@
             </fieldset>
 			    <fieldset>
 				 <div class="btn-group">
-				   <button type="submit" name="btn_buscar" class="btn btn-success">Buscar</button>
+				   <button type="submit" name="btn_buscar" class="btn btn-primary">Buscar</button>
 				   
 				  </div>
 				  <div class="btn-group">
@@ -51,7 +51,7 @@
                     <!--<button type="button" id="nuevo_empleado" class="btn btn-default">Nuevo</button>
                     <button type="button" id="eliminar_empleado" class="btn btn-default">Eliminar</button>
                     <i class="glyphicon glyphicon-search"></i>-->
-                    <a class="btn btn-success" href="{{ path('empleado_new') }}">
+                    <a class="btn btn-primary" href="{{ path('empleado_new') }}">
                         Nuevo
                     </a>
                 </div>
@@ -81,7 +81,7 @@
 
                         <td>{{ entity.foto }}</td>
                         <td>
-                            <a class="btn btn-success" href="{{ path('empleado_edit', { 'id': entity.id }) }}"><i class="glyphicon glyphicon-trash"></i>Eliminar</a>
+                            <a class="btn btn-primary" href="{{ path('empleado_edit', { 'id': entity.id }) }}"><i class="glyphicon glyphicon-trash"></i>Eliminar</a>
                             
 
                             

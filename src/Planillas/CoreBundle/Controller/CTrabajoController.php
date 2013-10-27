@@ -29,16 +29,16 @@ class CTrabajoController extends Controller
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new CTrabajo entity.
      *
      */
-    public function createAction(Request $request,$id_empleado)
+    public function createAction(Request $request, $id_empleado)
     {
         $em = $this->getDoctrine()->getManager();
-        $eEmpleado=$em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        if(!$eEmpleado)
-        {
+        $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
+        if (!$eEmpleado) {
             throw $this->createNotFoundException('Unable to find CEmpleado entity.');
         }
         $entity = new CTrabajo();
@@ -56,21 +56,21 @@ class CTrabajoController extends Controller
         }
         return $this->render('PlanillasCoreBundle:CTrabajo:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a CTrabajo entity.
-    *
-    * @param CTrabajo $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to create a CTrabajo entity.
+     *
+     * @param CTrabajo $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createCreateForm(CTrabajo $entity)
     {
         $form = $this->createForm(new CTrabajoType(), $entity, array(
-            'action' => $this->generateUrl('ctrabajo_create',array('id_empleado'=>$entity->getEmpleado()->getId())),
+            'action' => $this->generateUrl('ctrabajo_create', array('id_empleado' => $entity->getEmpleado()->getId())),
             'method' => 'POST',
         ));
 
@@ -90,22 +90,19 @@ class CTrabajoController extends Controller
         if (!$eEmpleado) {
             throw $this->createNotFoundException('Unable to find CEmpleado entity.');
         }
-        $entity=$em->getRepository('PlanillasCoreBundle:CTrabajo')->findOneByEmpleado($eEmpleado->getId());
-        if(!$entity)
-        {
+        $entity = $em->getRepository('PlanillasCoreBundle:CTrabajo')->findOneByEmpleado($eEmpleado->getId());
+        if (!$entity) {
             $entity = new CTrabajo();
             $entity->setEmpleado($eEmpleado);
             $form = $this->createCreateForm($entity);
-        }
-        else
-        {
+        } else {
             $form = $this->createEditForm($entity);
         }
 
 
         return $this->render('PlanillasCoreBundle:CTrabajo:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
             'eEmpleado' => $eEmpleado,
         ));
     }
@@ -127,8 +124,8 @@ class CTrabajoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasCoreBundle:CTrabajo:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
@@ -149,20 +146,20 @@ class CTrabajoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasCoreBundle:CTrabajo:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'eEmpleado'=>$entity->getEmpleado()
+            'eEmpleado' => $entity->getEmpleado()
         ));
     }
 
     /**
-    * Creates a form to edit a CTrabajo entity.
-    *
-    * @param CTrabajo $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a CTrabajo entity.
+     *
+     * @param CTrabajo $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(CTrabajo $entity)
     {
         $form = $this->createForm(new CTrabajoType(true), $entity, array(
@@ -170,10 +167,11 @@ class CTrabajoController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-primary')));
+        $form->add('submit', 'submit', array('label' => 'Actualizar', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }
+
     /**
      * Edits an existing CTrabajo entity.
      *
@@ -199,12 +197,13 @@ class CTrabajoController extends Controller
         }
 
         return $this->render('PlanillasCoreBundle:CTrabajo:new.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'eEmpleado' => $entity->getEmpleado(),
         ));
     }
+
     /**
      * Deletes a CTrabajo entity.
      *
@@ -242,7 +241,6 @@ class CTrabajoController extends Controller
             ->setAction($this->generateUrl('ctrabajo_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

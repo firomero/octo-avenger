@@ -51,3 +51,10 @@ planillas_core_trabajo:
 planillas_core_licencias:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/elicencia.yml"
     prefix:   /empleado/licencias
+
+planillas_core_vacante:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cvacante.yml"
+    prefix:   /trabajo/
+planillas_core_solicitud_empleo:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/csolicitudempleo.yml"
+    prefix:   /solicitudes/

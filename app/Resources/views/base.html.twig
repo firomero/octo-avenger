@@ -8,10 +8,11 @@
 
     {% block head_script %}
         <script src="{{ asset('bundles/planillastemplate/js/less-1.4.1.min.js') }}"></script>
-		
     {% endblock head_script %}
 
-    {% block title %}{{ 'system_tittle' | trans({},'PlanillasCoreBundle') }}{% endblock %}
+    {% block title %}
+        {% block title_title %}{{ 'system_tittle' | trans({},'PlanillasCoreBundle') }}{% endblock title_title %}
+    {% endblock %}
 
     {% block head_bottom %}{% endblock head_bottom %}
 
@@ -54,7 +55,6 @@
                 {% block content %}
                     <div class="col-lg-12">
                         {% block content_content %}
-                            <strong>Hier könnte Ihre Werbung stehen ... </strong>
                         {% endblock content_content %}
                     </div>
                     <!--<div class="col-sm-3">

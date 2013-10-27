@@ -60,7 +60,7 @@ class CEmpleado
 
     /**
      * @var string
-     *
+     * @Assert\File(maxSize="2M")
      * @ORM\Column(name="foto", type="string", length=255, nullable=true)
      */
     private $foto;
@@ -88,7 +88,7 @@ class CEmpleado
 
     /**
      * @var decimal
-     *
+
      * @ORM\Column(name="salario", type="decimal", nullable=true)
      */
     private $salario;

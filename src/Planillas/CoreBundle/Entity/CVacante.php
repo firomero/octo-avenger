@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CVacante
  *
  * @ORM\Table(name="c_vacante")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Planillas\CoreBundle\Entity\Repository\CVacanteRepository")
  */
 class CVacante
 {
@@ -23,7 +23,6 @@ class CVacante
 
     /**
      * @var $trabajo NTrabajo
-     *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NTrabajo")
      */
     private $trabajo;
@@ -31,14 +30,14 @@ class CVacante
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=64, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=64, nullable=false)
      */
     private $nombre;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="cantidad_plaas", type="integer", nullable=true)
+     * @ORM\Column(name="cantidad_plaas", type="integer", nullable=false)
      */
     private $cantidadPlazas;
 
@@ -162,10 +161,10 @@ class CVacante
     /**
      * Set trabajo
      *
-     * @param \Planillas\CoreBundle\Entity\CTrabajo $trabajo
+     * @param \Planillas\NomencladorBundle\Entity\NTrabajo $trabajo
      * @return CVacante
      */
-    public function setTrabajo(\Planillas\CoreBundle\Entity\CTrabajo $trabajo = null)
+    public function setTrabajo(\Planillas\NomencladorBundle\Entity\NTrabajo $trabajo = null)
     {
         $this->trabajo = $trabajo;
     
@@ -175,10 +174,19 @@ class CVacante
     /**
      * Get trabajo
      *
-     * @return \Planillas\CoreBundle\Entity\CTrabajo 
+     * @return \Planillas\NomencladorBundle\Entity\NTrabajo
      */
     public function getTrabajo()
     {
         return $this->trabajo;
+    }
+
+    /**
+     * funcion toString para retornar el objeto en una linea string
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->nombre;
     }
 }

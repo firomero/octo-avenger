@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CSolicitudEmpleo
  *
  * @ORM\Table(name="c_solicitud_empleo")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Planillas\CoreBundle\Entity\Repository\CSolicitudEmpleoRepository")
  */
 class CSolicitudEmpleo
 {
@@ -31,21 +31,21 @@ class CSolicitudEmpleo
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=32, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=32, nullable=false)
      */
     private $nombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="apellidos", type="string", length=64, nullable=true)
+     * @ORM\Column(name="apellidos", type="string", length=64, nullable=false)
      */
     private $apellidos;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="telefono", type="string", length=15, nullable=true)
+     * @ORM\Column(name="telefono", type="string", length=15, nullable=false)
      */
     private $telefono;
 
@@ -59,7 +59,7 @@ class CSolicitudEmpleo
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha", type="date", nullable=true)
+     * @ORM\Column(name="fecha", type="date", nullable=false)
      */
     private $fecha;
 

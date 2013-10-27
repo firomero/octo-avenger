@@ -21,7 +21,8 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         $menu->addChild('Inicio', array('route' => 'planillas_core_homepage'));
 	    $menu->addChild('Empleados', array('route' => 'empleado_index'));
 		$menu->addChild('Nomencladores', array('route' => 'sonata_admin_dashboard'));
-        //$menu->addChild('Domicilios', array('route' => 'domicilio'));
+        $menu->addChild('Vacantes', array('route' => 'cvacante'));
+        $menu->addChild('Solicitudes', array('route' => 'csolicitudempleo'));
         //$menu->addChild('Antecedentes penales', array('route' => 'antecedentepenal'));
         
         //$menu->addChild('Cursos', array('route' => 'cursos'));

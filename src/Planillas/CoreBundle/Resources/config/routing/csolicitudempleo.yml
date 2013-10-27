@@ -1,0 +1,30 @@
+csolicitudempleo:
+    pattern:  /
+    defaults: { _controller: "PlanillasCoreBundle:CSolicitudEmpleo:index" }
+
+csolicitudempleo_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CSolicitudEmpleo:show" }
+
+csolicitudempleo_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasCoreBundle:CSolicitudEmpleo:new" }
+
+csolicitudempleo_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasCoreBundle:CSolicitudEmpleo:create" }
+    requirements: { _method: post }
+
+csolicitudempleo_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CSolicitudEmpleo:edit" }
+
+csolicitudempleo_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CSolicitudEmpleo:update" }
+    requirements: { _method: post|put }
+
+csolicitudempleo_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CSolicitudEmpleo:delete" }
+    requirements: { _method: get|delete }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Planillas\CoreBundle\Form;
+namespace Planillas\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

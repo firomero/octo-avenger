@@ -1,0 +1,30 @@
+cvacante:
+    pattern:  /vacante
+    defaults: { _controller: "PlanillasCoreBundle:CVacante:index" }
+
+cvacante_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CVacante:show" }
+
+cvacante_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasCoreBundle:CVacante:new" }
+
+cvacante_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasCoreBundle:CVacante:create" }
+    requirements: { _method: post }
+
+cvacante_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CVacante:edit" }
+
+cvacante_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CVacante:update" }
+    requirements: { _method: post|put }
+
+cvacante_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CVacante:delete" }
+    requirements: { _method: get|delete }

@@ -19,3 +19,6 @@ empleado_edit:
 empleado_delete:
     defaults: { _controller: PlanillasCoreBundle:CEmpleado:delete}
     pattern:   /empleado/{id}/delete
+empleado_foto:
+    defaults: { _controller: PlanillasCoreBundle:CEmpleado:updatePhoto}
+    pattern:   /empleado/{id}/foto
