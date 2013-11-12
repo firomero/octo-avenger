@@ -2,7 +2,7 @@
 {% extends '::base.html.twig' %}
 {% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
 {% block title %}
-    Modificar familiar
+    Adicionar Historico
 {% endblock %}
 
 {% block content_content %}
@@ -13,7 +13,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2 class="panel-title">Adicionar Historico Trabajo</h2>
+                    <h2 class="panel-title">Adicionar Histórico Trabajo</h2>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ path('historiatrabajo_create',{'id_empleado':eEmpleado.id}) }}"
@@ -62,7 +62,14 @@
                         </fieldset>
                          
                         {{ form_rest(form) }}
-                        
+                        <fieldset>
+                            <div class="btn-group">
+                                <input type="submit" class="btn btn-primary" value="Actualizar">
+                            </div>
+                            <div class="btn-group">
+                                <a href="{{ path('ctrabajo_new',{'id_empleado':entity.empleado.id}) }}" class="btn btn-primary">Regresar</a>
+                            </div>
+                        </fieldset>
 
                         <form>
                 </div>
@@ -70,7 +77,7 @@
 
         </div>
         <div class="col-sm-3">
-            {{ macros.empleado_foto() }}
+            {{ macros.empleado_foto(eEmpleado) }}
             {{ macros.menu_empleado('historiatrabajo',eEmpleado) }}
 
 

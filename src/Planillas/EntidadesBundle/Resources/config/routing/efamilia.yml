@@ -1,5 +1,5 @@
 familia:
-    pattern:  /{id}/familia
+    pattern:  /{id}/list
     defaults: { _controller: "PlanillasEntidadesBundle:EFamilia:index" }
 
 familia_show:

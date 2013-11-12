@@ -20,7 +20,7 @@ class CTrabajoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fechaTrabajo',null,array('required'=>true,'label'=>'Fecha Comienzo'))
+            ->add('fechaTrabajo','date',array('attr'=>array('id'=>'datetimepicker'),'widget'=>'single_text','label'=>'Fecha de comienzo'))
             ->add('nombre',null,array('required'=>true))
             ->add('empleado','hidden',array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado','property_path'=>'id'))
         ;

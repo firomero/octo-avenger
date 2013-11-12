@@ -1,0 +1,33 @@
+causencias:
+    pattern:  /
+    defaults: { _controller: "PlanillasCoreBundle:CAusencias:index" }
+
+causencias_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CAusencias:show" }
+
+causencias_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasCoreBundle:CAusencias:new" }
+
+causencias_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasCoreBundle:CAusencias:create" }
+    requirements: { _method: post }
+
+causencias_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CAusencias:edit" }
+
+causencias_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CAusencias:update" }
+    requirements: { _method: post|put }
+
+causencias_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CAusencias:delete" }
+    requirements: { _method: get|delete }
+cautocomplete:
+    pattern: /buscar
+    defaults: { _controller: "PlanillasCoreBundle:CAusencias:autocompletar" }

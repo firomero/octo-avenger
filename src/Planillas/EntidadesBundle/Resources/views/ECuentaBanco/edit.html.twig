@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar Banco
+{% endblock %}
+    
+{% block content_content %}
+   {% for mensaje in app.session.flashbag.get('success') %}
+    mensajes_flash (success,{{mensaje}})
+   {% endfor %}
+   
+    <div class="row">
+        {% block content %}   
+            <div class="col-lg-9">
+             <div class="panel panel-default"> <!-- Panel central -->
+                    <div class="panel-heading"> <!-- Encabezado panel central -->
+                     <h2 class="panel-title">Bancos</h2>
+                    </div>  
+                    <div class="panel-body">
+                      {{ form_start(edit_form) }}
+                            <fieldset>
+                                <legend></legend>
+                                {{ form_errors(edit_form) }}
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{ form_widget(edit_form.cuentasBancos) }}</div>
+                                </div>
+                            </fieldset>
+                        <fieldset>
+                            <legend></legend>
+                            <div class="btn-group">
+                                <button type="submit" name="btn_actualizar" class="btn btn-primary">Actualizar</button>
+
+                            </div>
+                            <div class="btn-group">
+                                <a href="{{ path('cuentasbancos', { 'id_empleado': entity.id } ) }}" class="btn btn-primary">Regresar</a>
+
+                            </div>
+                        </fieldset>
+                        {{ form_end(edit_form) }}
+                    </div> 
+             </div>
+            </div> 
+            <div class="col-sm-3"> <!-- Menu derecho de empleado -->
+			         {{ macros.empleado_foto(entity) }}         
+	                 {{ macros.menu_empleado('cuentasbancos',entity) }}
+         </div>
+        {% endblock content %}          
+    </div>        
+{% endblock %}

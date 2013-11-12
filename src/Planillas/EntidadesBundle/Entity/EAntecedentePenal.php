@@ -31,14 +31,14 @@ class EAntecedentePenal
     /**
      * @var string
      *
-     * @ORM\Column(name="motivo", type="string", length=64, nullable=true)
+     * @ORM\Column(name="motivo", type="string", length=64, nullable=false)
      */
     private $motivo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     * @ORM\Column(name="descripcion", type="string", length=255, nullable=false)
      */
     private $descripcion;
 

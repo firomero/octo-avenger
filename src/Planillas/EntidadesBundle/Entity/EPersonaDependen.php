@@ -25,6 +25,7 @@ class EPersonaDependen
      * @var $parentesco Planillas/NomencladorBundle/Entity/NParentesco
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NParentesco")
+     * @ORM\JoinColumn(name="parentesco_id", referencedColumnName="id", nullable=false)
      */
     private $parentesco;
 
@@ -32,6 +33,7 @@ class EPersonaDependen
      * @var $ocupacion Planillas/NomencladorBundle/Entity/NOcupacion
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NOcupacion")
+     * @ORM\JoinColumn(name="ocupacion_id", referencedColumnName="id", nullable=false)
      */
     private $ocupacion;
 

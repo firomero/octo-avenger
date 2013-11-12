@@ -25,17 +25,23 @@
                                     <div class="col-lg-4">{{ form_row(edit_form.porientoIdioma) }}</div>
                                 </div>
                             </fieldset>
-                            <button type="submit" name="submit_button" class="btn btn-success">Actualizar</button>
-							<a  class="btn btn-success" href="{{ path('educacionidiomas', { 'id_empleado': entity.empleado.id } ) }}">
-								Regresar
-							</a>
+                             <hr>
+                             <fieldset>
+                                <div class="btn-group">
+                                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                                </div>
+                                <div class="btn-group">
+                                  <a href="{{ path('educacionidiomas', { 'id_empleado': entity.empleado.id } ) }}" class="btn btn-primary">Regresar</a>
+                                </div>
+                            </fieldset>
+                          
                         {{ form_end(edit_form) }} 
                     </div> 
 					
              </div>
             </div>
             <div class="col-sm-3"> <!-- Menu derecho de empleado -->
-	      {{ macros.empleado_foto() }}
+	      {{ macros.empleado_foto(entity.empleado) }}
 	     {{ macros.menu_empleado('educacionidiomas',entity.empleado) }}
             </div>
         {% endblock content %}  

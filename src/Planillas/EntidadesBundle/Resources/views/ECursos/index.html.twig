@@ -20,8 +20,8 @@
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Descripcion</th>
-                                            <th>Vence</th>
+                                            <th>Descripción</th>
+                                            <th>Fecha de Vencimiento</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -30,10 +30,10 @@
                                         <tr>
                                             <td><a href="{{ path('cursos_edit', { 'id': entity.id }) }}">{{ entity.nombre }}</a></td>
                                             <td><a href="{{ path('cursos_edit', { 'id': entity.id }) }}">{{ entity.descripcion }}</a></td>
-                                            <td><a href="{{ path('cursos_edit', { 'id': entity.id }) }}">{% if entity.vence %}{{ entity.vence|date('Y-m-d H:i:s') }}{% endif %}</a></td>
+                                            <td><a href="{{ path('cursos_edit', { 'id': entity.id }) }}">{% if entity.vence %}{{ entity.vence|date('Y-m-d') }}{% endif %}</a></td>
                                             <td>
                                                 <div style="float: left">
-                                                <a class="btn btn-success" href="{{ path('cursos_edit', { 'id': entity.id }) }}">Editar</a>
+                                                <a class="btn btn-primary" href="{{ path('cursos_edit', { 'id': entity.id }) }}">Editar</a>
                                                 </div>     
                                                 <div style="float: left; padding-left: 10px">
                                                 {{ form_start(aDeleteForm[entity.id]) }}
@@ -47,14 +47,14 @@
                                 </table>
 
                                    
-                                        <a class="btn btn-success" href="{{ path('cursos_new', { 'id_empleado': eEmpleado.id }) }}">
+                                        <a class="btn btn-primary" href="{{ path('cursos_new', { 'id_empleado': eEmpleado.id }) }}">
                                             Nuevo
                                         </a>
                             </div>                    
                 </div>
             </div>
             <div class="col-sm-3">
-			    {{ macros.empleado_foto() }}
+			    {{ macros.empleado_foto(eEmpleado) }}
                 {{ macros.menu_empleado('cursos',eEmpleado) }}
             </div>
         {% endblock content %}    

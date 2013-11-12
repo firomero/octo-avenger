@@ -14,31 +14,34 @@
             <div class="col-lg-9">
              <div class="panel panel-default"> <!-- Panel central -->
                     <div class="panel-heading"> <!-- Encabezado panel central -->
-                     <h2 class="panel-title">Curso</h2>
+                     <h2 class="panel-title">Actualizar Antecedentes Penales</h2>
                     </div>  
                     <div class="panel-body">
                       {{ form_start(edit_form) }}
                             <fieldset>
-                                <legend></legend>
+
                                 {{ form_errors(edit_form) }}
                                 <div class="row-fluid">
-                                    <div class="col-lg-4">{{ form_row(edit_form.motivo) }}</div>
-                                    <div class="col-lg-4">{{ form_row(edit_form.descripcion) }}</div>
+                                    <div class="col-lg-6">{{ form_row(edit_form.motivo) }}</div>
+                                    <div class="col-lg-6">{{ form_row(edit_form.descripcion) }}</div>
                                 </div>
                             </fieldset>
-                            <ul class="record_actions">
-                            <li>
-                                <a href="{{ path('antecedentepenal', { 'id_empleado': entity.empleado.id } ) }}">
-                                Lista de antecedentes penales
-                                </a>
-                            </li>
-                        </ul>
+                        <hr>
+                        <fieldset>
+                            <div class="btn-group">
+                                <input type="submit" class="btn btn-primary" value="Actualizar">
+                            </div>
+                            <div class="btn-group">
+                                <a href="{{ path('antecedentepenal',{'id_empleado':entity.empleado.id}) }}" class="btn btn-primary">Regresar</a>
+                            </div>
+                        </fieldset>
+
                         {{ form_end(edit_form) }} 
                     </div> 
              </div>
             </div> 
             <div class="col-sm-3"> <!-- Menu derecho de empleado -->
-			         {{ macros.empleado_foto() }}         
+			         {{ macros.empleado_foto(entity.empleado) }}         
 	                 {{ macros.menu_empleado('antecedentepenal',entity.empleado) }}
          </div>
         {% endblock content %}          

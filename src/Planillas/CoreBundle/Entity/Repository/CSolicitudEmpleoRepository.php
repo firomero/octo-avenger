@@ -19,7 +19,7 @@ class CSolicitudEmpleoRepository extends EntityRepository
     {
         try {
 
-            $sql = "SELECT s  FROM PlanillasCoreBundle:CSolicitudEmpleo s"; // Join PlanillasNomencladorBundle:NTrabajo t";
+            $sql = "SELECT s  FROM PlanillasCoreBundle:CSolicitudEmpleo s  Join s.vacante v";
             $case = false;
 
             if (isset($filtros['nombre']) && !empty($filtros['nombre'])) {
@@ -33,10 +33,15 @@ class CSolicitudEmpleoRepository extends EntityRepository
                 $case = true;
 
             }
+            if (isset($filtros['fecha']) && !empty($filtros['fecha'])) {
+                $sql .= ($case == true) ? " AND " : " WHERE ";
+                $sql .= ' s.fecha = ' . $filtros['fecha']->format('Y-m-d');
+                $case = true;
 
+            }
             $sql .= ' ORDER BY s.id DESC';
             $query = $this->_em->createQuery($sql);
-
+            //print_r($query->getSQL());exit;
             return $query->getResult();
         } catch (NoResultException $e) {
             return array();

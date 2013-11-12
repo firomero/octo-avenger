@@ -83,7 +83,7 @@ class EAntecedentePenalController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
+        //$form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
 
         return $form;
     }
@@ -166,7 +166,7 @@ class EAntecedentePenalController extends Controller
             'method' => 'post',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Actualizar', 'attr'=>array('class'=>'btn btn-success')));
+        //$form->add('submit', 'submit', array('label' => 'Actualizar', 'attr'=>array('class'=>'btn btn-primary')));
 
         return $form;
     }
@@ -239,7 +239,7 @@ class EAntecedentePenalController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('antecedentepenal_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-success')))
+            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-primary')))
             ->getForm()
         ;
     }

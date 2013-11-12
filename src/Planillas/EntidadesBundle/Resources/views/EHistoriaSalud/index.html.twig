@@ -1,0 +1,72 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar Historia de salud
+{% endblock %}
+
+{% block content_content %}    
+    {% for mensaje in app.session.flashbag.get('info') %}
+		<div class="alert alert-info">{{ mensaje }}</div>
+    {% endfor %}
+     
+    <div class="row">
+     {% block content %} 
+            <div class="col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                            <h2 class="panel-title">Hitorial de salud</h2>
+                    </div>
+                      <div class="panel-body">
+                        <table class="table table-bordered table-hover table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>Ultima enfermedad</th>
+                                    <th>Fecha</th>
+                                    <th>Fuma</th>
+                                   <!-- <th>Frecuencia fuma</th> -->
+                                    <th>Bebe</th>
+                                   <!-- <th>Frecuencia bebe</th> -->
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for entity in entities %}
+                                <tr>
+                                    <td><a href="{{ path('historiasalud_edit', { 'id': entity.id }) }}">{{ entity.ultimaEnfermedad }}</a></td>
+                                    <td><a href="{{ path('historiasalud_edit', { 'id': entity.id }) }}">{% if entity.fechaUltimaEnfermedad %}{{ entity.fechaUltimaEnfermedad|date('Y-m-d H:i:s') }}{% endif %}</a></td>
+                                    <td><a href="{{ path('historiasalud_edit', { 'id': entity.id }) }}">{% if entity.fuma == true %} Si {% else %} No {% endif %}</a></td>
+                                   <!-- <td><a href="{{ path('historiasalud_edit', { 'id': entity.id }) }}">{{ entity.fumaFrecuencia }}</a></td> -->
+                                    <td><a href="{{ path('historiasalud_edit', { 'id': entity.id }) }}">{% if entity.bebe == true %} Si {% else %} No {% endif %}</a></td> 
+                                   <!-- <td><a href="{{ path('historiasalud_edit', { 'id': entity.id }) }}">{{ entity.bebeFrecuencia }}</a></td> -->
+                                    <td>
+                                    <ul>
+                                        <div style="float: left">
+                                         <a class="btn btn-success" href="{{ path('historiasalud_edit', { 'id': entity.id }) }}">Editar</a>
+                                        </div> 
+                                        <div style="float: left; padding-left: 10px">
+                                         {{ form_start(aDeleteForm[entity.id]) }}
+                                         {{ form_errors(aDeleteForm[entity.id]) }}
+                                         {{ form_end(aDeleteForm[entity.id]) }} 
+                                        </div>
+                                    </ul>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+
+                                <a class="btn btn-success" href="{{ path('historiasalud_new', { 'id_empleado': eEmpleado.id }) }}">
+                                    Nuevo
+                                </a>
+                    </div>    
+                </div>
+            </div>
+            <div class="col-sm-3">
+	        {{ macros.empleado_foto(eEmpleado) }}
+                {{ macros.menu_empleado('historiasalud',eEmpleado) }}
+            </div>
+     {% endblock content %}
+    </div>
+                
+{% endblock %}

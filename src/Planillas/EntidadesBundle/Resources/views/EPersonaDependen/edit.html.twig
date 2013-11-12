@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block content_content %}
-    <h1>Editando persona que depende de {{ entity.empleado.nombre }}</h1>
+
  {% for mensaje in app.session.flashbag.get('info') %}
     <div class="alert alert-info">{{ mensaje }}</div>
  {% endfor %}
@@ -17,19 +17,22 @@
             <div class="col-lg-4">{{ form_row(edit_form.edad) }}</div>
             <div class="col-lg-4">{{ form_row(edit_form.ocupacion) }}</div>
         </div>
-        
+        {# form(delete_form) #}
 
     </fieldset>
     {{ form_rest(edit_form) }}
-{# form(edit_form) #}
+     <fieldset>
+         <legend></legend>
+         <div class="btn-group">
+             <button type="submit" name="btn_actualizar" class="btn btn-primary">Actualizar</button>
 
-   <ul class="record_actions">
-     <li>
-        <a href="{{ path('personadepende', {'id_empleado': entity.empleado.id} ) }}">
-            Lista de personas que dependen
-        </a>
-     </li>
-     <!-- <li>{{ form(delete_form) }}</li> -->
-    </ul>
+         </div>
+         <div class="btn-group">
+             <a href="{{ path('personadepende',{'id_empleado':entity.empleado.id}) }}" class="btn btn-default">Regresar</a>
+
+         </div>
+     </fieldset>
+
+
  </form>
 {% endblock %}

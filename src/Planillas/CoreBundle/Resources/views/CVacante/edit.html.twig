@@ -28,10 +28,11 @@
                         </fieldset>
                        <fieldset>
                            <div class="row-fuild">
-
                                <div class="col-lg-4">{{ form_row(edit_form.descripcion) }}</div>
                            </div>
                        </fieldset>
+					<fieldset>
+					<legend></legend>
                     <div class="btn-group">
                         <button type="submit" name="btn_actualizar" class="btn btn-primary">Actualizar</button>
 
@@ -40,6 +41,7 @@
                         <a href="{{ path('cvacante') }}" class="btn btn-default">Regresar</a>
 
                     </div>
+					</fieldset>
 
                     {{ form_rest(edit_form) }}
                     {{ form_end(edit_form) }}

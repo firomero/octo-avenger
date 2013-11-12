@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Planillas\CoreBundle\Entity\CTrabajo;
 use Planillas\CoreBundle\Form\CTrabajoType;
+use Planillas\CoreBundle\Form\Type\SupervisorType;
 
 /**
  * CTrabajo controller.
@@ -74,7 +75,7 @@ class CTrabajoController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-primary')));
 
         return $form;
     }
@@ -99,11 +100,13 @@ class CTrabajoController extends Controller
             $form = $this->createEditForm($entity);
         }
 
+        $formSupervisor= $this->createForm(new SupervisorType($eEmpleado->getId()));
 
         return $this->render('PlanillasCoreBundle:CTrabajo:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
             'eEmpleado' => $eEmpleado,
+            'formSupervisor'=>$formSupervisor->createView()
         ));
     }
 
@@ -125,7 +128,7 @@ class CTrabajoController extends Controller
 
         return $this->render('PlanillasCoreBundle:CTrabajo:show.html.twig', array(
             'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),));
+            'delete_form' => $deleteForm->createView()));
     }
 
     /**
@@ -195,12 +198,13 @@ class CTrabajoController extends Controller
 
             return $this->redirect($this->generateUrl('ctrabajo_edit', array('id' => $id)));
         }
-
+        $formSupervisor= $this->createForm(new SupervisorType($entity->getEmpleado()->getId()));
         return $this->render('PlanillasCoreBundle:CTrabajo:new.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'eEmpleado' => $entity->getEmpleado(),
+            'formSupervisor'=>$formSupervisor->createView()
         ));
     }
 
@@ -242,5 +246,28 @@ class CTrabajoController extends Controller
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
+    }
+    public function supervisorAction(Request $request,$id_empleado)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
+        if(!$entity){
+            throw $this->createNotFoundException('Unable to find CEmpleado entity.');
+        }
+        $form= $this->createForm(new SupervisorType());
+        $form->handleRequest($request);
+        if($form->isValid())
+        {
+             $supervisor=$form->getData();
+             $data=$supervisor['supervisor'];
+             //print_r($entity->getNombre());exit;
+             $entity->setSupervisor($data);
+             $em->persist($entity);
+             $em->flush();
+             return $this->redirect($this->generateUrl('ctrabajo_new', array('id_empleado' => $entity->getId())));
+        }
+        
+        
     }
 }

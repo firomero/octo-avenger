@@ -7,6 +7,18 @@
 {% block headline %}
     {{ headline }}
 {% endblock headline %}
+{% block foot_script %}
+  {{ parent() }}
+    <script>
+         $(function() {
+            
+           $('#planillas_corebundle_csolicitudempleo_fecha').datepicker
+		   ({
+           format: "yyyy-mm-dd"
+          });
+        });
+    </script>
+{% endblock %}
 {% block content_content %}
 
     <div class="row">
@@ -37,7 +49,10 @@
                             <div class="row-fluid">
                                 <div class="col-lg-4">{{ form_row(form.telefono) }}</div>
                                 <div class="col-lg-4">{{ form_row(form.correo) }}</div>
-                                <div class="col-lg-4">{{ form_row(form.fecha) }}</div>
+                                <div class="col-lg-4">
+
+                                    {{ form_row(form.fecha) }}
+                                </div>
                                 <div class="col-lg-4">{{ form_row(form.vacante) }}</div>
                             </div>
 

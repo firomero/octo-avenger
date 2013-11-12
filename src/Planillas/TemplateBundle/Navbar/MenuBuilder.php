@@ -23,7 +23,12 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
 		$menu->addChild('Nomencladores', array('route' => 'sonata_admin_dashboard'));
         $menu->addChild('Vacantes', array('route' => 'cvacante'));
         $menu->addChild('Solicitudes', array('route' => 'csolicitudempleo'));
-        //$menu->addChild('Antecedentes penales', array('route' => 'antecedentepenal'));
+        //$menu->addChild('Horarios', array('route' => 'chorario'));
+        $menu->addChild('Ausencias', array('route' => 'causencias'));
+        $menu->addChild('Horas Extras', array('route' => 'chorasextras'));
+        $menu->addChild('Incapacidades', array('route' => 'cincapacidades'));
+        $menu->addChild('Deudas', array('route' => 'cdeudas'));
+        $menu->addChild('Días Extras', array('route' => 'cdiasextra'));
         
         //$menu->addChild('Cursos', array('route' => 'cursos'));
         //$menu->addChild('Dato legal', array('route' => 'datolegal'));

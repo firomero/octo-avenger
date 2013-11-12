@@ -1,0 +1,34 @@
+cincapacidades:
+    pattern:  /
+    defaults: { _controller: "PlanillasCoreBundle:CIncapacidades:index" }
+
+cincapacidades_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CIncapacidades:show" }
+
+cincapacidades_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasCoreBundle:CIncapacidades:new" }
+
+cincapacidades_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasCoreBundle:CIncapacidades:create" }
+    requirements: { _method: post }
+
+cincapacidades_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CIncapacidades:edit" }
+
+cincapacidades_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CIncapacidades:update" }
+    requirements: { _method: post|put }
+
+cincapacidades_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CIncapacidades:delete" }
+    requirements: { _method: get|delete }
+
+ceditajaxincapacidades:
+    pattern: /buscar
+    defaults: { _controller: "PlanillasCoreBundle:CIncapacidades:editajax" }

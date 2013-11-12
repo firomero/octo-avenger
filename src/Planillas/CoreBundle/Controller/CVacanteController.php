@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Planillas\CoreBundle\Entity\CVacante;
-use Planillas\CoreBundle\Form\CVacanteType;
+use Planillas\CoreBundle\Form\Type\CVacanteType;
 
 /**
  * CVacante controller.

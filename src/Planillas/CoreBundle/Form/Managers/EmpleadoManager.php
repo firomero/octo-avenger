@@ -40,6 +40,7 @@ class EmpleadoManager
      */
     public function  save(CEmpleado $entity)
     {
+	   
         if ($entity instanceof CEmpleado) {
             $this->getManager()->persist($entity);
             $this->getManager()->flush();

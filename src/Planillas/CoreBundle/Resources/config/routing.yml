@@ -58,3 +58,33 @@ planillas_core_vacante:
 planillas_core_solicitud_empleo:
     resource: "@PlanillasCoreBundle/Resources/config/routing/csolicitudempleo.yml"
     prefix:   /solicitudes/
+
+planillas_core_horario:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/chorario.yml"
+    prefix:   /horario/
+planillas_core_ausencias:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/causencias.yml"
+    prefix:   /ausencias/
+planillas_core_historias_salud:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/ehistoriasalud.yml"
+    prefix:   /empleado/historiasalud
+
+planillas_core_cuentas_bancos:
+    resource: "@PlanillasEntidadesBundle/Resources/config/routing/ecuentabanco.yml"
+    prefix:   /empleado/cuentasbanco
+planillas_core_horas_extras:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/chorasextras.yml"
+    prefix:   /extras/
+planillas_core_incapacidades:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cincapacidades.yml"
+    prefix:   /incapacidades/
+planillas_core_deudas:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cdeudas.yml"
+    prefix:   /deudas/
+planillas_core_incapacidades:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cincapacidades.yml"
+    prefix:   /incapacidades/
+
+planillas_core_dias_extra:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cdiasextra.yml"
+    prefix:   /dias-extra/

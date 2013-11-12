@@ -1,0 +1,170 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Nueva Historia Salud
+{% endblock %}
+{% block content_content %}
+
+   {% for mensaje in app.session.flashbag.get('info') %}
+    <div class="alert alert-info">{{ mensaje }}</div>
+   {% endfor %}
+    
+    <div class="row">
+     {% block content %} 
+         <div class="col-lg-9">
+            <div class="panel panel-default">
+              <div class="panel-heading"> <!-- Encabezado panel central -->
+                <h2 class="panel-title">Nuevo historial de salud</h2>
+              </div>
+              <div class="panel-body">
+                {{ form_start(form) }}
+                      <fieldset>
+                            <legend></legend>
+                            {{ form_errors(form) }}
+                            <div class="row-fluid">
+                                <div class="col-lg-4">{{ form_row(form.ultimaEnfermedad) }}</div>
+                                <div class="col-lg-4">{{ form_row(form.fechaUltimaEnfermedad) }}</div>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend></legend>
+                            <div class="row-fluid">
+                                <div class="col-lg-4">{{ form_row(form.fuma) }}</div>
+                                <div class="col-lg-4">{{ form_row(form.fumaFrecuencia) }}</div>                                
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend></legend>
+                            <div class="row-fluid">
+                                <div class="col-lg-4">{{ form_row(form.bebe) }}</div>
+                                <div class="col-lg-4">{{ form_row(form.bebeFrecuencia) }}</div> 
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend></legend>
+                            <div class="row-fluid">
+                                
+                                <h3>Juegos azar</h3>
+                                 <ul class="juegosAzar" data-prototype="{{ form_widget(form.juegosAzar.vars.prototype.nombre)|e }}"></ul>
+
+                                <h3>Deportes</h3>
+                                 <ul class="deportes" data-prototype="{{ form_widget(form.deportes.vars.prototype.nombre)|e }}"></ul>
+                            </div>
+                        </fieldset>
+                      <fieldset>
+                            <legend></legend>
+                            <div class="row-fluid">
+                                <ul class="record_actions">
+                                <li>
+                                    <a href="{{ path('historiasalud', {'id_empleado': entity.empleado.id }) }}">
+                                        Lista de historial de salud
+                                    </a>
+                                </li>
+                                </ul>
+                             </div>
+                        </fieldset>
+                {{ form_end(form) }}
+              </div>
+            </div>
+         </div>  
+         <div class="col-sm-3"> <!-- Menu derecho de empleado -->
+		 {{ macros.empleado_foto(entity.empleado) }}
+	     {{ macros.menu_empleado('historiasalud',entity.empleado) }}
+         </div>
+     {% endblock content %} 
+    </div>             
+{% endblock %}
+        
+{% block foot_script %}   
+        {{ parent() }}
+        <script>
+           // Get the ul that holds the collection of tags
+            var collectionHolderDeportes = $('ul.deportes');
+
+            // setup an "add a tag" link
+            var $addDeportesLink = $('<a href="#" class="add_deportes_link">Adicionar deporte</a>');
+            var $newLinkLiDeportes = $('<li></li>').append($addDeportesLink);
+            
+           //------------------------------------------------------------------------>>> Juegos Azar
+            var collectionHolderJuegosAzar = $('ul.juegosAzar');
+
+            // setup an "add a tag" link
+            var $addJuegosAzarLink = $('<a href="#" class="add_juegosAzar_link">Adicionar juego</a>');
+            var $newLinkLiJuegosAzar = $('<li></li>').append($addJuegosAzarLink);
+            
+            jQuery(document).ready(function() {
+                // add the "add a tag" anchor and li to the tags ul
+                collectionHolderDeportes.append($newLinkLiDeportes);
+
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                collectionHolderDeportes.data('index', collectionHolderDeportes.find(':input').length);
+
+                $addDeportesLink.on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+
+                    // add a new tag form (see next code block)
+                    addFieldToForm(collectionHolderDeportes, $newLinkLiDeportes);
+                });
+                
+               //------------------------------------------------------------------------>>> Juegos Azar 
+               
+                //----------------------------------------------------------------------->> Para eliminar
+                collectionHolderJuegosAzar.find('li').each(function() {
+                                                                addTagFormDeleteLink($(this));
+                                                            });
+                                                            
+                // add the "add a tag" anchor and li to the tags ul                
+                collectionHolderJuegosAzar.append($newLinkLiJuegosAzar);
+                
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                collectionHolderJuegosAzar.data('index', collectionHolderJuegosAzar.find(':input').length);
+                                                            
+                $addJuegosAzarLink.on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+
+                    // add a new tag form (see next code block)
+                    addFieldToForm(collectionHolderJuegosAzar, $newLinkLiJuegosAzar);
+                });
+            }); 
+            
+            function addFieldFormDeleteLink($tagFormLi) {
+                                                    var $removeFormA = $('<a href="#">Eliminar este elemento</a>');
+                                                    $tagFormLi.append($removeFormA);
+
+                                                    $removeFormA.on('click', function(e) {
+                                                        // prevent the link from creating a "#" on the URL
+                                                        e.preventDefault();
+
+                                                        // remove the li for the tag form
+                                                        $tagFormLi.remove();
+                                                    });
+                                                }
+
+            function addFieldToForm(collectionHolder, $newLinkLi) {
+                // Get the data-prototype explained earlier
+                var prototype = collectionHolder.data('prototype');
+
+                // get the new index
+                var index = collectionHolder.data('index');
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+
+                // increase the index with one for the next item
+                collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm);
+                $newLinkLi.before($newFormLi);
+                
+                //---------------------------->> Para eliminar
+                addFieldFormDeleteLink($newFormLi);
+            }
+        </script>
+{% endblock foot_script %}        
+        

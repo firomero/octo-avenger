@@ -39,7 +39,7 @@
              </div>
             </div> 
             <div class="col-sm-3"> <!-- Menu derecho de empleado -->
-			         {{ macros.empleado_foto() }}         
+			         {{ macros.empleado_foto(entity.empleado) }}         
 	                 {{ macros.menu_empleado('licencia',entity.empleado) }}
          </div>
         {% endblock content %}          

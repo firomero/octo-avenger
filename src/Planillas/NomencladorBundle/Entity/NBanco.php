@@ -4,6 +4,8 @@ namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Planillas\CoreBundle\Entity\CEmpleado;
+//use Planillas\NomencladorBundle\Entity\NBanco;
 /**
  * NBanco
  *
@@ -27,7 +29,11 @@ class NBanco
      * @ORM\Column(name="nombre", type="string", length=40, nullable=true)
      */
     private $nombre;
-
+ 
+    /**
+     * @ORM\ManyToMany(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", mappedBy="cuentasBancos")
+     **/
+    private $empleados;
 
     /**
      * Get bancoId
@@ -61,6 +67,18 @@ class NBanco
     {
         return $this->nombre;
     }
+    
+    /**
+     * Set empleado
+     *
+     * @return void
+     */
+    public function addEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado)
+    {
+        $empleado->addCuentasBanco($this);
+        $this->empleados->add($empleado);
+        return $this;
+    }
 
     /**
      * Get id
@@ -70,5 +88,13 @@ class NBanco
     public function getId()
     {
         return $this->id;
+    }
+    
+    function __construct(){
+        $this->empleados = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    function __toString(){
+        return $this->nombre;
     }
 }

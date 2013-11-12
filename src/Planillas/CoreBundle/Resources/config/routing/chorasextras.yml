@@ -1,0 +1,34 @@
+chorasextras:
+    pattern:  /
+    defaults: { _controller: "PlanillasCoreBundle:CHorasExtras:index" }
+
+chorasextras_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CHorasExtras:show" }
+
+chorasextras_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasCoreBundle:CHorasExtras:new" }
+
+chorasextras_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasCoreBundle:CHorasExtras:create" }
+    requirements: { _method: post }
+
+chorasextras_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CHorasExtras:edit" }
+
+chorasextras_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CHorasExtras:update" }
+    requirements: { _method: post|put }
+
+chorasextras_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CHorasExtras:delete" }
+    requirements: { _method: get|delete }
+
+ceditajax:
+    pattern: /buscar
+    defaults: { _controller: "PlanillasCoreBundle:CHorasExtras:editajax" }

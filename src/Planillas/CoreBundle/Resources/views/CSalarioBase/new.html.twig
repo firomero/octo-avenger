@@ -28,7 +28,9 @@
 
                         </div>
                     </fieldset>
+                    <hr>
                     {{ form_rest(form) }}
+
                     {{form_end(form)}}
 
                     <form>
@@ -39,6 +41,7 @@
                     <h2 class="panel-title">Asignación de Componentes Salariales</h2>
                 </div>
                 <div class="panel-body">
+
                     <fieldset>
                         <a class="btn btn-primary" href="{{ path('ecomponentessalariales_new',{'id_empleado':eEmpleado.id}) }}">Agregar</a>
                     </fieldset>
@@ -59,7 +62,7 @@
 
         </div>
         <div class="col-sm-3">
-            {{ macros.empleado_foto() }}
+            {{ macros.empleado_foto(eEmpleado) }}
             {{ macros.menu_empleado('sueldo',eEmpleado) }}
         </div>
 

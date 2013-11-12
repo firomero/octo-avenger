@@ -17,11 +17,12 @@
                             <h2 class="panel-title">Licencias</h2>
                     </div>        
                             <div class="panel-body">
+                                <hr>
                                 <table class="table table-bordered table-hover table-responsive">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Codigo</th>
+                                            <th>Código</th>
                                             <th>Vence</th>
                                             <th>Acciones</th>
                                         </tr>
@@ -30,11 +31,11 @@
                                     {% for entity in entities %}
                                         <tr>
                                             <td><a href="{{ path('elicencia_edit', { 'id': entity.id }) }}">{% if entity.tipoLicencia %} {{ entity.tipoLicencia.nombre }} {% endif %}</a></td>
-                                            <td><a href="{{ path('elicencia_edit', { 'id': entity.id }) }}">{% if entity.tipoLicencia %} {{ entity.tipoLicencia.codigo }} {% endif %}</a></td>
-                                            <td><a href="{{ path('elicencia_edit', { 'id': entity.id }) }}">{% if entity.vence %}{{ entity.vence|date('Y-m-d H:i:s') }}{% endif %}</a></td>
+                                            <td>{% if entity.tipoLicencia %} {{ entity.tipoLicencia.codigo }} {% endif %}</td>
+                                            <td>{% if entity.vence %}{{ entity.vence|date('Y-m-d H:i:s') }}{% endif %}</td>
                                             <td>
                                                 <div style="float: left">
-                                                <a class="btn btn-success" href="{{ path('elicencia_edit', { 'id': entity.id }) }}">Editar</a>
+                                                <a class="btn btn-primary" href="{{ path('elicencia_edit', { 'id': entity.id }) }}">Editar</a>
                                                 </div>     
                                                 <div style="float: left; padding-left: 10px">
                                                 {{ form_start(aDeleteForm[entity.id]) }}
@@ -47,15 +48,15 @@
                                     </tbody>
                                 </table>
 
-                                   
-                                        <a class="btn btn-success" href="{{ path('elicencia_new', { 'id_empleado': eEmpleado.id }) }}">
+
+                                        <a class="btn btn-primary" href="{{ path('elicencia_new', { 'id_empleado': eEmpleado.id }) }}">
                                             Nuevo
                                         </a>
                             </div>                    
                 </div>
             </div>
             <div class="col-sm-3">
-			    {{ macros.empleado_foto() }}
+			    {{ macros.empleado_foto(eEmpleado) }}
                 {{ macros.menu_empleado('licencia',eEmpleado) }}
             </div>
         {% endblock content %}    

@@ -3,6 +3,18 @@
 {% block title %}
     Historial de trabajo
 {% endblock %}
+{% block foot_script %}
+  {{ parent() }}
+    <script>
+         $(function() {
+
+           $('#planillas_corebundle_csolicitudempleo_fechaTrabajo').datepicker
+		   ({
+           format: "yyyy-mm-dd"
+          });
+  });
+    </script>
+{% endblock %}
 {% block content_content %}
     {% for mensaje in app.session.flashbag.get('info') %}
         <div class="alert alert-info">{{ mensaje }}</div>
@@ -10,6 +22,26 @@
     <div class="row">
         {% block content %}
             <div class="col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Supervisor
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="{{ path('ctrabajo_supervisor',{ 'id_empleado': eEmpleado.id }) }}" method="post" {{ form_enctype(formSupervisor) }}>
+                            <fieldset>
+
+
+                                <div class="row-fluid">
+                                    <div class="col-lg-6">{{ form_row(formSupervisor.supervisor) }}</div>
+                                </div>
+
+                            </fieldset>
+                            {{ form_rest(formSupervisor) }}
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            {{ form_end(formSupervisor) }}
+
+                    </div>
+                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h2 class="panel-title">Trabajo Actual</h2>
@@ -39,7 +71,7 @@
                     <div class="panel-body">
 
 
-                        <a href="{{ path('historiatrabajo_new',{'id_empleado': eEmpleado.id}) }}" class="btn btn-primary">Nuevo</a>
+                        <a href="{{ path('historiatrabajo_new',{'id_empleado': eEmpleado.id}) }}" class="btn btn-primary">Adicionar</a>
                         <hr/>
                         {{ render(controller('PlanillasEntidadesBundle:EHistoriaTrabajo:index',{'id':eEmpleado.id}))}}
                     </div>
@@ -47,7 +79,7 @@
 
             </div>
             <div class="col-sm-3">
-                {{ macros.empleado_foto()}}
+                {{ macros.empleado_foto(eEmpleado)}}
                 {{ macros.menu_empleado('historiatrabajo',eEmpleado) }}
             </div>
         {% endblock  %}

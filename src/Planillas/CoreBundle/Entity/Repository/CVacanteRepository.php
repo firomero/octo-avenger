@@ -17,7 +17,7 @@ class CVacanteRepository extends  EntityRepository {
     public function filterVacante($filtros=array()){
         try{
 
-            $sql = "SELECT v  FROM PlanillasCoreBundle:CVacante v";// Join PlanillasNomencladorBundle:NTrabajo t";
+            $sql = "SELECT v  FROM PlanillasCoreBundle:CVacante v INNER Join v.trabajo t ";
             $case=false;
             //print_r($filtros['trabajo']->getId());exit;
             if(isset($filtros['nombre'])&& !empty($filtros['nombre']))
@@ -28,8 +28,8 @@ class CVacanteRepository extends  EntityRepository {
             }
             if(isset($filtros['trabajo'])&& !empty($filtros['trabajo']))
             {
-             // $sql.=($case==true)?" AND ":" WHERE ";
-              //$sql.='v.id='.$filtros['trabajo']->getId();
+               $sql.=($case==true)?" AND ":" WHERE ";
+               $sql.=' t.id='.$filtros['trabajo']->getId();
                $case=true;
 
             }
@@ -40,7 +40,6 @@ class CVacanteRepository extends  EntityRepository {
                 $case=true;
             }
             $sql .=' ORDER BY v.id DESC';
-           // print_r($sql);exit;
             $query = $this->_em->createQuery($sql);
 
             return $query->getResult();

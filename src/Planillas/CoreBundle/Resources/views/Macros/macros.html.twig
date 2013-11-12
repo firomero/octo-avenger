@@ -107,6 +107,21 @@
                 {% else %}
                     <li><a href="{{ path('elicencia',{ 'id_empleado': eEmpleado.id }) }}">Licencias</a></li>
                 {% endif %}
+                <!-- horario-->
+                {% if(active=='horario') %}
+                    <li class="active"><a href="{{ path('chorario_new',{ 'id_empleado': eEmpleado.id }) }}">Horario</a>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('chorario_new',{ 'id_empleado': eEmpleado.id }) }}">Horario</a></li>
+                {% endif %}
+
+                <!-- Cuentas de banco -->
+                {% if(active=='cuentasbancos') %}
+                    <li class="active"><a href="{{ path('cuentasbancos',{ 'id_empleado': eEmpleado.id }) }}">Bancos</a>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('cuentasbancos',{ 'id_empleado': eEmpleado.id }) }}">Bancos</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>

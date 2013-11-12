@@ -80,7 +80,7 @@ class ECursosController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
+        //$form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
 
         return $form;
     }
@@ -101,6 +101,7 @@ class ECursosController extends Controller
         return $this->render('PlanillasEntidadesBundle:ECursos:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+            'eEmpleado'=>$eEmpleado
         ));
     }
 
@@ -163,7 +164,7 @@ class ECursosController extends Controller
             'method' => 'post',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Actualizar', 'attr'=>array('class'=>'btn btn-success')));
+       // $form->add('submit', 'submit', array('label' => 'Actualizar', 'attr'=>array('class'=>'btn btn-success')));
 
         return $form;
     }
@@ -234,7 +235,7 @@ class ECursosController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('cursos_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-success')))
+            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-primary')))
             ->getForm()
         ;
     }

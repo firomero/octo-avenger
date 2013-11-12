@@ -35,10 +35,11 @@
 								<td>{{entity.ocupacion }}</td>
 								<td>
                                  <div style="float: left">
-                                    <a class="btn btn-success" href="{{ path('familia_edit', { 'id': entity.id }) }}">Editar</a>
+                                    <a class="btn btn-primary" href="{{ path('familia_edit', { 'id': entity.id }) }}"><i class="glyphicon glyphicon-pencil"></i>Editar</a>
                                  </div>                                                                   
                                      <div style="float: left; padding-left: 10px">
                                         {{ form_start(aDeleteForm[entity.id]) }}
+										 
                                         {{ form_errors(aDeleteForm[entity.id]) }}
                                         {{ form_end(aDeleteForm[entity.id]) }} 
                                      </div>                              
@@ -49,14 +50,14 @@
 						{% endfor %}
 						</tbody>
 					</table>
-
-						<a href="{{ path('familia_new',{ 'id_empleado': eEmpleado.id }) }}" class="btn btn-success">Nuevo</a>
+                       <hr>
+						<a href="{{ path('familia_new',{ 'id_empleado': eEmpleado.id }) }}" class="btn btn-primary">Adicionar</a>
 						</div>
 					</div>
                        
                     </div>
                     <div class="col-sm-3">
-					{{ macros.empleado_foto() }}
+					{{ macros.empleado_foto(eEmpleado) }}
 					{{ macros.menu_empleado('familiares',eEmpleado) }}
                     </div>
                 {% endblock content %}

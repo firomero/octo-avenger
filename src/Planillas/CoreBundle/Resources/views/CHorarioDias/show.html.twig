@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>CHorarioDias</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Dia</th>
+                <td>{{ entity.dia }}</td>
+            </tr>
+            <tr>
+                <th>Horainicio</th>
+                <td>{{ entity.horaInicio }}</td>
+            </tr>
+            <tr>
+                <th>Horafin</th>
+                <td>{{ entity.horaFin }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('chorariodias') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('chorariodias_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

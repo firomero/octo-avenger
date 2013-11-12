@@ -30,8 +30,6 @@ class EPersonaDependenController extends Controller
         foreach($entities as $entity){
             $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView(); 
         }
-       // $deleteForm = 
-        
         return $this->render('PlanillasEntidadesBundle:EPersonaDependen:index.html.twig', array(
             'eEmpleado'=>$eEmpleado,
             'aDeleteForm'=>$aDeleteForm,
@@ -44,15 +42,18 @@ class EPersonaDependenController extends Controller
      */
     public function createAction(Request $request,$id_empleado)
     {
-	
+
+
+        $em = $this->getDoctrine()->getManager();
         $entity = new EPersonaDependen();
 		$eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        $form = $this->createCreateForm($entity);
+
 		$entity->setEmpleado($eEmpleado);
+        $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+
             $em->persist($entity);
             $em->flush();
 
@@ -75,11 +76,11 @@ class EPersonaDependenController extends Controller
     private function createCreateForm(EPersonaDependen $entity)
     {
         $form = $this->createForm(new EPersonaDependenType(), $entity, array(
-            'action' => $this->generateUrl('personadepende_create'),
+            'action' => $this->generateUrl('personadepende_create',array('id_empleado'=>$entity->getEmpleado()->getId())),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Adicionar','attr'=>array('class'=>'btn btn-success')));
+       // $form->add('submit', 'submit', array('label' => 'Adicionar','attr'=>array('class'=>'btn btn-primary')));
 
         return $form;
     }
@@ -158,12 +159,12 @@ class EPersonaDependenController extends Controller
     */
     private function createEditForm(EPersonaDependen $entity)
     {
-        $form = $this->createForm(new EPersonaDependenType(), $entity, array(
+        $form = $this->createForm(new EPersonaDependenType(true), $entity, array(
             'action' => $this->generateUrl('personadepende_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Actualizar'));
+        //$form->add('submit', 'submit', array('label' => 'Actualizar'));
 
         return $form;
     }

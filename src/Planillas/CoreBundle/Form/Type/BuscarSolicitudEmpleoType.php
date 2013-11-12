@@ -15,8 +15,10 @@ class BuscarSolicitudEmpleoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombre')
-            ->add('apellidos')
+            ->add('nombre',null,array('required'=>false))
+            ->add('apellidos', null,array('required'=>false))
+            ->add('fecha','date',array('required'=>false,'attr'=>array('id'=>'datetimepicker'),'widget'=>'single_text'))
+            //->add('telefono',null,array('required'=>false))
 
         ;
     }
@@ -36,6 +38,6 @@ class BuscarSolicitudEmpleoType extends AbstractType
      */
     public function getName()
     {
-        return 'planillas_corebundle_buscar_vacante';
+        return 'planillas_corebundle_buscar_solicitud';
     }
 }

@@ -25,23 +25,26 @@
                             <legend></legend>
                             {{ form_errors(form) }}
                             <div class="row-fluid">
-                                <div class="col-lg-4">{{ form_row(form.tipoLicencia) }}</div>
-                                <div class="col-lg-4">{{ form_row(form.vence) }}</div>
+                                <div class="col-lg-6">{{ form_row(form.tipoLicencia) }}</div>
+                                <div class="col-lg-6">{{ form_row(form.vence) }}</div>
                             </div>
                         </fieldset>
-                    <ul class="record_actions">
-                        <li>
-                            <a href="{{ path('elicencia', {'id_empleado': entity.empleado.id }) }}">
-                                Lista de licencias
-                            </a>
-                        </li>
-                    </ul>
+                <hr>
+                <fieldset>
+                    <div class="btn-group">
+                        <input type="submit" class="btn btn-primary" value="Adicionar">
+                    </div>
+                    <div class="btn-group">
+                        <a href="{{ path('elicencia',{'id_empleado':entity.empleado.id}) }}" class="btn btn-primary">Regresar</a>
+                    </div>
+                </fieldset>
+
                     {{ form_end(form) }}    
             </div>
           </div>          
          </div>  
          <div class="col-sm-3"> <!-- Menu derecho de empleado -->
-		 {{ macros.empleado_foto() }}
+		 {{ macros.empleado_foto(entity.empleado) }}
 	     {{ macros.menu_empleado('licencia',entity.empleado) }}
          </div>
      {% endblock content %} 

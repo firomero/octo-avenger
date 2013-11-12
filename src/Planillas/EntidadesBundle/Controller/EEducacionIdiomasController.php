@@ -235,7 +235,7 @@ class EEducacionIdiomasController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('educacionidiomas_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-success')))
+            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-primary')))
             ->getForm()
         ;
     }

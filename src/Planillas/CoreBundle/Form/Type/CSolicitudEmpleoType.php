@@ -20,7 +20,7 @@ class CSolicitudEmpleoType extends AbstractType
             ->add('apellidos')
             ->add('telefono')
             ->add('correo')
-            ->add('fecha')
+            ->add('fecha','date',array('attr'=>array('id'=>'datetimepicker'),'widget'=>'single_text'))
             ->add('vacante', 'entity', array(
                     'class' => 'PlanillasCoreBundle:CVacante',
                     'query_builder' => function (EntityRepository $er) {

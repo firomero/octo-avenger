@@ -1,0 +1,34 @@
+cdeudas:
+    pattern:  /
+    defaults: { _controller: "PlanillasCoreBundle:CDeudas:index" }
+
+cdeudas_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CDeudas:show" }
+
+cdeudas_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasCoreBundle:CDeudas:new" }
+
+cdeudas_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasCoreBundle:CDeudas:create" }
+    requirements: { _method: post }
+
+cdeudas_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CDeudas:edit" }
+
+cdeudas_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CDeudas:update" }
+    requirements: { _method: post|put }
+
+cdeudas_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CDeudas:delete" }
+    requirements: { _method: get|delete }
+
+ceditajaxdeudas:
+    pattern: /buscar
+    defaults: { _controller: "PlanillasCoreBundle:CDeudas:editajax" }

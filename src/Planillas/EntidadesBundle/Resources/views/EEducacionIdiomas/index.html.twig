@@ -30,7 +30,7 @@
                                     <td><a href="{{ path('educacionidiomas_edit', { 'id': entity.id }) }}">{{ entity.porientoIdioma }}</a></td>
                                     <td>
                                        <div style="float: left">
-                                            <a class="btn btn-success" href="{{ path('educacionidiomas_edit', { 'id': entity.id }) }}">Editar</a>
+                                            <a class="btn btn-primary" href="{{ path('educacionidiomas_edit', { 'id': entity.id }) }}">Editar</a>
                                        </div>
                                        <div style="float: left; padding-left: 10px">
                                             {{ form_start(aDeleteForm[entity.id]) }}
@@ -42,14 +42,14 @@
                             {% endfor %}
                             </tbody>
                         </table>
-                            <a class="btn btn-success" href="{{ path('educacionidiomas_new', { 'id_empleado': eEmpleado.id }) }}">
+                            <a class="btn btn-primary" href="{{ path('educacionidiomas_new', { 'id_empleado': eEmpleado.id }) }}">
                               Nuevo
                             </a>
                     </div>    
                 </div>        
             </div>
             <div class="col-sm-3">
-			    {{ macros.empleado_foto() }}
+			    {{ macros.empleado_foto(eEmpleado) }}
                 {{ macros.menu_empleado('educacionidiomas',eEmpleado) }}
             </div>
         {% endblock content %}    

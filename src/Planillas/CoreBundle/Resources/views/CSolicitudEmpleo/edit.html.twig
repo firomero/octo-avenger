@@ -4,6 +4,18 @@
 {% block title %}
     Sistema de Planillas:{{ headline }}
 {% endblock %}
+{% block foot_script %}
+  {{ parent() }}
+    <script>
+         $(function() {
+             //alert("holaa");
+           $('#planillas_corebundle_csolicitudempleo_fecha').datepicker
+		   ({
+           format: "yyyy-mm-dd"
+          });
+  });
+    </script>
+{% endblock %}
 {% block headline %}
     {{ headline }}
 {% endblock headline %}

@@ -1,0 +1,30 @@
+cuentasbancos:
+    pattern:  /{id_empleado}/cuentasbancos
+    defaults: { _controller: "PlanillasEntidadesBundle:ECuentaBanco:index" }
+
+cursos_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:ECuentaBanco:show" }
+
+cuentasbancos_new:
+    pattern:  /{id_empleado}/cuentasbancos/new
+    defaults: { _controller: "PlanillasEntidadesBundle:ECuentaBanco:new" }
+
+cuentasbancos_create:
+    pattern:  /{id_empleado}/cuentasbancos/create
+    defaults: { _controller: "PlanillasEntidadesBundle:ECuentaBanco:create" }
+    requirements: { _method: post }
+
+cuentasbancos_edit:
+    pattern:  /{id}/cuentasbancos/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:ECuentaBanco:edit" }
+
+cuentasbancos_update:
+    pattern:  /{id}/cuentasbancos/update
+    defaults: { _controller: "PlanillasEntidadesBundle:ECuentaBanco:update" }
+    requirements: { _method: post|put }
+
+cuentasbancos_delete:
+    pattern:  /{id_empleado}/cuentasbancos/{id_banco}/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:ECuentaBanco:delete" }
+    requirements: { _method: post|delete }

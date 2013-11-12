@@ -29,15 +29,25 @@ class NDeportes
     private $nombre;
 
 
-
+    /**
+     * @var $deportes Doctrine/Common/Collections/ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Planillas\EntidadesBundle\Entity\EHistoriaSalud",mappedBy="deportes")
+     */
+    private $historias_salud;
     /**
      * Get deporteId
      *
      * @return integer 
      */
-    public function getDeporteId()
+    public function getHistoriasSalud()
     {
-        return $this->deporteId;
+        return $this->historias_salud;
+    }
+    
+    public function setHistoriasSalud(\Planillas\EntidadesBundle\Entity\EHistoriaSalud $historia_salud)
+    {
+        return $this->historias_salud->add($historia_salud);
     }
 
     /**
@@ -71,5 +81,13 @@ class NDeportes
     public function getId()
     {
         return $this->id;
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->historias_salud = new \Doctrine\Common\Collections\ArrayCollection();
     }
 }

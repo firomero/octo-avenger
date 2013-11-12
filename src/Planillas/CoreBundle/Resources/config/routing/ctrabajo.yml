@@ -28,3 +28,8 @@ ctrabajo_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "PlanillasCoreBundle:CTrabajo:delete" }
     requirements: { _method: post|delete }
+    
+ctrabajo_supervisor:
+    pattern:  /{id_empleado}/supervisor
+    defaults: { _controller: "PlanillasCoreBundle:CTrabajo:supervisor" }
+    requirements: { _method: post }

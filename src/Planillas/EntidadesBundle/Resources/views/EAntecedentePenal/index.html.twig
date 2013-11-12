@@ -31,7 +31,7 @@
                                             <td><a href="{{ path('antecedentepenal_edit', { 'id': entity.id }) }}">{{ entity.descripcion }}</a></td>
                                             <td>
                                                 <div style="float: left">
-                                                <a class="btn btn-success" href="{{ path('antecedentepenal_edit', { 'id': entity.id }) }}">Editar</a>
+                                                <a class="btn btn-primary" href="{{ path('antecedentepenal_edit', { 'id': entity.id }) }}">Editar</a>
                                                 </div>     
                                                 <div style="float: left; padding-left: 10px">
                                                 {{ form_start(aDeleteForm[entity.id]) }}
@@ -43,15 +43,15 @@
                                  {% endfor %}       
                             </tbody>
                            </table>
-                                <a class="btn btn-success" href="{{ path('antecedentepenal_new', { 'id_empleado': eEmpleado.id }) }}">
-                                            Nuevo
-                                        </a>
+                                <a class="btn btn-primary" href="{{ path('antecedentepenal_new', { 'id_empleado': eEmpleado.id }) }}">
+                                            Adicionar
+                                </a>
                         </div>
                 </div>        
                         
             </div>
             <div class="col-sm-3">
-			    {{ macros.empleado_foto() }}
+			    {{ macros.empleado_foto(eEmpleado) }}
                 {{ macros.menu_empleado('antecedentepenal',eEmpleado) }}
             </div>
         {% endblock content %}

@@ -99,7 +99,7 @@ class ELicenciaController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
+        //$form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
 
         return $form;
     }
@@ -252,7 +252,7 @@ class ELicenciaController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('elicencia_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-success')))
+            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-primary')))
             ->getForm()
         ;
     }

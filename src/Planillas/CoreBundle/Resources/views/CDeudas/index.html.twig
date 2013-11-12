@@ -1,0 +1,346 @@
+
+{% extends '::base.html.twig' %}
+{% set headline="Gestionar Deudas " %}
+{% block title %}
+    Sistema de Planillas:{{ headline }}
+{% endblock %}
+{% block headline %}
+    {{ headline }}
+{% endblock headline %}
+{% block foot_script %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/planillastemplate/js/jquery.validate.js') }}"></script>
+    <script src="{{ asset('bundles/planillascore/js/deudasValidate.js') }}"></script>
+    <script>
+        $(function() {
+
+
+            $('#planillas_corebundle_buscar_deudas_fechaInicio').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+            $('#planillas_corebundle_cdeudas_fechaInicio').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+
+            $('#add_new').click(function(){
+                //$.resetForm()
+                //$('#horasextrasForm').resetForm();
+                $('#planillas_corebundle_cdeudas_empleado').val(0);
+                $('#planillas_corebundle_cdeudas_tipoDeuda').val(0);
+                $('#planillas_corebundle_cdeudas_fechaInicio').val("");
+
+                $('#planillas_corebundle_cdeudas_montoTotal').val("");
+                $('#planillas_corebundle_cdeudas_montoReducir').val("");
+                $('#planillas_corebundle_cdeudas_numeroCuotas').val("");
+                $('#planillas_corebundle_cdeudas_id').val("");
+                $('#btn_actualizar').html('Crear');
+                $('#myTab a:first').tab('show');
+
+            })
+
+
+
+
+        })
+
+        function buscar(id){
+            $.ajax({
+                url:'{{ path('ceditajaxdeudas') }}',
+                data:{id:id},
+                dataType:'json',
+                success:function(data)
+                {
+                    if(data.success){
+                    $('#planillas_corebundle_cdeudas_empleado').val(data.data.empleado);
+                    $('#planillas_corebundle_cdeudas_tipoDeuda').val(data.data.tipoDeuda);
+                    $('#planillas_corebundle_cdeudas_fechaInicio').val(data.data.fechaInicio);
+                    $('#planillas_corebundle_cdeudas_montoTotal').val(data.data.montoTotal);
+                    $('#planillas_corebundle_cdeudas_montoReducir').val(data.data.montoReducir);
+                    $('#planillas_corebundle_cdeudas_numeroCuotas').val(data.data.numeroCuotas);
+                    $('#planillas_corebundle_deudas_id').val(data.data.id);
+                    $('#btn_actualizar').html('Actualizar');
+                    $('#myTab a:first').tab('show')
+                    }
+                    else
+                    {
+                        alert("Ocurrió un error al obtener los datos")
+
+                    }
+
+                },
+                failure:function()
+                {
+                    alert("Ocurrió un error al obtener los datos");
+                }
+
+            })
+        }
+        function validateForm()
+        {
+            $('#divmontototal').addClass('form-group has-error');
+            $('#deudasForm').submit();
+        }
+    </script>
+
+{% endblock %}
+{% block content_content %}
+
+    {% block content %}
+        <div class="container">
+        {% set tipodeuda=['Uniformes','Sanciones','Préstamos'] %}
+        <ul id="myTab" class="nav nav-tabs">
+            <li><a href="#deudas" data-toggle="tab">Deudas</a></li>
+            <li class="active"><a href="#historial" data-toggle="tab">Historial de Deudas</a></li>
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade" id="deudas">
+                <br/>
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h2 class="panel-title">Agregar Deuda</h2>
+                            </div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" action="{{ path('cdeudas_create') }}"
+                                      method="post" {{ form_enctype(form) }} name="deudasForm" id="deudasForm">
+                                    <input type="hidden"  class=" not-removable form-control"  name="planillas_id[id]" id="planillas_corebundle_deudas_id">
+                                    <fieldset>
+                                        <div class="row-fluid">
+                                            <div class="col-lg-4">{{ form_row(form.empleado) }}</div>
+
+
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <div class="row-fluid">
+                                            <div class="col-lg-4">{{ form_row(form.tipoDeuda) }}</div>
+                                            <div class="col-lg-4"><div class="noclass" id="divfechainicio">{{ form_row(form.fechaInicio) }}</div></div>
+                                            <div class="col-lg-4">{{ form_row(form.pagado) }}</div>
+
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <div class="row-fluid">
+
+                                            <div class="col-lg-4"><div class="noclass" id="divmontototal">{{ form_row(form.montoTotal) }}</div></div>
+                                            <div class="col-lg-4"><div class="noclass" id="divmontoReducir">{{ form_row(form.montoReducir) }}</div></div>
+                                            <div class="col-lg-4"><div class="noclass" id="divnumercuotas">{{ form_row(form.numeroCuotas) }}</div></div>
+
+                                        </div>
+
+                                    </fieldset>
+                                    {{ form_rest(form) }}
+                                    <fieldset>
+                                        <legend></legend>
+                                        <div class="btn-group">
+                                            <button type="button" onclick="validateForm()" id="btn_actualizar" name="btn_actualizar" class="btn btn-primary">Crear</button>
+
+                                        </div>
+                                        <div class="btn-group">
+                                            <a href="{{ path('cdeudas') }}" class="btn btn-default">Regresar</a>
+
+                                        </div>
+                                    </fieldset>
+                                </form>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade active in" id="historial">
+                <br/>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Buscar Deudas</h2>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="{{ path('cdeudas') }}"
+                              method="post" id="form_buscar_deudas">
+                            <fieldset>
+
+
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{  form_row(form_buscar.empleado) }}</div>
+                                    <div class="col-lg-4">{{  form_row(form_buscar.tipoDeuda) }}</div>
+                                    <div class="col-lg-4">{{  form_row(form_buscar.pagado) }}</div>
+
+
+                                </div>
+
+                            </fieldset>
+                            <fieldset>
+
+
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">{{  form_row(form_buscar.fechaInicio) }}</div>
+                                    <div class="col-lg-4">{{  form_row(form_buscar.montoTotal) }}</div>
+
+
+
+                                </div>
+                                {{ form_rest(form_buscar) }}
+                            </fieldset>
+
+                            <fieldset>
+                                <legend></legend>
+                                <div class="btn-group">
+                                    <button type="submit" id="buscar_deudas" name="btn_buscar" class="btn btn-default">
+                                        Buscar
+                                    </button>
+
+                                </div>
+                                <div class="btn-group">
+
+                                    <button type="submit" id="reiniciar_horas_extras" name="btn_reiniciar"
+                                            class="btn btn-primary">Reiniciar
+                                    </button>
+                                </div>
+                            </fieldset>
+
+                    </div>
+                    </form>
+                </div>
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Listado de deudas
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <div class="btn-group">
+
+                            <a class="btn btn-primary" id="add_new" href="#">
+                                Agregar
+                            </a>
+                        </div>
+                        <hr/>
+                        <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Empleado</th>
+                                <th>Deuda</th>
+                                <th>Cant Total</th>
+                                <th>Cant Reducir</th>
+                                <th>Nro de Cuotas</th>
+                                <th>Restante</th>
+                                <th>Inicio del Pago</th>
+                                <th>Estado</th>
+
+
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for entity in pagination %}
+                                <tr>
+                                    <td>{{ entity.empleado.nombre }} {{ entity.empleado.primerApellido }}</td>
+                                    <td>
+
+                                        {% for key, deuda in tipodeuda %}
+                                         {% if key==entity.tipoDeuda %}
+                                             {{ deuda }}
+                                         {% endif %}
+                                        {% endfor %}
+
+
+                                    </td>
+                                    <td>{{ entity.montoTotal }}</td>
+                                    <td>{{ entity.montoReducir }}</td>
+                                    <td>{{ entity.numeroCuotas }}</td>
+                                    <td>
+                                        {% if entity.montoRestante ==null %}
+                                           {{ entity.montoTotal }}
+                                        {% else %}
+                                            {{ entity.montoRestante }}
+                                        {% endif %}
+
+                                    </td>
+                                    <td>{% if entity.fechaInicio %}{{ entity.fechaInicio|date('Y-m-d') }}{% endif %}</td>
+                                    <td>{% if entity.pagado %}
+                                            <i class="glyphicon glyphicon-ok" title="Pagado"></i>
+                                        {% else %}
+                                            <i class="glyphicon glyphicon-remove" title="Pendiente"></i>
+
+
+                                        {% endif %}
+                                    </td>
+                                    <td>
+
+                                        <a class="btn btn-primary" id="linkedit" onclick="buscar('{{  entity.id }}')"
+                                           href="#"><i
+                                                    class="glyphicon glyphicon-pencil"></i>Editar</a>
+                                        <a class="btn btn-primary" href="{{ path('cdeudas_delete',{'id':entity.id}) }}"><i
+                                                    class="glyphicon glyphicon-trash"></i>Eliminar</a>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                        </div>
+                        {{ knp_pagination_render(pagination) }}
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+        </div>
+
+
+
+
+    </div>
+
+    {% endblock content %}
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

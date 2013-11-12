@@ -16,7 +16,7 @@
 								<th>Parentesco</th>
 								<th>Nombre</th>
 								<th>Edad</th>
-								<th>Ocupacion</th>
+								<th>Ocupación</th>
 								<th>Acciones</th>
 							</tr>
 						</thead>
@@ -28,27 +28,23 @@
 								<td><a href="{{ path('personadepende_edit', { 'id': entity.id }) }}">{{ entity.edad }}</a></td>
 								<td><a href="{{ path('personadepende_edit', { 'id': entity.id }) }}">{{ entity.ocupacion }}</a></td>
 								<td>
-								<ul>
-								   <!-- <li>
-										<a href="{{ path('personadepende_show', { 'id': entity.id }) }}">show</a>
-									</li> -->
-									<li>
-										<a href="{{ path('personadepende_edit', { 'id': entity.id }) }}">Editar</a>
-									</li>
-								</ul>
+                                    <div style="float: left">
+                                        <a class="btn btn-primary" href="{{ path('personadepende_edit', { 'id': entity.id }) }}">Editar</a>
+                                    </div>
+
 								</td>
 							</tr>
 						{% endfor %}
 						</tbody>
 					</table>
 
-						<a href="{{ path('personadepende_new',{ 'id_empleado': eEmpleado.id }) }}" class="btn btn-success">Nuevo</a>
+						<a href="{{ path('personadepende_new',{ 'id_empleado': eEmpleado.id }) }}" class="btn btn-primary">Adicionar</a>
 						</div>
 					</div>
                        
                     </div>
                     <div class="col-sm-3">
-					{{ macros.empleado_foto() }}
+					{{ macros.empleado_foto(eEmpleado) }}
 					{{ macros.menu_empleado('personadepende',eEmpleado) }}
                     </div>
                 {% endblock content %}

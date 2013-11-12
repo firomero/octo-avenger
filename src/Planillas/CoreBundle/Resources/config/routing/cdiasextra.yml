@@ -1,0 +1,33 @@
+cdiasextra:
+    pattern:  /
+    defaults: { _controller: "PlanillasCoreBundle:CDiasExtra:index" }
+
+cdiasextra_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CDiasExtra:show" }
+
+cdiasextra_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasCoreBundle:CDiasExtra:new" }
+
+cdiasextra_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasCoreBundle:CDiasExtra:create" }
+    requirements: { _method: post }
+
+cdiasextra_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CDiasExtra:edit" }
+
+cdiasextra_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CDiasExtra:update" }
+    requirements: { _method: post|put }
+
+cdiasextra_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CDiasExtra:delete" }
+    requirements: { _method: get|delete }
+ceditajaxdiasextra:
+    pattern: /buscar
+    defaults: { _controller: "PlanillasCoreBundle:CDiasExtra:editajax" }

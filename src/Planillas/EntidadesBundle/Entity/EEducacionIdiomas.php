@@ -29,7 +29,7 @@ class EEducacionIdiomas
     /**
      * @var decimal
      *
-     * @ORM\Column(name="porciento_idioma", type="decimal", nullable=true)
+     * @ORM\Column(name="porciento_idioma", type="decimal", nullable=false)
      */
     private $porientoIdioma;
 

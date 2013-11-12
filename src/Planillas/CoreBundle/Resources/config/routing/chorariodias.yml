@@ -1,0 +1,30 @@
+chorariodias:
+    pattern:  /
+    defaults: { _controller: "PlanillasCoreBundle:CHorarioDias:index" }
+
+chorariodias_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CHorarioDias:show" }
+
+chorariodias_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasCoreBundle:CHorarioDias:new" }
+
+chorariodias_create:
+    pattern:  /create
+    defaults: { _controller: "PlanillasCoreBundle:CHorarioDias:create" }
+    requirements: { _method: post }
+
+chorariodias_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CHorarioDias:edit" }
+
+chorariodias_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CHorarioDias:update" }
+    requirements: { _method: post|put }
+
+chorariodias_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CHorarioDias:delete" }
+    requirements: { _method: post|delete }

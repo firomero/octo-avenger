@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>EHistoriaSalud</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Ultimaenfermedad</th>
+                <td>{{ entity.ultimaEnfermedad }}</td>
+            </tr>
+            <tr>
+                <th>Fechaultimaenfermedad</th>
+                <td>{{ entity.fechaUltimaEnfermedad|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Fuma</th>
+                <td>{{ entity.fuma }}</td>
+            </tr>
+            <tr>
+                <th>Fumafrecuencia</th>
+                <td>{{ entity.fumaFrecuencia }}</td>
+            </tr>
+            <tr>
+                <th>Bebe</th>
+                <td>{{ entity.bebe }}</td>
+            </tr>
+            <tr>
+                <th>Bebefrecuencia</th>
+                <td>{{ entity.bebeFrecuencia }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('historiasalud') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('historiasalud_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

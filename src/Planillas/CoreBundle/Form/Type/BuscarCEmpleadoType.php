@@ -28,7 +28,10 @@ class BuscarCEmpleadoType extends AbstractType
                 'required' => false,
             ))
             ->add('cedula','text',array(
-                'label' => 'Cedula',
+                'label' => 'Cédula',
+                'required' => false,
+            ))
+            ->add('inactivo','checkbox',array(
                 'required' => false,
             ))
 

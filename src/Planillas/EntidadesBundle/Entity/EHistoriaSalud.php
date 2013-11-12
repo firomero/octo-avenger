@@ -73,14 +73,14 @@ class EHistoriaSalud
     /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="historia_salud")
      */
     private $empleado;
 
     /**
      * @var $juegosAzar Doctrine/Common/Collections/ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NJuegoAzar")
+     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NJuegoAzar", cascade={"persist"})
      * @ORM\JoinTable(name="e_historia_salud_juego_azar")
      */
     private $juegosAzar;
@@ -88,7 +88,7 @@ class EHistoriaSalud
     /**
      * @var $deportes Doctrine/Common/Collections/ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NDeportes")
+     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NDeportes", cascade={"persist"}, inversedBy="historias_salud")
      * @ORM\JoinTable(name="e_historia_salud_deportes")
      */
     private $deportes;
@@ -315,7 +315,7 @@ class EHistoriaSalud
      */
     public function addJuegosAzar(\Planillas\NomencladorBundle\Entity\NJuegoAzar $juegosAzar)
     {
-        $this->juegosAzar[] = $juegosAzar;
+        $this->juegosAzar->add($juegosAzar);
     
         return $this;
     }
@@ -343,12 +343,13 @@ class EHistoriaSalud
     /**
      * Add deportes
      *
-     * @param \Planillas\NomencladorBundle\Entity\NDeportes $deportes
+     * @param \Planillas\NomencladorBundle\Entity\NDeportes $deporte
      * @return EHistoriaSalud
      */
-    public function addDeporte(\Planillas\NomencladorBundle\Entity\NDeportes $deportes)
+    public function addDeporte(\Planillas\NomencladorBundle\Entity\NDeportes $deporte)
     {
-        $this->deportes[] = $deportes;
+        //$deporte->setHistoriasSalud($this);
+        $this->deportes->add($deporte);
     
         return $this;
     }

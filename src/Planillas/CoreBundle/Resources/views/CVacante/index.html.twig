@@ -9,7 +9,7 @@
 {% block content_content %}
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2 class="panel-title">Buscar Vacantes</h2>
+            <h2 class="panel-title">Buscar Vacante</h2>
         </div>
         <div class="panel-body">
             <form class="form-horizontal" action="{{ path('cvacante') }}"
@@ -27,7 +27,7 @@
                 </fieldset>
                 <fieldset>
                     <div class="btn-group">
-                        <button type="submit" name="btn_buscar" class="btn btn-success">Buscar</button>
+                        <button type="submit" name="btn_buscar" class="btn btn-default">Buscar</button>
 
                     </div>
                     <div class="btn-group">
@@ -62,7 +62,7 @@
                     <th>Trabajo</th>
                     <th>Nro.Plazas</th>
                     <th>Activo</th>
-                    <th>Descripcion</th>
+                    <th>Descripción</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -73,7 +73,14 @@
                         <td><a href="{{ path('cvacante_edit', { 'id': entity.id }) }}">{{ entity.trabajo }}</a></td>
 
                         <td>{{ entity.cantidadPlazas }}</td>
-                        <td>{{ entity.activo }}</td>
+                        <td>{% if entity.activo %}
+                            <i class="glyphicon glyphicon-ok" title="Activo"></i>
+                            {% else %}
+                            <i class="glyphicon glyphicon-remove" title="Inactivo"></i>
+
+
+                          {% endif %}
+                        </td>
 
                         <td>{{ entity.descripcion }}</td>
                         <td>
@@ -92,12 +99,6 @@
 
         </div>
     </div>
-
-
-  <form>
-
-     <input type="text" value="pingaa">
-  </form>
 
 
 {% endblock %}

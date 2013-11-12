@@ -1,0 +1,30 @@
+historiasalud:
+    pattern:  /{id_empleado}/histriasalud
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaSalud:index" }
+
+historiasalud_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaSalud:show" }
+
+historiasalud_new:
+    pattern:  /{id_empleado}/histriasalud/new
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaSalud:new" }
+
+historiasalud_create:
+    pattern:  /{id_empleado}/historiasalud/create
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaSalud:create" }
+    requirements: { _method: post }
+
+historiasalud_edit:
+    pattern:  /{id}/historiasalud/edit
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaSalud:edit" }
+
+historiasalud_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaSalud:update" }
+    requirements: { _method: post|put }
+
+historiasalud_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasEntidadesBundle:EHistoriaSalud:delete" }
+    requirements: { _method: post|delete }

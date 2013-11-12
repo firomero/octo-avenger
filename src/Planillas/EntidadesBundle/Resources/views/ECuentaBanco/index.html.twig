@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar Cuentas Banco
+{% endblock %}
+{% block content_content %}
+    {% for mensaje in app.session.flashbag.get('info') %}
+		<div class="alert alert-info">{{ mensaje }}</div>
+    {% endfor %}
+
+    <div class="row">
+        {% block content %}
+            <div class="col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                            <h2 class="panel-title">Bancos</h2>
+                    </div>        
+                            <div class="panel-body">
+                                <table class="table table-bordered table-hover table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Banco</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for entity in entities %}
+                                        <tr>
+                                            <td><a href="{{ path('cuentasbancos_edit', { 'id': entity.id }) }}">{{ entity.nombre }}</a></td>
+                                            <td>                                                    
+                                                <div style="float: left; padding-left: 10px">
+                                                {{ form_start(aDeleteForm[entity.id]) }}
+                                                {{ form_errors(aDeleteForm[entity.id]) }}
+                                                {{ form_end(aDeleteForm[entity.id]) }} 
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+
+                                   
+                                        <a class="btn btn-primary" href="{{ path('cuentasbancos_edit', { 'id': eEmpleado.id }) }}">
+                                            Adicionar
+                                        </a>
+                            </div>                    
+                </div>
+            </div>
+            <div class="col-sm-3">
+			    {{ macros.empleado_foto(eEmpleado) }}
+                {{ macros.menu_empleado('cuentasbancos',eEmpleado) }}
+            </div>
+        {% endblock content %}    
+    </div>
+    {% endblock %}

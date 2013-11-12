@@ -12,15 +12,13 @@ use Planillas\CoreBundle\Form\Type\CEmpleadoType;
  * CEmpleado controller.
  *
  */
-class CEmpleadoController extends Controller
-{
+class CEmpleadoController extends Controller {
 
     /**
      * Lists all CEmpleado entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
 
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
@@ -29,49 +27,58 @@ class CEmpleadoController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $aDatos = $form->getData(); //filter data
+            $this->get('session')->set('empleado.filtros',$aDatos);
+
         }
-        $result = $em->getRepository('PlanillasCoreBundle:CEmpleado')->filterEmpleado($aDatos);
+
+        if($request->get('query'))
+        {
+            $filtros= array();
+            $this->get('session')->set('empleado.filtros',$filtros);
+        }
+        $filtros=$this->get('session')->get('empleado.filtros');
+        $this->get('session')->set('empleado.page',$this->get('request')->query->get('page', 1));
+        $page=(int)$this->get('session')->get('empleado.page',$this->get('request')->query->get('page', 1));
+
+
+        //echo $page;exit;
+
+        $result = $em->getRepository('PlanillasCoreBundle:CEmpleado')->filterEmpleado($filtros);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $result, $this->get('request')->query->get('page', 1), 1
+                $result,$page , 10
         );
 
         return $this->render('PlanillasCoreBundle:CEmpleado:index.html.twig', array(
-            'pagination' => $pagination,
-            'form' => $form->createView()
+                    'pagination' => $pagination,
+                    'form' => $form->createView()
         ));
     }
-    public function updatePhotoAction(Request $request,$id)
-    {
+
+    public function updatePhotoAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id);
-        if(!$entity)
-        {
+        if (!$entity) {
             throw $this->createNotFoundException('Unable to find CEmpleado entity.');
         }
-        if($request->getMethod()=="POST")
-        {
-          $file=$request->files->get('empleado');
-          if($file)
-          {
-              $resultado=$this->get('core.empleado.manager')->uploadFoto($entity,$file['foto']);
-              //print_r($resultado);exit;
-              if($resultado)
-              {
-                  return $this->redirect($this->generateUrl('empleado_edit', array('id' => $entity->getId())));
-              }
-              else
-              {
-                  return $this->render('PlanillasCoreBundle:CEmpleado:foto.html.twig', array(
-                      'entity' => $entity,
-                  ));
-              }
-          }
-          print_r($file);exit;
+        if ($request->getMethod() == "POST") {
+            $file = $request->files->get('empleado');
+            if ($file) {
+                $resultado = $this->get('core.empleado.manager')->uploadFoto($entity, $file['foto']);
+
+                if ($resultado) {
+                    return $this->redirect($this->generateUrl('empleado_edit', array('id' => $entity->getId())));
+                } else {
+                    return $this->render('PlanillasCoreBundle:CEmpleado:foto.html.twig', array(
+                                'entity' => $entity,
+                    ));
+                }
+            }
+
         }
         return $this->render('PlanillasCoreBundle:CEmpleado:foto.html.twig', array(
-            'entity' => $entity,
+                    'entity' => $entity,
         ));
     }
 
@@ -79,23 +86,23 @@ class CEmpleadoController extends Controller
      * Creates a new CEmpleado entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new CEmpleado();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setActivo(true);
             $em->persist($entity);
             $em->flush();
-            $this->get('session')->getFlashBag()->add('info', 'Los datos han sido adicionados correctamente');
+            $this->get('session')->getFlashBag()->add('info', 'Los datos han sido guardados correctamente');
             return $this->redirect($this->generateUrl('empleado_edit', array('id' => $entity->getId())));
         }
-        $this->get('session')->getFlashBag()->add('danger', 'No se pudieron agregar los datos');
+        $this->get('session')->getFlashBag()->add('danger', 'No se pudieron guardar los datos');
         return $this->render('PlanillasCoreBundle:CEmpleado:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -106,14 +113,13 @@ class CEmpleadoController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(CEmpleado $entity)
-    {
+    private function createCreateForm(CEmpleado $entity) {
         $form = $this->createForm(new CEmpleadoType(true), $entity, array(
             'action' => $this->generateUrl('empleado_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Adicionar', 'attr' => array('class' => 'btn btn-success')));
+        $form->add('submit', 'submit', array('label' => 'Adicionar', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }
@@ -122,14 +128,13 @@ class CEmpleadoController extends Controller
      * Displays a form to create a new CEmpleado entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new CEmpleado();
         $form = $this->createCreateForm($entity);
 
         return $this->render('PlanillasCoreBundle:CEmpleado:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -137,8 +142,7 @@ class CEmpleadoController extends Controller
      * Finds and displays a CEmpleado entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id);
@@ -150,16 +154,15 @@ class CEmpleadoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasCoreBundle:CEmpleado:show.html.twig', array(
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing CEmpleado entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id);
@@ -172,10 +175,10 @@ class CEmpleadoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasCoreBundle:CEmpleado:edit.html.twig', array(
-            'entity' => $entity,
-            'eEmpleado' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'eEmpleado' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -186,9 +189,8 @@ class CEmpleadoController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(CEmpleado $entity)
-    {
-        $form = $this->createForm(new CEmpleadoType(), $entity);
+    private function createEditForm(CEmpleado $entity) {
+        $form = $this->createForm(new CEmpleadoType(false, $entity->getId()), $entity);
         return $form;
     }
 
@@ -196,8 +198,7 @@ class CEmpleadoController extends Controller
      * Edits an existing CEmpleado entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $manager = $this->getDoctrine()->getManager();
         $entity = $manager->getRepository('PlanillasCoreBundle:CEmpleado')->find($id);
 
@@ -206,7 +207,7 @@ class CEmpleadoController extends Controller
         }
 
         //$deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new CEmpleadoType(), $entity);
+        $editForm = $this->createEditForm($entity);
 
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
@@ -215,12 +216,15 @@ class CEmpleadoController extends Controller
             $this->get('session')->getFlashBag()->add('info', 'Se han actualizado los datos correctamente');
             return $this->redirect($this->generateUrl('empleado_index', array('id' => $id)));
         }
+        //print_r($editForm->getErrors());
+        //exit;
+
 
 
         return $this->render('PlanillasCoreBundle:CEmpleado:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            //'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                        //'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -228,8 +232,7 @@ class CEmpleadoController extends Controller
      * Deletes a CEmpleado entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -240,7 +243,7 @@ class CEmpleadoController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find CEmpleado entity.');
             }
-
+            $entity->setActivo(false);
             $em->remove($entity);
             $em->flush();
         }
@@ -255,26 +258,44 @@ class CEmpleadoController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('empleado_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
+                        ->setAction($this->generateUrl('empleado_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm();
     }
 
     /**
      * funcion que busca un determinado empleado
      */
-    public function findAction(Request $request)
-    {
+    public function findAction(Request $request) {
         $form = $this->createForm(new CEmpleadoType(), new CEmpleado());
         $form->handleRequest($request);
         $data = $form->getData();
 
         //print_r($data);exit;
         return $form;
+    }
+
+    /*Filtros*/
+    protected function  getFiltros()
+    {
+        return $this->get('session')->get('empleado.filtros',array());
+        //return $this->getUser()->getAttribute('plan_de_estudio.filters', $this->configuration->getFilterDefaults(), 'admin_module');
+    }
+    protected  function setFiltros($filtros)
+    {
+        $this->get('session')->get('empleado.filtros',$filtros);
+    }
+    protected function setPage($page)
+    {
+        $this->getUser()->setAttribute('empleado.page', $page);
+    }
+
+    protected function getPage()
+    {
+        return $this->getUser()->getAttribute('empleado.page', 1);
     }
 
 }

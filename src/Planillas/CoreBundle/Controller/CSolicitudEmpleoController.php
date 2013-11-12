@@ -32,10 +32,11 @@ class CSolicitudEmpleoController extends Controller
 
             $aDatos = $form->getData(); //filter data
         }
+        //print_r($form->getErrors());exit;
         $result = $em->getRepository('PlanillasCoreBundle:CSolicitudEmpleo')->filterSolicitudEmpleo($aDatos);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $result, $this->get('request')->query->get('page', 1), 1
+            $result, $this->get('request')->query->get('page', 1), 10
         );
 
         return $this->render('PlanillasCoreBundle:CSolicitudEmpleo:index.html.twig', array(

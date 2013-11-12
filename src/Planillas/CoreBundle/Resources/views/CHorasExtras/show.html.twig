@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>CHorasExtras</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Cantidadhoras</th>
+                <td>{{ entity.cantidadHoras }}</td>
+            </tr>
+            <tr>
+                <th>Motivo</th>
+                <td>{{ entity.motivo }}</td>
+            </tr>
+            <tr>
+                <th>Fechahorasextras</th>
+                <td>{{ entity.fechaHorasExtras|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('chorasextras') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('chorasextras_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

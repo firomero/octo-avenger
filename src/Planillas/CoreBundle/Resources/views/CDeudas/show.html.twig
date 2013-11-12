@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>CDeudas</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Montototal</th>
+                <td>{{ entity.montoTotal }}</td>
+            </tr>
+            <tr>
+                <th>Montoreducir</th>
+                <td>{{ entity.montoReducir }}</td>
+            </tr>
+            <tr>
+                <th>Numerocuotas</th>
+                <td>{{ entity.numeroCuotas }}</td>
+            </tr>
+            <tr>
+                <th>Montorestante</th>
+                <td>{{ entity.montoRestante }}</td>
+            </tr>
+            <tr>
+                <th>Fechainicio</th>
+                <td>{{ entity.fechaInicio|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('cdeudas') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('cdeudas_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

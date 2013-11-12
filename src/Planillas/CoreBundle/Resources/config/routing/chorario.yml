@@ -1,0 +1,30 @@
+chorario:
+    pattern:  /{id_empleado}/horario
+    defaults: { _controller: "PlanillasCoreBundle:CHorario:index" }
+
+chorario_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CHorario:show" }
+
+chorario_new:
+    pattern:  /{id_empleado}/new
+    defaults: { _controller: "PlanillasCoreBundle:CHorario:new" }
+
+chorario_create:
+    pattern:  /{id_empleado}/create
+    defaults: { _controller: "PlanillasCoreBundle:CHorario:create" }
+    requirements: { _method: post }
+
+chorario_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CHorario:edit" }
+
+chorario_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CHorario:update" }
+    requirements: { _method: post|put }
+
+chorario_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CHorario:delete" }
+    requirements: { _method: post|delete }

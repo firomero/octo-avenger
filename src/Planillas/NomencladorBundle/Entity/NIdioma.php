@@ -24,7 +24,7 @@ class NIdioma
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=32, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=32, nullable=false)
      */
     private $nombre;
 

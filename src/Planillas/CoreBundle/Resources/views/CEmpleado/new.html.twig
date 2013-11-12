@@ -1,9 +1,15 @@
 {% extends '::base.html.twig' %}
 {% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
 {% block title %}
-    Adiciona Empleado
+    Agregar Empleado
 {% endblock %}
-
+{% block foot_script %}
+    {{ parent() }}
+     <script src="{{ asset('bundles/planillastemplate/js/jqBootstrapValidation.js') }}"></script>
+     <script type="text/javascript">
+         $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+     </script>
+{% endblock %}
 {% block content_content %}
 
     <div class="row">
@@ -21,7 +27,7 @@
 
                             {{ form_errors(form) }}
                             <div class="row-fluid">
-                                <div class="col-lg-4">{{ form_row(form.cedula) }}</div>
+                                <div class="col-lg-4">{{ form_row(form.cedula) }}<p class="help-block"></p></div>
                                 <div class="col-lg-4">{{ form_row(form.nombre) }}</div>
                                 <div class="col-lg-4">{{ form_row(form.primerApellido) }}</div>
                                 <div class="col-lg-4">{{ form_row(form.segundoApellido) }}</div>
@@ -33,7 +39,6 @@
                         
 
                         <form>
-                            
                 </div>
             </div>
            

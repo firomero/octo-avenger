@@ -1,16 +1,25 @@
 {% extends '::base.html.twig' %}
-{% block head_script %}
-    {{ parent() }}
-   
 
-{% endblock %}
 {% block headline %}
     Gestionar Empleados
 {% endblock headline %}
 {% block content_content %}
+<script>
+
+    /*window.addEvent('domready', function() {
+        //jQuery.noConflict();
+
+
+    });*/
+
+    /*$(document).ready(function(){
+     alert("holaa");
+
+    })*/
+</script>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title">Información del Empleado</h2>
+        <h2 class="panel-title">Buscar Empleado</h2>
     </div>
     <div class="panel-body">
         <form class="form-horizontal" action="{{ path('empleado_index') }}"
@@ -25,25 +34,27 @@
                     <div class="col-lg-4">{{ form_row(form.nombre) }}</div>
                     <div class="col-lg-4">{{ form_row(form.primerApellido) }}</div>
                     <div class="col-lg-4">{{ form_row(form.segundoApellido) }}</div>
-                    <div class="col-lg-4">{{ form_rest(form) }}</div>
+                    <div class="col-lg-4">{{ form_widget(form.inactivo) }}</div>
+                    {{ form_rest(form) }}
                 </div>
                 
             </fieldset>
 			    <fieldset>
+                    <legend></legend>
 				 <div class="btn-group">
 				   <button type="submit" name="btn_buscar" class="btn btn-primary">Buscar</button>
 				   
 				  </div>
 				  <div class="btn-group">
 				  
-				   <button type="submit" id="reiniciar" name="btn_reiniciar" class="btn btn-default">Reiniciar</button>
-				  </div>
+				   <a href="{{ path('empleado_index') }}?query=reset"  id="reiniciar" name="btn_reiniciar" class="btn btn-default">Reiniciar</a>				  </div>
 				</fieldset>  
-				      
+			
+                 </form>
                 </div>   
-            <form>
+            
     </div>
-</div>
+
 
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -51,22 +62,25 @@
                     <!--<button type="button" id="nuevo_empleado" class="btn btn-default">Nuevo</button>
                     <button type="button" id="eliminar_empleado" class="btn btn-default">Eliminar</button>
                     <i class="glyphicon glyphicon-search"></i>-->
-                    <a class="btn btn-primary" href="{{ path('empleado_new') }}">
-                        Nuevo
-                    </a>
+                    Listado de empleados
                 </div>
             </h3>
         </div>
         <div class="panel-body">
+            <a class="btn btn-primary" href="{{ path('empleado_new') }}">
+                Nuevo
+            </a>
+            <hr>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
 
-                    <th>Cedula</th>
-                    <th>Nombre</th>
-                    <th>Primer Apellido</th>
-                    <th>Segundo Apellido</th>
-                    <th>Foto</th>
+                    <th>Cédula</th>
+                    <th>Nombre Apellidos</th>
+
+
+                    <th>Supervisor</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -74,12 +88,20 @@
                 {% for entity in pagination %}
                     <tr>
                         <td><a href="{{ path('empleado_edit', { 'id': entity.id }) }}">{{ entity.cedula }}</a></td>
-                        <td><a href="{{ path('empleado_edit', { 'id': entity.id }) }}">{{ entity.nombre }}</a></td>
+                        <td><a href="{{ path('empleado_edit', { 'id': entity.id }) }}">{{ entity.nombre }} {{ entity.primerApellido }} {{ entity.segundoApellido }}</a></td>
 
-                        <td>{{ entity.primerApellido }}</td>
-                        <td>{{ entity.segundoApellido }}</td>
 
-                        <td>{{ entity.foto }}</td>
+
+
+                        <td>{{ entity.supervisor }}</td>
+                        <td>{% if entity.activo %}
+                                <i class="glyphicon glyphicon-ok" title="Activo"></i>
+                            {% else %}
+                                <i class="glyphicon glyphicon-remove" title="Inactivo"></i>
+
+
+                            {% endif %}
+                        </td>
                         <td>
                             <a class="btn btn-primary" href="{{ path('empleado_edit', { 'id': entity.id }) }}"><i class="glyphicon glyphicon-trash"></i>Eliminar</a>
                             
@@ -97,9 +119,4 @@
 
         </div>
     </div>
-
-
-
-
-
-        {% endblock %}
+{% endblock %}

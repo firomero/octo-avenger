@@ -6,7 +6,21 @@
 {% block headline %}
     {{ headline }}
 {% endblock headline %}
+{% block foot_script %}
+    {{ parent() }}
+    <script>
+        $(function() {
+
+            $('#planillas_corebundle_buscar_solicitud_fecha').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+        });
+    </script>
+{% endblock %}
 {% block content_content %}
+
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h2 class="panel-title">Buscar Solicitud</h2>
@@ -20,9 +34,11 @@
                     <div class="row-fluid">
                         <div class="col-lg-4">{{ form_row(form.nombre) }}</div>
                         <div class="col-lg-4">{{ form_row(form.apellidos) }}</div>
+                        <div class="col-lg-4">{{ form_row(form.fecha) }}</div>
 
 
                     </div>
+                    {{ form_rest(form) }}
 
                 </fieldset>
 
@@ -54,22 +70,24 @@
                     <!--<button type="button" id="nuevo_empleado" class="btn btn-default">Nuevo</button>
                     <button type="button" id="eliminar_empleado" class="btn btn-default">Eliminar</button>
                     <i class="glyphicon glyphicon-search"></i>-->
-                    <a class="btn btn-primary" href="{{ path('csolicitudempleo_new') }}">
-                        Agregar
-                    </a>
+                 Listado de Solicitudes
                 </div>
             </h3>
         </div>
         <div class="panel-body">
+            <a class="btn btn-primary" href="{{ path('csolicitudempleo_new') }}">
+                Agregar
+            </a>
+            <hr>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
 
 
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
+                    <th>Nombre y Apellidos</th>
+
                     <th>Salario</th>
-                    <th>Telefono</th>
+                    <th>Teléfono</th>
                     <th>Correo</th>
                     <th>Fecha</th>
                     <th>Acciones</th>
@@ -78,14 +96,14 @@
                 <tbody>
                 {% for entity in pagination %}
                     <tr>
-                        <td><a href="{{ path('csolicitudempleo_edit', { 'id': entity.id }) }}">{{ entity.nombre }}</a></td>
-                        <td><a href="{{ path('csolicitudempleo_edit', { 'id': entity.id }) }}">{{ entity.apellidos }}</a></td>
+                        <td><a href="{{ path('csolicitudempleo_edit', { 'id': entity.id }) }}">{{ entity.nombre }} {{ entity.apellidos }}</a></td>
+
 
                         <td>{{ entity.salario }}</td>
                         <td>{{ entity.telefono }}</td>
 
                         <td>{{ entity.correo }}</td>
-                        <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if entity.fecha %}{{ entity.fecha|date('Y-m-d') }}{% endif %}</td>
                         <td>
                             <a class="btn btn-primary"
                                href="{{ path('csolicitudempleo_edit', { 'id': entity.id }) }}"><i

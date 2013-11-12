@@ -3,7 +3,7 @@
 namespace Planillas\EntidadesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * EFamilia
  *
@@ -44,15 +44,14 @@ class EFamilia
 
     /**
      * @var integer
-     *
-     * @ORM\Column(name="edad", type="integer", nullable=true)
+     * @ORM\Column(name="edad", type="integer", nullable=false)
      */
     private $edad;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=50, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=50, nullable=false)
      */
     private $nombre;
 

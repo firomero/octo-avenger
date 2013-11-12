@@ -25,13 +25,14 @@ class ELicencia
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="licencias")
+     * @ORM\JoinColumn(name="id", referencedColumnName="id", nullable=false)
      */
     private $empleado;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="vence", type="date", nullable=true)
+     * @ORM\Column(name="vence", type="date", nullable=false)
      */
     private $vence;
 

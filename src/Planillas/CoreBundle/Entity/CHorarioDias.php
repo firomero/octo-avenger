@@ -31,21 +31,21 @@ class CHorarioDias
     /**
      * @var string
      *
-     * @ORM\Column(name="dia", type="string", length=32, nullable=true)
+     * @ORM\Column(name="dia", type="string", length=32, nullable=false)
      */
     private $dia;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="hora_inicio", type="time", nullable=true)
+     * @ORM\Column(name="hora_inicio", type="time", nullable=false)
      */
     private $horaInicio;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="hora_fin", type="time", nullable=true)
+     * @ORM\Column(name="hora_fin", type="time", nullable=false)
      */
     private $horaFin;
 
@@ -103,6 +103,7 @@ class CHorarioDias
      */
     public function getHoraInicio()
     {
+
         return $this->horaInicio;
     }
 
@@ -114,6 +115,7 @@ class CHorarioDias
      */
     public function setHoraFin($horaFin)
     {
+
         $this->horaFin = $horaFin;
     
         return $this;
@@ -150,5 +152,10 @@ class CHorarioDias
     public function getHorario()
     {
         return $this->horario;
+    }
+
+    public function __toString()
+    {
+        return $this->dia;//.// ' './/$this->horaInicio->format('Y-m-d');
     }
 }

@@ -55,10 +55,10 @@ class EFamiliaController extends Controller
         }
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        $em = $this->getDoctrine()->getManager();
+        $eEmpleado= $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($idempleado);
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $eEmpleado= $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($idempleado);
+            
             $entity->setEmpleado($eEmpleado);
             $em->persist($entity);
             $em->flush();
@@ -69,6 +69,7 @@ class EFamiliaController extends Controller
         return $this->render('PlanillasEntidadesBundle:EFamilia:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
+			'eEmpleado'=>$eEmpleado
         ));
     }
 
@@ -86,7 +87,7 @@ class EFamiliaController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-success')));
+        //$form->add('submit', 'submit', array('label' => 'Crear','attr'=>array('class'=>'btn btn-success')));
 
         return $form;
     }
@@ -242,7 +243,7 @@ class EFamiliaController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('familia_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Eliminar','attr'=>array('class'=>'btn btn-success')))
+            ->add('submit', 'submit', array('label' => 'Eliminar','attr'=>array('class'=>'btn btn-primary')))
             ->getForm()
         ;
     }
