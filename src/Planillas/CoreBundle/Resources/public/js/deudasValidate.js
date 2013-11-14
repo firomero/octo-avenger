@@ -44,12 +44,12 @@ $(document).ready(function() {
         rules:{
             fecha:{ required: true }
         },
-        messages:{ required: "Email is required" }
+        messages:{ required: " " }
     };
     validationParams['rules'][fechaInicio] = { required: true };
-    validationParams['messages'][fechaInicio] = { required: 'Necesario' };
+    validationParams['messages'][fechaInicio] = { required: '' };
     validationParams['rules'][montoTotal] = { required: true };
-    validationParams['messages'][montoTotal] = { required: 'Necesario' };
+    validationParams['messages'][montoTotal] = { required: '' };
     /*validationParams['rules'][fecha] = { required: true };
     validationParams['messages'][fecha] = { required: 'Necesario' };
     validationParams['rules'][fecha] = { required: true };

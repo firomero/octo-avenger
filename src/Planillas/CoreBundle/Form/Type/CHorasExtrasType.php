@@ -17,7 +17,7 @@ class CHorasExtrasType extends AbstractType
         $builder
             ->add('cantidadHoras')
             ->add('motivo','textarea')
-            ->add('fechaHorasExtras')
+            ->add('fechaHorasExtras','date',array('attr'=>array('id'=>'datetimepickercomienzo'),'widget'=>'single_text','label'=>'Fecha Inicio'))
             ->add('empleado',null,array('required'=>true))
         ;
     }
