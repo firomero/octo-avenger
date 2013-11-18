@@ -23,7 +23,7 @@ class CEmpleadoType extends AbstractType {
         ->add('nombre')
         ->add('segundoApellido')
         ->add('primerApellido')
-        ->add('cedula','number',array('label'=>'Cédula'))
+        ->add('cedula','text',array('label'=>'Cédula'))
         ->add('tallaCalzado')
         ->add('tallaPantalon')
         ->add('tallaCamisa')
