@@ -44,7 +44,8 @@ class CEmpleadoRepository extends  EntityRepository {
                 $sql.=' emp.segundoApellido LIKE \'%'.$filtros['segundoApellido'].'%\'';
 
             }
-            if(isset($filtros['inactivo']))
+            ;
+            if(isset($filtros['inactivo']) && $filtros['inactivo']!=null)
             {
                 $sql.=($case==true)?" AND ":" WHERE ";
                 $sql.=' emp.activo =0';
@@ -54,6 +55,7 @@ class CEmpleadoRepository extends  EntityRepository {
 
             $sql .=' ORDER BY emp.id DESC';
             $query = $this->_em->createQuery($sql);
+
 
             return $query->getResult();
         }catch (NoResultException $e){

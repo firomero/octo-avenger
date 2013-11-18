@@ -27,6 +27,7 @@ class CEmpleadoController extends Controller {
         $form->handleRequest($request);
         if ($form->isValid()) {
             $aDatos = $form->getData(); //filter data
+
             $this->get('session')->set('empleado.filtros',$aDatos);
 
         }
@@ -290,12 +291,12 @@ class CEmpleadoController extends Controller {
     }
     protected function setPage($page)
     {
-        $this->getUser()->setAttribute('empleado.page', $page);
+        $this->get('session')->set('empleado.page', $page);
     }
 
     protected function getPage()
     {
-        return $this->getUser()->getAttribute('empleado.page', 1);
+        $this->get('session')->set('empleado.page', 1);
     }
 
 }
