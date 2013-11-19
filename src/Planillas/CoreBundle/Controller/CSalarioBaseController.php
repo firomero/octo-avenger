@@ -75,7 +75,7 @@ class CSalarioBaseController extends Controller
             'method' => 'POST',
         ));
         //
-        $form->add('submit', 'submit', array('label' => 'Guardar', 'attr' => array('class' => 'btn btn-success')));
+        $form->add('submit', 'submit', array('label' => 'Guardar', 'attr' => array('class' => 'btn btn-primary')));
 
         return $form;
     }

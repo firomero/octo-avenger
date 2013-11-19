@@ -4,58 +4,201 @@
     Sistema de Planillas: Agregar Componente Salarial
 {% endblock %}
 {% block headline %}
-  Gestionar Componentes
+    Gestionar Componentes
+{% endblock %}
+{% block foot_script %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function () {
+
+           /* $('planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').focusout(function() {
+
+
+
+
+
+
+            })*/
+
+
+
+
+            $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+            $('#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+            valdefaul = $('#planillas_entidadesbundle_ecomponentessalariales_componente').val();
+            if (valdefaul == 1) {
+                $("#collapseOne").collapse('show');
+            }
+            else {
+                $("#collapseTwo").collapse('show')
+            }
+            $('#planillas_entidadesbundle_ecomponentessalariales_componente').change(function (value) {
+                var val = $(this).val();
+                if (val == 1) {
+                    $("#collapseOne").collapse('show');
+                    $("#collapseTwo").collapse('hide')
+
+
+                }
+                else {
+                    $("#collapseOne").collapse('hide');
+                    $("#collapseTwo").collapse('show');
+
+                }
+
+            })
+
+        })
+        function validateForm(){
+            valdefaulext = $('#planillas_entidadesbundle_ecomponentessalariales_componente').val();
+            if (valdefaulext == 1) { //bonificacion
+               // $('#planillas_entidadesbundle_ecomponentessalariales_cantidad').val()
+
+            }
+            else {//rebajo
+
+            }
+
+        }
+    </script>
 {% endblock %}
 {% block content_content %}
-    
-   {% for mensaje in app.session.flashbag.get('info') %}
-    <div class="alert alert-info">{{ mensaje }}</div>
-   {% endfor %}
-    
+
+    {% for mensaje in app.session.flashbag.get('info') %}
+        <div class="alert alert-info">{{ mensaje }}</div>
+    {% endfor %}
+
     <div class="row">
-     {% block content %} 
-         <div class="col-lg-9">
-          <div class="panel panel-default">
-            <div class="panel-heading"> <!-- Encabezado panel central -->
-                <h2 class="panel-title">Agregar Componente Salarial</h2>
-            </div>
-            <div class="panel-body">
-                {{ form_start(form) }}
-               <!-- <form class="form-horizontal" action="{# path('cursos_create') #}"
+        {% block content %}
+            <div class="col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading"> <!-- Encabezado panel central -->
+                        <h2 class="panel-title">Agregar Componente Salarial</h2>
+                    </div>
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <!-- <form class="form-horizontal" action="{# path('cursos_create') #}"
                         method="post" {{ form_enctype(form) }}>  -->
-					 {{ form_errors(form) }}
+                        {{ form_errors(form) }}
+
                         <fieldset>
                             <legend></legend>
-                           
+
                             <div class="row-fluid">
-                                <div class="col-lg-5">{{ form_row(form.componente) }}</div>
-                                <div class="col-lg-5">{{ form_row(form.cantidad) }}</div>
-                                <div class="col-lg-5">{{ form_row(form.moneda) }}</div>
-								
+                                <div class="col-lg-6">{{ form_row(form.componente) }}</div>
+
+
                             </div>
                         </fieldset>
-						 
-						 <fieldset>
+                        <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        Bonificaciones
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <legend></legend>
+
+                                            <div class="row-fluid">
+
+                                                <div class="col-lg-6">{{ form_row(form.cantidad) }}</div>
+                                                <div class="col-lg-6">{{ form_row(form.moneda) }}</div>
+
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend></legend>
+
+                                            <div class="row-fluid">
+                                                <div class="col-lg-6">{{ form_row(form.fechaVencimiento) }}</div>
+                                                <div class="col-lg-6">{{ form_row(form.descripcion) }}</div>
+
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="panel-group" id="accordion1">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        Deudas
+
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <fieldset>
+                                            <div class="row-fluid">
+                                                <div class="col-lg-4">{{ form_row(form.tipoDeuda) }}</div>
+                                                <div class="col-lg-4"><div class="noclass" id="divfechainicio">{{ form_row(form.fechaInicio) }}</div></div>
+                                                <div class="col-lg-4">{{ form_row(form.pagado) }}</div>
+
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset>
+                                            <legend></legend>
+                                            <div class="row-fluid">
+
+                                                <div class="col-lg-4"><div class="noclass" id="divmontototal">{{ form_row(form.montoTotal) }}</div></div>
+                                                <div class="col-lg-4"><div class="noclass" id="divmontoReducir">{{ form_row(form.montoReducir) }}</div></div>
+                                                <div class="col-lg-4"><div class="noclass" id="divnumercuotas">{{ form_row(form.numeroCuotas) }}</div></div>
+
+                                            </div>
+
+                                        </fieldset>
+
+
+
+
+
+
+                                        {{ form_rest(form) }}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <fieldset>
                             <legend></legend>
-                           
-                            <div class="row-fluid">
-							    <div class="col-lg-4">{{form_label(form.fechaVencimiento,'Vencimiento')}}{{ form_widget(form.fechaVencimiento) }}</div>
-                                <div class="col-lg-6">{{ form_row(form.descripcion) }}</div>
-                                
+                            <div class="btn-group">
+                                <button type="submit" id="btn_actualizar" name="btn_actualizar" class="btn btn-primary">Crear</button>
+
+                            </div>
+                            <div class="btn-group">
+                                <a href="{{ path('salariobase_new',{'id_empleado':entity.empleado.id})}}" class="btn btn-default">Regresar</a>
+
                             </div>
                         </fieldset>
-						<hr/>
-                    {{ form_rest(form) }}
-                    {{ form_end(form) }}    
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
             </div>
-          </div>          
-         </div>  
-         <div class="col-sm-3"> <!-- Menu derecho de empleado -->
-		 {{ macros.empleado_foto(eEmpleado) }}
-	     {{ macros.menu_empleado('sueldo',eEmpleado) }}
-         </div>
-     {% endblock content %} 
-    </div>     
+            <div class="col-sm-3"> <!-- Menu derecho de empleado -->
+                {{ macros.empleado_foto(eEmpleado) }}
+                {{ macros.menu_empleado('sueldo',eEmpleado) }}
+            </div>
+        {% endblock content %}
+    </div>
 {% endblock %}
 
 

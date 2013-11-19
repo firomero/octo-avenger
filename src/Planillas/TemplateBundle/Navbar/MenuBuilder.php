@@ -27,7 +27,7 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         $menu->addChild('Ausencias', array('route' => 'causencias'));
         $menu->addChild('Horas Extras', array('route' => 'chorasextras'));
         $menu->addChild('Incapacidades', array('route' => 'cincapacidades'));
-        $menu->addChild('Deudas', array('route' => 'cdeudas'));
+        //$menu->addChild('Deudas', array('route' => 'cdeudas'));
         $menu->addChild('Días Extras', array('route' => 'cdiasextra'));
         
         //$menu->addChild('Cursos', array('route' => 'cursos'));

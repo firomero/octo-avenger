@@ -21,10 +21,16 @@ class EComponentesSalarialesType extends AbstractType
     {
         $builder
             ->add('componente','choice',array('choices'=>self::componentesChoices()))
-            ->add('cantidad')
             ->add('moneda','choice',array('choices'=>self::monedaChoices()))
-            ->add('descripcion','textarea')
-            ->add('fechaVencimiento')
+            ->add('tipoDeuda','choice',array('choices'=>array('Uniformes','Sanciones','Préstamos')))
+            ->add('cantidad')
+            ->add('montoTotal'/*'money'*/)
+            ->add('montoReducir'/*'money'*/)
+            ->add('numeroCuotas')
+            ->add('pagado','choice',array('choices'=>array('No pagado','Pagado')))
+            ->add('fechaInicio','date',array('required'=>false,'attr'=>array('id'=>'datetimepickeriniciodeudas'),'widget'=>'single_text','label'=>'Inicio de pago'))
+            ->add('descripcion','textarea',array('required'=>false))
+            ->add('fechaVencimiento','date',array('required'=>false,'attr'=>array('id'=>'datetimepickerfechavencimiento'),'widget'=>'single_text','label'=>'Vencimiento'))
             ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))
         ;
 	    if($this->bDestruyeEmpleado)

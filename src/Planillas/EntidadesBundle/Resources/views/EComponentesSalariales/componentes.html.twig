@@ -17,7 +17,13 @@
                         <td><a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">{%if entitys.componente==0%}Rebajo{% else %}Bonificacion{%endif%}</a></td>{#esto hay que cambiarlo#}
                         <td>{{entitys.fechaVencimiento|date('Y-m-d')}}</a></td>
                         <td>{% if entitys.moneda==0%}Colon{% else %}USD{%endif%}</td>
-						<td>{{ entitys.cantidad }}</td>
+						<td>
+                            {% if entitys.componente ==0 %}
+                            {{ entitys.montoTotal }}
+                            {% else %}
+                                {{ entitys.cantidad }}
+                            {% endif %}
+                        </td>
                         
 						<td>{{ entitys.descripcion }}</td>
 						<td>
