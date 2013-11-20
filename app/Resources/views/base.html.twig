@@ -79,24 +79,20 @@
     {% endblock container %}
 
     {% block foot_script %}
-        {% javascripts 
-        '@PlanillasTemplateBundle/Resources/public/js/jquery-1.10.2.min.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/tooltip.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/affix.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/alert.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/button.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/carousel.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/collapse.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/dropdown.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/modal.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/popover.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/scrollspy.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/tab.js'
-        '@MopaBootstrapBundle/Resources/bootstrap/js/transition.js'
-        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
-        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-        '@MopaBootstrapBundle/Resources/public/js/eyecon-bootstrap-datepicker.js'
-        %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/js/jquery-1.10.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/tooltip.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/affix.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/alert.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/button.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/carousel.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/collapse.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/dropdown.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/modal.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/popover.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/scrollspy.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/tab.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/transition.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/mopabootstrap/js/mopabootstrap-collection.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/mopabootstrap/js/mopabootstrap-subnav.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/mopabootstrap/js/eyecon-bootstrap-datepicker.js') }}"></script>
     {% endblock foot_script %}
