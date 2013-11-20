@@ -314,9 +314,9 @@ class EComponentesSalarialesController extends Controller
             if ((int)$entity->getMontoTotal() <= 0 || $entity->getMontoTotal() == "") {
                 return "invalidmontotal";
             }
-            if ((int)$entity->getMontoReducir() == "") {
+            /*if ((int)$entity->getMontoReducir() == "") {
                 return "invalidmonreducir";
-            }
+            }*/
             if ($entity->getNumeroCuotas() == "") {
                 return "invalidmontotal";
             }

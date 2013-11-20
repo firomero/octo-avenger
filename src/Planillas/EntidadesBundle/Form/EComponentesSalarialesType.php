@@ -25,7 +25,7 @@ class EComponentesSalarialesType extends AbstractType
             ->add('tipoDeuda','choice',array('choices'=>array('Uniformes','Sanciones','Préstamos')))
             ->add('cantidad')
             ->add('montoTotal'/*'money'*/)
-            ->add('montoReducir'/*'money'*/)
+            ->add('montoReducir','hidden')
             ->add('numeroCuotas')
             ->add('pagado','choice',array('choices'=>array('No pagado','Pagado')))
             ->add('fechaInicio','date',array('required'=>false,'attr'=>array('id'=>'datetimepickeriniciodeudas'),'widget'=>'single_text','label'=>'Inicio de pago'))
