@@ -75,6 +75,12 @@ class EComponentesSalariales
      */
     private $montoReducir;
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="periodo_pago", type="integer", nullable=true)
+     */
+    private $periodoPagoDeuda;
+    /**
      * @var float
      *
      * @ORM\Column(name="numero_cuotas", type="decimal", scale=2, nullable=true)
@@ -152,6 +158,7 @@ class EComponentesSalariales
         return $this;
     }
 
+
     /**
      * Get cantidad
      *
@@ -185,6 +192,28 @@ class EComponentesSalariales
         return $this->moneda;
     }
 
+    /**
+     * Set periodoPagoDeuda
+     *
+     * @param integer periodoPagoDeuda
+     * @return EComponentesSalariales
+     */
+    public function setPeriodoPagoDeuda($periodoPagoDeuda)
+    {
+        $this->periodoPagoDeuda = $periodoPagoDeuda;
+
+        return $this;
+    }
+
+    /**
+     * Get periodoPagoDeuda
+     *
+     * @return integer
+     */
+    public function getPeriodoPagoDeuda()
+    {
+        return $this->periodoPagoDeuda;
+    }
     /**
      * Set descripcion
      *

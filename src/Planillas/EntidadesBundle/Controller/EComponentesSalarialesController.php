@@ -356,6 +356,7 @@ class EComponentesSalarialesController extends Controller
                 $entity->setFechaInicio(null);
                 $entity->setMoneda(0);
                 $entity->setMontoReducir(null);
+                $entity->setPeriodoPagoDeuda(null);
                 $entity->setMontoTotal(null);
                 $entity->setMontoRestante(null);
                 $entity->setPagado(null);
