@@ -20,7 +20,7 @@ class CSalarioBaseController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
-        //$entities = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->findByPagado(array('pagado'=>0));//los no pagados
+        $entities = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->findByPagado(array('pagado'=>0));//los no pagados
 
         return $this->render('PlanillasCoreBundle:CSalarioBase:index.html.twig', array(
                     'entities' => $entities,

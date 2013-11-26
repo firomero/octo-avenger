@@ -326,6 +326,7 @@ class EComponentesSalarialesController extends Controller {
                         {
                             $total+=$resto;
                         }
+                        //print_r($entity->getPagado());exit;
                         $myentity = new EComponentesSalariales();
                         $myentity->setEmpleado($entity->getEmpleado());
                         $myentity->setComponente($entity->getComponente());
@@ -333,6 +334,7 @@ class EComponentesSalarialesController extends Controller {
                         $myentity->setMontoTotal($total);
                         $myentity->setNumeroCuotas(1);
                         $myentity->setCantidad(null);
+                        $myentity->setPagado($entity->getPagado());
                         $myentity->setFechaVencimiento(null);
                         $myentity->setMontoRestante($total);
                         $manager->persist($myentity);
