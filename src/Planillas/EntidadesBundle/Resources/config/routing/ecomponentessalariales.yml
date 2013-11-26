@@ -11,7 +11,7 @@ ecomponentessalariales_new:
     defaults: { _controller: "PlanillasEntidadesBundle:EComponentesSalariales:new" }
 
 ecomponentessalariales_create:
-    pattern:  /{id_empleado}/componentes/create
+    pattern:  /{id_empleado}/componentes/create/more
     defaults: { _controller: "PlanillasEntidadesBundle:EComponentesSalariales:create" }
     requirements: { _method: post }
 

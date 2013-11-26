@@ -2,12 +2,13 @@
                 <thead>
                 <tr>
 
-                    <th>Componente</th>
+                    <th>Tipo C</th>
                     <th>Vence</th>
+                   
                     <th>Moneda</th>
-                    <th>Cantidad</th>
-                    <th>Descripcion</th>
-					<th>Accion</th>
+                    <th>Monto</th>
+                    <th>Pagado</th>
+		    <th>Acción</th>
                     
                 </tr>
                 </thead>
@@ -15,23 +16,38 @@
                 {% for entitys in entities %}
                     <tr>
                         <td><a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">{%if entitys.componente==0%}Rebajo{% else %}Bonificacion{%endif%}</a></td>{#esto hay que cambiarlo#}
-                        <td>{{entitys.fechaVencimiento|date('Y-m-d')}}</a></td>
-                        <td>{% if entitys.moneda==0%}Colon{% else %}USD{%endif%}</td>
-						<td>
+                        <td>
+                          {% if entitys.componente ==0 %}
+                             ----
+                            {% else %}
+                               {{entitys.fechaVencimiento|date('Y-m-d')}}
+                            {% endif %}
+                          
+                        </td>
+                        <td>{% if entitys.moneda==0%}Colón{% else %}USD{%endif%}</td>
+			<td>
                             {% if entitys.componente ==0 %}
                             {{ entitys.montoTotal }}
                             {% else %}
                                 {{ entitys.cantidad }}
                             {% endif %}
                         </td>
-                        
-						<td>{{ entitys.descripcion }}</td>
-						<td>
-						  <a href="{{ path('ecomponentessalariales_delete',{'id':entitys.id})}}" class="btn btn-primary"><i class="glyphicon glyphicon-trash"></i> Eliminar</a>
+                        <td>
+                            {% if entitys.pagado ==0 or entitys.pagado==null %}
+                                <i class="glyphicon glyphicon-remove" title="No pagado"></i>
+                            {% else %}
+                                
+                                <i class="glyphicon glyphicon-ok" title="Pagado"></i>
+
+
+                            {% endif %}
+                        </td>
+			<td>
+			   <a href="{{ path('ecomponentessalariales_delete',{'id':entitys.id})}}" class="btn btn-primary"><i class="glyphicon glyphicon-trash"></i> Eliminar</a>
 						  
-						</td>
+			</td>
                     </tr>
                 {% endfor %}
 
                 </tbody>
-            </table>
+        </table>

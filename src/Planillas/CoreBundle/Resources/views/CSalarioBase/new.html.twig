@@ -1,77 +1,154 @@
 {% extends '::base.html.twig' %}
 {% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
 {% block title %}
-    Adiciona Empleado
+Adiciona Empleado
 {% endblock %}
 
 {% block content_content %}
     {% for mensaje in app.session.flashbag.all() %}
-        <div class="alert alert-info">{{ mensaje }}</div>
+<div class="alert alert-info">{{ mensaje }}</div>
     {% endfor %}
-    <div class="row">
-    {% block content %}
-        <div class="col-lg-9">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Salario</h2>
-                </div>
-                <div class="panel-body">
+    {% block content %}
+{% set tipodeuda=['Uniformes','Sanciones','Préstamos'] %}
+<div class="row-fluid">    
+    <div class="col-lg-9"><!--Div de apertura de la columna-->
+        <ul id="myTab" class="nav nav-tabs">
+            <li><a href="#sueldo" data-toggle="tab">Sueldo</a></li>
+            <li class="active"><a href="#historial" data-toggle="tab">Historial de Deudas</a></li>
+
+        </ul>  
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="sueldo">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Salario</h2>
+                    </div>
+                    <div class="panel-body">
 
                     {{ form_errors(form) }}
                     {{form_start(form)}}
-                    <fieldset>
-                        <div class="row-fluid">
-                            <div class="col-lg-4">{{ form_row(form.salarioBase) }}</div>
-                            <div class="col-lg-4">{{ form_widget(form.seguro) }}</div>
-                            <div class="col-lg-4">{{ form_row(form.periodoPago) }}</div>
+                        <fieldset>
+                            <div class="row-fluid">
+                                <div class="col-lg-4">{{ form_row(form.salarioBase) }}</div>
+                                <div class="col-lg-4">{{ form_widget(form.seguro) }}</div>
+                                <div class="col-lg-4">{{ form_row(form.periodoPago) }}</div>
 
-                        </div>
-                    </fieldset>
-                    <hr>
+                            </div>
+                        </fieldset>
+                        <hr>
                     {{ form_rest(form) }}
 
                     {{form_end(form)}}
 
-                    <form>
+                        <form>
+                    </div>
                 </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h2 class="panel-title">Asignación de Componentes Salariales</h2>
-                </div>
-                <div class="panel-body">
 
-                    <fieldset>
-                        <a class="btn btn-primary" href="{{ path('ecomponentessalariales_new',{'id_empleado':eEmpleado.id}) }}">Agregar</a>
-                    </fieldset>
-                    <hr/>
-                    <fieldset>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Asignación de Componentes Salariales</h2>
+                    </div>
+                    <div class="panel-body">
+
+                        <fieldset>
+                            <a class="btn btn-primary" href="{{ path('ecomponentessalariales_new',{'id_empleado':eEmpleado.id}) }}">Agregar</a>
+                        </fieldset>
+                        <hr/>
+                        <fieldset>
 
                         {{ render(controller('PlanillasEntidadesBundle:EComponentesSalariales:salarioTotalByIdEmpleado',{'id_empleado':eEmpleado.id}))}}
-                    </fieldset>
-                    <hr/>
-                    <fieldset>
+                        </fieldset>
+                        <hr/>
+                        <fieldset>
 
                         {{ render(controller('PlanillasEntidadesBundle:EComponentesSalariales:componentesByIdEmpleado',{'id_empleado':eEmpleado.id}))}}
 
-                    </fieldset>
+                        </fieldset>
 
+                    </div>
                 </div>
-            </div>
+            </div><!-- div tab sueldo-->
+            <div class="tab-pane fade" id="historial"><!--tab para el historial-->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
 
-        </div>
-        <div class="col-sm-3">
+                            <th>Componente</th>
+                            <th>Tipo Deuda</th>
+                            <th>Vence</th>
+
+                            <th>Moneda</th>
+                            <th>Monto</th>
+                            <th>Pagado</th>
+                            <!--<th>Acción</th>-->
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                {% for entitys in entities %}
+                            <tr>
+                                <td><a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">{%if entitys.componente==0%}Rebajo{% else %}Bonificacion{%endif%}</a></td>{#esto hay que cambiarlo#}
+                                <td>
+                                    {% if entitys.tipoDeuda is not null %}
+                                        
+                                         {% for key, deuda in tipodeuda %}
+                                         {% if key==entitys.tipoDeuda %}
+                                             {{ deuda }}
+                                         {% endif %}
+                                        {% endfor %}
+                                        
+                                    {%else%}
+                                        ----
+                                    {% endif%}
+                                </td>
+                                <td> {% if entitys.componente ==0 %}
+                             ----
+                            {% else %}
+                               {{entitys.fechaVencimiento|date('Y-m-d')}}
+                            {% endif %}</td>
+                                <td>{% if entitys.moneda==0%}Colón{% else %}USD{%endif%}</td>
+                                <td>
+                                  {% if entitys.componente ==0 %}
+                                   {{ entitys.montoTotal }}
+                                    {% else %}
+                                    {{ entitys.cantidad }}
+                                        
+                                     {% endif %}
+                                        
+                                    </td>
+                                    <td>
+                                      {% if entitys.pagado ==0 or entitys.pagado==null %}
+                                        <i class="glyphicon glyphicon-remove" title="No pagado"></i>
+                                        {% else %}
+                                
+                                        <i class="glyphicon glyphicon-ok" title="Pagado"></i>
+
+
+                                        {% endif %}
+                                    </td>
+                                    <!--
+                                    <td>
+                                        <a href="{# path('ecomponentessalariales_delete',{'id':entitys.id})#}" class="btn btn-primary"><i class="glyphicon glyphicon-trash"></i> Eliminar</a>
+
+                                    </td>-->
+                                </tr>
+                {% endfor %}
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div><!--div myTabContent -->
+
+            </div><!-- div de la columna de la division-->
+            <div class="col-sm-3">
             {{ macros.empleado_foto(eEmpleado) }}
             {{ macros.menu_empleado('sueldo',eEmpleado) }}
-        </div>
-
-
-
-
-        </div>
+                </div>
+            </div>
     {% endblock content %}
-    </div>
+
 
 {% endblock %}
 

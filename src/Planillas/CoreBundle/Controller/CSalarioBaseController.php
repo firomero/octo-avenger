@@ -11,21 +11,19 @@ use Planillas\CoreBundle\Form\Type\CSalarioBaseType;
  * CSalarioBase controller.
  *
  */
-class CSalarioBaseController extends Controller
-{
+class CSalarioBaseController extends Controller {
 
     /**
      * Lists all CSalarioBase entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->findAll();
+        //$entities = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->findByPagado(array('pagado'=>0));//los no pagados
 
         return $this->render('PlanillasCoreBundle:CSalarioBase:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
 
@@ -33,8 +31,7 @@ class CSalarioBaseController extends Controller
      * Creates a new CSalarioBase entity.
      *
      */
-    public function createAction(Request $request, $id_empleado)
-    {
+    public function createAction(Request $request, $id_empleado) {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
         if (!$eEmpleado) {
@@ -56,8 +53,8 @@ class CSalarioBaseController extends Controller
 
 
         return $this->render('PlanillasCoreBundle:CSalarioBase:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -68,8 +65,7 @@ class CSalarioBaseController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(CSalarioBase $entity)
-    {
+    private function createCreateForm(CSalarioBase $entity) {
         $form = $this->createForm(new CSalarioBaseType(), $entity, array(
             'action' => $this->generateUrl('csalariobase_create', array('id_empleado' => $entity->getEmpleado()->getId())),
             'method' => 'POST',
@@ -84,11 +80,10 @@ class CSalarioBaseController extends Controller
      * Displays a form to create a new CSalarioBase entity.
      *
      */
-    public function newAction($id_empleado)
-    {
+    public function newAction($id_empleado) {
 
         $em = $this->getDoctrine()->getManager();
-        $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find((int)$id_empleado);
+        $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find((int) $id_empleado);
         if (!$eEmpleado) {
             throw $this->createNotFoundException('Unable to find CEmpleado entity.');
         }
@@ -100,12 +95,12 @@ class CSalarioBaseController extends Controller
         } else {
             $form = $this->createEditForm($entity);
         }
-
+        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado, 'pagado' => 1));
         return $this->render('PlanillasCoreBundle:CSalarioBase:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-            'eEmpleado' => $eEmpleado,
-            //'entities'=>$entities,
+                    'entity' => $entity,
+                    'form' => $form->createView(),
+                    'eEmpleado' => $eEmpleado,
+                    'entities' => $entities,
         ));
     }
 
@@ -113,8 +108,7 @@ class CSalarioBaseController extends Controller
      * Finds and displays a CSalarioBase entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->find($id);
@@ -126,16 +120,15 @@ class CSalarioBaseController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasCoreBundle:CSalarioBase:show.html.twig', array(
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing CSalarioBase entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->find($id);
@@ -146,12 +139,13 @@ class CSalarioBaseController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
+        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $entity->getEmpleado()->getId(), 'pagado' => 1));
         return $this->render('PlanillasCoreBundle:CSalarioBase:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-            'eEmpleado' => $entity->getEmpleado()
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
+                    'eEmpleado' => $entity->getEmpleado(),
+                    'entities'=>$entities
         ));
     }
 
@@ -162,8 +156,7 @@ class CSalarioBaseController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(CSalarioBase $entity)
-    {
+    private function createEditForm(CSalarioBase $entity) {
         $form = $this->createForm(new CSalarioBaseType(true), $entity, array(
             'action' => $this->generateUrl('csalariobase_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -178,8 +171,7 @@ class CSalarioBaseController extends Controller
      * Edits an existing CSalarioBase entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->find($id);
@@ -199,10 +191,10 @@ class CSalarioBaseController extends Controller
         }
 
         return $this->render('PlanillasCoreBundle:CSalarioBase:new.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-            'eEmpleado' => $entity->getEmpleado(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
+                    'eEmpleado' => $entity->getEmpleado(),
         ));
     }
 
@@ -210,8 +202,7 @@ class CSalarioBaseController extends Controller
      * Deletes a CSalarioBase entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -237,13 +228,12 @@ class CSalarioBaseController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('csalariobase_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
+                        ->setAction($this->generateUrl('csalariobase_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm();
     }
 
 }

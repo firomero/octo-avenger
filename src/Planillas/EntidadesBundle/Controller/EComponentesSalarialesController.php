@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\Tests\ORM\Functional\ProxiesLikeEntitiesTest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Planillas\EntidadesBundle\Entity\EComponentesSalariales;
 use Planillas\EntidadesBundle\Form\EComponentesSalarialesType;
 
@@ -14,43 +13,37 @@ use Planillas\EntidadesBundle\Form\EComponentesSalarialesType;
  * EComponentesSalariales controller.
  *
  */
-class EComponentesSalarialesController extends Controller
-{
+class EComponentesSalarialesController extends Controller {
 
     /**
      * Lists all EComponentesSalariales entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findAll();
 
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
 
-    public function componentesByIdEmpleadoAction($id_empleado)
-    {
+    public function componentesByIdEmpleadoAction($id_empleado) {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado));
+        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado,'pagado'=>0));
         $aDeleteForm = array();
         foreach ($entities as $entity) {
 
             $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:componentes.html.twig', array(
-            'entities' => $entities,
-            'aDeleteForm' => $aDeleteForm,
-
+                    'entities' => $entities,
+                    'aDeleteForm' => $aDeleteForm,
         ));
-
     }
 
-    public function salarioTotalByIdEmpleadoAction($id_empleado)
-    {
+    public function salarioTotalByIdEmpleadoAction($id_empleado) {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
         if (!$eEmpleado) {
@@ -62,16 +55,15 @@ class EComponentesSalarialesController extends Controller
         if (count($componentesSalariales) > 0) {
             foreach ($componentesSalariales as $componenteSalarial) {
 
-                if ($componenteSalarial->getComponente() == 0){
+                if ($componenteSalarial->getComponente() == 0) {
                     $salarioBase -= $componenteSalarial->getMontoTotal();
                 }
-                else $salarioBase += $componenteSalarial->getCantidad();
+                else
+                    $salarioBase += $componenteSalarial->getCantidad();
             }
         }
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:salariototal.html.twig', array(
-            'salarioTotal' => $salarioBase,
-
-
+                    'salarioTotal' => $salarioBase,
         ));
     }
 
@@ -79,9 +71,9 @@ class EComponentesSalarialesController extends Controller
      * Creates a new EComponentesSalariales entity.
      *
      */
-    public function createAction(Request $request, $id_empleado)
-    {
+    public function createAction(Request $request, $id_empleado) {
         $em = $this->getDoctrine()->getManager();
+        
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
         if (!$eEmpleado) {
             throw $this->createNotFoundException('Unable to find CEmpleado entity.');
@@ -97,22 +89,17 @@ class EComponentesSalarialesController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $result = self::validate($entity);
-            if ($result === true) //the form contains errors
-            {
-                self::persistEntity($entity,$em);
-                /*$em->persist($entity);
-                $em->flush();*/
+            if ($result === true) { //the form contains errors
+                self::persistEntity($entity, $em,true);
                 $this->get('session')->getFlashBag()->add('info', 'Los datos han sido adicionados correctamente.');
                 return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
             }
-
-
         }
         $this->get('session')->getFlashBag()->add('danger', 'Se detectaron errores al guardar los datos.');
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-            'eEmpleado' => $eEmpleado
+                    'entity' => $entity,
+                    'form' => $form->createView(),
+                    'eEmpleado' => $eEmpleado
         ));
     }
 
@@ -123,8 +110,7 @@ class EComponentesSalarialesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(EComponentesSalariales $entity)
-    {
+    private function createCreateForm(EComponentesSalariales $entity) {
         $form = $this->createForm(new EComponentesSalarialesType(), $entity, array(
             'action' => $this->generateUrl('ecomponentessalariales_create', array('id_empleado' => $entity->getEmpleado()->getId())),
             'method' => 'POST',
@@ -140,10 +126,9 @@ class EComponentesSalarialesController extends Controller
      * Displays a form to create a new EComponentesSalariales entity.
      *
      */
-    public function newAction($id_empleado)
-    {
+    public function newAction($id_empleado) {
         $em = $this->getDoctrine()->getManager();
-        $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find((int)$id_empleado);
+        $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find((int) $id_empleado);
         if (!$eEmpleado) {
             throw $this->createNotFoundException('Unable to find CEmpleado entity.');
         }
@@ -152,9 +137,9 @@ class EComponentesSalarialesController extends Controller
         $form = $this->createCreateForm($entity);
         //print_r($entity->getEmpleado());exit;
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:new.html.twig', array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-            'eEmpleado' => $eEmpleado
+                    'entity' => $entity,
+                    'form' => $form->createView(),
+                    'eEmpleado' => $eEmpleado
         ));
     }
 
@@ -162,8 +147,7 @@ class EComponentesSalarialesController extends Controller
      * Finds and displays a EComponentesSalariales entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->find($id);
@@ -175,16 +159,15 @@ class EComponentesSalarialesController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:show.html.twig', array(
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing EComponentesSalariales entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->find($id);
@@ -197,9 +180,9 @@ class EComponentesSalarialesController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:edit.html.twig', array(
-            'entity' => $entity,
-            'form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -210,12 +193,11 @@ class EComponentesSalarialesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(EComponentesSalariales $entity)
-    {
+    private function createEditForm(EComponentesSalariales $entity) {
         $form = $this->createForm(new EComponentesSalarialesType(true), $entity, array(
             'action' => $this->generateUrl('ecomponentessalariales_update', array('id' => $entity->getId())),
             'method' => 'POST',
-            'attr' => array('id'=>'editcomponente','class' => "form-horizontal")
+            'attr' => array('id' => 'editcomponente', 'class' => "form-horizontal")
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-success')));
@@ -228,8 +210,8 @@ class EComponentesSalarialesController extends Controller
      * Edits an existing EComponentesSalariales entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
+        
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->find($id);
@@ -243,24 +225,23 @@ class EComponentesSalarialesController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-
+            /* EComponentesSalarialesType $obj= new EComponentesSalarialesType();
+              $obj->getName() */
             $result = self::validate($entity);
-            if ($result === true) //the form contains errors
-            {
-                $entity=self::persistEntity($entity, $em);
+            if ($result === true) { //the form contains errors
+                $entity = self::persistEntity($entity, $em);
 
                 $this->get('session')->getFlashBag()->add('info', 'Los datos han sido modificados correctamente.');
                 return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
             }
-            echo $result;exit;
-
+            echo $result;
+            exit;
         }
         $this->get('session')->getFlashBag()->add('danger', 'Se detectaron errores al guardar los datos.');
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:edit.html.twig', array(
-            'entity' => $entity,
-            'form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-
+                    'entity' => $entity,
+                    'form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -268,11 +249,9 @@ class EComponentesSalarialesController extends Controller
      * Deletes a EComponentesSalariales entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         //$form = $this->createDeleteForm($id);
         //$form->handleRequest($request);
-
         //if ($form->isValid()) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->find($id);
@@ -296,43 +275,35 @@ class EComponentesSalarialesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         //echo $id;exit;
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('ecomponentessalariales_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Borrar', 'attr' => array('class' => 'btn btn-primary')))
-            ->getForm();
+                        ->setAction($this->generateUrl('ecomponentessalariales_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Borrar', 'attr' => array('class' => 'btn btn-primary')))
+                        ->getForm();
     }
 
-    public static function validate(EComponentesSalariales $entity)
-    {
+    public static function validate(EComponentesSalariales $entity) {
 
-        if ($entity->getComponente() == 0) //rebajo
-        {
-            if ((int)$entity->getMontoTotal() <= 0 || $entity->getMontoTotal() == "") {
+        if ($entity->getComponente() == 0) { //rebajo
+            if ((int) $entity->getMontoTotal() <= 0 || $entity->getMontoTotal() == "") {
                 return "invalidmontotal";
             }
-            /*if ((int)$entity->getMontoReducir() == "") {
-                return "invalidmonreducir";
-            }*/
             if ($entity->getNumeroCuotas() == "") {
                 return "invalidmontotal";
             }
             return true;
         } else {
 
-            if ((int)$entity->getCantidad() <= 0 || $entity->getCantidad() == "") {
+            if ((int) $entity->getCantidad() <= 0 || $entity->getCantidad() == "") {
                 return "invalidcantidad";
             }
             if ($entity->getFechaVencimiento() == "") {
                 return "invalidfechavencimiento";
             }
             return true;
-
         }
-        //print_r($entity->getEmpleado()->getId());exit;
     }
 
     /** funcion que persiste una entidad componente salarial porque
@@ -341,32 +312,62 @@ class EComponentesSalarialesController extends Controller
      * @param EntityManager $manager
      * @return bool|EComponentesSalariales
      */
-    public static function persistEntity(EComponentesSalariales $entity, EntityManager $manager)
-    {
+    public static function persistEntity(EComponentesSalariales $entity, EntityManager $manager, $isnew = false) {
         try {
-            if ($entity->getComponente() == 0) //rebajos
-            {
-
-                $entity->setCantidad(null);
-                $entity->setFechaVencimiento(null);
-                $entity->setMontoRestante($entity->getMontoTotal());
-
+           
+            if ($entity->getComponente() == 0) { //rebajos
+                if ($isnew === true) {//si es nuevo porque es el unico caso donde es necesario pikar en trozos los plazos
+                    $total = 0;
+                    $total = $entity->getMontoTotal() / $entity->getNumeroCuotas(); //monto para cada plazo
+                    $resto = $entity->getMontoTotal() % $entity->getNumeroCuotas(); //resto a sumar aun plazo
+                    $i = 1;
+                    while ($i <= $entity->getNumeroCuotas()) {
+                        if($i==$entity->getNumeroCuotas())
+                        {
+                            $total+=$resto;
+                        }
+                        $myentity = new EComponentesSalariales();
+                        $myentity->setEmpleado($entity->getEmpleado());
+                        $myentity->setComponente($entity->getComponente());
+                        $myentity->setTipoDeuda($entity->getTipoDeuda());
+                        $myentity->setMontoTotal($total);
+                        $myentity->setNumeroCuotas(1);
+                        $myentity->setCantidad(null);
+                        $myentity->setFechaVencimiento(null);
+                        $myentity->setMontoRestante($total);
+                        $manager->persist($myentity);
+                        $i++;
+                        //$manager->flush($myentity);
+                    }
+                    
+                    $manager->flush();
+                    return $myentity;
+                } else {//es solo modificar una sola 
+                    $entity->setCantidad(null);
+                    $entity->setFechaVencimiento(null);
+                    $entity->setMontoRestante($entity->getMontoTotal());
+                }
             } else {
-                //echo $entity->getDescripcion();exit;
+
                 $entity->setFechaInicio(null);
                 $entity->setMoneda(0);
                 $entity->setMontoReducir(null);
                 $entity->setPeriodoPagoDeuda(null);
                 $entity->setMontoTotal(null);
                 $entity->setMontoRestante(null);
-                $entity->setPagado(null);
+                $entity->setPagado(0);
+                $manager->persist($entity);
+                $manager->flush($entity);
+                
             }
-            $manager->persist($entity);
-            $manager->flush($entity);
             return $entity;
         } catch (\Exception $e) {
             return false;
         }
-
     }
+
+    public function splitDeudas(EComponentesSalariales $entity) {
+       
+    }
+
 }
