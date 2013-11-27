@@ -335,7 +335,9 @@ class EComponentesSalarialesController extends Controller {
                         $myentity->setNumeroCuotas(1);
                         $myentity->setCantidad(null);
                         $myentity->setPagado($entity->getPagado());
-                        $myentity->setFechaVencimiento(null);
+                        $myentity->setFechaInicio($entity->getFechaInicio());
+                        $myentity->setFechaVencimiento($entity->getFechaVencimiento());
+                        $myentity->setPeriodoPagoDeuda($entity->getPeriodoPagoDeuda());
                         $myentity->setMontoRestante($total);
                         $manager->persist($myentity);
                         $i++;
