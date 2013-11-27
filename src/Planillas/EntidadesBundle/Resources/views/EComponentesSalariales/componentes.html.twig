@@ -3,8 +3,7 @@
     <tr>
 
         <th>Tipo C</th>
-        <th>Vence</th>
-
+        <th>Quincena</th>
         <th>Moneda</th>
         <th>Monto</th>
         <th>Pagado</th>
@@ -17,10 +16,10 @@
         <tr>
             <td><a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">{%if entitys.componente==0%}Rebajo{% else %}Bonificacion{%endif%}</a></td>{#esto hay que cambiarlo#}
             <td>
-                {% if entitys.fechaVencimiento is empty %}
+                {% if entitys.fechaInicio is empty %}
                     ----
                 {% else %}
-                    {{entitys.fechaVencimiento|date('d/m/Y')}}
+                    {{entitys.fechaInicio | date('d') ~ '-' ~ entitys.fechaVencimiento|date('d/m/Y')}}
                 {% endif %}
 
             </td>
