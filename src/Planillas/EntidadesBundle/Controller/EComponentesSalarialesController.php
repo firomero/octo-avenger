@@ -89,8 +89,7 @@ class EComponentesSalarialesController extends Controller {
             $em = $this->getDoctrine()->getManager();
 
             $result = self::validate($entity);
-            if ($result === true) { //the form contains errors
-                self::persistEntity($entity, $em,true);
+            if ($result === true && self::persistEntity($entity, $em,true)) { //the form contains errors
                 $this->get('session')->getFlashBag()->add('info', 'Los datos han sido adicionados correctamente.');
                 return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
             }
@@ -336,7 +335,20 @@ class EComponentesSalarialesController extends Controller {
                         $myentity->setCantidad(null);
                         $myentity->setPagado($entity->getPagado());
                         $myentity->setFechaInicio($entity->getFechaInicio());
-                        $myentity->setFechaVencimiento($entity->getFechaVencimiento());
+
+                        //adicionando la cantidad de días en dependencia del período seleccionado
+                        if($entity->getFechaVencimiento())
+                            $fecha = date_format($entity->getFechaVencimiento(),'Y-m-d');
+                        else
+                            $fecha = date_format($entity->getFechaInicio(),'Y-m-d');
+
+                        if(!$entity->getPeriodoPagoDeuda()){
+                            $days = $i * 15;
+                            $myentity->setFechaVencimiento(new \DateTime(date('Y-m-d',strtotime($fecha." + $days day"))));
+                        }else{
+                            $myentity->setFechaVencimiento(new \DateTime(date('Y-m-d',strtotime($fecha." + $i month"))));
+                        }
+
                         $myentity->setPeriodoPagoDeuda($entity->getPeriodoPagoDeuda());
                         $myentity->setMontoRestante($total);
                         $manager->persist($myentity);
@@ -366,6 +378,7 @@ class EComponentesSalarialesController extends Controller {
             }
             return $entity;
         } catch (\Exception $e) {
+            //print_r($e->getMessage());exit;
             return false;
         }
     }
