@@ -89,8 +89,7 @@ class EComponentesSalarialesController extends Controller {
             $em = $this->getDoctrine()->getManager();
 
             $result = self::validate($entity);
-            if ($result === true) { //the form contains errors
-                self::persistEntity($entity, $em,true);
+            if ($result === true && self::persistEntity($entity, $em,true)) { //the form contains errors
                 $this->get('session')->getFlashBag()->add('info', 'Los datos han sido adicionados correctamente.');
                 return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
             }
@@ -320,13 +319,24 @@ class EComponentesSalarialesController extends Controller {
                     $total = 0;
                     $total = $entity->getMontoTotal() / $entity->getNumeroCuotas(); //monto para cada plazo
                     $resto = $entity->getMontoTotal() % $entity->getNumeroCuotas(); //resto a sumar aun plazo
+
+                    // datos relacionados con las fechas
+                    $fechaInicio = $entity->getFechaInicio();
+                    $inicio_formated = date_format($fechaInicio,'Y-m-d');
+                    $month = date_format($fechaInicio,'F');
+                    $year  = date_format($fechaInicio,'Y');
+                    $quincena = 1;
+
+                    $firstDay = date('Y-m-d', strtotime("first day of $month $year"));
+                    if(strtotime("first day of $month $year") <= strtotime($inicio_formated) && strtotime($firstDay.' + 15 days') > strtotime($inicio_formated))
+                        $quincena = 0;
+
                     $i = 1;
                     while ($i <= $entity->getNumeroCuotas()) {
                         if($i==$entity->getNumeroCuotas())
                         {
                             $total+=$resto;
                         }
-                        //print_r($entity->getPagado());exit;
                         $myentity = new EComponentesSalariales();
                         $myentity->setEmpleado($entity->getEmpleado());
                         $myentity->setComponente($entity->getComponente());
@@ -335,7 +345,28 @@ class EComponentesSalarialesController extends Controller {
                         $myentity->setNumeroCuotas(1);
                         $myentity->setCantidad(null);
                         $myentity->setPagado($entity->getPagado());
-                        $myentity->setFechaVencimiento(null);
+
+                        // creando período por quincena
+                        if(!$quincena){
+                            $month = date_format(new \DateTime($inicio_formated),'F');
+                            $year  = date_format(new \DateTime($inicio_formated),'Y');
+                            $firstDay = date('Y-m-d', strtotime("first day of $month $year"));
+                            $myentity->setFechaInicio(new \DateTime(date('Y-m-d',strtotime("first day of $month $year"))));
+                            $myentity->setFechaVencimiento(new \DateTime(date('Y-m-d',strtotime($firstDay.' + 14 days'))));
+                            $quincena = 1;
+                        }else{
+                            $month = date_format(new \DateTime($inicio_formated),'F');
+                            $year  = date_format(new \DateTime($inicio_formated),'Y');
+                            $firstDay = date('Y-m-d', strtotime("first day of $month $year"));
+                            $myentity->setFechaInicio(new \DateTime(date('Y-m-d',strtotime($firstDay.' + 14 days'))));
+                            $myentity->setFechaVencimiento(new \DateTime(date('Y-m-d',strtotime("last day of $month $year"))));
+                            $quincena = 0;
+
+                            // actualizando para contar en un nuevo mes
+                            $inicio_formated = date('Y-m-d',strtotime($firstDay.' + 1 month 1 day'));
+                        }
+
+                        $myentity->setPeriodoPagoDeuda($entity->getPeriodoPagoDeuda());
                         $myentity->setMontoRestante($total);
                         $manager->persist($myentity);
                         $i++;
@@ -350,7 +381,6 @@ class EComponentesSalarialesController extends Controller {
                     $entity->setMontoRestante($entity->getMontoTotal());
                 }
             } else {
-
                 $entity->setFechaInicio(null);
                 $entity->setMoneda(0);
                 $entity->setMontoReducir(null);
@@ -364,6 +394,7 @@ class EComponentesSalarialesController extends Controller {
             }
             return $entity;
         } catch (\Exception $e) {
+            //print_r($e->getMessage());exit;
             return false;
         }
     }
