@@ -12,9 +12,11 @@ chorario_show:
 chorario_new:
     pattern:  /{id_empleado}/new
     defaults: { _controller: "PlanillasCoreBundle:CHorario:new" }
+
 chorario_empleados:
     pattern:  /{id}/empleados
     defaults: { _controller: "PlanillasCoreBundle:CHorario:empleados" }
+
 chorario_fecha:
     pattern:  /{id}/fecha-excepcional
     defaults: { _controller: "PlanillasCoreBundle:CHorario:fechaexcepcional" }
@@ -37,22 +39,28 @@ chorario_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "PlanillasCoreBundle:CHorario:delete" }
     requirements: { _method: get|delete }
+
 cfechaExcepcional_delete:
     pattern:  /{id}/delete/fecha
     defaults: { _controller: "PlanillasCoreBundle:CHorario:deleteFecha" }
     requirements: { _method: get|delete }
+
 ceditajaxhorario:
     pattern: /buscar
     defaults: { _controller: "PlanillasCoreBundle:CHorario:editajax" }
+
 findPerson:
     pattern: /person
     defaults: { _controller: "PlanillasCoreBundle:CHorario:findEmpleado" }
+
 chorario_addempleado:
     pattern: /addempleado
     defaults: { _controller: "PlanillasCoreBundle:CHorario:addEmpleado" }
+
 chorario_deleteEmpleados:
     pattern: /{idhorario}/delete/{idempleado}/empleado
     defaults: { _controller: "PlanillasCoreBundle:CHorario:deleteHorarioEmpleado" }
+
 chorario_addFechaExepcional:
     pattern:  /fecha-execpcional/create
     defaults: { _controller: "PlanillasCoreBundle:CHorario:addFechaExcepcional" }
@@ -66,6 +74,7 @@ ceditajaxfechaExcepcional:
 chorario_empleado:
     pattern:  /empleado/{id_empleado}/horario
     defaults: { _controller: "PlanillasCoreBundle:CEmpleado:obtenerHorario" }
+
 chorario_empleado_cambiar:
     pattern:  /asignar-horario
     defaults: { _controller: "PlanillasCoreBundle:CEmpleado:asignarHorario" }

@@ -105,6 +105,7 @@ Sistema de Planillas:{{ headline }}
             data: {id: id},
             dataType: 'json',
             success: function(data) {
+                console.log(data);
                 if (data.success) {
                     $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').val(data.dias.Lunes.inicio);//lunes
                     $('#planillas_corebundle_chorario_horarioDias_1_horaInicio').val(data.dias.Martes.inicio);//martes
@@ -141,11 +142,9 @@ Sistema de Planillas:{{ headline }}
         })
     }
     </script>
-
-
-
-
 {% endblock %}
+
+
 {% block content_content %}
 
     {% block content %}
@@ -154,8 +153,8 @@ Sistema de Planillas:{{ headline }}
         <ul id="myTab" class="nav nav-tabs">
             <li><a href="#horario" data-toggle="tab">Crear horario</a></li>
             <li class="active"><a href="#historial" data-toggle="tab">Listado de Horarios</a></li>
-
         </ul>
+
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade" id="horario">
                 <br/>
@@ -167,149 +166,118 @@ Sistema de Planillas:{{ headline }}
                                 <h2 class="panel-title">Datos del horario</h2>
                             </div>
                             <div class="panel-body">
-                            {{ form_start(form) }}
-                                    <input type="hidden" class=" not-removable form-control" name="planillas_id[id]"
-                                           id="planillas_corebundle_chorario_id">
+                                {{ form_start(form) }}
+                                <input type="hidden" class=" not-removable form-control" name="planillas_id[id]"
+                                       id="planillas_corebundle_chorario_id">
+                                <fieldset>
+                                    <div class="col-lg-4">{{ form_row(form.titulo) }}</div>
+                                </fieldset>
+                                {{ form_errors(form) }}
+
+                                <hr>
+                                <div data-prototype="{{ form_widget(form.horarioDias.vars.prototype)|e }}">
+                                {% for ruta in form.horarioDias %}
                                     <fieldset>
-                                        <div class="col-lg-4">{{ form_row(form.titulo) }}</div>
-                                    </fieldset>
-
-                            {{ form_errors(form) }}
-
-
-
-
-
-                                    <hr>
-                                    <div data-prototype="{{ form_widget(form.horarioDias.vars.prototype)|e }}">
-                                 {% for ruta in form.horarioDias %}
-                                            <fieldset>
-
-
-                                     {{ form_errors(ruta)}}
-                                                <div class="row-fluid">
-
-                                                    <div class="col-lg-4">{{ form_row(ruta.dia) }}</div>
-
-                                                    <div class="col-lg-4">
-
-
-                                                        <div class="input-append bootstrap-timepicker">
-                                                        {{ form_label(ruta.horaInicio) }}
-                                                                <div class="input-group">
-
-
-                                                    {{ form_widget(ruta.horaInicio) }}
-
-                                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                                                </div>
-
-                                                            </div></div>
-                                                        <div class="col-lg-4">
-
-                                                            <div class="input-append bootstrap-timepicker">
-                                                    {{ form_label(ruta.horaFin) }}
-                                                                    <div class="input-group">
-
-
-                                                        {{ form_widget(ruta.horaFin) }}
-
-                                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                                                    </div>
-
-                                                                </div>
-
-
-
-
-                                                            </div>
-                                                        </div>
-                                                    </fieldset>
-                                                    <hr>
-                                {% endfor %}
+                                    {{ form_errors(ruta)}}
+                                        <div class="row-fluid">
+                                            <div class="col-lg-4">{{ form_row(ruta.dia) }}</div>
+                                            <div class="col-lg-4">
+                                                <div class="input-append bootstrap-timepicker">
+                                                {{ form_label(ruta.horaInicio) }}
+                                                    <div class="input-group">
+                                                        {{ form_widget(ruta.horaInicio) }}
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                                    </div>
 
                                                 </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="input-append bootstrap-timepicker">
+                                                    {{ form_label(ruta.horaFin) }}
+                                                    <div class="input-group">
+                                                        {{ form_widget(ruta.horaFin) }}
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                                    </div>
 
-
-                            {{ form_end(form) }}
-
+                                                </div>
                                             </div>
                                         </div>
-
-
-                                    </div>
+                                    </fieldset>
+                                    <hr>
+                                {% endfor %}
                                 </div>
+
+                                {{ form_end(form) }}
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                            <div class="tab-pane fade active in" id="historial">
-                                <br/>
+            <div class="tab-pane fade active in" id="historial">
+                <br/>
 
-                                <div class="panel panel-default ">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">
-                                            Listado de horarios
-                                        </h3>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div id="progreso" style="display: none">
-                                            <h4>Cargando... por favor espere.</h4>
-                                            <div class="progress progress-striped active">
-                                                <div class="progress-bar" style="width: 100%"></div>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group">
+                <div class="panel panel-default ">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Listado de horarios
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div id="progreso" style="display: none">
+                            <h4>Cargando... por favor espere.</h4>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div class="btn-group">
 
-                                            <a class="btn btn-primary" id="add_new" href="#">
-                                                Agregar
-                                            </a>
-                                        </div>
-                                        <hr/>
-                                        <table class="table table-striped table-bordered table-hover table-condensed">
-                                            <thead>
-                                                <tr>
-                                                    <th>Horario</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
+                            <a class="btn btn-primary" id="add_new" href="#">
+                                Agregar
+                            </a>
+                        </div>
+                        <hr/>
+                        <table class="table table-striped table-bordered table-hover table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Horario</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                             {% if pagination|length >0 %}
-                            {% for entity in pagination %}
-                                                    <tr>
-                                                        <td>{{ entity.titulo }} </td>
+                                {% for entity in pagination %}
+                                        <tr>
+                                            <td>{{ entity.titulo }} </td>
+                                            <td>
+                                                <a class="btn btn-primary" id="linkedit" onclick="buscar('{{ entity.id }}')"
+                                                   href="#"><i
+                                                        class="glyphicon glyphicon-pencil"></i>Editar</a>
+                                                <a class="btn btn-primary" href="{{ path('chorario_delete',{'id':entity.id}) }}"><i class="glyphicon glyphicon-trash"></i>Eliminar</a>
 
-
-
-                                                        <td>
-
-                                                            <a class="btn btn-primary" id="linkedit" onclick="buscar('{{ entity.id }}')"
-                                                               href="#"><i
-                                                                    class="glyphicon glyphicon-pencil"></i>Editar</a>
-                                                            <a class="btn btn-primary" href="{{ path('chorario_delete',{'id':entity.id}) }}"><i class="glyphicon glyphicon-trash"></i>Eliminar</a>
-
-                                                            <a class="btn btn-primary" href="{{ path('chorario_empleados',{'id':entity.id}) }}"><i class="glyphicon glyphicon-plus"></i>Empleados</a>
-                                                            <a class="btn btn-primary" href="{{ path('chorario_fecha',{'id':entity.id}) }}"><i class="glyphicon glyphicon-time"></i>Fecha Excepcional</a>
-
-                                                        </td>
-                                                    </tr>
-                            {% endfor %}
+                                                <a class="btn btn-primary" href="{{ path('chorario_empleados',{'id':entity.id}) }}"><i class="glyphicon glyphicon-plus"></i>Empleados</a>
+                                                <a class="btn btn-primary" href="{{ path('chorario_fecha',{'id':entity.id}) }}"><i class="glyphicon glyphicon-time"></i>Fecha Excepcional</a>
+                                            </td>
+                                        </tr>
+                                {% endfor %}
                             {% else %}
-                                                <td colspan="3"> No se encontraron registros</td>
+                                <td colspan="3"> No se encontraron registros</td>
                             {% endif %}
 
-                                                </tbody>
-                                            </table>
-                    {{ knp_pagination_render(pagination) }}
+                                </tbody>
+                            </table>
+                        {{ knp_pagination_render(pagination) }}
 
 
-                                        </div>
-                                    </div>
-
-
-
+                        </div>
+                    </div>
 
 
 
-                                </div>----
+
+
+
+                </div>----
 
 
                             </div>

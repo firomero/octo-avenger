@@ -298,28 +298,36 @@ class CHorarioController extends Controller {
         ;
     }
 
-    public function editajaxAction(Request $request) {
+    public function editajaxAction(Request $request)
+    {
         $id = $request->get('id');
         $em = $this->getDoctrine()->getManager();
+
+        /* @var $entity \Planillas\CoreBundle\Entity\CHorario */
         $entity = $em->getRepository('PlanillasCoreBundle:CHorario')->find($id);
+
+        if (!$entity)
+        {
+            throw $this->createNotFoundException('No se encuentra un horario con id: '.$id);
+        }
+
         $diashorario = $entity->getHorarioDias();
-        $cantidaddias = count($diashorario);
+        $cantidaddias = $diashorario->count();
+
         $response = array();
         $response['success'] = false;
-        if ($cantidaddias > 0) {
-            foreach ($diashorario as $dia) {
-
+        if ($cantidaddias > 0)
+        {
+            foreach ($diashorario as $dia)
+            {
                 $response['dias'][$dia->getDia()]['inicio'] = $dia->getHoraInicio()->format('H:i');
                 $response['dias'][$dia->getDia()]['fin'] = $dia->getHoraFin()->format('H:i');
             }
         }
 
-        if (!$entity) {
-
-            return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
-        }
         $response['success'] = true;
         $response['data'] = array('id' => $entity->getId(), 'titulo' => $entity->getTitulo());
+
         return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
     }
 

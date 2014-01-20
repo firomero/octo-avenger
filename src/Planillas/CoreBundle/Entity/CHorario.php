@@ -27,29 +27,26 @@ class CHorario
      * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", mappedBy="horario")
      */
     private $empleado;
+
     /**
      * @var $fechaexcepcional CFechaExcepcional
      *
      * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CFechaExcepcional", mappedBy="fechaexcepcional")
      */
     private $fechaexcepcional;
+
      /**
      * @var string
      * @ORM\Column(name="titulo", type="string", length=100, nullable=true)
      */
     private $titulo;
+
     /**
      * @var $horarioDias Doctrine/Common/Collections/ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="CHorarioDias", mappedBy="horario", cascade={"all"})
      */
     private $horarioDias;
-    
-    
-
-   
-  
-   
 
     /**
      * Constructor
@@ -102,6 +99,8 @@ class CHorario
      */
     public function addEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado)
     {
+        $empleado->setHorario($this);
+
         $this->empleado[] = $empleado;
     
         return $this;
@@ -114,6 +113,8 @@ class CHorario
      */
     public function removeEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado)
     {
+        $empleado->setHorario(null);
+
         $this->empleado->removeElement($empleado);
     }
 
@@ -135,6 +136,8 @@ class CHorario
      */
     public function addFechaexcepcional(\Planillas\CoreBundle\Entity\CFechaExcepcional $fechaexcepcional)
     {
+        $fechaexcepcional->setHorario($this);
+
         $this->fechaexcepcional[] = $fechaexcepcional;
     
         return $this;
@@ -147,6 +150,8 @@ class CHorario
      */
     public function removeFechaexcepcional(\Planillas\CoreBundle\Entity\CFechaExcepcional $fechaexcepcional)
     {
+        $fechaexcepcional->setHorario(null);
+
         $this->fechaexcepcional->removeElement($fechaexcepcional);
     }
 
@@ -168,6 +173,8 @@ class CHorario
      */
     public function addHorarioDia(\Planillas\CoreBundle\Entity\CHorarioDias $horarioDias)
     {
+        $horarioDias->setHorario($this);
+
         $this->horarioDias[] = $horarioDias;
     
         return $this;
@@ -180,6 +187,8 @@ class CHorario
      */
     public function removeHorarioDia(\Planillas\CoreBundle\Entity\CHorarioDias $horarioDias)
     {
+        $horarioDias->setHorario(null);
+
         $this->horarioDias->removeElement($horarioDias);
     }
 
