@@ -28,18 +28,16 @@ class CEmpleadoController extends Controller {
         if ($form->isValid()) {
             $aDatos = $form->getData(); //filter data
 
-            $this->get('session')->set('empleado.filtros',$aDatos);
-
+            $this->get('session')->set('empleado.filtros', $aDatos);
         }
 
-        if($request->get('query'))
-        {
-            $filtros= array();
-            $this->get('session')->set('empleado.filtros',$filtros);
+        if ($request->get('query')) {
+            $filtros = array();
+            $this->get('session')->set('empleado.filtros', $filtros);
         }
-        $filtros=$this->get('session')->get('empleado.filtros');
-        $this->get('session')->set('empleado.page',$this->get('request')->query->get('page', 1));
-        $page=(int)$this->get('session')->get('empleado.page',$this->get('request')->query->get('page', 1));
+        $filtros = $this->get('session')->get('empleado.filtros');
+        $this->get('session')->set('empleado.page', $this->get('request')->query->get('page', 1));
+        $page = (int) $this->get('session')->get('empleado.page', $this->get('request')->query->get('page', 1));
 
 
         //echo $page;exit;
@@ -47,7 +45,7 @@ class CEmpleadoController extends Controller {
         $result = $em->getRepository('PlanillasCoreBundle:CEmpleado')->filterEmpleado($filtros);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-                $result,$page , 10
+                $result, $page, 10
         );
 
         return $this->render('PlanillasCoreBundle:CEmpleado:index.html.twig', array(
@@ -76,7 +74,6 @@ class CEmpleadoController extends Controller {
                     ));
                 }
             }
-
         }
         return $this->render('PlanillasCoreBundle:CEmpleado:foto.html.twig', array(
                     'entity' => $entity,
@@ -267,6 +264,64 @@ class CEmpleadoController extends Controller {
                         ->getForm();
     }
 
+    public function obtenerHorarioAction($id_empleado) {
+        $manager = $this->getDoctrine()->getManager();
+        $entity = $manager->getRepository('PlanillasCoreBundle:CEmpleado')->find((int) $id_empleado);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find CEmpleado entity.');
+        }
+        $horarios = $manager->getRepository('PlanillasCoreBundle:CHorario')->findAll();
+        $html = array();
+        if (count($horarios) > 0) {
+            foreach ($horarios as $horario) {
+                
+                    if($entity->getHorario()==$horario)
+                    {
+                      $html[] = array('value'=>$horario->getId(),'text'=>$horario->getTitulo(),'selected'=>true);  
+                    }
+                    else
+                    $html[] = array('value'=>$horario->getId(),'text'=>$horario->getTitulo(),'selected'=>false);
+                
+            }
+            
+        }
+        return $this->render('PlanillasCoreBundle:CHorario:horarioempleado.html.twig', array(     
+        'eEmpleado' => $entity,
+        'html' => $html));
+    }
+    public function asignarHorarioAction(Request $request)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        try{
+        $parameters=$request->get('cempleado');
+        
+        $idEmpleado=isset($parameters['empleado_id'])?$parameters['empleado_id']:0;
+        $idHorario = isset($parameters['horario_id']) ? $parameters['horario_id'] : 0;
+        $entity = $manager->getRepository('PlanillasCoreBundle:CEmpleado')->find((int)$idEmpleado);
+        if(!$entity)
+        {
+           throw $this->createNotFoundException('Unable to find CEmpleado entity.'); 
+           
+        }
+        $entityHorario = $manager->getRepository('PlanillasCoreBundle:CHorario')->find((int)$idHorario);
+        if(!$entityHorario)
+        {
+           throw $this->createNotFoundException('Unable to find CHorario entity.'); 
+           
+        }
+        $entity->setHorario($entityHorario);
+        $manager->persist($entity);
+        $manager->flush();
+        $this->get('session')->getFlashBag()->add('info', 'Se han actualizado los datos');
+        }
+        catch(Exception $e)
+        {
+            $this->get('session')->getFlashBag()->add('danger', 'No se pudieron acutalizar los datos.');
+        }
+        return $this->redirect($this->generateUrl('chorario_empleado',array('id_empleado'=>$entity->getId())));
+        
+    }
+
     /**
      * funcion que busca un determinado empleado
      */
@@ -279,23 +334,22 @@ class CEmpleadoController extends Controller {
         return $form;
     }
 
-    /*Filtros*/
-    protected function  getFiltros()
-    {
-        return $this->get('session')->get('empleado.filtros',array());
+    /* Filtros */
+
+    protected function getFiltros() {
+        return $this->get('session')->get('empleado.filtros', array());
         //return $this->getUser()->getAttribute('plan_de_estudio.filters', $this->configuration->getFilterDefaults(), 'admin_module');
     }
-    protected  function setFiltros($filtros)
-    {
-        $this->get('session')->get('empleado.filtros',$filtros);
+
+    protected function setFiltros($filtros) {
+        $this->get('session')->get('empleado.filtros', $filtros);
     }
-    protected function setPage($page)
-    {
+
+    protected function setPage($page) {
         $this->get('session')->set('empleado.page', $page);
     }
 
-    protected function getPage()
-    {
+    protected function getPage() {
         $this->get('session')->set('empleado.page', 1);
     }
 

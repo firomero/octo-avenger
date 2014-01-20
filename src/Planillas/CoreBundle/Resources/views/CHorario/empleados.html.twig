@@ -1,0 +1,200 @@
+
+{% extends '::base.html.twig' %}
+{% set headline="Asignar horario a empleado " %}
+{% block title %}
+    Sistema de Planillas:{{ headline }}
+{% endblock %}
+{% block headline %}
+    {{ headline }}
+{% endblock headline %}
+{% block foot_script %}
+    {{ parent() }}
+
+    
+<script type="text/javascript">
+
+    jQuery(document).ready(function() {
+        
+         
+    });
+    function Buscar(element) {
+        
+    
+            $.ajax({
+                url: '{{ path('findPerson') }}',
+                data: {id: element.value},
+                dataType: 'json',
+                success: function (data) {
+                 //var p=$.parseJSON(data.data);
+                
+                    if (data.success) {
+                      var ol=$('#lista');
+                      jQuery('#lista >').remove('.remove');
+                      if(data.data.length>0)
+                        {
+                           
+                           
+                           for(var i=0;i<data.data.length;i++)
+                               {
+                                   
+                                   ol.append('<li class="remove" id="li'+data.data[i].id+'"><label class="checkbox"><input type="checkbox" name="empleados['+data.data[i].id+']" value="'+data.data[i].id+'">'+data.data[i].nombre+" "+data.data[i].primerApellido+" "+data.data[i].segundoApellido+'</label></li>');  
+                               }
+                          
+                        }
+                      
+                    }
+                    else {
+                        alert("Ocurrió un error al obtener los datos")
+
+                    }
+
+                },
+                failure: function () {
+                    alert("Ocurrió un error al obtener los datos");
+                }
+
+            })
+            }
+    </script>
+
+
+   
+
+{% endblock %}
+{% block content_content %}
+
+    {% block content %}
+        <div class="container">
+            <h4>Gestionar Empleados del Horario :<b>{{horarioNombre}}</b></h4>
+            <hr/>
+        <ul id="myTab" class="nav nav-tabs">
+            <li><a href="#horario" data-toggle="tab">Agregar empleado</a></li>
+            <li class="active"><a href="#historial" data-toggle="tab">Listado de empleados</a></li>
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade"  id="horario">
+            <br/>
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Datos del horario</h2>
+                        </div>
+                        <div class="panel-body">
+                            <form action="{{ path('chorario_addempleado') }}" method="post"  name="empleadoForm"
+                                      id="empleadoForm">
+                                <input type="hidden" value="{{horario}}" name="horario">
+                            <fieldset>
+
+
+                                <div class="row-fluid">
+                                    <div class="col-lg-4">
+                                        <div class="control-group">
+                                           
+                                        <label for="filter" class="control-label col-lg-3 optional">Filtrar</label>
+                                        <input type="text" onkeyup="Buscar(this)" class="form-control" name="filter" id="filter">
+                                       </div>
+                                    </div>
+                                    
+
+
+                                </div>
+                               
+
+                            </fieldset>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <fieldset>
+                                <legend>Resultados de la búsqueda</legend>
+                                 <div class="row-fluid">
+                                   <div class="col-lg-8">
+                                       <ol id="lista" class="unstyled">
+                                       
+                                       </ol>
+                                       
+                                   </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend></legend>
+                                <input type="submit" value="Enviar" class="btn btn-primary">
+                            </fieldset>
+                          </form>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade active in" id="historial">
+            <br/>
+            
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Empleados actuales
+                    </h3>
+                </div>
+                <div class="panel-body">
+
+                   <table class="table table-striped table-bordered table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>Nombre y Apellidos</th>
+                                
+
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% if entities|length >0 %}
+                            {% for entity in entities %}
+                                <tr>
+                                    <td>{{ entity.nombre }} {{ entity.primerApellido }} {{ entity.segundoApellido }} </td>
+
+                                    
+
+                                    <td>
+                                        <a class="btn btn-primary"
+                                           href="{{ path('chorario_deleteEmpleados',{'idhorario':horario,'idempleado':entity.id}) }}"><i
+                                                    class="glyphicon glyphicon-trash"></i>Eliminar horario</a>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            {% else %}
+                                <td colspan="2"> No se encontraron registros</td>
+                            {% endif %}
+
+                            </tbody>
+                        </table>
+                    
+                   
+
+                </div>
+            </div>
+        
+
+
+
+
+
+        </div>
+
+
+        </div>
+
+
+
+
+        </div>
+
+    {% endblock content %}
+
+
+{% endblock %}

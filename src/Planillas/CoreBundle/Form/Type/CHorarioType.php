@@ -23,11 +23,11 @@ class CHorarioType extends AbstractType {
                     'allow_add' => true,
                     'by_reference' => false,
                     'allow_delete' => true))
-                ->add('empleado', 'hidden', array('data_class' => 'Planillas\CoreBundle\Entity\CEmpleado', 'property_path' => 'id'));
+                
+                ->add('titulo');
+                //->add('empleado', 'hidden', array('data_class' => 'Planillas\CoreBundle\Entity\CEmpleado', 'property_path' => 'id'));
 
-        if ($this->bDestruyeEmpleado) {
-            $builder->remove('empleado');
-        }
+       
     }
 
     /**

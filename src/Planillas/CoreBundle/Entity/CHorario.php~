@@ -1,0 +1,54 @@
+<?php
+
+namespace Planillas\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CHorario
+ *
+ * @ORM\Table(name="c_horario")
+ * @ORM\Entity(repositoryClass="Planillas\CoreBundle\Entity\Repository\CHorarioRepository")
+ */
+class CHorario
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+    
+    /**
+     * @var $empleado Doctrine/Common/Collections/ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", mappedBy="horario")
+     */
+    private $empleado;
+    /**
+     * @var $fechaexcepcional CFechaExcepcional
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CFechaExcepcional", mappedBy="fechaexcepcional")
+     */
+    private $fechaexcepcional;
+     /**
+     * @var string
+     * @ORM\Column(name="titulo", type="string", length=100, nullable=true)
+     */
+    private $titulo;
+    /**
+     * @var $horarioDias Doctrine/Common/Collections/ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="CHorarioDias", mappedBy="horario", cascade={"all"})
+     */
+    private $horarioDias;
+    
+    
+
+   
+  
+   
+
+}

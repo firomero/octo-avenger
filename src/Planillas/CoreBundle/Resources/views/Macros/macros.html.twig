@@ -109,10 +109,10 @@
                 {% endif %}
                 <!-- horario-->
                 {% if(active=='horario') %}
-                    <li class="active"><a href="{{ path('chorario_new',{ 'id_empleado': eEmpleado.id }) }}">Horario</a>
+                    <li class="active"><a href="{{ path('chorario_empleado',{ 'id_empleado': eEmpleado.id }) }}">Horario</a>
                     </li>
                 {% else %}
-                    <li><a href="{{ path('chorario_new',{ 'id_empleado': eEmpleado.id }) }}">Horario</a></li>
+                    <li><a href="{{ path('chorario_empleado',{ 'id_empleado': eEmpleado.id }) }}">Horario</a></li>
                 {% endif %}
 
                 <!-- Cuentas de banco -->

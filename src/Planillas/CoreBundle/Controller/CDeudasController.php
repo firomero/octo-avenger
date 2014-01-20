@@ -88,7 +88,7 @@ class CDeudasController extends Controller
             return $this->redirect($this->generateUrl('cdeudas'));
         }
 
-        $this->get('session')->getFlashBag()->add('danger', 'No se pudieron guardados los datos');
+        $this->get('session')->getFlashBag()->add('danger', 'No se pudieron guardar los datos');
         return $this->redirect($this->generateUrl('cdeudas'));
     }
 

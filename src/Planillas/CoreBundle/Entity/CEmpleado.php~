@@ -1232,8 +1232,4 @@ class CEmpleado {
     {
         return $this->componentesSalariales;
     }
-     public function __toString() {
-        return $this->nombre . ' ' . $this->primerApellido;
-    }
-
 }

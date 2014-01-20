@@ -62,5 +62,22 @@ class CEmpleadoRepository extends  EntityRepository {
             return array();
         }
     }
+     public function filterEmpleadoAjax($filtros=array()){
+       try{
+
+            $sql = "SELECT emp FROM PlanillasCoreBundle:CEmpleado emp WHERE";
+            $sql.=' emp.cedula LIKE \'%'.$filtros['data'].'%\' OR ';
+            $sql.=' emp.nombre LIKE \'%'.$filtros['data'].'%\' OR';
+            $sql.=' emp.primerApellido LIKE \'%'.$filtros['data'].'%\' OR ';
+            $sql.=' emp.segundoApellido LIKE \'%'.$filtros['data'].'%\'';   
+            $sql .=' ORDER BY emp.id DESC';
+            $query = $this->_em->createQuery($sql);
+            //print_r($query->getDQL());exit;
+
+            return $query->getResult();
+        }catch (NoResultException $e){
+            return array();
+        }  
+     }
 
 }

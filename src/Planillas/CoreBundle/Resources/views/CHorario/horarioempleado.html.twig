@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+Sistema de Planillas: Asignar horario
+{% endblock %}
+{% block foot_script %}
+    {{ parent() }}
+
+
+<script type="text/javascript">
+
+    function CambiarTexto()
+    {
+        $('#planillas_fechaexepcional_submit').val('Enviando.....');
+    }
+    </script>
+
+
+
+
+{% endblock %}
+{% block content_content %}
+    {% for mensaje in app.session.flashbag.all() %}
+    <div class="alert alert-info">{{ mensaje }}</div>
+    {% endfor %}
+
+    {% block content %}
+
+    <div class="row-fluid">    
+        <div class="col-lg-9"><!--Div de apertura de la columna-->
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Horario</h2>
+                </div>
+                <div class="panel-body">
+                    <form action="{{ path('chorario_empleado_cambiar') }}"
+                          method="post"  name="empleadoForm"
+                          id="empleadoForm" onsubmit="CambiarTexto()">
+                        <fieldset>
+                            <input type="hidden" name="cempleado[empleado_id]" value="{{eEmpleado.id}}">
+                            <select name="cempleado[horario_id]" class="form-control">
+                            {% for option in html%}
+                                    {%if option.selected%}
+                                            <option value="{{option.value}}" selected="selected">{{ option.text}}</option>
+                                    {% else%}
+                                            <option value="{{option.value}}">{{ option.text}}</option>
+                                    {%endif%}
+                            {% endfor%}
+
+                                </select>
+                            </fieldset>
+<hr>
+                            <fieldset>
+                                <legend></legend>
+                                <input type="submit" value="Asignar" class="btn btn-primary" id="planillas_fechaexepcional_submit">
+                            </fieldset>
+                        </form>
+
+                    </div>
+                </div>
+
+
+
+            </div><!-- div de la columna de la division-->
+            <div class="col-sm-3">
+             {{ macros.empleado_foto(eEmpleado) }}
+	     {{ macros.menu_empleado('horario',eEmpleado) }}
+                </div>
+            </div>
+    {% endblock content %}
+
+
+{% endblock %}
+

@@ -124,27 +124,4 @@ class CFechaExcepcional
     {
         return $this->observacion;
     }
-
-    /**
-     * Set empleado
-     *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
-     * @return CFechaExcepcional
-     */
-    public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
-    {
-        $this->empleado = $empleado;
-    
-        return $this;
-    }
-
-    /**
-     * Get empleado
-     *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
-     */
-    public function getEmpleado()
-    {
-        return $this->empleado;
-    }
 }
