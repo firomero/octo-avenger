@@ -10,16 +10,11 @@
 {% block foot_script %}
     {{ parent() }}
 
-    
 <script type="text/javascript">
-
     jQuery(document).ready(function() {
-        
-         
+
     });
     function Buscar(element) {
-        
-    
             $.ajax({
                 url: '{{ path('findPerson') }}',
                 data: {id: element.value},
@@ -56,13 +51,9 @@
             })
             }
     </script>
-
-
-   
-
 {% endblock %}
-{% block content_content %}
 
+{% block content_content %}
     {% block content %}
         <div class="container">
             <h4>Gestionar Empleados del Horario :<b>{{horarioNombre}}</b></h4>

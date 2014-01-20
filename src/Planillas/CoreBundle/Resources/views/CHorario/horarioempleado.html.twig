@@ -8,28 +8,21 @@ Sistema de Planillas: Asignar horario
 
 
 <script type="text/javascript">
-
     function CambiarTexto()
     {
         $('#planillas_fechaexepcional_submit').val('Enviando.....');
     }
     </script>
-
-
-
-
 {% endblock %}
+
 {% block content_content %}
     {% for mensaje in app.session.flashbag.all() %}
     <div class="alert alert-info">{{ mensaje }}</div>
     {% endfor %}
 
     {% block content %}
-
     <div class="row-fluid">    
         <div class="col-lg-9"><!--Div de apertura de la columna-->
-
-
 
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -52,7 +45,7 @@ Sistema de Planillas: Asignar horario
 
                                 </select>
                             </fieldset>
-<hr>
+                            <br/>
                             <fieldset>
                                 <legend></legend>
                                 <input type="submit" value="Asignar" class="btn btn-primary" id="planillas_fechaexepcional_submit">
@@ -67,7 +60,7 @@ Sistema de Planillas: Asignar horario
             </div><!-- div de la columna de la division-->
             <div class="col-sm-3">
              {{ macros.empleado_foto(eEmpleado) }}
-	     {{ macros.menu_empleado('horario',eEmpleado) }}
+            {{ macros.menu_empleado('horario',eEmpleado) }}
                 </div>
             </div>
     {% endblock content %}
