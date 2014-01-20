@@ -33,6 +33,7 @@ Sistema de Planillas:{{ headline }}
         $('#planillas_corebundle_chorario_horarioDias_3_horaInicio').timepicker(config);
         $('#planillas_corebundle_chorario_horarioDias_4_horaInicio').timepicker(config);
         $('#planillas_corebundle_chorario_horarioDias_5_horaInicio').timepicker(config);
+        $('#planillas_corebundle_chorario_horarioDias_6_horaInicio').timepicker(config);
 
 
 
@@ -42,8 +43,9 @@ Sistema de Planillas:{{ headline }}
         $('#planillas_corebundle_chorario_horarioDias_3_horaFin').timepicker(config);
         $('#planillas_corebundle_chorario_horarioDias_4_horaFin').timepicker(config);
         $('#planillas_corebundle_chorario_horarioDias_5_horaFin').timepicker(config);
-        $('#add_new').click(function() {
+        $('#planillas_corebundle_chorario_horarioDias_6_horaFin').timepicker(config);
 
+        $('#add_new').click(function() {
             $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').val("");
             $('#planillas_corebundle_chorario_horarioDias_1_horaInicio').val("");
             $('#planillas_corebundle_chorario_horarioDias_2_horaInicio').val("");
@@ -114,6 +116,7 @@ Sistema de Planillas:{{ headline }}
                     $('#planillas_corebundle_chorario_horarioDias_4_horaInicio').val(data.dias.Viernes.inicio);//viernes
                     $('#planillas_corebundle_chorario_horarioDias_5_horaInicio').val(data.dias.Sabado.inicio);//sabado
                     $('#planillas_corebundle_chorario_horarioDias_6_horaInicio').val(data.dias.Domingo.inicio);//domingo
+
                     $('#planillas_corebundle_chorario_horarioDias_0_horaFin').val(data.dias.Lunes.fin);
                     $('#planillas_corebundle_chorario_horarioDias_1_horaFin').val(data.dias.Martes.fin);
                     $('#planillas_corebundle_chorario_horarioDias_2_horaFin').val(data.dias.Miercoles.fin);
@@ -121,6 +124,7 @@ Sistema de Planillas:{{ headline }}
                     $('#planillas_corebundle_chorario_horarioDias_4_horaFin').val(data.dias.Viernes.fin);
                     $('#planillas_corebundle_chorario_horarioDias_5_horaFin').val(data.dias.Sabado.fin);
                     $('#planillas_corebundle_chorario_horarioDias_6_horaFin').val(data.dias.Domingo.fin);
+
                     $('#planillas_corebundle_chorario_id').val(data.data.id);
                     $('#planillas_corebundle_chorario_titulo').val(data.data.titulo);
                     $('#planillas_corebundle_chorario_submit').html('Actualizar');
