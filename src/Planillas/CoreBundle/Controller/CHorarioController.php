@@ -28,18 +28,25 @@ class CHorarioController extends Controller {
         $entity = new CHorario();
         $lunes = new CHorarioDias();
         $lunes->setDia("Lunes");
+        $lunes->setActivo(true);
         $martes = new CHorarioDias();
         $martes->setDia("Martes");
+        $martes->setActivo(true);
         $miercoles = new CHorarioDias();
-        $miercoles->setDia("Miercoles");
+        $miercoles->setDia("Miércoles");
+        $miercoles->setActivo(true);
         $jueves = new CHorarioDias();
         $jueves->setDia("Jueves");
+        $jueves->setActivo(true);
         $viernes = new CHorarioDias();
         $viernes->setDia("Viernes");
+        $viernes->setActivo(true);
         $sabado = new CHorarioDias();
-        $sabado->setDia("Sabado");
+        $sabado->setDia("Sábado");
+        $sabado->setActivo(true);
         $domingo = new CHorarioDias();
         $domingo->setDia("Domingo");
+        $domingo->setActivo(true);
         $entity->addHorarioDia($lunes);
         $entity->addHorarioDia($martes);
         $entity->addHorarioDia($miercoles);
@@ -322,12 +329,13 @@ class CHorarioController extends Controller {
             {
                 $response['dias'][$dia->getDia()]['inicio'] = $dia->getHoraInicio()->format('H:i');
                 $response['dias'][$dia->getDia()]['fin'] = $dia->getHoraFin()->format('H:i');
+                $response['dias'][$dia->getDia()]['activo'] = $dia->getActivo();
             }
         }
 
         $response['success'] = true;
         $response['data'] = array('id' => $entity->getId(), 'titulo' => $entity->getTitulo());
-
+        //print_r($response);exit;
         return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
     }
 

@@ -154,27 +154,4 @@ class CHorarioDias {
         return $this->dia; //.// ' './/$this->horaInicio->format('Y-m-d');
     }
 
-
-    /**
-     * Set activo
-     *
-     * @param boolean $activo
-     * @return CHorarioDias
-     */
-    public function setActivo($activo)
-    {
-        $this->activo = $activo;
-    
-        return $this;
-    }
-
-    /**
-     * Get activo
-     *
-     * @return boolean 
-     */
-    public function getActivo()
-    {
-        return $this->activo;
-    }
 }
