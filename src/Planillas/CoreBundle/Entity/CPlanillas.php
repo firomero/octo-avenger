@@ -47,7 +47,7 @@ class CPlanillas
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="created_at", type="date", nullable=false)
+     * @ORM\Column(name="created_at", type="date", nullable=true)
      */
     private $created_at;
     

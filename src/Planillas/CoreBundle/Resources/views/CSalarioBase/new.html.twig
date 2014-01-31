@@ -15,7 +15,7 @@ Adiciona Empleado
     <div class="col-lg-9"><!--Div de apertura de la columna-->
         <ul id="myTab" class="nav nav-tabs">
             <li  class="active"><a href="#sueldo" data-toggle="tab">Sueldo</a></li>
-            <li><a href="#historial" data-toggle="tab">Historial de Deudas Pagadas</a></li>
+            <li><a href="#historial" data-toggle="tab">Historial de deudas pagadas</a></li>
 
         </ul>  
         <div id="myTabContent" class="tab-content">
@@ -47,7 +47,7 @@ Adiciona Empleado
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2 class="panel-title">Asignación de Componentes Salariales</h2>
+                        <h2 class="panel-title">Asignación de componentes salariales</h2>
                     </div>
                     <div class="panel-body">
 
@@ -87,6 +87,7 @@ Adiciona Empleado
                     </thead>
                     <tbody>
                 {% for entitys in entities %}
+                {% if entitys.planilla is not null  %}
                             <tr>
                                 <td><a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">{%if entitys.componente==0%}Rebajo{% else %}Bonificacion{%endif%}</a></td>{#esto hay que cambiarlo#}
                                 <td>
@@ -118,7 +119,7 @@ Adiciona Empleado
                                         
                                     </td>
                                     <td>
-                                      {% if entitys.pagado ==0 or entitys.pagado==null %}
+                                      {% if entitys.planilla ==null  %}
                                         <i class="glyphicon glyphicon-remove" title="No pagado"></i>
                                         {% else %}
                                 
@@ -133,6 +134,7 @@ Adiciona Empleado
 
                                     </td>-->
                                 </tr>
+                {% endif %}
                 {% endfor %}
 
                             </tbody>

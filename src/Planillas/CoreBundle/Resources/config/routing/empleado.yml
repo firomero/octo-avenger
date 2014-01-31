@@ -23,8 +23,14 @@ empleado_foto:
     defaults: { _controller: PlanillasCoreBundle:CEmpleado:updatePhoto}
     pattern:   /empleado/{id}/foto
 cpagos:
-    defaults: { _controller: PlanillasCoreBundle:CPlanillas:pagos}
+    defaults: { _controller: PlanillasCoreBundle:CPlanillas:buscar}
     pattern:   /planillas
 cplanillas_buscar:
     defaults: { _controller: PlanillasCoreBundle:CPlanillas:pagos}
-    pattern:   /planillas
+    pattern:   /planillas/pagos
+cplanillas_listar:
+    defaults: { _controller: PlanillasCoreBundle:CPlanillas:listar}
+    pattern:   /planillas/listar
+cplanillas_detalles:
+    defaults: { _controller: PlanillasCoreBundle:CPlanillas:detalles}
+    pattern:   /planillas/{id}/detalles

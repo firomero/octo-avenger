@@ -58,6 +58,12 @@ class CIncapacidades
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="incapacidades")
      */
     private $empleado;
+    /**
+     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     */
+    private $planilla;
 
 
 

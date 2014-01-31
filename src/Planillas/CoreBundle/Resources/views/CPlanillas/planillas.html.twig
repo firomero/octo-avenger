@@ -1,0 +1,148 @@
+{% extends '::base.html.twig' %}
+
+{% block headline %}
+Planilla de pago
+{% endblock headline %}
+{% block content_content %}
+{% block foot_script %}
+    {{ parent() }}
+<script>
+
+    /*window.addEvent('domready', function() {
+     //jQuery.noConflict();
+     
+     
+     });*/
+
+    $(document).ready(function() {
+        $('#planillas_fechaInicio').datepicker
+                ({
+                    format: "yyyy-mm-dd"
+                });
+        $('#planillas_fechaFin').datepicker
+                ({
+                    format: "yyyy-mm-dd"
+                });
+
+    })
+    </script>
+ {% endblock%}
+    <form class="form-horizontal" action="{{ path('cplanillas_buscar') }}"
+          method="post" enctype="multipart/form-data" name="planillasForm" id="planillasForm">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+
+            <h3 class="panel-title">
+                Buscar Planillas
+            </h3>
+
+        </div>
+        <div class="panel-body">
+
+
+                <fieldset>
+                    <div class="row-fluid">
+                        <div class="col-lg-4">
+                            <div class=" form-group" id="planillas_dev_fecha_inicio_control_group">
+                                <label class=" control-label col-lg-3 required" for="planillas_corebundle_csalariobase_salarioBase">
+                                    Fecha Inicio
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="date" value="" class="not-removable form-control" name="planillas[fechaInicio]" id="planillas_fechaInicio">
+                                    <!--<input type="text" value="3000" class=" not-removable form-control" required="required" name="planillas_corebundle_csalariobase[salarioBase]" id="planillas_corebundle_csalariobase_salarioBase">-->
+                                </div>
+                             </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class=" form-group" id="planillas_dev_fecha_fin_control_group">
+                                <label class=" control-label col-lg-3 required" for="planillas_corebundle_csalariobase_salarioBase">
+                                    Fecha Fin
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="date" value="" class="not-removable form-control" name="planillas[fechaFin]" id="planillas_fechaFin">
+                                    <!--<input type="text" value="3000" class=" not-removable form-control" required="required" name="planillas_corebundle_csalariobase[salarioBase]" id="planillas_corebundle_csalariobase_salarioBase">-->
+                                </div>
+                             </div>
+                        </div>
+                        
+                       
+
+                    </div>
+                </fieldset>
+                <hr>
+                <fieldset>
+                    <legend></legend>
+                    <div class="btn-group">
+                        <button type="submit"   name="btn_actualizar" class="btn btn-primary">Buscar</button>
+
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-default">Cancelar</a>
+
+                    </div>
+                </fieldset>
+
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+
+
+            <h3 class="panel-title">
+
+                    Listado de planillas
+
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="btn-group">
+
+                <a class="btn btn-primary" id="add_new" href="{{ path('cplanillas_buscar') }}">
+                    Agregar pago
+                </a>
+            </div>
+            <hr/>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+
+                        <th>Planilla</th>
+                        <th>Desde</th>
+                        <th>Hasta</th>
+                        <th>Informe</th>
+
+
+
+                    </tr>
+
+                </thead>
+                <tbody>
+                {% if entities|length >0  %}
+
+                    {% for entity in entities%}
+
+                        <tr>
+                         <td>
+                             {{ entity.id }}
+                         </td>
+                         <td>
+                             {{ entity.fechaInicio|date('Y-m-d')}}
+                         </td>
+                         <td>
+                             {{ entity.fechaFin|date('Y-m-d')}}
+                         </td>
+                         <td>
+                             <a href="{{ path('cplanillas_detalles',{'id':entity.id}) }}" class="btn btn-primary"> <i class="glyphicon glyphicon-eye-open" title="Detalles de la planilla"></i>Detalles</a>
+                         </td>
+
+
+                        </tr>
+
+                    {% endfor %}
+                {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+{% endblock %}

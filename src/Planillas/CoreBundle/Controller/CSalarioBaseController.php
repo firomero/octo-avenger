@@ -95,7 +95,7 @@ class CSalarioBaseController extends Controller {
         } else {
             $form = $this->createEditForm($entity);
         }
-        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado, 'pagado' => 1));
+        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado));
         return $this->render('PlanillasCoreBundle:CSalarioBase:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),

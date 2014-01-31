@@ -59,7 +59,7 @@ Sistema de Planillas:{{ headline }}
              }
             else
              {
-                 //$('#ausenciasForm').submit();
+                 $('#ausenciasForm').submit();
              }
 
 
@@ -238,10 +238,11 @@ Sistema de Planillas:{{ headline }}
                             {% set tipoAusencia=['Uniformes','Sanciones','Préstamos'] %}
                             {% for entity in pagination %}
                                     <tr>
-                                        <td><a href="{{ path('causencias_edit', { 'id': entity.id }) }}">
-
+                                        <td>
+                                        <a href="{{ path('causencias_edit', { 'id': entity.id }) }}">
                                                 
-                                                {{ entity.tipoausencia }}</a></td>
+                                        {{ entity.tipoausencia }}
+                                        </a></td>
                                         <td>{{ entity.empleado }}</td>
 
                                         <td>{% if entity.fechaInicio %}{{ entity.fechaInicio|date('Y-m-d') }}{% endif %}</td>
