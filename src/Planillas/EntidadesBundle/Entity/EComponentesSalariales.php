@@ -110,6 +110,12 @@ class EComponentesSalariales
      * @ORM\Column(name="tipo_deuda", type="string", nullable=true)
      */
     private $tipoDeuda;
+    /**
+     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     */
+    private $planilla;
 
 
     /**
@@ -442,5 +448,28 @@ class EComponentesSalariales
     public function getTipoDeuda()
     {
         return $this->tipoDeuda;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @return EComponentesSalariales
+     */
+    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+    
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
     }
 }

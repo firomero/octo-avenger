@@ -22,3 +22,9 @@ empleado_delete:
 empleado_foto:
     defaults: { _controller: PlanillasCoreBundle:CEmpleado:updatePhoto}
     pattern:   /empleado/{id}/foto
+cpagos:
+    defaults: { _controller: PlanillasCoreBundle:CPlanillas:pagos}
+    pattern:   /planillas
+cplanillas_buscar:
+    defaults: { _controller: PlanillasCoreBundle:CPlanillas:pagos}
+    pattern:   /planillas

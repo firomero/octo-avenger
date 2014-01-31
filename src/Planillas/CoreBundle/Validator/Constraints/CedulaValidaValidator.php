@@ -38,9 +38,6 @@ class CedulaValidaValidator extends ConstraintValidator{
     {
         $securityPin        = $this->security->getToken()->getUser()->getPin();
         $cedula = $data->getCedula();
-        //$choferPin          = $data->getChofer()->getPin();
-		//if()
-  
         if(!StringUtils::equals($choferCodigoBarras,'') && !StringUtils::equals($choferCodigoBarras,$data->getCodigobarras()) && !StringUtils::equals($securityPin,$data->getPin()))
             $this->context->addViolationAt('codigobarras',$constraint->messageBarras,array());
 

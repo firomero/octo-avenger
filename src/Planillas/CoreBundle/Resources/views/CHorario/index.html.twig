@@ -27,6 +27,57 @@ Sistema de Planillas:{{ headline }}
         showMeridian: false
     }
     jQuery(document).ready(function() {
+        
+       /*$('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
+             if(this.checked){
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});
+                $('#planillas_corebundle_chorario_horarioDias_0_horaFin').attr({disabled:'disabled'});
+             }  
+              
+              else{
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled');
+                $('#planillas_corebundle_chorario_horarioDias_0_horaFin').removeAttr('disabled'); 
+              }
+       })
+       $('#planillas_corebundle_chorario_horarioDias_1_activo').on('change',function(){
+             if(this.checked){
+                $('#planillas_corebundle_chorario_horarioDias_1_horaInicio').attr({disabled:'disabled'}); 
+                $('#planillas_corebundle_chorario_horarioDias_1_horaFin').attr({disabled:'disabled'}); 
+             } 
+             else
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+       })
+       $('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
+             if(this.checked){
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});  
+              }
+              else
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+       })
+       $('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
+             if(this.checked){
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});  
+              }
+              else
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+       })
+       $('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
+             if(this.checked){
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});  
+              }
+              else
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+       })
+       $('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
+             if(this.checked){
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});  
+              }
+              else
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+       })*/
+        
+        
+    
         $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').timepicker(config);
         $('#planillas_corebundle_chorario_horarioDias_1_horaInicio').timepicker(config);
         $('#planillas_corebundle_chorario_horarioDias_2_horaInicio').timepicker(config);
@@ -111,22 +162,53 @@ Sistema de Planillas:{{ headline }}
                 if (data.success) {
                     $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').val(data.dias.Lunes.inicio);//lunes
                     $('#planillas_corebundle_chorario_horarioDias_1_horaInicio').val(data.dias.Martes.inicio);//martes
-                    $('#planillas_corebundle_chorario_horarioDias_2_horaInicio').val(data.dias.Miercoles.inicio);//miercoles
+                    $('#planillas_corebundle_chorario_horarioDias_2_horaInicio').val(data.dias.Mi\u00e9rcoles.inicio);//miercoles
                     $('#planillas_corebundle_chorario_horarioDias_3_horaInicio').val(data.dias.Jueves.inicio);//jueves
                     $('#planillas_corebundle_chorario_horarioDias_4_horaInicio').val(data.dias.Viernes.inicio);//viernes
-                    $('#planillas_corebundle_chorario_horarioDias_5_horaInicio').val(data.dias.Sabado.inicio);//sabado
+                    $('#planillas_corebundle_chorario_horarioDias_5_horaInicio').val(data.dias.S\u00e1bado.inicio);//sabado
                     $('#planillas_corebundle_chorario_horarioDias_6_horaInicio').val(data.dias.Domingo.inicio);//domingo
 
                     $('#planillas_corebundle_chorario_horarioDias_0_horaFin').val(data.dias.Lunes.fin);
                     $('#planillas_corebundle_chorario_horarioDias_1_horaFin').val(data.dias.Martes.fin);
-                    $('#planillas_corebundle_chorario_horarioDias_2_horaFin').val(data.dias.Miercoles.fin);
+                    $('#planillas_corebundle_chorario_horarioDias_2_horaFin').val(data.dias.Mi\u00e9rcoles.fin);
                     $('#planillas_corebundle_chorario_horarioDias_3_horaFin').val(data.dias.Jueves.fin);
                     $('#planillas_corebundle_chorario_horarioDias_4_horaFin').val(data.dias.Viernes.fin);
-                    $('#planillas_corebundle_chorario_horarioDias_5_horaFin').val(data.dias.Sabado.fin);
+                    $('#planillas_corebundle_chorario_horarioDias_5_horaFin').val(data.dias.S\u00e1bado.fin);
                     $('#planillas_corebundle_chorario_horarioDias_6_horaFin').val(data.dias.Domingo.fin);
 
                     $('#planillas_corebundle_chorario_id').val(data.data.id);
                     $('#planillas_corebundle_chorario_titulo').val(data.data.titulo);
+                    /*Active days*/
+                    
+                     if (data.dias.Lunes.activo) 
+                        $('#planillas_corebundle_chorario_horarioDias_0_activo').attr({checked: 'checked'});
+                    else
+                        $('#planillas_corebundle_chorario_horarioDias_0_activo').removeAttr('checked');
+                     if (data.dias.Martes.activo) 
+                        $('#planillas_corebundle_chorario_horarioDias_1_activo').attr({checked: 'checked'});
+                    else
+                        $('#planillas_corebundle_chorario_horarioDias_1_activo').removeAttr('checked');
+                     if (data.dias.Mi\u00e9rcoles.activo) 
+                        $('#planillas_corebundle_chorario_horarioDias_2_activo').attr({checked: 'checked'});
+                    else
+                        $('#planillas_corebundle_chorario_horarioDias_2_activo').removeAttr('checked');
+                     if (data.dias.Jueves.activo) 
+                        $('#planillas_corebundle_chorario_horarioDias_3_activo').attr({checked: 'checked'});
+                    else
+                        $('#planillas_corebundle_chorario_horarioDias_3_activo').removeAttr('checked');
+                     if (data.dias.Viernes.activo) 
+                        $('#planillas_corebundle_chorario_horarioDias_4_activo').attr({checked: 'checked'});
+                    else
+                        $('#planillas_corebundle_chorario_horarioDias_4_activo').removeAttr('checked');
+                     if (data.dias.S\u00e1bado.activo) 
+                        $('#planillas_corebundle_chorario_horarioDias_5_activo').attr({checked: 'checked'});
+                    else
+                        $('#planillas_corebundle_chorario_horarioDias_5_activo').removeAttr('checked');
+                    if (data.dias.Domingo.activo) 
+                        $('#planillas_corebundle_chorario_horarioDias_6_activo').attr({checked: 'checked'});
+                    else
+                        $('#planillas_corebundle_chorario_horarioDias_6_activo').removeAttr('checked');
+                    
                     $('#planillas_corebundle_chorario_submit').html('Actualizar');
                     $('#myTab a:first').tab('show')
                     $('#progreso').css('display', 'none');
@@ -171,125 +253,128 @@ Sistema de Planillas:{{ headline }}
                             </div>
                             <div class="panel-body">
                                 {{ form_start(form) }}
-                                <input type="hidden" class=" not-removable form-control" name="planillas_id[id]"
-                                       id="planillas_corebundle_chorario_id">
-                                <fieldset>
-                                    <div class="col-lg-4">{{ form_row(form.titulo) }}</div>
-                                </fieldset>
+                                    <input type="hidden" class=" not-removable form-control" name="planillas_id[id]"
+                                           id="planillas_corebundle_chorario_id">
+                                    <fieldset>
+                                        <div class="col-lg-4">{{ form_row(form.titulo) }}</div>
+                                    </fieldset>
                                 {{ form_errors(form) }}
 
-                                <hr>
-                                <div data-prototype="{{ form_widget(form.horarioDias.vars.prototype)|e }}">
-                                {% for ruta in form.horarioDias %}
-                                    <fieldset>
-                                    {{ form_errors(ruta)}}
-                                        <div class="row-fluid">
-                                            <div class="col-lg-4">{{ form_row(ruta.dia) }}</div>
-                                            <div class="col-lg-4">
-                                                <div class="input-append bootstrap-timepicker">
-                                                {{ form_label(ruta.horaInicio) }}
-                                                    <div class="input-group">
-                                                        {{ form_widget(ruta.horaInicio) }}
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4">
-                                                <div class="input-append bootstrap-timepicker">
-                                                    {{ form_label(ruta.horaFin) }}
-                                                    <div class="input-group">
-                                                        {{ form_widget(ruta.horaFin) }}
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
                                     <hr>
+                                    <div data-prototype="{{ form_widget(form.horarioDias.vars.prototype)|e }}">
+                                {% for ruta in form.horarioDias %}
+                                            <fieldset>
+                                    {{ form_errors(ruta)}}
+                                                    <div class="row-fluid">
+                                                        <div class="col-lg-3">{{ form_row(ruta.dia) }}</div>
+                                                        <div class="col-lg-3">
+                                                            <div class="input-append bootstrap-timepicker">
+                                                {{ form_label(ruta.horaInicio) }}
+                                                                    <div class="input-group">
+                                                        {{ form_widget(ruta.horaInicio) }}
+                                                                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-3">
+                                                                    <div class="input-append bootstrap-timepicker">
+                                                    {{ form_label(ruta.horaFin) }}
+                                                                            <div class="input-group">
+                                                        {{ form_widget(ruta.horaFin) }}
+                                                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-3">
+                                                {{ form_widget(ruta.activo) }}
+                                                                            </div>
+                                                                        </div>
+                                                                    </fieldset>
+                                                                    <hr>
                                 {% endfor %}
-                                </div>
+                                                                </div>
 
                                 {{ form_end(form) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-            <div class="tab-pane fade active in" id="historial">
-                <br/>
+                                            <div class="tab-pane fade active in" id="historial">
+                                                <br/>
 
-                <div class="panel panel-default ">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">
-                            Listado de horarios
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="progreso" style="display: none">
-                            <h4>Cargando... por favor espere.</h4>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar" style="width: 100%"></div>
-                            </div>
-                        </div>
-                        <div class="btn-group">
+                                                <div class="panel panel-default ">
+                                                    <div class="panel-heading">
+                                                        <h3 class="panel-title">
+                                                            Listado de horarios
+                                                        </h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div id="progreso" style="display: none">
+                                                            <h4>Cargando... por favor espere.</h4>
+                                                            <div class="progress progress-striped active">
+                                                                <div class="progress-bar" style="width: 100%"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="btn-group">
 
-                            <a class="btn btn-primary" id="add_new" href="#">
-                                Agregar
-                            </a>
-                        </div>
-                        <hr/>
-                        <table class="table table-striped table-bordered table-hover table-condensed">
-                            <thead>
-                                <tr>
-                                    <th>Horario</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                                                            <a class="btn btn-primary" id="add_new" href="#">
+                                                                Agregar
+                                                            </a>
+                                                        </div>
+                                                        <hr/>
+                                                        <table class="table table-striped table-bordered table-hover table-condensed">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Horario</th>
+                                                                    <th>Acciones</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
                             {% if pagination|length >0 %}
                                 {% for entity in pagination %}
-                                        <tr>
-                                            <td>{{ entity.titulo }} </td>
-                                            <td>
-                                                <a class="btn btn-primary" id="linkedit" onclick="buscar('{{ entity.id }}')"
-                                                   href="#"><i
-                                                        class="glyphicon glyphicon-pencil"></i>Editar</a>
-                                                <a class="btn btn-primary" href="{{ path('chorario_delete',{'id':entity.id}) }}"><i class="glyphicon glyphicon-trash"></i>Eliminar</a>
+                                                                    <tr>
+                                                                        <td>{{ entity.titulo }} </td>
+                                                                        <td>
+                                                                            <a class="btn btn-primary" id="linkedit" onclick="buscar('{{ entity.id }}')"
+                                                                               href="#"><i
+                                                                                    class="glyphicon glyphicon-pencil"></i>Editar</a>
+                                                                            <a class="btn btn-primary" href="{{ path('chorario_delete',{'id':entity.id}) }}"><i class="glyphicon glyphicon-trash"></i>Eliminar</a>
 
-                                                <a class="btn btn-primary" href="{{ path('chorario_empleados',{'id':entity.id}) }}"><i class="glyphicon glyphicon-plus"></i>Empleados</a>
-                                                <a class="btn btn-primary" href="{{ path('chorario_fecha',{'id':entity.id}) }}"><i class="glyphicon glyphicon-time"></i>Fecha Excepcional</a>
-                                            </td>
-                                        </tr>
+                                                                            <a class="btn btn-primary" href="{{ path('chorario_empleados',{'id':entity.id}) }}"><i class="glyphicon glyphicon-plus"></i>Empleados</a>
+                                                                            <a class="btn btn-primary" href="{{ path('chorario_fecha',{'id':entity.id}) }}"><i class="glyphicon glyphicon-time"></i>Fecha Excepcional</a>
+                                                                        </td>
+                                                                    </tr>
                                 {% endfor %}
                             {% else %}
-                                <td colspan="3"> No se encontraron registros</td>
+                                                                <td colspan="3"> No se encontraron registros</td>
                             {% endif %}
 
-                                </tbody>
-                            </table>
+                                                                </tbody>
+                                                            </table>
                         {{ knp_pagination_render(pagination) }}
 
 
-                        </div>
-                    </div>
+                                                        </div>
+                                                    </div>
 
 
 
 
 
 
-                </div>----
+                                                </div>----
 
 
-                            </div>
+                                            </div>
 
 
 
 
-                        </div>
+                                        </div>
 
     {% endblock content %}
 

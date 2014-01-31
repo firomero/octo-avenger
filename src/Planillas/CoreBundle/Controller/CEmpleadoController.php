@@ -214,12 +214,7 @@ class CEmpleadoController extends Controller {
             $this->get('session')->getFlashBag()->add('info', 'Se han actualizado los datos correctamente');
             return $this->redirect($this->generateUrl('empleado_index', array('id' => $id)));
         }
-        //print_r($editForm->getErrors());
-        //exit;
-
-
-
-        return $this->render('PlanillasCoreBundle:CEmpleado:edit.html.twig', array(
+      return $this->render('PlanillasCoreBundle:CEmpleado:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
                         //'delete_form' => $deleteForm->createView(),
@@ -316,7 +311,7 @@ class CEmpleadoController extends Controller {
         }
         catch(Exception $e)
         {
-            $this->get('session')->getFlashBag()->add('danger', 'No se pudieron acutalizar los datos.');
+            $this->get('session')->getFlashBag()->add('danger', 'No se pudieron actualizar los datos.');
         }
         return $this->redirect($this->generateUrl('chorario_empleado',array('id_empleado'=>$entity->getId())));
         

@@ -91,3 +91,8 @@ services:
         arguments: [~, Planillas\NomencladorBundle\Entity\NTrabajo, PlanillasNomencladorBundle:NTrabajoAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: NTrabajo}
+    planillas_nomenclador.admin.n_periodopago:
+        class: Planillas\NomencladorBundle\Admin\NPeriodoPagoAdmin
+        arguments: [~, Planillas\NomencladorBundle\Entity\NPeriodoPago, PlanillasNomencladorBundle:NPeriodoPagoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: NPeriodoPago}

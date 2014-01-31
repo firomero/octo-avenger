@@ -24,12 +24,14 @@ class MenuBuilder extends AbstractNavbarMenuBuilder
         $menu->addChild('Vacantes', array('route' => 'cvacante'));
         $menu->addChild('Solicitudes', array('route' => 'csolicitudempleo'));
         //$menu->addChild('Horarios', array('route' => 'chorario'));
-        $menu->addChild('Ausencias', array('route' => 'causencias'));
+        
         $menu->addChild('Horas Extras', array('route' => 'chorasextras'));
         $menu->addChild('Incapacidades', array('route' => 'cincapacidades'));
         $menu->addChild('Deudas', array('route' => 'cdeudas'));
         $menu->addChild('Días Extras', array('route' => 'cdiasextra'));
+        $menu->addChild('Días Menos', array('route' => 'causencias'));
         $menu->addChild('Definir horarios',array('route'=>'chorario'));
+        $menu->addChild('Pagos',array('route'=>'cpagos'));
         
         //$menu->addChild('Cursos', array('route' => 'cursos'));
         //$menu->addChild('Dato legal', array('route' => 'datolegal'));

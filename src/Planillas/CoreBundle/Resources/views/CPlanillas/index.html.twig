@@ -1,0 +1,137 @@
+{% extends '::base.html.twig' %}
+
+{% block headline %}
+Planilla de pago
+{% endblock headline %}
+{% block content_content %}
+{% block foot_script %}
+    {{ parent() }}
+<script>
+
+    /*window.addEvent('domready', function() {
+     //jQuery.noConflict();
+     
+     
+     });*/
+
+    $(document).ready(function() {
+        $('#planillas_fechaInicio').datepicker
+                ({
+                    format: "yyyy-mm-dd"
+                });
+        $('#planillas_fechaFin').datepicker
+                ({
+                    format: "yyyy-mm-dd"
+                });
+
+    })
+    </script>
+ {% endblock%}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+
+            <h3 class="panel-title">
+                Periodo de pago
+            </h3>
+
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" action="{{ path('cplanillas_buscar') }}"
+                  method="post" enctype="multipart/form-data" name="planillasForm" id="planillasForm">
+
+                <fieldset>
+                    <div class="row-fluid">
+                        <div class="col-lg-4">
+                            <div class=" form-group" id="planillas_dev_fecha_inicio_control_group">
+                                <label class=" control-label col-lg-3 required" for="planillas_corebundle_csalariobase_salarioBase">
+                                    Fecha Inicio
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="date" value="{{entities.periodo.inicio}}" class="not-removable form-control" name="planillas[fechaInicio]" id="planillas_fechaInicio">
+                                    <!--<input type="text" value="3000" class=" not-removable form-control" required="required" name="planillas_corebundle_csalariobase[salarioBase]" id="planillas_corebundle_csalariobase_salarioBase">-->
+                                </div>
+                             </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class=" form-group" id="planillas_dev_fecha_fin_control_group">
+                                <label class=" control-label col-lg-3 required" for="planillas_corebundle_csalariobase_salarioBase">
+                                    Fecha Fin
+                                </label>
+                                <div class="col-lg-9">
+                                    <input type="date" value="{{entities.periodo.fin}}" class="not-removable form-control" name="planillas[fechaFin]" id="planillas_fechaFin">
+                                    <!--<input type="text" value="3000" class=" not-removable form-control" required="required" name="planillas_corebundle_csalariobase[salarioBase]" id="planillas_corebundle_csalariobase_salarioBase">-->
+                                </div>
+                             </div>
+                        </div>
+                        
+                       
+
+                    </div>
+                </fieldset>
+                <hr>
+                <fieldset>
+                    <legend></legend>
+                    <div class="btn-group">
+                        <button type="submit"   name="btn_actualizar" class="btn btn-primary">Buscar</button>
+
+                    </div>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-default">Cancelar</a>
+
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><div class="btn-group">
+
+                    Planilla de pago
+                </div>
+            </h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+
+                        <th>Cédula</th>
+                        <th>Nombre Apellidos</th>
+
+
+                        <th>Salario Bruto</th>
+                        <th>Bonificaciones</th>
+                        <th>Dias Extras</th>
+                        <th>Horas Extras</th>
+                        <th>Rebajos</th>
+
+                        <th>Salario Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if entities|length >0  %}
+                {% set empleados =entities.empleados %}
+                {% for entity in empleados%}
+                    {% set datos_personales=entity.datos_personales %}
+                    {% set datos_economicos=entity.datos_economicos %}
+                        <tr>
+                            <td align="left">{{ datos_personales.cedula }}</td>
+                            <td>{{ datos_personales.nombre }}  {{ datos_personales.apellidos}}</td>
+                            <td>{{ datos_economicos.salario_base }}</td>
+                            <td>{{ datos_economicos.bonificaciones.total}}</td>
+                            <td>{{ datos_economicos.dias_extra.total}}</td>
+                            <td>{{ datos_economicos.horas_extras.total}}</td>
+                            <td>{{ datos_economicos.deudas.total}}</td>
+                            <td>{{ datos_economicos.salario_total_empleado}} </td>
+
+
+
+                        </tr>
+                {% endfor %}
+                {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+{% endblock %}
