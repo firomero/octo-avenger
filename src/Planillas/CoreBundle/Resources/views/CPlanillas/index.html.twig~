@@ -58,7 +58,7 @@ Planilla de pago
                                     Fecha Fin
                                 </label>
                                 <div class="col-lg-9">
-                                    <input type="date" value="{% if entities|length >0  %}{{entities.periodo.fin}}{% endif%}" class="not-removable form-control" name="planillas[fechaFin]" id="planillas_fechaFin">
+                                    <input type="date" value="{% if entities|length >0  %}{{entities.periodo.fin}}{% endif;%}" class="not-removable form-control" name="planillas[fechaFin]" id="planillas_fechaFin">
                                     <!--<input type="text" value="3000" class=" not-removable form-control" required="required" name="planillas_corebundle_csalariobase[salarioBase]" id="planillas_corebundle_csalariobase_salarioBase">-->
                                 </div>
                              </div>
