@@ -257,8 +257,122 @@
                                 </tbody>
 
                             </table>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+
+                                    <th>Dias extras</th>
+                                    
+                                    <th style="text-align: right">Monto</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% if datos_economicos.dias_extra|length >0 %}
+
+                                    {% for dias_extra in datos_economicos.dias_extra %}
+                                        {% for dia in dias_extra %}
+
+
+                                            <tr>
+                                               
+                                                <td>
+                                                    {{ dia.fecha }}
+                                                </td>
+                                                <td style="text-align: right">
+                                                    {{ dia.monto_total }}
+                                                </td>
+
+                                            </tr>
+
+                                        {% endfor %}
+
+
+                                    {% endfor %}
+                                    <tr>
+                                        <td></td>
+                                        
+                                        <td style="text-align: right">
+                                            <em><strong>Total: {{ datos_economicos.dias_extra.total }}</strong></em></td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+
+                            </table>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+
+                                        <th>Horas extras</th>
+
+                                        <th style="text-align: right">Monto</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% if datos_economicos.horas_extras|length >0 %}
+
+                                    {% for horas_extras in datos_economicos.horas_extras %}
+                                        {% for hora in horas_extras %}
+                                        <tr>
+                                            <td>
+                                                    {{ hora.fecha }}
+                                                </td>
+                                                <td style="text-align: right">
+                                                    {{ hora.monto_total }}
+                                                </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                                <tr>
+                                                    <td></td>
+                                                    
+                                                    <td style="text-align: right">
+                                                        <em><strong>Total: {{ datos_economicos.horas_extras.total }}</strong></em></td>
+                                                </tr>
+                                {% endif %}
+                                 </tbody>
+
+                            </table>
+                            <!--dias menos--->
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+
+                                        <th>Dias menos</th>
+
+                                        <th style="text-align: right">Monto</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% if datos_economicos.dias_menos|length >0 %}
+
+                                    {% for dias_menos in datos_economicos.dias_menos %}
+                                        {% for menos in dias_menos %}
+                                        <tr>
+                                            <td>
+                                                    {{ menos.fecha }}
+                                                </td>
+                                                <td style="text-align: right">
+                                                    {{ menos.monto_total }}
+                                                </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                                <tr>
+                                                    <td></td>
+                                                    
+                                                    <td style="text-align: right">
+                                                        <em><strong>Total: {{ datos_economicos.dias_menos.total }}</strong></em></td>
+                                                </tr>
+                                {% endif %}
+                                 </tbody>
+
+                            </table>
                         </div>
                     </td>
+                    </tr>
 
                     <!--<tr style="visibility: hidden">
                         <td colspan="9">Aqui van los detalles de cada empleado</td>
@@ -268,13 +382,15 @@
                 </tbody>
             </table>
             <fieldset>
-
+                <input type="hidden" name="id" value="{% if entities.id_planilla >0%} {{ entities.id_planilla }}{% endif%}">
                 <legend></legend>
+                {% if entities.id_planilla <1 %}
                 <div class="btn-group">
 
                     <button type="submit" class="btn btn-primary" name="btn-save" value="guardar">Guardar</button>
 
                 </div>
+                {% endif %}
                 <div class="btn-group">
                     <button type="button" class="btn btn-default" name="btn-generar" value="generar">Generar Reporte
                     </button>

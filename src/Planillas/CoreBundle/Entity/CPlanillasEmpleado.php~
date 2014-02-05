@@ -1,0 +1,53 @@
+<?php
+
+namespace Planillas\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * CPlanillasEmpleado
+ *
+ * @ORM\Table(name="c_planillas_empleado")
+ * @ORM\Entity
+ */
+class CPlanillasEmpleado
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+    /**
+     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     */
+    private $planilla;
+     /**
+     * @var decimal
+     *
+     * @ORM\Column(name="salario_periodo", type="decimal", nullable=false)
+     */
+    private $salario_periodo;
+     /**
+     * @var decimal
+     *
+     * @ORM\Column(name="salario_total", type="decimal", nullable=false)
+     */
+    private $salario_total;
+     /**
+     * @var decimal
+     *
+     * @ORM\Column(name="salario_base", type="decimal", nullable=true)
+     */
+    private $salario_seguro;
+    
+
+
+}

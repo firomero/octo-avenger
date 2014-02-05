@@ -3,6 +3,9 @@
 {% block headline %}
 Planilla de pago
 {% endblock headline %}
+{%block title%}
+Sistem de planillas:Planillas de pago
+{%endblock%}
 {% block content_content %}
 {% block foot_script %}
     {{ parent() }}
@@ -27,7 +30,7 @@ Planilla de pago
     })
     </script>
  {% endblock%}
-    <form class="form-horizontal" action="{{ path('cplanillas_buscar') }}"
+    <form class="form-horizontal" action="{{ path('cplanillas_listar') }}"
           method="post" enctype="multipart/form-data" name="planillasForm" id="planillasForm">
     <div class="panel panel-default">
         <div class="panel-heading">

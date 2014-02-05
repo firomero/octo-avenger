@@ -220,7 +220,13 @@ class EComponentesSalarialesController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find EComponentesSalariales entity.');
         }
-
+        /*Validando que no se haya pagado antes*/
+        //print_r("holaa");exit;
+        if($entity->getPlanilla()!=null || $entity->getPlanilla()!="")
+        {
+            $this->get('session')->getFlashBag()->add('danger', 'No se pueden actualizar datos asociados a una planilla de pago.');
+            return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
+        }
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -235,8 +241,7 @@ class EComponentesSalarialesController extends Controller {
                 $this->get('session')->getFlashBag()->add('info', 'Los datos han sido modificados correctamente.');
                 return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
             }
-            echo $result;
-            exit;
+           
         }
         $this->get('session')->getFlashBag()->add('danger', 'Se detectaron errores al guardar los datos.');
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:edit.html.twig', array(
@@ -436,8 +441,6 @@ class EComponentesSalarialesController extends Controller {
         return $periodo_activo->getPeriodo();
     }
 
-    public function splitDeudas(EComponentesSalariales $entity) {
-        
-    }
+    
 
 }
