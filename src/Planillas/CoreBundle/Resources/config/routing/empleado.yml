@@ -34,3 +34,6 @@ cplanillas_listar:
 cplanillas_detalles:
     defaults: { _controller: PlanillasCoreBundle:CPlanillas:detalles}
     pattern:   /planillas/{id}/detalles
+cplanillas_reporte:
+    defaults: { _controller: PlanillasCoreBundle:CPlanillas:reporte}
+    pattern:   /planillas/reporte

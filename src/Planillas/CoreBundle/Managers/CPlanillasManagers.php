@@ -11,13 +11,16 @@
 namespace Planillas\CoreBundle\Managers;
 
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityNotFoundException;
-use Doctrine\ORM\NoResultException;
 use Planillas\CoreBundle\Entity\CPlanillas;
 use Planillas\CoreBundle\Entity\CPlanillasEmpleado;
+<<<<<<< HEAD
+#use Planillas\EntidadesBundle\Controller\EComponentesSalarialesController;
+=======
 use Planillas\EntidadesBundle\Controller\EComponentesSalarialesController;
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
 use Symfony\Component\HttpFoundation\Request;
 use Planillas\CoreBundle\Helper\HelperDate;
+use Planillas\CoreBundle\Util\PdfObject;
 
 define('cantDiasHabiles', 30);
 define('cantHorasPorMes', 240);
@@ -55,7 +58,11 @@ class CPlanillasManagers {
         $this->aEmpleadosSalario = array();
         $this->aEmpleadosSalario['empleados'] = array();
         $this->aEmpleadosSalario['total'] = 0;
+<<<<<<< HEAD
+        $this->aEmpleadosSalario['id_planilla'] = 0;
+=======
         $this->aEmpleadosSalario['id_planilla']=0;
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
         /**
          * total en terminos de salario de todos los empleados
          */
@@ -105,7 +112,11 @@ class CPlanillasManagers {
             //vamos a salvar los datos del salario base para ese periodo 
             // porque el salario puede cambiar entonces convendria haber guardado el
             //salario del empleado para esa planilla en ese momento
+<<<<<<< HEAD
+
+=======
             
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
             $this->em->commit();
             return true;
         } catch (Exception $e) {
@@ -125,6 +136,19 @@ class CPlanillasManagers {
             if ($oEmpleados != null) {
                 foreach ($oEmpleados as $oEmpleado) {
 
+<<<<<<< HEAD
+
+                    $empleadoplanillas = new CPlanillasEmpleado();
+                    //ojo hay qye hacer una funcion generica que tenga en cuenta el periodo 
+                    //ahora lo hace siempre semanal
+                    $empleadoplanillas->setSalarioPeriodo($this->getSalarioSemanalByEmpleado($oEmpleado->getId()));
+                    $empleadoplanillas->setSalarioTotal(1000); //por ahora no funciona
+                    $empleadoplanillas->setPlanilla($object);
+                    $this->em->persist($empleadoplanillas);
+                    $this->em->flush();
+
+
+=======
                     
                     $empleadoplanillas= new CPlanillasEmpleado();
                     //ojo hay qye hacer una funcion generica que tenga en cuenta el periodo 
@@ -136,6 +160,7 @@ class CPlanillasManagers {
                     $this->em->flush();
                     
                     
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                     $aBonificionesTotalTemp = $this->findBonificacionesByEmpleado($oEmpleado->getId(), true); //update not show
                     $aDeudasTotalTemp = $this->findDeudasByEmpleado($oEmpleado->getId(), true);
                     $aDiasExtraTemp = $this->findDiasExtrasByEmpleado($oEmpleado->getId(), true);
@@ -172,7 +197,11 @@ class CPlanillasManagers {
             return $this->aEmpleadosSalario;
         }
 
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
         $oEmpleados = $this->findAllEmployee();
         /**
          * primero vamos a buscar si ya esta creada para asi hacer busquedas nada mas por la llave de la planilla 
@@ -196,6 +225,16 @@ class CPlanillasManagers {
                 $salarioBaseTemp = $this->getSalarioSemanalByEmpleado($oEmpleado->getId());
                 /* Componentes */
                 $aBonificionesTotalTemp = $this->findBonificacionesByEmpleado($oEmpleado->getId(), false, $idPlanilla);
+<<<<<<< HEAD
+
+                $aDeudasTotalTemp = $this->findDeudasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
+
+                $aDiasExtraTemp = $this->findDiasExtrasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
+
+                $aHorasExtrasTemp = $this->findHorasExtrasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
+                $aDiasMenosTemp = $this->findDiasMenosByEmpleado($oEmpleado->getId(), false, $idPlanilla);
+
+=======
                 
                 $aDeudasTotalTemp = $this->findDeudasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
                 
@@ -204,6 +243,7 @@ class CPlanillasManagers {
                 $aHorasExtrasTemp = $this->findHorasExtrasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
                 $aDiasMenosTemp = $this->findDiasMenosByEmpleado($oEmpleado->getId(), false, $idPlanilla);
                 
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                 /* Asignando salario y demas componentes que afectan  el salario */
                 $aTemp['salario_total_empleado'] = $salarioBaseTemp;
                 //$aTemp['salario_periodo_pago']=$salarioBaseTemp
@@ -392,6 +432,20 @@ class CPlanillasManagers {
         if (count($oDiasExtra) > 0) {
             foreach ($oDiasExtra as $oDiaExtra) {
 
+<<<<<<< HEAD
+                /* if ($bIndicador===true) {
+                  $aSalida['deudas'][] = array(
+                  'id' => $sDeuda->getId(),
+                  'fecha_inicio' => $sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
+                  'componente' => $sDeuda->getComponente(),
+                  'monto_total' => number_format($sDeuda->getMontoTotal(), 2, '.', ''));
+
+                  $aSalida['total'] += $sDeuda->getMontoTotal();
+                  continue;
+                  } */
+                //echo "llego";exit;
+                if ($update === true && $bIndicador === false) {
+=======
                 /*if ($bIndicador===true) {
                     $aSalida['deudas'][] = array(
                         'id' => $sDeuda->getId(),
@@ -404,6 +458,7 @@ class CPlanillasManagers {
                 }*/
                 //echo "llego";exit;
                 if ($update === true && $bIndicador===false) {
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                     $oDiaExtra->setPlanilla($this->planilla);
                     $this->em->persist($oDiaExtra);
                     $this->em->flush();
@@ -435,6 +490,7 @@ class CPlanillasManagers {
             $oDiasMenos = $this->em->getRepository('PlanillasCoreBundle:CAusencias')->findBy(array('empleado' => $idEmpleado, 'planilla' => $oPlanilla));
         } else {
             $sql = 'SELECT c  FROM PlanillasCoreBundle:CAusencias c INNER Join c.empleado e WHERE  e.id=' . $idEmpleado;
+<<<<<<< HEAD
 
             if ($this->fechaInicio !== null && $this->fechaFin !== null) {
                 $sql .= ' and c.fechaInicio >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
@@ -446,6 +502,19 @@ class CPlanillasManagers {
             $oDiasMenos = $query->getResult();
         }
 
+=======
+
+            if ($this->fechaInicio !== null && $this->fechaFin !== null) {
+                $sql .= ' and c.fechaInicio >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
+                $sql .= ' and c.fechaFin <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
+            }
+
+
+            $query = $this->em->createQuery($sql);
+            $oDiasMenos = $query->getResult();
+        }
+
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
         if (count($oDiasMenos) > 0) {
             $dImporte = $this->getSalarioSemanalByEmpleado($idEmpleado);
             //echo $dImporte;exit;
@@ -457,7 +526,11 @@ class CPlanillasManagers {
                     $this->em->flush();
                 } else {
 
+<<<<<<< HEAD
+                    if ($oDiasMeno->getTipoAusencia() == 2) {
+=======
                     if($oDiasMeno->getTipoAusencia()==2){
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                         continue;
                     }
                     $fechaInicio = $oDiasMeno->getFechaInicio();
@@ -488,6 +561,23 @@ class CPlanillasManagers {
             $oHorasExtras = $this->em->getRepository('PlanillasCoreBundle:CHorasExtras')->findBy(array('empleado' => $idEmpleado, 'planilla' => $oPlanilla));
         } else {
             $sql = 'SELECT c  FROM PlanillasCoreBundle:CHorasExtras c INNER Join c.empleado e WHERE  e.id=' . $idEmpleado;
+<<<<<<< HEAD
+
+            if ($this->fechaInicio !== null && $this->fechaFin !== null) {
+                $sql .= ' and c.fechaHorasExtras >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
+                $sql .= ' and c.fechaHorasExtras <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
+            }
+
+
+            $query = $this->em->createQuery($sql);
+            $oHorasExtras = $query->getResult();
+        }
+
+        if (count($oHorasExtras) > 0) {
+            foreach ($oHorasExtras as $oHoraExtra) {
+
+                if ($update === true && $oPlanilla == null) {
+=======
 
             if ($this->fechaInicio !== null && $this->fechaFin !== null) {
                 $sql .= ' and c.fechaHorasExtras >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
@@ -503,6 +593,7 @@ class CPlanillasManagers {
             foreach ($oHorasExtras as $oHoraExtra) {
 
                 if ($update === true && $oPlanilla==null) {
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                     $oHoraExtra->setPlanilla($this->planilla);
                     $this->em->persist($oHoraExtra);
                     $this->em->flush();
@@ -635,7 +726,11 @@ class CPlanillasManagers {
                   return true;
                   } */
                 if ($this->fechaInicio < $planilla->getFechaFin()) {
+<<<<<<< HEAD
+
+=======
                      
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                     return false;
                 } else {
                     return true;
@@ -662,4 +757,99 @@ class CPlanillasManagers {
         return $this;
     }
 
+<<<<<<< HEAD
+    /**
+     * Zona de reportes
+     */
+    public function reportePagoPDF() {
+        
+        $periodo= $this->fechaInicio->format('Y-m-d').'al '.$this->fechaInicio->format('Y-m-d');
+        $periodo= sprintf("Periodo: %s / %s ",$this->fechaInicio->format('d-m-Y'),$this->fechaFin->format('d-m-Y'));
+        // create new PDF document
+        $pdf = new PdfObject();
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Jose Mojena Alpizar');
+        $pdf->SetTitle('Reporte general');
+        $pdf->SetSubject('Periodo');
+        
+        $pdf->SetHeaderData('', '', "Planilla de pago" ,$periodo, array(0, 64, 255), array(0, 64, 128));
+        $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
+
+        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        $pdf->setFontSubsetting(true);
+        $pdf->SetFont('dejavusans', '', 9, '', true);
+        
+        $tableHeaders=array('Cédula',
+                            'Empleado',
+                            'S.Bruto',
+                            'Bonificaciones',
+                            'Rebajos',
+                            'Días Extras',
+                            'Horas Extras',
+                            'Días Menos',
+                            'S.Total');
+        $html='<table border="1" cellspacing="0" cellpadding="4">
+             <tr>
+                <td style="width:100px">
+                   '.$tableHeaders[0].'
+                </td>
+                <td style="width:150px">
+                   '.$tableHeaders[1].'
+                </td>
+                <td style="width:65px">
+                   '.$tableHeaders[2].'
+                </td>
+                <td>
+                   '.$tableHeaders[3].'
+                </td>
+                 <td style="width:85px">
+                   '.$tableHeaders[4].'
+                </td>
+                <td>
+                   '.$tableHeaders[5].'
+                </td>
+                <td>
+                   '.$tableHeaders[6].'
+                </td>
+                <td>
+                   '.$tableHeaders[7].'
+                </td>
+                <td style="width:70px">
+                   '.$tableHeaders[8].'
+                </td></tr>';
+        
+        $aData=$this->resultHtmlPlanillas();
+        for($i=0;$i<count($aData['empleados']);$i++)
+        {
+            $empleado=$aData['empleados'][$i];
+            $html.='<tr>
+                    <td>'.$empleado['datos_personales']['cedula'].'</td>
+                    <td>'.$empleado['datos_personales']['nombre'].' '.$empleado['datos_personales']['apellidos'].'</td>
+                    <td>'.$empleado['datos_economicos']['salario_base'].'</td>
+                    <td>'.$empleado['datos_economicos']['bonificaciones']['total'].'</td>
+                    <td>'.$empleado['datos_economicos']['deudas']['total'].'</td>
+                    <td>'.$empleado['datos_economicos']['dias_extra']['total'].'</td>
+                    <td>'.$empleado['datos_economicos']['horas_extras']['total'].'</td>
+                    <td>'.$empleado['datos_economicos']['dias_menos']['total'].'</td>
+                    <td>'.$empleado['datos_economicos']['salario_total_empleado'].'</td>';
+            
+            $html.='</tr>';
+        }
+        $html.='</table>';
+       $pdf->AddPage('L');
+       $pdf->writeHTML($html,true, false, true, false, '');
+       $pdf->AddPage('P');
+       $pdf->Output('file.pdf', 'D');
+
+    }
+
+=======
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
 }

@@ -43,6 +43,7 @@ class CPlanillasController extends Controller
         } else {
            
             $button = $request->request->get('btn-save');
+            $bButton= $request->request->get('btn-exportar');
 
             if (isset($button)) //esta salvando la planilla en base de datos
             {
@@ -67,7 +68,16 @@ class CPlanillasController extends Controller
                 }
 
 
+<<<<<<< HEAD
+            }
+            if(isset($bButton))//esta generando un pdf
+            {
+                $manager->reportePagoPDF();
+            }
+            else { //esta solo buscando
+=======
             } else { //esta solo buscando
+>>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
               
                 //echo "holaaa";exit;
                 $entities = $manager->resultHtmlPlanillas();
@@ -108,10 +118,17 @@ class CPlanillasController extends Controller
         $manager->setFechaInicio($entity->getFechaInicio());
         $manager->setFechaFin($entity->getFechaFin());
         $entities = $manager->resultHtmlPlanillas();
+        
         return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
             'entities' => $entities,
         ));
 
+    }
+    public function reporteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $manager= new CPlanillasManagers($em, $request);
+        $manager->reportePagoPDF();
     }
 
 
