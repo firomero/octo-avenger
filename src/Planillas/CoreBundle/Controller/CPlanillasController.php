@@ -57,7 +57,6 @@ class CPlanillasController extends Controller
                     ));
                 }
                 if ($manager->savePlanilla()) {
-                    //echo "holaaa";exit;
                     $this->get('session')->getFlashBag()->add('info', 'La planilla ha sido creada correctamente.');
                     return $this->redirect($this->generateUrl('cplanillas_listar'));
 
@@ -68,16 +67,12 @@ class CPlanillasController extends Controller
                 }
 
 
-<<<<<<< HEAD
             }
             if(isset($bButton))//esta generando un pdf
             {
                 $manager->reportePagoPDF();
             }
             else { //esta solo buscando
-=======
-            } else { //esta solo buscando
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
               
                 //echo "holaaa";exit;
                 $entities = $manager->resultHtmlPlanillas();

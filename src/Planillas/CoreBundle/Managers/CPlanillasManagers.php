@@ -13,11 +13,7 @@ namespace Planillas\CoreBundle\Managers;
 use Doctrine\ORM\EntityManager;
 use Planillas\CoreBundle\Entity\CPlanillas;
 use Planillas\CoreBundle\Entity\CPlanillasEmpleado;
-<<<<<<< HEAD
 #use Planillas\EntidadesBundle\Controller\EComponentesSalarialesController;
-=======
-use Planillas\EntidadesBundle\Controller\EComponentesSalarialesController;
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
 use Symfony\Component\HttpFoundation\Request;
 use Planillas\CoreBundle\Helper\HelperDate;
 use Planillas\CoreBundle\Util\PdfObject;
@@ -58,11 +54,7 @@ class CPlanillasManagers {
         $this->aEmpleadosSalario = array();
         $this->aEmpleadosSalario['empleados'] = array();
         $this->aEmpleadosSalario['total'] = 0;
-<<<<<<< HEAD
         $this->aEmpleadosSalario['id_planilla'] = 0;
-=======
-        $this->aEmpleadosSalario['id_planilla']=0;
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
         /**
          * total en terminos de salario de todos los empleados
          */
@@ -112,11 +104,7 @@ class CPlanillasManagers {
             //vamos a salvar los datos del salario base para ese periodo 
             // porque el salario puede cambiar entonces convendria haber guardado el
             //salario del empleado para esa planilla en ese momento
-<<<<<<< HEAD
 
-=======
-            
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
             $this->em->commit();
             return true;
         } catch (Exception $e) {
@@ -136,7 +124,6 @@ class CPlanillasManagers {
             if ($oEmpleados != null) {
                 foreach ($oEmpleados as $oEmpleado) {
 
-<<<<<<< HEAD
 
                     $empleadoplanillas = new CPlanillasEmpleado();
                     //ojo hay qye hacer una funcion generica que tenga en cuenta el periodo 
@@ -148,19 +135,6 @@ class CPlanillasManagers {
                     $this->em->flush();
 
 
-=======
-                    
-                    $empleadoplanillas= new CPlanillasEmpleado();
-                    //ojo hay qye hacer una funcion generica que tenga en cuenta el periodo 
-                    //ahora lo hace siempre semanal
-                    $empleadoplanillas->setSalarioPeriodo($this->getSalarioSemanalByEmpleado($oEmpleado->getId()));
-                    $empleadoplanillas->setSalarioTotal(1000);//por ahora no funciona
-                    $empleadoplanillas->setPlanilla($object);
-                    $this->em->persist($empleadoplanillas);
-                    $this->em->flush();
-                    
-                    
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                     $aBonificionesTotalTemp = $this->findBonificacionesByEmpleado($oEmpleado->getId(), true); //update not show
                     $aDeudasTotalTemp = $this->findDeudasByEmpleado($oEmpleado->getId(), true);
                     $aDiasExtraTemp = $this->findDiasExtrasByEmpleado($oEmpleado->getId(), true);
@@ -197,11 +171,7 @@ class CPlanillasManagers {
             return $this->aEmpleadosSalario;
         }
 
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
         $oEmpleados = $this->findAllEmployee();
         /**
          * primero vamos a buscar si ya esta creada para asi hacer busquedas nada mas por la llave de la planilla 
@@ -225,7 +195,6 @@ class CPlanillasManagers {
                 $salarioBaseTemp = $this->getSalarioSemanalByEmpleado($oEmpleado->getId());
                 /* Componentes */
                 $aBonificionesTotalTemp = $this->findBonificacionesByEmpleado($oEmpleado->getId(), false, $idPlanilla);
-<<<<<<< HEAD
 
                 $aDeudasTotalTemp = $this->findDeudasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
 
@@ -234,16 +203,6 @@ class CPlanillasManagers {
                 $aHorasExtrasTemp = $this->findHorasExtrasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
                 $aDiasMenosTemp = $this->findDiasMenosByEmpleado($oEmpleado->getId(), false, $idPlanilla);
 
-=======
-                
-                $aDeudasTotalTemp = $this->findDeudasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
-                
-                $aDiasExtraTemp = $this->findDiasExtrasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
-                
-                $aHorasExtrasTemp = $this->findHorasExtrasByEmpleado($oEmpleado->getId(), false, $idPlanilla);
-                $aDiasMenosTemp = $this->findDiasMenosByEmpleado($oEmpleado->getId(), false, $idPlanilla);
-                
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                 /* Asignando salario y demas componentes que afectan  el salario */
                 $aTemp['salario_total_empleado'] = $salarioBaseTemp;
                 //$aTemp['salario_periodo_pago']=$salarioBaseTemp
@@ -432,7 +391,6 @@ class CPlanillasManagers {
         if (count($oDiasExtra) > 0) {
             foreach ($oDiasExtra as $oDiaExtra) {
 
-<<<<<<< HEAD
                 /* if ($bIndicador===true) {
                   $aSalida['deudas'][] = array(
                   'id' => $sDeuda->getId(),
@@ -445,20 +403,6 @@ class CPlanillasManagers {
                   } */
                 //echo "llego";exit;
                 if ($update === true && $bIndicador === false) {
-=======
-                /*if ($bIndicador===true) {
-                    $aSalida['deudas'][] = array(
-                        'id' => $sDeuda->getId(),
-                        'fecha_inicio' => $sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
-                        'componente' => $sDeuda->getComponente(),
-                        'monto_total' => number_format($sDeuda->getMontoTotal(), 2, '.', ''));
-
-                    $aSalida['total'] += $sDeuda->getMontoTotal();
-                    continue;
-                }*/
-                //echo "llego";exit;
-                if ($update === true && $bIndicador===false) {
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                     $oDiaExtra->setPlanilla($this->planilla);
                     $this->em->persist($oDiaExtra);
                     $this->em->flush();
@@ -490,7 +434,6 @@ class CPlanillasManagers {
             $oDiasMenos = $this->em->getRepository('PlanillasCoreBundle:CAusencias')->findBy(array('empleado' => $idEmpleado, 'planilla' => $oPlanilla));
         } else {
             $sql = 'SELECT c  FROM PlanillasCoreBundle:CAusencias c INNER Join c.empleado e WHERE  e.id=' . $idEmpleado;
-<<<<<<< HEAD
 
             if ($this->fechaInicio !== null && $this->fechaFin !== null) {
                 $sql .= ' and c.fechaInicio >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
@@ -502,19 +445,6 @@ class CPlanillasManagers {
             $oDiasMenos = $query->getResult();
         }
 
-=======
-
-            if ($this->fechaInicio !== null && $this->fechaFin !== null) {
-                $sql .= ' and c.fechaInicio >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
-                $sql .= ' and c.fechaFin <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
-            }
-
-
-            $query = $this->em->createQuery($sql);
-            $oDiasMenos = $query->getResult();
-        }
-
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
         if (count($oDiasMenos) > 0) {
             $dImporte = $this->getSalarioSemanalByEmpleado($idEmpleado);
             //echo $dImporte;exit;
@@ -526,11 +456,7 @@ class CPlanillasManagers {
                     $this->em->flush();
                 } else {
 
-<<<<<<< HEAD
                     if ($oDiasMeno->getTipoAusencia() == 2) {
-=======
-                    if($oDiasMeno->getTipoAusencia()==2){
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                         continue;
                     }
                     $fechaInicio = $oDiasMeno->getFechaInicio();
@@ -561,7 +487,6 @@ class CPlanillasManagers {
             $oHorasExtras = $this->em->getRepository('PlanillasCoreBundle:CHorasExtras')->findBy(array('empleado' => $idEmpleado, 'planilla' => $oPlanilla));
         } else {
             $sql = 'SELECT c  FROM PlanillasCoreBundle:CHorasExtras c INNER Join c.empleado e WHERE  e.id=' . $idEmpleado;
-<<<<<<< HEAD
 
             if ($this->fechaInicio !== null && $this->fechaFin !== null) {
                 $sql .= ' and c.fechaHorasExtras >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
@@ -577,23 +502,6 @@ class CPlanillasManagers {
             foreach ($oHorasExtras as $oHoraExtra) {
 
                 if ($update === true && $oPlanilla == null) {
-=======
-
-            if ($this->fechaInicio !== null && $this->fechaFin !== null) {
-                $sql .= ' and c.fechaHorasExtras >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
-                $sql .= ' and c.fechaHorasExtras <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
-            }
-
-
-            $query = $this->em->createQuery($sql);
-            $oHorasExtras = $query->getResult();
-        }
-
-        if (count($oHorasExtras) > 0) {
-            foreach ($oHorasExtras as $oHoraExtra) {
-
-                if ($update === true && $oPlanilla==null) {
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                     $oHoraExtra->setPlanilla($this->planilla);
                     $this->em->persist($oHoraExtra);
                     $this->em->flush();
@@ -666,7 +574,7 @@ class CPlanillasManagers {
         } else {
             if (strtolower($periodo_activo->getPeriodo()) == "semanal") { //semanal
                 $diff = date_diff($this->fechaFin, $this->fechaInicio);
-               
+
                 if ($diff->days == 7) {
                     return true;
                 } else {
@@ -726,11 +634,7 @@ class CPlanillasManagers {
                   return true;
                   } */
                 if ($this->fechaInicio < $planilla->getFechaFin()) {
-<<<<<<< HEAD
 
-=======
-                     
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
                     return false;
                 } else {
                     return true;
@@ -757,7 +661,6 @@ class CPlanillasManagers {
         return $this;
     }
 
-<<<<<<< HEAD
     /**
      * Zona de reportes
      */
@@ -850,6 +753,4 @@ class CPlanillasManagers {
 
     }
 
-=======
->>>>>>> 1061ce291137187249b849533ec5bfe7ae9b5249
 }
