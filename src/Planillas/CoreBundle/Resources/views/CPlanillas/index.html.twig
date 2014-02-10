@@ -127,15 +127,16 @@
                     <th>Nombre Apellidos</th>
 
 
-                    <th>S.Bruto</th>
+                    <th>Bruto</th>
                     <th>Bonificaciones</th>
 
-                    <th>Dias Extras</th>
-                    <th>Dias Menos</th>
+                    <th>Días Extras</th>
+                    <th>Días Menos</th>
+                    <th>Incapacidades</th>
                     <th>Horas Extras</th>
                     <th>Rebajos</th>
 
-                    <th>S.Total</th>
+                    <th>Total</th>
                     <th>Detalles</th>
                 </tr>
                 </thead>
@@ -153,6 +154,7 @@
                     <td>{{ datos_economicos.bonificaciones.total }}</td>
                     <td>{{ datos_economicos.dias_extra.total }}</td>
                     <td>{{ datos_economicos.dias_menos.total }}</td>
+                    <td>{{ datos_economicos.incapacidades.total }}</td>
                     <td>{{ datos_economicos.horas_extras.total }}</td>
                     <td>{{ datos_economicos.deudas.total }}</td>
                     <td>{{ datos_economicos.salario_total_empleado }} </td>
@@ -165,7 +167,7 @@
 
                 </tr>
                 <tr>
-                    <td colspan="10">
+                    <td colspan="11">
                         <div id="salario_{{ datos_personales.id }}" style="display: none">
 
                             <table class="table table-bordered">
@@ -365,6 +367,42 @@
                                                     
                                                     <td style="text-align: right">
                                                         <em><strong>Total: {{ datos_economicos.dias_menos.total }}</strong></em></td>
+                                                </tr>
+                                {% endif %}
+                                 </tbody>
+
+                            </table>
+                            <!--Incapacidades--->
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+
+                                        <th>Incapacidades</th>
+
+                                        <th style="text-align: right">Monto</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% if datos_economicos.incapacidades|length >0 %}
+
+                                    {% for incapacidades in datos_economicos.incapacidades %}
+                                        {% for incapacidad in incapacidades %}
+                                        <tr>
+                                            <td>
+                                                    {{ incapacidad.fecha }}
+                                                </td>
+                                                <td style="text-align: right">
+                                                    {{ incapacidad.monto_total }}
+                                                </td>
+                                        </tr>
+                                        {% endfor %}
+                                    {% endfor %}
+                                                <tr>
+                                                    <td></td>
+                                                    
+                                                    <td style="text-align: right">
+                                                        <em><strong>Total: {{ datos_economicos.incapacidades.total }}</strong></em></td>
                                                 </tr>
                                 {% endif %}
                                  </tbody>

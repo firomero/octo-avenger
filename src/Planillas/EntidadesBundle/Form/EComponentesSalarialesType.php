@@ -26,12 +26,13 @@ class EComponentesSalarialesType extends AbstractType
             ->add('cantidad')
             ->add('montoTotal'/*'money'*/)
             ->add('montoReducir','hidden')
-            ->add('periodoPagoDeuda','choice',array(
+            /*->add('periodoPagoDeuda','choice',array(
                 'choices' => array(
                     0 => 'Quincenal',
                     1 => 'Mensual',
-                )))
+                )))*/
             ->add('numeroCuotas')
+            ->add('permanente','checkbox',array('required'=>false))
             ->add('pagado','choice',array('choices'=>array('No pagado','Pagado')))
             ->add('fechaInicio','date',array('required'=>false,'attr'=>array('id'=>'datetimepickeriniciodeudas'),'widget'=>'single_text','label'=>'Inicio de pago'))
             ->add('descripcion','textarea',array('required'=>false))
@@ -43,11 +44,11 @@ class EComponentesSalarialesType extends AbstractType
     }
     public static function monedaChoices()
     {
-        return array('Colon costarricence','Dolar americano');
+        return array('Colón costarricence','Dolar americano');
     }
 	public static function componentesChoices()
     {
-        return array('Rebajo','Bonificacion');
+        return array('Rebajo','Bonificación');
     }
     /**
      * @param OptionsResolverInterface $resolver

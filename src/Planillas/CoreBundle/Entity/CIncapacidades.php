@@ -204,4 +204,27 @@ class CIncapacidades
 
         return $obj;
     }
+
+    /**
+     * Set planilla
+     *
+     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @return CIncapacidades
+     */
+    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+    
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
+    }
 }

@@ -55,8 +55,7 @@ class EComponentesSalariales
      * @ORM\Column(name="fecha_vencimiento", type="date", nullable=true)
      */
     private $fechaVencimiento;
-	
-	/**
+    /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="componentesSalariales")
@@ -116,7 +115,18 @@ class EComponentesSalariales
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
      */
     private $planilla;
-
+    /**
+     * @var \Boolean
+     *
+     * @ORM\Column(name="permanente", type="boolean", nullable=true)
+     */
+    private $permanente;
+     /**
+     * @var \date
+     *
+     * @ORM\Column(name="deleted_at", type="date", nullable=true)
+     */
+    private $deleted_at;
 
     /**
      * Get id
@@ -448,5 +458,74 @@ class EComponentesSalariales
     public function getTipoDeuda()
     {
         return $this->tipoDeuda;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @return EComponentesSalariales
+     */
+    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+    
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
+    }
+
+    /**
+     * Set permanente
+     *
+     * @param boolean $permanente
+     * @return EComponentesSalariales
+     */
+    public function setPermanente($permanente)
+    {
+        $this->permanente = $permanente;
+    
+        return $this;
+    }
+
+    /**
+     * Get permanente
+     *
+     * @return boolean 
+     */
+    public function getPermanente()
+    {
+        return $this->permanente;
+    }
+
+    /**
+     * Set deleted_at
+     *
+     * @param \DateTime $deletedAt
+     * @return EComponentesSalariales
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deleted_at = $deletedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get deleted_at
+     *
+     * @return \DateTime 
+     */
+    public function getDeletedAt()
+    {
+        return $this->deleted_at;
     }
 }

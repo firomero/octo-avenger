@@ -22,7 +22,6 @@ class CSalarioBaseType extends AbstractType
         $builder
             ->add('salarioBase')
             ->add('seguro','checkbox',array('label'=>null,'required'=>false))
-            ->add('periodoPago','choice',array('choices'=>array('Semanal','Quincenal','Mensual')))
             ->add('empleado','hidden',array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado','property_path'=>'id'))
         ;
 		if($this->bDestruyeEmpleado)

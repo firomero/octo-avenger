@@ -29,6 +29,7 @@ class NPeriodoPagoAdmin extends Admin
         $listMapper
             ->add('periodo')
             ->add('activo')
+            ->add('cantdias')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -47,6 +48,7 @@ class NPeriodoPagoAdmin extends Admin
         $formMapper
             ->add('periodo')
             ->add('activo')
+            ->add('cantdias')
         ;
     }
 
@@ -58,6 +60,7 @@ class NPeriodoPagoAdmin extends Admin
         $showMapper
             ->add('periodo')
             ->add('activo')
+            ->add('cantdias')
         ;
     }
 }

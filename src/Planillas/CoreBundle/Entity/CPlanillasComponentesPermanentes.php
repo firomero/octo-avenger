@@ -1,0 +1,124 @@
+<?php
+
+namespace Planillas\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * CPlanillasEmpleado
+ *
+ * @ORM\Table(name="c_planillas_componentes")
+ * @ORM\Entity
+ */
+class CPlanillasComponentesPermanentes
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+    /**
+     * @var $componentePermanente Planillas/EntidadesBundle/Entity/EComponentesSalariales
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\EntidadesBundle\Entity\EComponentesSalariales")
+     */
+    private $componentePermanente;
+    /**
+     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     */
+   private $planilla;
+   /**
+     * @var $empleado Planillas/CoreBundle/Entity/CPlanillas
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
+     */
+   private $empleado;
+    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set componentePermanente
+     *
+     * @param \Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentePermanente
+     * @return CPlanillasComponentesPermanentes
+     */
+    public function setComponentePermanente(\Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentePermanente = null)
+    {
+        $this->componentePermanente = $componentePermanente;
+    
+        return $this;
+    }
+
+    /**
+     * Get componentePermanente
+     *
+     * @return \Planillas\EntidadesBundle\Entity\EComponentesSalariales 
+     */
+    public function getComponentePermanente()
+    {
+        return $this->componentePermanente;
+    }
+
+    /**
+     * Set planilla
+     *
+     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @return CPlanillasComponentesPermanentes
+     */
+    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
+    {
+        $this->planilla = $planilla;
+    
+        return $this;
+    }
+
+    /**
+     * Get planilla
+     *
+     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     */
+    public function getPlanilla()
+    {
+        return $this->planilla;
+    }
+
+    /**
+     * Set empleado
+     *
+     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @return CPlanillasComponentesPermanentes
+     */
+    public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
+    {
+        $this->empleado = $empleado;
+    
+        return $this;
+    }
+
+    /**
+     * Get empleado
+     *
+     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     */
+    public function getEmpleado()
+    {
+        return $this->empleado;
+    }
+}

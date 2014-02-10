@@ -10,7 +10,26 @@
     {{ parent() }}
 
     <script type="text/javascript">
+        
         $(function () {
+             $('#planillas_entidadesbundle_ecomponentessalariales_permanente').change(function (){
+               if(this.checked)
+               {
+                 //alert("hola")
+                 $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').attr('disabled',true);
+                 $('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').attr('disabled',true);
+                $('#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento').attr('disabled',true);
+               }
+               else
+               {
+                 $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').removeAttr('disabled');
+                 $('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').removeAttr('disabled');
+                 $('#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento').removeAttr('disabled');
+                 
+               }
+               
+           })
+            
             $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').datepicker
             ({
                 format: "yyyy-mm-dd"
@@ -51,11 +70,6 @@
     </script>
 {% endblock %}
 {% block content_content %}
-
-    {% for mensaje in app.session.flashbag.get('info') %}
-        <div class="alert alert-info">{{ mensaje }}</div>
-    {% endfor %}
-
     <div class="row">
         {% block content %}
             <div class="col-lg-9">
@@ -74,6 +88,7 @@
 
                             <div class="row-fluid">
                                 <div class="col-lg-6">{{ form_row(form.componente) }}</div>
+                                <div class="col-lg-6">{{ form_widget(form.permanente) }}</div>
 
 
                             </div>
@@ -139,7 +154,7 @@
                                                 <div class="col-lg-4"><div class="noclass" id="divmontototal">{{ form_row(form.montoTotal) }}</div></div>
 
                                                 <div class="col-lg-4"><div class="noclass" id="divnumercuotas">{{ form_row(form.numeroCuotas) }}</div></div>
-                                                <div class="col-lg-4"><div class="noclass" id="divmontototal">{{ form_row(form.periodoPagoDeuda) }}</div></div>
+                                                <div class="col-lg-4"><div class="noclass" id="divmontototal">{# form_row(form.periodoPagoDeuda) #}</div></div>
 
                                             </div>
 
@@ -156,9 +171,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                         <fieldset>
                             <legend></legend>
                             <div class="btn-group">

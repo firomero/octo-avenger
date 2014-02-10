@@ -15,7 +15,7 @@ class CIncapacidadesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipoIncapacidad','choice',array('choices'=>array('1'=>'Incapacidad CCSS','2'=>'Incapacidades INS')))
+            ->add('tipoIncapacidad','choice',array('choices'=>array('0'=>'Incapacidad CCSS','1'=>'Incapacidades INS')))
             ->add('motivo','textarea')
             ->add('fechaInicio','date',array('attr'=>array('id'=>'datetimepickercincapacidadesdesde'),'widget'=>'single_text','label'=>'Desde'))
             ->add('fechaFin','date',array('attr'=>array('id'=>'datetimepickercincapacidadeshasta'),'widget'=>'single_text','label'=>'Hasta'))

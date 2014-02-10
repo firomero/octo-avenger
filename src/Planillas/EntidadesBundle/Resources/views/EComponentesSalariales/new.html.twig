@@ -12,15 +12,23 @@
     <script type="text/javascript">
         $(function () {
 
-           /* $('planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').focusout(function() {
-
-
-
-
-
-
-            })*/
-
+           $('#planillas_entidadesbundle_ecomponentessalariales_permanente').change(function (){
+               if(this.checked)
+               {
+                 //alert("hola")
+                 $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').attr('disabled',true);
+                 $('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').attr('disabled',true);
+                $('#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento').attr('disabled',true);
+               }
+               else
+               {
+                 $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').removeAttr('disabled');
+                 $('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').removeAttr('disabled');
+                 $('#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento').removeAttr('disabled');
+                 
+               }
+               
+           })
 
 
 
@@ -93,7 +101,8 @@
 
                             <div class="row-fluid">
                                 <div class="col-lg-6">{{ form_row(form.componente) }}</div>
-
+                                <div class="col-lg-6">{{form_widget(form.permanente)}}</div>
+                                
 
                             </div>
                         </fieldset>
@@ -158,7 +167,7 @@
                                                 <div class="col-lg-4"><div class="noclass" id="divmontototal">{{ form_row(form.montoTotal) }}</div></div>
 
                                                 <div class="col-lg-4"><div class="noclass" id="divnumercuotas">{{ form_row(form.numeroCuotas) }}</div></div>
-                                                <div class="col-lg-4"><div class="noclass" id="divmontototal">{{ form_row(form.periodoPagoDeuda) }}</div></div>
+                                                <div class="col-lg-4"><div class="noclass" id="divmontototal">{# form_row(form.permanente) #}</div></div>
                                             </div>
 
                                         </fieldset>
@@ -188,6 +197,7 @@
 
                             </div>
                         </fieldset>
+                            
 
                         {{ form_end(form) }}
                     </div>

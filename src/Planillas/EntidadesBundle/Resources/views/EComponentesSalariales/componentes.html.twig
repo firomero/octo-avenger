@@ -2,8 +2,8 @@
     <thead>
     <tr>
 
-        <th>Tipo C</th>
-        <th>Quincena</th>
+        <th>Componente</th>
+        <th>Periodo</th>
         <th>Moneda</th>
         <th>Monto</th>
         <th>Pagado</th>
@@ -14,13 +14,32 @@
     <tbody>
     {% for entitys in entities %}
         <tr>
-            <td><a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">{%if entitys.componente==0%}Rebajo{% else %}Bonificacion{%endif%}</a></td>{#esto hay que cambiarlo#}
             <td>
-                {% if entitys.fechaInicio is empty %}
-                    ----
+                {% if  entitys.planilla is null%}
+                    {% if entitys.permanente ==0%}
+                <a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">
+                     {%if entitys.componente==0%}Rebajo{% else %}Bonificacion
+                     {%endif%}
+                </a>
+                    {%else %}
+                     {%if entitys.componente==0%}Rebajo{% else %}Bonificacion
+                     {%endif%}
+                    {%endif%}
+                 {%else%}
+                     {%if entitys.componente==0%}Rebajo{% else %}Bonificacion
+                     {%endif%}
+                {% endif%}
+            </td>{#esto hay que cambiarlo#}
+            <td>
+                {% if entitys.permanente %}
+                    Permanente
                 {% else %}
-                    {{entitys.fechaInicio | date('d') ~ '-' ~ entitys.fechaVencimiento|date('d/m/Y')}}
-                {% endif %}
+                   {% if entitys.fechaInicio is empty %}
+                         ----
+                   {% else %}
+                      {{entitys.fechaInicio | date('d') ~ '-' ~ entitys.fechaVencimiento|date('d/m/Y')}}
+                   {% endif %}
+                {%endif%}
 
             </td>
             <td>{% if entitys.moneda==0%}Colón{% else %}USD{%endif%}</td>

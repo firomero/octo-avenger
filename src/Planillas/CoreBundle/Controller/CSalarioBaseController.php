@@ -139,7 +139,7 @@ class CSalarioBaseController extends Controller {
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $entity->getEmpleado()->getId(), 'pagado' => 1));
+        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $entity->getEmpleado()->getId()));
         return $this->render('PlanillasCoreBundle:CSalarioBase:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),

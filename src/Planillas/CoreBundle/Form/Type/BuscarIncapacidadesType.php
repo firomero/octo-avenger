@@ -16,7 +16,7 @@ class BuscarIncapacidadesType extends AbstractType
     {
         $builder
 
-            ->add('tipoIncapacidad','choice',array('choices'=>array('0'=>'Todas','1'=>'Incapacidad CCSS','2'=>'Incapacidades INS')))
+            ->add('tipoIncapacidad','choice',array('choices'=>array('0'=>'Incapacidad CCSS','1'=>'Incapacidades INS')))
             ->add('fechaInicio','date',array('required'=>false,'attr'=>array('id'=>'datetimepickerdesde'),'widget'=>'single_text','label'=>'Desde'))
             ->add('fechaFin','date',array('required'=>false,'attr'=>array('id'=>'datetimepickerhasta'),'widget'=>'single_text','label'=>'Hasta'))
             ->add('empleado','text',array('required'=>false))

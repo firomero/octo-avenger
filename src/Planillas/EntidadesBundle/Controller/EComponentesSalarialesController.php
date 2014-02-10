@@ -31,7 +31,7 @@ class EComponentesSalarialesController extends Controller {
 
     public function componentesByIdEmpleadoAction($id_empleado) {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado, 'pagado' => 0));
+        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado, 'pagado' => 0, 'deleted_at' => null));
         $aDeleteForm = array();
         foreach ($entities as $entity) {
 
@@ -83,12 +83,12 @@ class EComponentesSalarialesController extends Controller {
         $entity->setEmpleado($eEmpleado);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        //print_r($request->get('planillas_entidadesbundle_ecomponentessalariales'));exit;
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
             $result = self::validate($entity);
+
 
             if ($result === true && self::persistEntity($entity, $em, true)) { //the form contains errors
                 $this->get('session')->getFlashBag()->add('info', 'Los datos han sido adicionados correctamente.');
@@ -220,10 +220,9 @@ class EComponentesSalarialesController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find EComponentesSalariales entity.');
         }
-        /*Validando que no se haya pagado antes*/
-        //print_r("holaa");exit;
-        if($entity->getPlanilla()!=null || $entity->getPlanilla()!="")
-        {
+        /* Validando que no se haya pagado antes */
+
+        if ($entity->getPlanilla() != null || $entity->getPlanilla() != "") {
             $this->get('session')->getFlashBag()->add('danger', 'No se pueden actualizar datos asociados a una planilla de pago.');
             return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
         }
@@ -235,13 +234,13 @@ class EComponentesSalarialesController extends Controller {
             /* EComponentesSalarialesType $obj= new EComponentesSalarialesType();
               $obj->getName() */
             $result = self::validate($entity);
+
             if ($result === true) { //the form contains errors
                 $entity = self::persistEntity($entity, $em);
 
                 $this->get('session')->getFlashBag()->add('info', 'Los datos han sido modificados correctamente.');
                 return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
             }
-           
         }
         $this->get('session')->getFlashBag()->add('danger', 'Se detectaron errores al guardar los datos.');
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:edit.html.twig', array(
@@ -256,9 +255,8 @@ class EComponentesSalarialesController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        //$form = $this->createDeleteForm($id);
-        //$form->handleRequest($request);
-        //if ($form->isValid()) {
+
+
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->find($id);
 
@@ -266,12 +264,24 @@ class EComponentesSalarialesController extends Controller {
             throw $this->createNotFoundException('Unable to find EComponentesSalariales entity.');
         }
         $eEmpleado = $entity->getEmpleado();
-        $em->remove($entity);
-        $em->flush();
-        // }
-        $this->get('session')->getFlashBag()->add('info', 'Se ha eliminado la entidad correctamente.');
+
+        if ($entity->getPermanente() == true) {//si  es permanente no se elimina se pone delete_at con la fecha
+            $entity->setDeletedAt(new \DateTime(date('Y-m-d', time())));
+            $em->persist($entity);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('info', 'Se ha eliminado la entidad correctamente.');
+        } else {
+            if ($entity->getPlanilla() == null) {
+                $em->remove($entity);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('info', 'Se ha eliminado la entidad correctamente.');
+            } else {
+                $this->get('session')->getFlashBag()->add('info', 'No se puede eliminar una componente asociada a un planilla de pago.');
+            }
+        }
+
+
         return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $eEmpleado->getId())));
-        //return $this->redirect($this->generateUrl('ecomponentessalariales'));
     }
 
     /**
@@ -296,7 +306,7 @@ class EComponentesSalarialesController extends Controller {
             if ((int) $entity->getMontoTotal() <= 0 || $entity->getMontoTotal() == "") {
                 return "invalidmontotal";
             }
-            if ($entity->getNumeroCuotas() == "") {
+            if ($entity->getNumeroCuotas() == "" && $entity->getPermanente() == false) {
                 return "invalidmontotal";
             }
             return true;
@@ -305,7 +315,7 @@ class EComponentesSalarialesController extends Controller {
             if ((int) $entity->getCantidad() <= 0 || $entity->getCantidad() == "") {
                 return "invalidcantidad";
             }
-            if ($entity->getFechaVencimiento() == "") {
+            if ($entity->getFechaVencimiento() == "" && $entity->getPermanente() == false) {
                 return "invalidfechavencimiento";
             }
             return true;
@@ -323,99 +333,82 @@ class EComponentesSalarialesController extends Controller {
 
             if ($entity->getComponente() == 0) { //rebajos
                 if ($isnew === true) {//si es nuevo porque es el unico caso donde es necesario pikar en trozos los plazos
-                    $total = 0;
-                    $total = $entity->getMontoTotal() / $entity->getNumeroCuotas(); //monto para cada plazo
-                    $resto = $entity->getMontoTotal() % $entity->getNumeroCuotas(); //resto a sumar aun plazo
                     // datos relacionados con las fechas
-                    $fechaInicio = $entity->getFechaInicio();
-                    $inicio_formated = date_format($fechaInicio, 'Y-m-d');
-                    $month = date_format($fechaInicio, 'F');
-                    $year = date_format($fechaInicio, 'Y');
-                    $quincena = 1;
-
-                    $firstDay = date('Y-m-d', strtotime("first day of $month $year"));
-                    if (strtotime("first day of $month $year") <= strtotime($inicio_formated) && strtotime($firstDay . ' + 15 days') > strtotime($inicio_formated))
-                        $quincena = 0;
-
                     $i = 1;
+                    $iCantDias = self::getPeriodoPagoConfig($manager);
+                    if ($iCantDias < 1)
+                        throw new \Exception("La cantidad de dias del periodo activo no puede ser cero");
 
-                    while ($i <= $entity->getNumeroCuotas()) {
-
-                        if ($i == $entity->getNumeroCuotas()) {
-                            $total+=$resto;
-                        }
+                    if ($entity->getPermanente() == true) {
                         $myentity = new EComponentesSalariales();
                         $myentity->setEmpleado($entity->getEmpleado());
                         $myentity->setComponente($entity->getComponente());
                         $myentity->setTipoDeuda($entity->getTipoDeuda());
-                        $myentity->setMontoTotal($total);
-                        $myentity->setNumeroCuotas(1);
+                        $myentity->setMontoTotal($entity->getMontoTotal());
+                        $myentity->setNumeroCuotas(0);
                         $myentity->setCantidad(null);
                         $myentity->setPagado($entity->getPagado());
+                        $myentity->setPermanente(true);
+                        $myentity->setFechaInicio(null);
+                        $myentity->setFechaVencimiento(null);
+                        //$inicio_formated = date('Y-m-d', strtotime($inicio_formated . ' + ' . $iCantDias . ' days'));
 
-                        $periodo = self::getPeriodoPagoConfig($manager);
-
-                        // creando período por quincena
-                        if ($periodo == 2) {//Quincenal
-                            // creando período por quincena
-                            if (!$quincena) {
-                                $month = date_format(new \DateTime($inicio_formated), 'F');
-                                $year = date_format(new \DateTime($inicio_formated), 'Y');
-                                $firstDay = date('Y-m-d', strtotime("first day of $month $year"));
-                                $myentity->setFechaInicio(new \DateTime(date('Y-m-d', strtotime("first day of $month $year"))));
-                                $myentity->setFechaVencimiento(new \DateTime(date('Y-m-d', strtotime($firstDay . ' + 14 days'))));
-                                $quincena = 1;
-                            } else {
-                                $month = date_format(new \DateTime($inicio_formated), 'F');
-                                $year = date_format(new \DateTime($inicio_formated), 'Y');
-                                $firstDay = date('Y-m-d', strtotime("first day of $month $year"));
-                                $myentity->setFechaInicio(new \DateTime(date('Y-m-d', strtotime($firstDay . ' + 14 days'))));
-                                $myentity->setFechaVencimiento(new \DateTime(date('Y-m-d', strtotime("last day of $month $year"))));
-                                $quincena = 0;
-
-                                // actualizando para contar en un nuevo mes
-                                $inicio_formated = date('Y-m-d', strtotime($firstDay . ' + 1 month 1 day'));
-                            }
-                        } else if ($periodo == 3) {//Mensual
-                            $month = date_format(new \DateTime($inicio_formated), 'F');
-                            $year = date_format(new \DateTime($inicio_formated), 'Y');
-                            $myentity->setFechaInicio(new \DateTime(date('Y-m-d', strtotime("first day of $month $year"))));
-                            $myentity->setFechaVencimiento(new \DateTime(date('Y-m-d', strtotime("last day of $month $year"))));
-                            $quincena = 0;
-
-                            // actualizando para contar en un nuevo mes
-                            $inicio_formated = date('Y-m-d', strtotime($firstDay . ' + 1 month 1 day'));
-                        } else {//Semanal
-                            
-                            
-                            
-                            if ($i == 1) {
-                                $myentity->setFechaInicio(new \DateTime($inicio_formated));
-                                $inicio_formated = date('Y-m-d', strtotime($inicio_formated . ' + 6 days'));
-                                $myentity->setFechaVencimiento( new \DateTime($inicio_formated));
-                            } else {
-                                $myentity->setFechaInicio(new \DateTime($inicio_formated));
-                                $inicio_formated = date('Y-m-d', strtotime($inicio_formated . ' + 6 days'));
-                                $myentity->setFechaVencimiento(new \DateTime($inicio_formated));
-                            }
-                            
-                        }
-
-                        $myentity->setPeriodoPagoDeuda($entity->getPeriodoPagoDeuda());
-                        $myentity->setMontoRestante($total);
+                        $myentity->setMontoRestante(0);
                         $manager->persist($myentity);
-                        $i++;
-                        //$manager->flush($myentity);
+                    } else {
+                        $fechaInicio = $entity->getFechaInicio();
+                        $inicio_formated = date_format($fechaInicio, 'Y-m-d');
+                        $total = 0;
+                        $total = $entity->getMontoTotal() / $entity->getNumeroCuotas(); //monto para cada plazo
+                        $resto = $entity->getMontoTotal() % $entity->getNumeroCuotas(); //resto a sumar aun plazo
+                        while ($i <= $entity->getNumeroCuotas()) {
+
+                            if ($i == $entity->getNumeroCuotas()) {
+                                $total+=$resto;
+                            }
+                            $myentity = new EComponentesSalariales();
+                            $myentity->setEmpleado($entity->getEmpleado());
+                            $myentity->setComponente($entity->getComponente());
+                            $myentity->setTipoDeuda($entity->getTipoDeuda());
+                            $myentity->setMontoTotal($total);
+                            $myentity->setNumeroCuotas(1);
+                            $myentity->setCantidad(null);
+                            $myentity->setPermanente(false);
+                            $myentity->setPagado($entity->getPagado());
+
+                            $myentity->setFechaInicio(new \DateTime($inicio_formated));
+                            $myentity->setFechaVencimiento(new \DateTime(date('Y-m-d', strtotime($inicio_formated . ' + ' . $iCantDias . ' days'))));
+                            $inicio_formated = date('Y-m-d', strtotime($inicio_formated . ' + ' . $iCantDias . ' days'));
+
+                            $myentity->setMontoRestante($total);
+                            $manager->persist($myentity);
+                            $i++;
+                        }
                     }
 
                     $manager->flush();
                     return $myentity;
-                } else {//es solo modificar una sola 
+                } else {//es solo modificar una sola
+                   
+                    if($entity->getPermanente())
+                    {
+                        $entity->setFechaInicio(null);
+                        $entity->setFechaVencimiento(null);
+                        $entity->setNumeroCuotas(0);
+                        $entity->setPermanente(true);
+                    }
                     $entity->setCantidad(null);
-                    $entity->setFechaVencimiento(null);
-                    $entity->setMontoRestante($entity->getMontoTotal());
+                    $manager->persist($entity);
+                    $manager->flush($entity);
+                    //$entity->setFechaVencimiento(null);
+                    //$entity->setMontoRestante($entity->getMontoTotal());
                 }
             } else {
+
+                if ($entity->getPermanente()) {
+                    $entity->setPermanente(null);
+                }
+                $entity->setFechaVencimiento(null);
                 $entity->setFechaInicio(null);
                 $entity->setMoneda(0);
                 $entity->setMontoReducir(null);
@@ -428,7 +421,6 @@ class EComponentesSalarialesController extends Controller {
             }
             return $entity;
         } catch (\Exception $e) {
-            print_r($e->getMessage());exit;
             return false;
         }
     }
@@ -438,9 +430,7 @@ class EComponentesSalarialesController extends Controller {
         if (!$periodo_activo) {
             throw new \Exception('Unable to find EComponentesSalariales entity.');
         }
-        return $periodo_activo->getPeriodo();
+        return $periodo_activo->getCantDias();
     }
-
-    
 
 }

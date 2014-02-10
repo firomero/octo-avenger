@@ -31,8 +31,7 @@
                             
                             <div class="row-fluid">
                                 <div class="col-lg-4">{{ form_row(edit_form.salarioBase) }}</div>
-                                <div class="col-lg-4">{{ form_widget(edit_form.seguro) }}</div>
-                                 <div class="col-lg-4">{{ form_row(edit_form.periodoPago) }}</div>
+                                <div class="col-lg-4">{{ form_widget(edit_form.seguro) }}</div>                           
                                
                             </div>
 
@@ -50,7 +49,7 @@
             
              <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2 class="panel-title">Asignación de Componentes Salariales</h2>
+                    <h2 class="panel-title">Asignación de Componentessss Salariales</h2>
                 </div>
                 <div class="panel-body">
 				    <fieldset>
@@ -90,7 +89,7 @@
                     <tbody>
                 {% for entitys in entities %}
                             <tr>
-                                <td><a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">{%if entitys.componente==0%}Rebajo{% else %}Bonificacion{%endif%}</a></td>{#esto hay que cambiarlo#}
+                                <td><a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">{%if entitys.componente==0%}Rebajo{% else %}Bonificación{%endif%}</a></td>{#esto hay que cambiarlo#}
                                 <td>
                                     {% if entitys.tipoDeuda is not null %}
                                         

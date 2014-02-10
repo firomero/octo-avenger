@@ -33,6 +33,12 @@ class NPeriodoPago
      * @ORM\Column(name="activo", type="boolean", nullable=true)
      */
     private $activo;
+    
+    /**
+     * @var integer
+     * @ORM\Column(name="cantdias", type="integer", nullable=false)
+     */
+    private $cantdias;
 
 
     /**
@@ -92,5 +98,28 @@ class NPeriodoPago
     }
     public function __toString() {
         return $this->periodo;
+    }
+
+    /**
+     * Set cantdias
+     *
+     * @param integer $cantdias
+     * @return NPeriodoPago
+     */
+    public function setCantdias($cantdias)
+    {
+        $this->cantdias = $cantdias;
+    
+        return $this;
+    }
+
+    /**
+     * Get cantdias
+     *
+     * @return integer 
+     */
+    public function getCantdias()
+    {
+        return $this->cantdias;
     }
 }
