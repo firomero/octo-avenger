@@ -7,13 +7,6 @@
     {% block foot_script %}
         {{ parent() }}
         <script>
-
-            /*window.addEvent('domready', function() {
-             //jQuery.noConflict();
-
-
-             });*/
-
             $(document).ready(function () {
                 $('#planillas_fechaInicio').datepicker
                 ({
@@ -55,7 +48,10 @@
         </div>
         <div class="panel-body">
 
+           <fieldset>
+               <legend><h5>Ultimo pago generado : {{ ultimoPeriodoPago }}</h5></legend>
 
+           </fieldset>
             <fieldset>
                 <div class="row-fluid">
                     <div class="col-lg-4">
@@ -114,7 +110,7 @@
             <h3 class="panel-title">
                 <div class="btn-group">
 
-                    Planilla de pago
+                    Planilla de efectivo
                 </div>
             </h3>
         </div>
@@ -124,7 +120,7 @@
                 <tr>
 
                     <th>Cédula</th>
-                    <th>Nombre Apellidos</th>
+                    <th>Empleado</th>
 
 
                     <th>Bruto</th>

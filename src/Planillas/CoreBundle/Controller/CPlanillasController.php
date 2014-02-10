@@ -22,6 +22,11 @@ class CPlanillasController extends Controller {
         if (isset($idPlanilla) && $idPlanilla>0) {
               $bValidaPeriodoPago=true;          
         }
+        /*Obtener el ultimo periodo de pago hecho como datos para mostrar*/
+        $ultimoPeriodoPago=$manager->getUltimaPlanilla();
+
+
+        /*Fin obtener ultimo periodo de pago*/
         $oPeriodoPagoActivo = $manager->getPeriodoPagoActivo();
         $bExistePeriodo = $manager->existePeriodPagoenBasedeDatos(); //valida existencia de la planilla en base de datos
 
@@ -34,7 +39,8 @@ class CPlanillasController extends Controller {
             $entities['empleados'] = array();
             return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
                         'entities' => $entities,
-                        'periodo' => $oPeriodoPagoActivo
+                        'ultimoPeriodoPago'=>$ultimoPeriodoPago,//CPlanilla
+                        'periodo' => $oPeriodoPagoActivo //periodo en NPeriodoPago
             ));
         } else {
 
@@ -49,6 +55,7 @@ class CPlanillasController extends Controller {
 
                     return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
                                 'entities' => $entities,
+                                'ultimoPeriodoPago'=>$ultimoPeriodoPago,//CPlanilla
                                 'periodo' => $oPeriodoPagoActivo
                     ));
                 }
@@ -75,6 +82,7 @@ class CPlanillasController extends Controller {
                 }
                 return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
                             'entities' => $entities,
+                            'ultimoPeriodoPago'=>$ultimoPeriodoPago,//CPlanilla
                             'periodo' => $oPeriodoPagoActivo
                 ));
             }

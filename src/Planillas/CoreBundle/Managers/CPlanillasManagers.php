@@ -917,13 +917,33 @@ class CPlanillasManagers {
                     return array(false, $planilla->getFechaInicio()->format('d/m/Y') . '-' . $planilla->getFechaFin()->format('d/m/Y'));
                 }
 
-                if ($this->fechaInicio < $planilla->getFechaFin()) {
+                if ($this->fechaInicio <= $planilla->getFechaFin()) {
 
                     return array(false, $planilla->getFechaInicio()->format('d/m/Y') . '-' . $planilla->getFechaFin()->format('d/m/Y'));
                 } 
             }
             return true;
         }
+    }
+
+    /**
+     * funcion que obtiene el ultimo perido de pago efectuado
+     */
+    public function getUltimaPlanilla(){
+
+        $sql = 'SELECT c  FROM PlanillasCoreBundle:CPlanillas c order by c.fechaFin desc';
+
+        $query = $this->em->createQuery($sql);
+        $oPlanillas= $query->getArrayResult();
+        if(count($oPlanillas)>0)
+        {
+          $sSalida=$oPlanillas[0]['fechaInicio']->format('d-m-Y').' al '.$oPlanillas[0]['fechaFin']->format('d-m-Y');
+            //print_r($sSalida);exit;
+            return $sSalida;
+        }
+        return  "No existen pagos anteriores";
+
+
     }
 
     public function getFechaInicio() {
