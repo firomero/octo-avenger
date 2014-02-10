@@ -117,8 +117,14 @@ class CPlanillasController extends Controller {
           print_r($entities);
           echo "</pre>";
           exit; */
+       /*Obtener el ultimo periodo de pago hecho como datos para mostrar*/
+        $ultimoPeriodoPago=$manager->getUltimaPlanilla();
+
+
+        /*Fin obtener ultimo periodo de pago*/
         return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
                     'entities' => $entities,
+                    'ultimoPeriodoPago'=>$ultimoPeriodoPago
         ));
     }
 
