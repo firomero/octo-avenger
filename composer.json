@@ -6,6 +6,15 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://localhost/satis/web"
+        },
+        {
+            "packagist": false
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.3.*",
@@ -30,7 +39,8 @@
         "elao/web-profiler-extra-bundle": "dev-master",
         "mopa/bootstrap-bundle": "dev-master",
         "twbs/bootstrap": "v3.0.0",
-        "genemu/form-bundle": "2.2.*"
+        "genemu/form-bundle": "2.2.*",
+        "tecnick.com/tcpdf": "~6.0"
     },
     "scripts": {
         "post-install-cmd": [

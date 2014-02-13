@@ -36,6 +36,7 @@
 
         </script>
     {% endblock %}
+
     <form class="form-horizontal" action="{{ path('cplanillas_buscar') }}"
           method="post" enctype="multipart/form-data" name="planillasForm" id="planillasForm">
     <div class="panel panel-default">
@@ -50,7 +51,6 @@
 
            <fieldset>
                <legend><h5>Ultimo pago generado : {{ ultimoPeriodoPago }}</h5></legend>
-
            </fieldset>
             <fieldset>
                 <div class="row-fluid">
@@ -105,6 +105,8 @@
 
         </div>
     </div>
+
+    {% if entities.empleados is not empty %}
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
@@ -114,6 +116,7 @@
                 </div>
             </h3>
         </div>
+
         <div class="panel-body">
             <table class="table table-striped table-hover">
                 <thead>
@@ -137,284 +140,280 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% if entities|length >0 %}
-                {% set tipodeuda=['Uniformes','Sanciones','Préstamos'] %}
-                {% set empleados =entities.empleados %}
-                {% for entity in empleados %}
-                {% set datos_personales=entity.datos_personales %}
-                {% set datos_economicos=entity.datos_economicos %}
-                <tr>
-                    <td align="left">{{ datos_personales.cedula }}</td>
-                    <td>{{ datos_personales.nombre }}  {{ datos_personales.apellidos }}</td>
-                    <td>{{ datos_economicos.salario_base }}</td>
-                    <td>{{ datos_economicos.bonificaciones.total }}</td>
-                    <td>{{ datos_economicos.dias_extra.total }}</td>
-                    <td>{{ datos_economicos.dias_menos.total }}</td>
-                    <td>{{ datos_economicos.incapacidades.total }}</td>
-                    <td>{{ datos_economicos.horas_extras.total }}</td>
-                    <td>{{ datos_economicos.deudas.total }}</td>
-                    <td>{{ datos_economicos.salario_total_empleado }} </td>
-                    <td>
-                        <a href="#" onclick="details(this)" id="details_{{ datos_personales.id }}"
-                           class="btn btn-primary"> <i class="glyphicon glyphicon-eye-open"
-                                                       title="Detalles de la planilla"></i>Detalles</a>
-                    </td>
+                    {% set tipodeuda=['Uniformes','Sanciones','Préstamos'] %}
+                    {% set empleados =entities.empleados %}
+                    {% for entity in empleados %}
+                            {% set datos_personales=entity.datos_personales %}
+                            {% set datos_economicos=entity.datos_economicos %}
+                            <tr>
+                                <td align="left">{{ datos_personales.cedula }}</td>
+                                <td>{{ datos_personales.nombre }}  {{ datos_personales.apellidos }}</td>
+                                <td>{{ datos_economicos.salario_base }}</td>
+                                <td>{{ datos_economicos.bonificaciones.total }}</td>
+                                <td>{{ datos_economicos.dias_extra.total }}</td>
+                                <td>{{ datos_economicos.dias_menos.total }}</td>
+                                <td>{{ datos_economicos.incapacidades.total }}</td>
+                                <td>{{ datos_economicos.horas_extras.total }}</td>
+                                <td>{{ datos_economicos.deudas.total }}</td>
+                                <td>{{ datos_economicos.salario_total_empleado }} </td>
+                                <td>
+                                    <a href="#" onclick="details(this)" id="details_{{ datos_personales.id }}"
+                                       class="btn btn-primary"> <i class="glyphicon glyphicon-eye-open"
+                                                                   title="Detalles de la planilla"></i>Detalles</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="11">
+                                    <div id="salario_{{ datos_personales.id }}" style="display: none">
 
-
-                </tr>
-                <tr>
-                    <td colspan="11">
-                        <div id="salario_{{ datos_personales.id }}" style="display: none">
-
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-
-                                    <th>Bonificaciones</th>
-                                    <th style="text-align: right">Monto</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.bonificaciones|length >0 %}
-
-                                    {% for bonificaciones in datos_economicos.bonificaciones %}
-                                        {% for bonificacion in bonificaciones %}
-
-
+                                        <table class="table table-bordered">
+                                            <thead>
                                             <tr>
-                                                <td>
-                                                    {{ bonificacion.descripcion }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    {{ bonificacion.monto_total }}
-                                                </td>
+
+                                                <th>Bonificaciones</th>
+                                                <th style="text-align: right">Monto</th>
 
                                             </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% if datos_economicos.bonificaciones|length >0 %}
 
-                                        {% endfor %}
-
-
-                                    {% endfor %}
-                                    <tr>
-                                        <td></td>
-                                        <td style="text-align: right">
-                                            <em><strong>Total: {{ datos_economicos.bonificaciones.total }}</strong></em>
-                                        </td>
-                                    </tr>
-                                {% endif %}
-                                </tbody>
-
-                            </table>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-
-                                    <th>Rebajos</th>
-                                    <th>Periodo de pago</th>
-                                    <th style="text-align: right">Monto</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.deudas|length >0 %}
-
-                                    {% for deudas in datos_economicos.deudas %}
-                                        {% for deuda in deudas %}
+                                                {% for bonificaciones in datos_economicos.bonificaciones %}
+                                                    {% for bonificacion in bonificaciones %}
 
 
-                                            <tr>
-                                                <td>
-                                                    {% for key, deudatext in tipodeuda %}
-                                                        {% if key==deuda.componente %}
-                                                            {{ deudatext }}
-                                                        {% endif %}
+                                                        <tr>
+                                                            <td>
+                                                                {{ bonificacion.descripcion }}
+                                                            </td>
+                                                            <td style="text-align: right">
+                                                                {{ bonificacion.monto_total }}
+                                                            </td>
+
+                                                        </tr>
+
                                                     {% endfor %}
 
-                                                </td>
-                                                <td>
-                                                    {{ deuda.fecha_inicio }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    {{ deuda.monto_total }}
-                                                </td>
 
-                                            </tr>
+                                                {% endfor %}
+                                                <tr>
+                                                    <td></td>
+                                                    <td style="text-align: right">
+                                                        <em><strong>Total: {{ datos_economicos.bonificaciones.total }}</strong></em>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                            </tbody>
 
-                                        {% endfor %}
-
-
-                                    {% endfor %}
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td style="text-align: right">
-                                            <em><strong>Total: {{ datos_economicos.deudas.total }}</strong></em></td>
-                                    </tr>
-                                {% endif %}
-                                </tbody>
-
-                            </table>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-
-                                    <th>Dias extras</th>
-                                    
-                                    <th style="text-align: right">Monto</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.dias_extra|length >0 %}
-
-                                    {% for dias_extra in datos_economicos.dias_extra %}
-                                        {% for dia in dias_extra %}
-
-
+                                        </table>
+                                        <table class="table table-bordered">
+                                            <thead>
                                             <tr>
-                                               
-                                                <td>
-                                                    {{ dia.fecha }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    {{ dia.monto_total }}
-                                                </td>
+
+                                                <th>Rebajos</th>
+                                                <th>Periodo de pago</th>
+                                                <th style="text-align: right">Monto</th>
 
                                             </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% if datos_economicos.deudas|length >0 %}
 
-                                        {% endfor %}
+                                                {% for deudas in datos_economicos.deudas %}
+                                                    {% for deuda in deudas %}
 
 
-                                    {% endfor %}
-                                    <tr>
-                                        <td></td>
-                                        
-                                        <td style="text-align: right">
-                                            <em><strong>Total: {{ datos_economicos.dias_extra.total }}</strong></em></td>
-                                    </tr>
-                                {% endif %}
-                                </tbody>
+                                                        <tr>
+                                                            <td>
+                                                                {% for key, deudatext in tipodeuda %}
+                                                                    {% if key==deuda.componente %}
+                                                                        {{ deudatext }}
+                                                                    {% endif %}
+                                                                {% endfor %}
 
-                            </table>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
+                                                            </td>
+                                                            <td>
+                                                                {{ deuda.fecha_inicio }}
+                                                            </td>
+                                                            <td style="text-align: right">
+                                                                {{ deuda.monto_total }}
+                                                            </td>
 
-                                        <th>Horas extras</th>
+                                                        </tr>
 
-                                        <th style="text-align: right">Monto</th>
+                                                    {% endfor %}
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.horas_extras|length >0 %}
 
-                                    {% for horas_extras in datos_economicos.horas_extras %}
-                                        {% for hora in horas_extras %}
-                                        <tr>
-                                            <td>
-                                                    {{ hora.fecha }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    {{ hora.monto_total }}
-                                                </td>
-                                        </tr>
-                                        {% endfor %}
-                                    {% endfor %}
+                                                {% endfor %}
                                                 <tr>
                                                     <td></td>
-                                                    
+                                                    <td></td>
                                                     <td style="text-align: right">
-                                                        <em><strong>Total: {{ datos_economicos.horas_extras.total }}</strong></em></td>
+                                                        <em><strong>Total: {{ datos_economicos.deudas.total }}</strong></em></td>
                                                 </tr>
-                                {% endif %}
-                                 </tbody>
+                                            {% endif %}
+                                            </tbody>
 
-                            </table>
-                            <!--dias menos--->
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
+                                        </table>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
 
-                                        <th>Dias menos</th>
+                                                <th>Dias extras</th>
 
-                                        <th style="text-align: right">Monto</th>
+                                                <th style="text-align: right">Monto</th>
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.dias_menos|length >0 %}
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% if datos_economicos.dias_extra|length >0 %}
 
-                                    {% for dias_menos in datos_economicos.dias_menos %}
-                                        {% for menos in dias_menos %}
-                                        <tr>
-                                            <td>
-                                                    {{ menos.fecha }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    {{ menos.monto_total }}
-                                                </td>
-                                        </tr>
-                                        {% endfor %}
-                                    {% endfor %}
+                                                {% for dias_extra in datos_economicos.dias_extra %}
+                                                    {% for dia in dias_extra %}
+
+
+                                                        <tr>
+
+                                                            <td>
+                                                                {{ dia.fecha }}
+                                                            </td>
+                                                            <td style="text-align: right">
+                                                                {{ dia.monto_total }}
+                                                            </td>
+
+                                                        </tr>
+
+                                                    {% endfor %}
+
+
+                                                {% endfor %}
                                                 <tr>
                                                     <td></td>
-                                                    
+
                                                     <td style="text-align: right">
-                                                        <em><strong>Total: {{ datos_economicos.dias_menos.total }}</strong></em></td>
+                                                        <em><strong>Total: {{ datos_economicos.dias_extra.total }}</strong></em></td>
                                                 </tr>
-                                {% endif %}
-                                 </tbody>
+                                            {% endif %}
+                                            </tbody>
 
-                            </table>
-                            <!--Incapacidades--->
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-
-                                        <th>Incapacidades</th>
-
-                                        <th style="text-align: right">Monto</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.incapacidades|length >0 %}
-
-                                    {% for incapacidades in datos_economicos.incapacidades %}
-                                        {% for incapacidad in incapacidades %}
-                                        <tr>
-                                            <td>
-                                                    {{ incapacidad.fecha }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    {{ incapacidad.monto_total }}
-                                                </td>
-                                        </tr>
-                                        {% endfor %}
-                                    {% endfor %}
+                                        </table>
+                                        <table class="table table-bordered">
+                                            <thead>
                                                 <tr>
-                                                    <td></td>
-                                                    
-                                                    <td style="text-align: right">
-                                                        <em><strong>Total: {{ datos_economicos.incapacidades.total }}</strong></em></td>
+
+                                                    <th>Horas extras</th>
+
+                                                    <th style="text-align: right">Monto</th>
+
                                                 </tr>
-                                {% endif %}
-                                 </tbody>
+                                            </thead>
+                                            <tbody>
+                                            {% if datos_economicos.horas_extras|length >0 %}
 
-                            </table>
-                        </div>
-                    </td>
-                    </tr>
+                                                {% for horas_extras in datos_economicos.horas_extras %}
+                                                    {% for hora in horas_extras %}
+                                                    <tr>
+                                                        <td>
+                                                                {{ hora.fecha }}
+                                                            </td>
+                                                            <td style="text-align: right">
+                                                                {{ hora.monto_total }}
+                                                            </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                            <tr>
+                                                                <td></td>
 
-                    <!--<tr style="visibility: hidden">
-                        <td colspan="9">Aqui van los detalles de cada empleado</td>
-                    </tr>-->
-                    {% endfor %}
-                    {% endif %}
+                                                                <td style="text-align: right">
+                                                                    <em><strong>Total: {{ datos_economicos.horas_extras.total }}</strong></em></td>
+                                                            </tr>
+                                            {% endif %}
+                                             </tbody>
+
+                                        </table>
+                                        <!--dias menos--->
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>Dias menos</th>
+
+                                                    <th style="text-align: right">Monto</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% if datos_economicos.dias_menos|length >0 %}
+
+                                                {% for dias_menos in datos_economicos.dias_menos %}
+                                                    {% for menos in dias_menos %}
+                                                    <tr>
+                                                        <td>
+                                                                {{ menos.fecha }}
+                                                            </td>
+                                                            <td style="text-align: right">
+                                                                {{ menos.monto_total }}
+                                                            </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                            <tr>
+                                                                <td></td>
+
+                                                                <td style="text-align: right">
+                                                                    <em><strong>Total: {{ datos_economicos.dias_menos.total }}</strong></em></td>
+                                                            </tr>
+                                            {% endif %}
+                                             </tbody>
+
+                                        </table>
+                                        <!--Incapacidades--->
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>Incapacidades</th>
+
+                                                    <th style="text-align: right">Monto</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% if datos_economicos.incapacidades|length >0 %}
+
+                                                {% for incapacidades in datos_economicos.incapacidades %}
+                                                    {% for incapacidad in incapacidades %}
+                                                    <tr>
+                                                        <td>
+                                                                {{ incapacidad.fecha }}
+                                                            </td>
+                                                            <td style="text-align: right">
+                                                                {{ incapacidad.monto_total }}
+                                                            </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                                            <tr>
+                                                                <td></td>
+
+                                                                <td style="text-align: right">
+                                                                    <em><strong>Total: {{ datos_economicos.incapacidades.total }}</strong></em></td>
+                                                            </tr>
+                                            {% endif %}
+                                             </tbody>
+
+                                        </table>
+                                    </div>
+                                </td>
+                                </tr>
+                            <!--<tr style="visibility: hidden">
+                                <td colspan="9">Aqui van los detalles de cada empleado</td>
+                            </tr>-->
+                        {% endfor %}
                 </tbody>
             </table>
+
             <fieldset>
                 <input type="hidden" name="id" value="{% if entities.id_planilla >0%} {{ entities.id_planilla }}{% endif%}">
                 <legend></legend>
@@ -432,5 +431,6 @@
             </fieldset>
         </div>
     </div>
+    {% endif %}
     </form>
 {% endblock %}

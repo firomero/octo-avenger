@@ -870,26 +870,28 @@ class CPlanillasManagers {
      * de dias entre ellos
      * @return array|bool
      */
-    public function validarPeriodoPago() {
+    public function validarPeriodoPago()
+    {
         if ($this->fechaInicio == null || $this->fechaFin == null) {
             return false;
         }
+
         $periodo_activo = $this->em->getRepository('PlanillasNomencladorBundle:NPeriodoPago')->findOneBy(array('activo' => true));
         if (!$periodo_activo) {
             return array(false, "No hay definido ningun periodo de pago");
         }
+
         $iCantDias = $periodo_activo->getCantDias();
-        $diff = date_diff($this->fechaFin, $this->fechaInicio);
+        $diff = date_diff($this->fechaInicio, $this->fechaFin);
+
         if ($diff->days < 0) {
             return false;
         }
+
         if ($iCantDias != $diff->days) {
             return false;
         }
         //vamos validar que las fechas entradas no esten dentro de otro periodo pago
-
-
-
 
         return true;
     }

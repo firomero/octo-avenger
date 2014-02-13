@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "a5ff04e96ce2c426313861a3d72c5ea6",
+    "hash": "6aabca254f3e235fa47c6a0bd6bd48c1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1578,38 +1578,38 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "f72392d0e6eb855118f5a84e89ac2d257c704abd"
-            },
+            "version": "1.7",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f72392d0e6eb855118f5a84e89ac2d257c704abd",
-                "reference": "f72392d0e6eb855118f5a84e89ac2d257c704abd",
-                "shasum": ""
+                "url": "/var/www/artifact/zips/monolog-monolog-1.7.zip",
+                "reference": "monolog-monolog-1.7.zip",
+                "shasum": "d83e6f08d35ccc4f202d2e310db722fb91b1801d"
             },
             "require": {
                 "php": ">=5.3.0",
                 "psr/log": "~1.0"
             },
             "require-dev": {
+                "aws/aws-sdk-php": "~2.4.8",
                 "doctrine/couchdb": "dev-master",
                 "mlehner/gelf-php": "1.0.*",
-                "raven/raven": "0.5.*"
+                "phpunit/phpunit": "~3.7.0",
+                "raven/raven": "0.5.*",
+                "ruflin/elastica": "0.90.*"
             },
             "suggest": {
+                "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
                 "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server",
                 "mlehner/gelf-php": "Allow sending log messages to a GrayLog2 server",
-                "raven/raven": "Allow sending log messages to a Sentry server"
+                "raven/raven": "Allow sending log messages to a Sentry server",
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.6.x-dev"
+                    "dev-master": "1.7.x-dev"
                 }
             },
             "autoload": {
@@ -1617,7 +1617,6 @@
                     "Monolog": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1625,8 +1624,7 @@
                 {
                     "name": "Jordi Boggiano",
                     "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be",
-                    "role": "Developer"
+                    "homepage": "http://seld.be"
                 }
             ],
             "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
@@ -1635,8 +1633,7 @@
                 "log",
                 "logging",
                 "psr-3"
-            ],
-            "time": "2013-07-28 22:38:30"
+            ]
         },
         {
             "name": "mopa/bootstrap-bundle",
@@ -2567,17 +2564,12 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.3.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/symfony.git",
-                "reference": "4fb225f4e315c11aa6d8935b1c0ceaf48ba39f1f"
-            },
+            "version": "2.3.9",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/4fb225f4e315c11aa6d8935b1c0ceaf48ba39f1f",
-                "reference": "4fb225f4e315c11aa6d8935b1c0ceaf48ba39f1f",
-                "shasum": ""
+                "url": "/var/www/artifact/zips/symfony-symfony-2.3.9.zip",
+                "reference": "symfony-symfony-2.3.9.zip",
+                "shasum": "a757aa296a9cdb5e5c2a67503999c16cd366db90"
             },
             "require": {
                 "doctrine/common": "~2.2",
@@ -2652,7 +2644,6 @@
                     "src/Symfony/Component/Intl/Resources/stubs/functions.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2670,8 +2661,63 @@
             "homepage": "http://symfony.com",
             "keywords": [
                 "framework"
+            ]
+        },
+        {
+            "name": "tecnick.com/tcpdf",
+            "version": "6.0.059",
+            "dist": {
+                "type": "zip",
+                "url": "/var/www/artifact/zips/tecnick.com-tcpdf-dev-master.zip",
+                "reference": "tecnick.com-tcpdf-dev-master.zip",
+                "shasum": "59f619aa822bf58707c1fd197f7b1fc0d8b82f51"
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "fonts",
+                    "config",
+                    "include",
+                    "tcpdf.php",
+                    "tcpdf_parser.php",
+                    "tcpdf_import.php",
+                    "tcpdf_barcodes_1d.php",
+                    "tcpdf_barcodes_2d.php",
+                    "include/tcpdf_colors.php",
+                    "include/tcpdf_filters.php",
+                    "include/tcpdf_font_data.php",
+                    "include/tcpdf_fonts.php",
+                    "include/tcpdf_images.php",
+                    "include/tcpdf_static.php",
+                    "include/barcodes/datamatrix.php",
+                    "include/barcodes/pdf417.php",
+                    "include/barcodes/qrcode.php"
+                ]
+            },
+            "license": [
+                "LGPLv3"
             ],
-            "time": "2013-08-27 08:58:24"
+            "authors": [
+                {
+                    "name": "Nicola Asuni",
+                    "email": "info@tecnick.com",
+                    "homepage": "http://nicolaasuni.tecnick.com"
+                }
+            ],
+            "description": "TCPDF is a PHP class for generating PDF documents.",
+            "homepage": "http://www.tcpdf.org/",
+            "keywords": [
+                "PDF",
+                "PDFD32000-2008",
+                "barcodes",
+                "datamatrix",
+                "pdf417",
+                "qrcode",
+                "tcpdf"
+            ]
         },
         {
             "name": "twbs/bootstrap",
@@ -2759,17 +2805,12 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.13.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fabpot/Twig.git",
-                "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755"
-            },
+            "version": "1.15",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig/zipball/6d6a1009427d1f398c9d40904147bf9f723d5755",
-                "reference": "6d6a1009427d1f398c9d40904147bf9f723d5755",
-                "shasum": ""
+                "url": "/var/www/artifact/zips/twig-twig-1.15.zip",
+                "reference": "twig-twig-1.15.zip",
+                "shasum": "fbc139f100117d39f9993caa4d61c464fbe71c6e"
             },
             "require": {
                 "php": ">=5.2.4"
@@ -2777,7 +2818,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.13-dev"
+                    "dev-master": "1.15-dev"
                 }
             },
             "autoload": {
@@ -2785,7 +2826,6 @@
                     "Twig_": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "BSD-3-Clause"
             ],
@@ -2803,8 +2843,7 @@
             "homepage": "http://twig.sensiolabs.org",
             "keywords": [
                 "templating"
-            ],
-            "time": "2013-08-03 15:35:31"
+            ]
         },
         {
             "name": "willdurand/negotiation",

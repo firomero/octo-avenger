@@ -22,9 +22,9 @@ class CPlanillasController extends Controller {
         if (isset($idPlanilla) && $idPlanilla>0) {
               $bValidaPeriodoPago=true;          
         }
+
         /*Obtener el ultimo periodo de pago hecho como datos para mostrar*/
         $ultimoPeriodoPago=$manager->getUltimaPlanilla();
-
 
         /*Fin obtener ultimo periodo de pago*/
         $oPeriodoPagoActivo = $manager->getPeriodoPagoActivo();
