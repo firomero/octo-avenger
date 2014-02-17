@@ -30,8 +30,8 @@ Adiciona Empleado
                     {{form_start(form)}}
                         <fieldset>
                             <div class="row-fluid">
-                                <div class="col-lg-4">{{ form_row(form.salarioBase) }}</div>
-                                <div class="col-lg-4">{{ form_widget(form.seguro) }}</div>
+                                <div class="col-lg-6">{{ form_row(form.salarioBase) }}</div>
+                                <div class="col-lg-6">{{ form_widget(form.seguro) }}</div>
                                 
 
                             </div>
@@ -54,11 +54,8 @@ Adiciona Empleado
                         <fieldset>
                             <a class="btn btn-primary" href="{{ path('ecomponentessalariales_new',{'id_empleado':eEmpleado.id}) }}">Agregar</a>
                         </fieldset>
-                        <hr/>
-                        <fieldset>
 
-                        {{ render(controller('PlanillasEntidadesBundle:EComponentesSalariales:salarioTotalByIdEmpleado',{'id_empleado':eEmpleado.id}))}}
-                        </fieldset>
+
                         <hr/>
                         <fieldset>
 

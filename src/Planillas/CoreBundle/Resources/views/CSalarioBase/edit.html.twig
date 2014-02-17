@@ -30,8 +30,8 @@
 
                             
                             <div class="row-fluid">
-                                <div class="col-lg-4">{{ form_row(edit_form.salarioBase) }}</div>
-                                <div class="col-lg-4">{{ form_widget(edit_form.seguro) }}</div>                           
+                                <div class="col-lg-6">{{ form_row(edit_form.salarioBase) }}</div>
+                                <div class="col-lg-6">{{ form_widget(edit_form.seguro) }}</div>
                                
                             </div>
 
@@ -57,10 +57,10 @@
 					</fieldset>
 					
                                         <hr/>
-                        <fieldset>
 
-                        {{ render(controller('PlanillasEntidadesBundle:EComponentesSalariales:salarioTotalByIdEmpleado',{'id_empleado':eEmpleado.id}))}}
-                        </fieldset>
+
+                        {# render(controller('PlanillasEntidadesBundle:EComponentesSalariales:salarioTotalByIdEmpleado',{'id_empleado':eEmpleado.id}))#}
+
                         <hr/>
 					 <fieldset>
 					
