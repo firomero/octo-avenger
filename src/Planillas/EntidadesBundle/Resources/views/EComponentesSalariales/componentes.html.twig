@@ -3,7 +3,7 @@
     <tr>
 
         <th>Componente</th>
-        <th>Periodo</th>
+        <th>Período/Hasta</th>
         <th>Moneda</th>
         <th>Monto</th>
         <th>Pagado</th>
@@ -18,15 +18,15 @@
                 {% if  entitys.planilla is null%}
                     {% if entitys.permanente ==0%}
                 <a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">
-                     {%if entitys.componente==0%}Rebajo{% else %}Bonificacion
+                     {%if entitys.componente==0%}Rebajo{% else %}Bonificación
                      {%endif%}
                 </a>
                     {%else %}
-                     {%if entitys.componente==0%}Rebajo{% else %}Bonificacion
+                     {%if entitys.componente==0%}Rebajo{% else %}Bonificación
                      {%endif%}
                     {%endif%}
                  {%else%}
-                     {%if entitys.componente==0%}Rebajo{% else %}Bonificacion
+                     {%if entitys.componente==0%}Rebajo{% else %}Bonificación
                      {%endif%}
                 {% endif%}
             </td>{#esto hay que cambiarlo#}
@@ -34,11 +34,18 @@
                 {% if entitys.permanente %}
                     Permanente
                 {% else %}
-                   {% if entitys.fechaInicio is empty %}
-                         ----
-                   {% else %}
-                      {{entitys.fechaInicio | date('d') ~ '-' ~ entitys.fechaVencimiento|date('d/m/Y')}}
-                   {% endif %}
+                    {%if entitys.componente==0 %}
+                       {% if entitys.fechaInicio is empty %}
+                          ----
+                       {% else %}
+                         {{entitys.fechaInicio | date('d') ~ '-' ~ entitys.fechaVencimiento|date('d/m/Y')}}
+                       {% endif %}
+                    {% else%}
+                       {{entitys.fechaVencimiento|date('d/m/Y')}}
+                    {% endif%}
+                    
+                    
+                  
                 {%endif%}
 
             </td>
@@ -51,7 +58,7 @@
                 {% endif %}
             </td>
             <td>
-                {% if entitys.pagado ==0 or entitys.pagado==null %}
+                {% if entitys.planilla ==0 or entitys.planilla==null %}
                     <i class="glyphicon glyphicon-remove" title="No pagado"></i>
                 {% else %}
 

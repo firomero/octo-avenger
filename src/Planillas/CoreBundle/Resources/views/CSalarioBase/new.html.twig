@@ -76,7 +76,7 @@ Adiciona Empleado
 
                             <th>Componente</th>
                             <th>Tipo</th>
-                            <th>Planilla</th>
+                            <th>Planilla de efectivo</th>
 
                             <th>Moneda</th>
                             <th>Monto</th>
@@ -87,17 +87,14 @@ Adiciona Empleado
                     </thead>
                     <tbody>
                 {% for entitys in entities %}
-                {% if entitys.planilla is not null   %}
+                            {% if entitys.deletedAt is null%}
+                
                             <tr>
                                 <td>{%if entitys.componente==0%}Rebajo{% else %}Bonificación{%endif%}</td>{#esto hay que cambiarlo#}
                                 <td>
-                                    {% if entitys.tipoDeuda is not null %}
+                                    {% if entitys.componente ==0 %}
+                                        {{tipodeuda[entitys.tipoDeuda]}}
                                         
-                                         {% for key, deuda in tipodeuda %}
-                                         {% if key==entitys.tipoDeuda %}
-                                             {{ deuda }}
-                                         {% endif %}
-                                        {% endfor %}
                                         
                                     {%else%}
                                         ----
@@ -133,7 +130,7 @@ Adiciona Empleado
 
                                     </td>-->
                                 </tr>
-                {% endif %}
+                {% endif%}
                 {% endfor %}
 
                             </tbody>

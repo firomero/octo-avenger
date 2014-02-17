@@ -22,20 +22,22 @@ class CPlanillasController extends Controller {
         if (isset($idPlanilla) && $idPlanilla>0) {
               $bValidaPeriodoPago=true;          
         }
-
         /*Obtener el ultimo periodo de pago hecho como datos para mostrar*/
         $ultimoPeriodoPago=$manager->getUltimaPlanilla();
+
 
         /*Fin obtener ultimo periodo de pago*/
         $oPeriodoPagoActivo = $manager->getPeriodoPagoActivo();
         $bExistePeriodo = $manager->existePeriodPagoenBasedeDatos(); //valida existencia de la planilla en base de datos
 
         if ($bValidaPeriodoPago === false) { //hay que buscar si el periodo existe ya para que no pueda insertar de nuevo
-            $this->get('session')->getFlashBag()->add('danger', 'El periodo de seleccionado es invalido.');
-            //$entities = $manager->resultHtmlPlanillas();
+            if($request->getMethod()!="GET")
+            {
+              $this->get('session')->getFlashBag()->add('danger', 'El período de seleccionado es inválido.');
+            }
             $entities = array('id_planilla' => 0);
-            $entities['periodo']['inicio'] = "";
-            $entities['periodo']['fin'] = "";
+            $entities['periodo']['inicio'] = $manager->getFechaInicio()->format('Y-m-d');
+            $entities['periodo']['fin'] =  $manager->getFechaFin()->format('Y-m-d');
             $entities['empleados'] = array();
             return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
                         'entities' => $entities,
@@ -50,7 +52,7 @@ class CPlanillasController extends Controller {
             if (isset($button)) { //esta salvando la planilla en base de datos
                 if ($bExistePeriodo === false || is_array($bExistePeriodo)) {
 
-                    $this->get('session')->getFlashBag()->add('danger', 'Existen coincidencias en las fechas con la planilla del periodo ' . $bExistePeriodo[1]);
+                    $this->get('session')->getFlashBag()->add('danger', 'Existen coincidencias en las fechas con la planilla del período ' . $bExistePeriodo[1]);
                     $entities = $manager->resultHtmlPlanillas();
 
                     return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
@@ -60,10 +62,10 @@ class CPlanillasController extends Controller {
                     ));
                 }
                 if ($manager->savePlanilla()) {
-                    $this->get('session')->getFlashBag()->add('info', 'La planilla ha sido creada correctamente.');
+                    $this->get('session')->getFlashBag()->add('info', 'La planilla de efectivo ha sido creada correctamente.');
                     return $this->redirect($this->generateUrl('cplanillas_listar'));
                 } else {
-                    $this->get('session')->getFlashBag()->add('danger', 'Error al guardar la planilla de pago.');
+                    $this->get('session')->getFlashBag()->add('danger', 'Error al guardar la planilla de efectivo.');
                     return $this->redirect($this->generateUrl('cplanillas_listar'));
                 }
             }
@@ -72,7 +74,7 @@ class CPlanillasController extends Controller {
             } else { //esta solo buscando
                 if ($bExistePeriodo == false /*|| is_array($bExistePeriodo)*/) {
                     
-                    $this->get('session')->getFlashBag()->add('danger', 'Existen coincidencias en las fechas con la planilla del periodo ' . $bExistePeriodo[1]);
+                    $this->get('session')->getFlashBag()->add('danger', 'Existen coincidencias en las fechas con la planilla del período ' . $bExistePeriodo[1]);
                     $entities = array('id_planilla' => 0);
                     $entities['periodo']['inicio'] = "";
                     $entities['periodo']['fin'] = "";
@@ -99,14 +101,37 @@ class CPlanillasController extends Controller {
 
         $manager = new CPlanillasManagers($em, $request);
         $entities = $manager->getPlanillas();
+        $fechaInicio=false;
+        $fechaFin=false;
+        if(count($entities)==0)
+        {
+            $this->get('session')->getFlashBag()->add('info', 'No existen planillas para el periodo deseado');
+        }
+        if($manager->getFechaInicio()!=null)
+        {
+            $fechaInicio=$manager->getFechaInicio()->format('Y-m-d');
+            //print_r($fechaInicio);exit;
+        }
+        if($manager->getFechaFin()!=null)
+        {
+            $fechaFin=$manager->getFechaFin()->format('Y-m-d');
+            //print_r($fechaInicio);exit;
+        }
+        $page=$this->get('request')->query->get('page', 1);
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+                $entities, $page, 3
+        );
         return $this->render('PlanillasCoreBundle:CPlanillas:planillas.html.twig', array(
-                    'entities' => $entities,
+                    'entities' => $pagination,
+                    'fechaInicio'=>$fechaInicio,
+                    'fechaFin'=>$fechaInicio
+
         ));
     }
 
     public function detallesAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        //echo $id;exit;
         $entity = $em->getRepository('PlanillasCoreBundle:CPlanillas')->find($id);
 
         $manager = new CPlanillasManagers($em, $request, $id);

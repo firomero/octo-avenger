@@ -51,7 +51,7 @@ Sistema de planillas: Planillas de pago
                                     Fecha Inicio
                                 </label>
                                 <div class="col-lg-9">
-                                    <input type="date" value="" class="not-removable form-control" name="planillas[fechaInicio]" id="planillas_fechaInicio">
+                                    <input type="date" class="not-removable form-control" name="planillas[fechaInicio]" id="planillas_fechaInicio" value="{{ fechaInicio }}">
                                     <!--<input type="text" value="3000" class=" not-removable form-control" required="required" name="planillas_corebundle_csalariobase[salarioBase]" id="planillas_corebundle_csalariobase_salarioBase">-->
                                 </div>
                              </div>
@@ -62,7 +62,7 @@ Sistema de planillas: Planillas de pago
                                     Fecha Fin
                                 </label>
                                 <div class="col-lg-9">
-                                    <input type="date" value="" class="not-removable form-control" name="planillas[fechaFin]" id="planillas_fechaFin">
+                                    <input type="date" value="{{ fechaFin }}" class="not-removable form-control" name="planillas[fechaFin]" id="planillas_fechaFin">
                                     <!--<input type="text" value="3000" class=" not-removable form-control" required="required" name="planillas_corebundle_csalariobase[salarioBase]" id="planillas_corebundle_csalariobase_salarioBase">-->
                                 </div>
                              </div>
@@ -145,6 +145,7 @@ Sistema de planillas: Planillas de pago
                 {% endif %}
                     </tbody>
                 </table>
+            {{ knp_pagination_render(entities) }}
             </div>
         </div>
     </form>

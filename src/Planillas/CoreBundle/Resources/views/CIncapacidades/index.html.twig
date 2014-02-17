@@ -231,11 +231,12 @@
                             </tr>
                             </thead>
                             <tbody>
+                                {% set tipoIncapacidad=['Incapacidades CCSS','Incapacidades INS'] %}
                             {% for entity in pagination %}
                                 <tr>
                                     <td>{{ entity.empleado.nombre }} {{ entity.empleado.primerApellido }}</td>
                                     <td>
-                                            {{ entity.tipoIncapacidad }}
+                                            {{ tipoIncapacidad[entity.tipoIncapacidad] }}
                                        </td>
                                     <td>{% if entity.fechaInicio %}{{ entity.fechaInicio|date('Y-m-d') }}{% endif %}</td>
                                     <td>{% if entity.fechaFin %}{{ entity.fechaFin|date('Y-m-d') }}{% endif %}</td>

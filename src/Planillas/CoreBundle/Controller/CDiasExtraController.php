@@ -103,6 +103,12 @@ class CDiasExtraController extends Controller
         if ($form->isValid()) {
 
 
+            if($entity->getPlanilla()!=null || $entity->getPlanilla()!=0)
+            {
+                $this->get('session')->getFlashBag()->add('danger', 'No se puede modificar ya que está asociada a un planilla de pago');
+                return $this->redirect($this->generateUrl('cdiasextra'));
+                
+            }
             $em->persist($entity);
             $em->flush();
             //poner un mensaje flash
@@ -254,7 +260,12 @@ class CDiasExtraController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find CDiasExtra entity.');
             }
-
+            if($entity->getPlanilla()!=null || $entity->getPlanilla()!=0)
+            {
+                $this->get('session')->getFlashBag()->add('danger', 'No se puede eliminar ya que está asociada a un planilla de pago');
+                return $this->redirect($this->generateUrl('cdiasextra'));
+                
+            }
             $em->remove($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido eliminados correctamente');

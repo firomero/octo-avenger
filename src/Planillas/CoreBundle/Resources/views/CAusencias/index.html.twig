@@ -229,26 +229,24 @@ Sistema de Planillas:{{ headline }}
                                     <th>Ausencia</th>
                                     <th>Empleado</th>
                                     <th>Motivo</th>
-                                    <th>Fechainicio</th>
-                                    <th>Fechafin</th>
+                                    <th>Desde</th>
+                                    <th>Hasta</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            {% set tipoAusencia=['Uniformes','Sanciones','Préstamos'] %}
+                            {% set tipoAusencia=['Ausencia','Permiso sin goce de salario','Permiso con goce de salario','Suspención'] %}
                             {% for entity in pagination %}
                                     <tr>
                                         <td>
-                                        <a href="{{ path('causencias_edit', { 'id': entity.id }) }}">
-                                                
-                                        {{ entity.tipoausencia }}
-                                        </a></td>
+                                        {{ tipoAusencia[entity.tipoAusencia] }}
+                                        </td>
                                         <td>{{ entity.empleado }}</td>
-
+                                        <td>{{ entity.motivo }}</td>
                                         <td>{% if entity.fechaInicio %}{{ entity.fechaInicio|date('Y-m-d') }}{% endif %}</td>
                                         <td>{% if entity.fechaFin %}{{ entity.fechaFin|date('Y-m-d') }}{% endif %}</td>
 
-                                        <td>{{ entity.motivo }}</td>
+                                        
                                         <td>
 
                                             <a class="btn btn-primary" id="linkedit" onclick="buscar('{{  entity.id }}')"

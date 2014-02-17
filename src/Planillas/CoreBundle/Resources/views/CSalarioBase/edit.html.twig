@@ -76,8 +76,8 @@
                         <tr>
 
                             <th>Componente</th>
-                            <th>Tipo Deuda</th>
-                            <th>Vence</th>
+                            <th>Tipo</th>
+                            <th>Planilla de efectivo</th>
 
                             <th>Moneda</th>
                             <th>Monto</th>
@@ -88,26 +88,23 @@
                     </thead>
                     <tbody>
                 {% for entitys in entities %}
+                            {% if entitys.deletedAt is null%}
+                
                             <tr>
-                                <td><a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">{%if entitys.componente==0%}Rebajo{% else %}Bonificación{%endif%}</a></td>{#esto hay que cambiarlo#}
+                                <td>{%if entitys.componente==0%}Rebajo{% else %}Bonificación{%endif%}</td>{#esto hay que cambiarlo#}
                                 <td>
-                                    {% if entitys.tipoDeuda is not null %}
+                                    {% if entitys.componente ==0 %}
+                                        {{tipodeuda[entitys.tipoDeuda]}}
                                         
-                                         {% for key, deuda in tipodeuda %}
-                                         {% if key==entitys.tipoDeuda %}
-                                             {{ deuda }}
-                                         {% endif %}
-                                        {% endfor %}
                                         
                                     {%else%}
                                         ----
                                     {% endif%}
                                 </td>
-                                <td> {% if entitys.componente ==0 %}
-                             ----
-                            {% else %}
-                               {{entitys.fechaVencimiento|date('Y-m-d')}}
-                            {% endif %}</td>
+                                <td>
+                                   {{entitys.planilla.fechaInicio|date('d-m-Y')}} al {{entitys.planilla.fechaFin|date('d-m-Y')}}
+                                 
+                                </td>
                                 <td>{% if entitys.moneda==0%}Colón{% else %}USD{%endif%}</td>
                                 <td>
                                   {% if entitys.componente ==0 %}
@@ -119,7 +116,7 @@
                                         
                                     </td>
                                     <td>
-                                      {% if entitys.pagado ==0 or entitys.pagado==null %}
+                                      {% if entitys.planilla ==null  %}
                                         <i class="glyphicon glyphicon-remove" title="No pagado"></i>
                                         {% else %}
                                 
@@ -134,14 +131,11 @@
 
                                     </td>-->
                                 </tr>
+                {% endif%}
                 {% endfor %}
 
                             </tbody>
                         </table>
-           
-           
-           
-           
            </div>
         </div> <!--Div general del tab-->
         </div>

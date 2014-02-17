@@ -31,7 +31,8 @@ class EComponentesSalarialesController extends Controller {
 
     public function componentesByIdEmpleadoAction($id_empleado) {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado, 'pagado' => 0, 'deleted_at' => null));
+        
+        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado, 'pagado' => 0,'planilla'=>null, 'deleted_at' => null));
         $aDeleteForm = array();
         foreach ($entities as $entity) {
 
@@ -403,12 +404,13 @@ class EComponentesSalarialesController extends Controller {
                     //$entity->setFechaVencimiento(null);
                     //$entity->setMontoRestante($entity->getMontoTotal());
                 }
-            } else {
+            } else { //bonificacion
 
                 if ($entity->getPermanente()) {
-                    $entity->setPermanente(null);
+                    $entity->setPermanente(true);
+                    $entity->setFechaVencimiento(null);
                 }
-                $entity->setFechaVencimiento(null);
+
                 $entity->setFechaInicio(null);
                 $entity->setMoneda(0);
                 $entity->setMontoReducir(null);

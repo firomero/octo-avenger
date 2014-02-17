@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityManager;
 use Planillas\CoreBundle\Entity\CPlanillas;
 use Planillas\CoreBundle\Entity\CPlanillasEmpleado;
 use Planillas\CoreBundle\Entity\CPlanillasComponentesPermanentes;
+
 #use Planillas\EntidadesBundle\Controller\EComponentesSalarialesController;
 use Planillas\EntidadesBundle\Entity\EComponentesSalariales;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,8 @@ define('cantDiasHabiles', 30);
 define('cantHorasPorMes', 240);
 define('cantHorasDiarias', 8);
 
-class CPlanillasManagers {
+class CPlanillasManagers
+{
 
     private $em;
     private $prequest;
@@ -37,7 +39,8 @@ class CPlanillasManagers {
     private $fechaFin;
     private $idplanilla;
 
-    public function __construct(EntityManager $em, Request $request, $id = null) {
+    public function __construct(EntityManager $em, Request $request, $id = null)
+    {
 
         $this->em = $em;
         $this->prequest = $request;
@@ -48,7 +51,8 @@ class CPlanillasManagers {
         $this->initialize();
     }
 
-    public function initialize() {
+    public function initialize()
+    {
         /**
          * guarda los datos economicos de los empleados
          */
@@ -88,7 +92,8 @@ class CPlanillasManagers {
     /**
      * funcion que salva una planilla en la base de datos
      */
-    public function savePlanilla() {
+    public function savePlanilla()
+    {
         $periodoPago = $this->getPeriodoPagoActivo();
 
         if ($periodoPago === false) {
@@ -119,7 +124,8 @@ class CPlanillasManagers {
         }
     }
 
-    public function savePlanillasIntoDependencias(CPlanillas $object) {
+    public function savePlanillasIntoDependencias(CPlanillas $object)
+    {
         if ($object instanceof CPlanillas) {
             $this->planilla = $object;
             $oEmpleados = $this->findAllEmployee();
@@ -148,7 +154,8 @@ class CPlanillasManagers {
         }
     }
 
-    public function savePlanillaComponentePermanente(CPlanillas $planilla, EComponentesSalariales $oComponente, $empleado) {
+    public function savePlanillaComponentePermanente(CPlanillas $planilla, EComponentesSalariales $oComponente, $empleado)
+    {
         /*         * $oPlanilla = $this->em->getRepository('PlanillasCoreBundle:CPlanillas')->find($planilla);
           if (!$oPlanilla) {
           throw new Exception("No existe la planilla");
@@ -165,13 +172,23 @@ class CPlanillasManagers {
         $this->em->persist($oPermanente);
     }
 
-    public function getPlanillas() {
-        $oPlanillas = $this->em->getRepository('PlanillasCoreBundle:CPlanillas')->findAll();
-        if (count($oPlanillas) > 0) {
-            return $oPlanillas;
+    public function getPlanillas()
+    {
+
+        //$sql = 'SELECT c  FROM PlanillasEntidadesBundle:CPlanillas c';
+        $sql = 'SELECT c  FROM PlanillasCoreBundle:CPlanillas c';
+        if ($this->getFechaInicio() != null && $this->getFechaFin() != null) {
+
+            $sql .= ' where c.fechaInicio >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
+            $sql .= ' and c.fechaFin <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
         }
-        else
-            return array();
+       $sql.=' order by c.id desc';
+
+        $query = $this->em->createQuery($sql);
+        $oPlanillas = $query->getResult();
+
+
+        return $oPlanillas; 
     }
 
     /*     * Bloque de funciones find */
@@ -181,7 +198,8 @@ class CPlanillasManagers {
      *  esta funcion primero debe buscar si el periodo de pago existe para si existe entonces
      *  cargarlo y no buscar todo de nuevo
      */
-    public function resultHtmlPlanillas() {
+    public function resultHtmlPlanillas()
+    {
         /**
          * vamos a completar los datos del period de pago
          * si las fechas tienen problemas entonces retornamos un array vacio ya que no vamos a buscar
@@ -210,8 +228,7 @@ class CPlanillasManagers {
         if ($this->idplanilla != null)
             $idPlanilla = $this->idplanilla;
         elseif ($oPlanilla == null)
-            $idPlanilla = null;
-        else
+            $idPlanilla = null; else
             $idPlanilla = $oPlanilla->getId();
 
 
@@ -335,16 +352,17 @@ class CPlanillasManagers {
      *
      */
 
-    public function findAllEmployee() {
+    public function findAllEmployee()
+    {
         $oEmpleados = $this->em->getRepository('PlanillasCoreBundle:CEmpleado')->findBy(array('activo' => true));
         if (count($oEmpleados) > 0) {
             return $oEmpleados;
-        }
-        else
+        } else
             return null;
     }
 
-    public function findBonificacionesByEmpleado($idEMpleado, $update = false, $oPlanilla = null) {
+    public function findBonificacionesByEmpleado($idEMpleado, $update = false, $oPlanilla = null)
+    {
 
 
         $aSalida = array();
@@ -353,8 +371,7 @@ class CPlanillasManagers {
         if ($oPlanilla != null) {
             $bIndicador = true;
             $oBonificaciones = $this->em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('componente' => 1, 'planilla' => $oPlanilla, 'empleado' => $idEMpleado));
-        }
-        else
+        } else
             $oBonificaciones = $this->em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('componente' => 1, 'empleado' => $idEMpleado));
 
         if (count($oBonificaciones) > 0) {
@@ -364,14 +381,14 @@ class CPlanillasManagers {
                 //de un planilla creada
 
                 if ($bIndicador === true) { //estamos obteniendo las que ya tienen planillas
-                    if(!$oBonificacion->getPermanente()){
-                    $aSalida['bonificaciones'][] = array(
-                        'id' => $oBonificacion->getId(),
-                        'descripcion' => $oBonificacion->getDescripcion(),
-                        'fecha_inicio' =>$oBonificacion->getFechaVencimiento()->format('Y-m-d'),
-                        'monto_total' => number_format($oBonificacion->getCantidad(), 2, '.', ''));
+                    if (!$oBonificacion->getPermanente()) {
+                        $aSalida['bonificaciones'][] = array(
+                            'id' => $oBonificacion->getId(),
+                            'descripcion' => $oBonificacion->getDescripcion(),
+                            'fecha_inicio' => $oBonificacion->getFechaVencimiento()->format('Y-m-d'),
+                            'monto_total' => number_format($oBonificacion->getCantidad(), 2, '.', ''));
 
-                    $aSalida['total'] += $oBonificacion->getCantidad();
+                        $aSalida['total'] += $oBonificacion->getCantidad();
                     }
                     continue;
                 }
@@ -386,7 +403,7 @@ class CPlanillasManagers {
                      */
                     if ($oBonificacion->getPermanente() && $oBonificacion->getDeletedAt() == null) {
                         $this->savePlanillaComponentePermanente($this->planilla, $oBonificacion, $idEMpleado);
-                    } else {//como no es permanente entoces procedemos a poner el id de la planilla
+                    } else { //como no es permanente entoces procedemos a poner el id de la planilla
                         $oBonificacion->setPlanilla($this->planilla);
                         $this->em->persist($oBonificacion);
                         $this->em->flush();
@@ -405,7 +422,7 @@ class CPlanillasManagers {
                 }
             }
         }
-        if ($bIndicador && $update == false) {//esta buscando planillas ya creadas
+        if ($bIndicador && $update == false) { //esta buscando planillas ya creadas
             $sql = 'SELECT c  FROM PlanillasEntidadesBundle:EComponentesSalariales c INNER Join c.empleado e WHERE e.activo=1 and e.id=' . $idEMpleado;
             $sql .= ' and c.componente=1 and c.permanente=1'; //componente ==0 para que solo verifique las deudas
             $query = $this->em->createQuery($sql);
@@ -413,7 +430,7 @@ class CPlanillasManagers {
             //$deudasPermanentes = $this->em->//$this->findDeudasPermanentesByEmpleado($idEmpleado, $update, $oPlanilla);
             if (count($deudasPermanentes) > 0) {
                 foreach ($deudasPermanentes as $permanente) {
-                    $oCPlanillasComponentesPermanentes = $this->em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findOneBy(array('planilla'=>$oPlanilla,'componentePermanente' => $permanente->getId(),'empleado'=>$idEMpleado));
+                    $oCPlanillasComponentesPermanentes = $this->em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findOneBy(array('planilla' => $oPlanilla, 'componentePermanente' => $permanente->getId(), 'empleado' => $idEMpleado));
                     if (!$oCPlanillasComponentesPermanentes) {
                         continue;
                     }
@@ -441,7 +458,8 @@ class CPlanillasManagers {
      * @param type $oPlanilla
      * @return type
      */
-    public function findDeudasByEmpleado($idEmpleado, $update = false, $oPlanilla = null) {
+    public function findDeudasByEmpleado($idEmpleado, $update = false, $oPlanilla = null)
+    {
         $bIndicador = false;
         if ($oPlanilla != null) {
             $bIndicador = true;
@@ -454,11 +472,11 @@ class CPlanillasManagers {
                 $sql .= ' and (c.fechaInicio >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
                 $sql .= ' and c.fechaVencimiento <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
             }
-            $sql.=' or c.permanente=1)';
+            $sql .= ' or c.permanente=1)';
             $query = $this->em->createQuery($sql);
             $aDeudasTemp = $query->getResult();
         }
-
+        
         $aSalida = array();
         $aSalida['total'] = 0;
         if (count($aDeudasTemp) > 0) {
@@ -480,10 +498,12 @@ class CPlanillasManagers {
                 if ($update === true) {
                     if ($sDeuda->getPermanente() && $sDeuda->getDeletedAt() == null) {
                         $this->savePlanillaComponentePermanente($this->planilla, $sDeuda, $idEmpleado);
+                        
                     } else {
                         $sDeuda->setPlanilla($this->planilla);
                         $this->em->persist($sDeuda);
                         $this->em->flush();
+                       
                     }
                 } else {
                     //echo $sDeuda->getDeletedAt()->format('y-m-d');exit;
@@ -510,7 +530,7 @@ class CPlanillasManagers {
             //$deudasPermanentes = $this->em->//$this->findDeudasPermanentesByEmpleado($idEmpleado, $update, $oPlanilla);
             if (count($deudasPermanentes) > 0) {
                 foreach ($deudasPermanentes as $permanente) {
-                    $oCPlanillasComponentesPermanentes = $this->em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findOneBy(array('planilla'=>$oPlanilla,'componentePermanente' => $permanente->getId(),'empleado'=>$idEmpleado));
+                    $oCPlanillasComponentesPermanentes = $this->em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findOneBy(array('planilla' => $oPlanilla, 'componentePermanente' => $permanente->getId(), 'empleado' => $idEmpleado));
 
                     if (!$oCPlanillasComponentesPermanentes) {
                         //print_r("hello world");exit;
@@ -538,7 +558,8 @@ class CPlanillasManagers {
      * @param type $oPlanilla la planilla
      * @return type
      */
-    public function findDeudasPermanentesByEmpleado($idEmpleado, $update = false, $oPlanilla = null) {
+    public function findDeudasPermanentesByEmpleado($idEmpleado, $update = false, $oPlanilla = null)
+    {
 
         $bIndicador = false;
         if ($oPlanilla != null) {
@@ -553,7 +574,8 @@ class CPlanillasManagers {
         return $aDeudasTemp;
     }
 
-    public function findBonificacionesPermanentesByEmpleado($idEmpleado, $update = false, $oPlanilla = null, $aSalida = array()) {
+    public function findBonificacionesPermanentesByEmpleado($idEmpleado, $update = false, $oPlanilla = null, $aSalida = array())
+    {
 
         $bIndicador = false;
         if ($oPlanilla != null) {
@@ -598,7 +620,8 @@ class CPlanillasManagers {
      * @param type $idEmpleado
      * @return type array de tuplas
      */
-    public function findDiasExtrasByEmpleado($idEmpleado, $update = false, $oPlanilla = null) {
+    public function findDiasExtrasByEmpleado($idEmpleado, $update = false, $oPlanilla = null)
+    {
         $aSalida = array();
         $aSalida['total'] = 0;
         $bIndicador = false;
@@ -642,7 +665,8 @@ class CPlanillasManagers {
      * @param type $idEmpleado
      * @return type
      */
-    public function findDiasMenosByEmpleado($idEmpleado, $update = false, $oPlanilla = null) {
+    public function findDiasMenosByEmpleado($idEmpleado, $update = false, $oPlanilla = null)
+    {
         $aSalida = array();
         $aSalida['total'] = 0;
         $bIndicador = false;
@@ -674,7 +698,7 @@ class CPlanillasManagers {
                     $fechaFin = $oDiasMeno->getFechaFin();
                     $diff = date_diff($fechaFin, $fechaInicio);
 
-                    if ($diff->days > 0) {//solo en caso de que la cantidad de dias de diferencia sea
+                    if ($diff->days > 0) { //solo en caso de que la cantidad de dias de diferencia sea
                         //mayor que cero entonces multiplicamos por la cantidad de dias
                         $dImporte *= $diff->days;
                     }
@@ -691,7 +715,8 @@ class CPlanillasManagers {
         return $aSalida;
     }
 
-    public function findHorasExtrasByEmpleado($idEmpleado, $update = false, $oPlanilla = null) {
+    public function findHorasExtrasByEmpleado($idEmpleado, $update = false, $oPlanilla = null)
+    {
         $aSalida = array();
         $aSalida['total'] = 0;
         if ($oPlanilla != null) {
@@ -727,7 +752,8 @@ class CPlanillasManagers {
         return $aSalida;
     }
 
-    public function findIncapacidadesByEmpleado($idEmpleado, $update = false, $oPlanilla = null) {
+    public function findIncapacidadesByEmpleado($idEmpleado, $update = false, $oPlanilla = null)
+    {
         $aSalida = array();
         $aSalida['total'] = 0;
         $bIndicador = false;
@@ -756,7 +782,7 @@ class CPlanillasManagers {
                     $this->em->persist($oIncapacidad);
                     $this->em->flush();
                 } else {
-                    if ($oIncapacidad->getTipoIncapacidad() == 1) {//Inicapacidades INS
+                    if ($oIncapacidad->getTipoIncapacidad() == 1) { //Inicapacidades INS
                         $fechaInicio = $oIncapacidad->getFechaInicio();
                         $fechaFin = $oIncapacidad->getFechaFin();
                         $diff = date_diff($fechaFin, $fechaInicio);
@@ -774,13 +800,13 @@ class CPlanillasManagers {
                     } else { //incapacidades CCSS
                         $month = $this->getFechaInicio()->format('m');
                         $monthTemp = $oIncapacidad->getFechaInicio()->format('m');
-                        if ($month == $monthTemp) {//estamos en el mismo mes
+                        if ($month == $monthTemp) { //estamos en el mismo mes
                             $iCount++;
                             //le rebajamos el el dia
                             $fechaInicio = $oIncapacidad->getFechaInicio();
                             $fechaFin = $oIncapacidad->getFechaFin();
                             $diff = date_diff($fechaFin, $fechaInicio);
-                            $iCount+=($diff->days == 0) ? 1 : $diff->days;
+                            $iCount += ($diff->days == 0) ? 1 : $diff->days;
                             if ($iCount > 3) {
                                 $dImporte *= $iCount - 3; //siempre hay que restarle 3 que son los dias que puede ausentarse
 
@@ -804,12 +830,12 @@ class CPlanillasManagers {
      * funcion que busca una planilla dada las fechas nota: falta la comparacion con la fecha final
      * @return null
      */
-    public function findPeriodoPagoByFecha() {
+    public function findPeriodoPagoByFecha()
+    {
         $entity = $this->em->getRepository('PlanillasCoreBundle:CPlanillas')->findOneBy(array('fechaInicio' => $this->fechaInicio, 'fechaFin' => $this->fechaFin));
         if (!$entity) {
             return null;
-        }
-        else
+        } else
             return $entity;
     }
 
@@ -818,7 +844,8 @@ class CPlanillasManagers {
      * @param type $idEmpleado
      * @return int
      */
-    public function getSalarioBaseByEmpleado($idEmpleado) {
+    public function getSalarioBaseByEmpleado($idEmpleado)
+    {
 
         /* Falta aplicar el rebajo de seguro */
         //$salarioBase = 0;
@@ -835,7 +862,8 @@ class CPlanillasManagers {
      * @return type
      * @throws Exception
      */
-    public function getSalarioPeriodoByEmpleado($idEmpleado) {
+    public function getSalarioPeriodoByEmpleado($idEmpleado)
+    {
         //ojo que el horario no esta entrando en juego, ya veremos mas adelante
         $dSalariobase = $this->getSalarioBaseByEmpleado($idEmpleado);
         $oPeriodo = $this->getPeriodoPagoActivo();
@@ -846,7 +874,8 @@ class CPlanillasManagers {
         return round(($dSalariobase / 30) * $oPeriodo->getCantdias(), 2);
     }
 
-    public function getSalarioDiarioByEmpleado($idEmpleado) {
+    public function getSalarioDiarioByEmpleado($idEmpleado)
+    {
         $dSalariobase = $this->getSalarioBaseByEmpleado($idEmpleado);
         $oPeriodo = $this->getPeriodoPagoActivo();
         if ($oPeriodo === false) {
@@ -860,7 +889,8 @@ class CPlanillasManagers {
      * @param type $idEmpleado
      * @return type
      */
-    public function getSalarioPorHorasByEmpleado($idEmpleado) {
+    public function getSalarioPorHorasByEmpleado($idEmpleado)
+    {
         $dSalarioDiario = $this->getSalarioDiarioByEmpleado($idEmpleado);
         return $dSalarioDiario / cantHorasDiarias;
     }
@@ -875,23 +905,20 @@ class CPlanillasManagers {
         if ($this->fechaInicio == null || $this->fechaFin == null) {
             return false;
         }
-
         $periodo_activo = $this->em->getRepository('PlanillasNomencladorBundle:NPeriodoPago')->findOneBy(array('activo' => true));
         if (!$periodo_activo) {
             return array(false, "No hay definido ningun periodo de pago");
         }
-
         $iCantDias = $periodo_activo->getCantDias();
-        $diff = date_diff($this->fechaInicio, $this->fechaFin);
-
+        $diff = date_diff($this->fechaFin, $this->fechaInicio);
         if ($diff->days < 0) {
             return false;
         }
-
         if ($iCantDias != $diff->days) {
             return false;
         }
         //vamos validar que las fechas entradas no esten dentro de otro periodo pago
+
 
         return true;
     }
@@ -900,7 +927,8 @@ class CPlanillasManagers {
      * funcion que obtiene el periodo de pago activo
      * @return int
      */
-    public function getPeriodoPagoActivo() {
+    public function getPeriodoPagoActivo()
+    {
         $periodo_activo = $this->em->getRepository('PlanillasNomencladorBundle:NPeriodoPago')->findOneBy(array('activo' => true));
         if (!$periodo_activo) {
             return false;
@@ -909,7 +937,8 @@ class CPlanillasManagers {
         }
     }
 
-    public function existePeriodPagoenBasedeDatos() {
+    public function existePeriodPagoenBasedeDatos()
+    {
         $planillas = $this->em->getRepository('PlanillasCoreBundle:CPlanillas')->findAll();
         if (count($planillas) == 0)
             return true;
@@ -922,7 +951,7 @@ class CPlanillasManagers {
                 if ($this->fechaInicio <= $planilla->getFechaFin()) {
 
                     return array(false, $planilla->getFechaInicio()->format('d/m/Y') . '-' . $planilla->getFechaFin()->format('d/m/Y'));
-                } 
+                }
             }
             return true;
         }
@@ -931,37 +960,41 @@ class CPlanillasManagers {
     /**
      * funcion que obtiene el ultimo perido de pago efectuado
      */
-    public function getUltimaPlanilla(){
+    public function getUltimaPlanilla()
+    {
 
         $sql = 'SELECT c  FROM PlanillasCoreBundle:CPlanillas c order by c.fechaFin desc';
 
         $query = $this->em->createQuery($sql);
-        $oPlanillas= $query->getArrayResult();
-        if(count($oPlanillas)>0)
-        {
-          $sSalida=$oPlanillas[0]['fechaInicio']->format('d-m-Y').' al '.$oPlanillas[0]['fechaFin']->format('d-m-Y');
+        $oPlanillas = $query->getArrayResult();
+        if (count($oPlanillas) > 0) {
+            $sSalida = $oPlanillas[0]['fechaInicio']->format('d-m-Y') . ' al ' . $oPlanillas[0]['fechaFin']->format('d-m-Y');
             //print_r($sSalida);exit;
             return $sSalida;
         }
-        return  "No existen pagos anteriores";
+        return "No existen pagos anteriores";
 
 
     }
 
-    public function getFechaInicio() {
+    public function getFechaInicio()
+    {
         return $this->fechaInicio;
     }
 
-    public function setFechaInicio($fechainicio) {
+    public function setFechaInicio($fechainicio)
+    {
         $this->fechaInicio = $fechainicio;
         return $this;
     }
 
-    public function getFechaFin() {
+    public function getFechaFin()
+    {
         return $this->fechaFin;
     }
 
-    public function setFechaFin($fechafin) {
+    public function setFechaFin($fechafin)
+    {
         $this->fechaFin = $fechafin;
         return $this;
     }
@@ -969,7 +1002,8 @@ class CPlanillasManagers {
     /**
      * Zona de reportes
      */
-    public function reportePagoPDF() {
+    public function reportePagoPDF()
+    {
 
         $periodo = $this->fechaInicio->format('Y-m-d') . 'al ' . $this->fechaInicio->format('Y-m-d');
         $periodo = sprintf("Periodo: %s al %s ", $this->fechaInicio->format('d-m-Y'), $this->fechaFin->format('d-m-Y'));
@@ -1006,40 +1040,29 @@ class CPlanillasManagers {
             'Ausencias',
             'Incapacidades',
             'Total');
-        $html = '<table border="0" cellspacing="2" cellpadding="2">
+        $html = '<table border="0" cellspacing="0" cellpadding="0">
              <tr>
 
-                <td style="width:150px">
-                   ' . $tableHeaders[1] . '
+                <td style="width:150px;text-align: left">' . $tableHeaders[1] . '</td>
+                <td style="width:65px;text-align: left">' . $tableHeaders[2] . '
                 </td>
-                <td style="width:65px">
-                   ' . $tableHeaders[2] . '
+                <td style="width:100px;text-align: left">' . $tableHeaders[3] . '
                 </td>
-                <td style="width:100px">
-                   ' . $tableHeaders[3] . '
+                 <td style="width:85px;text-align: left">' . $tableHeaders[4] . '
                 </td>
-                 <td style="width:85px">
-                   ' . $tableHeaders[4] . '
+                <td style="text-align: left">' . $tableHeaders[5] . '
                 </td>
-                <td>
-                   ' . $tableHeaders[5] . '
+                <td style="text-align: left">' . $tableHeaders[6] . '
                 </td>
-                <td>
-                   ' . $tableHeaders[6] . '
+                <td style="text-align: left">' . $tableHeaders[7] . '
                 </td>
-                <td>
-                   ' . $tableHeaders[7] . '
-                </td>
-                <td style="width:100px">
-                   ' . $tableHeaders[8] . '
-                </td>
-                <td style="width:70px">
-                   ' . $tableHeaders[9] . '
+                <td style="width:100px;text-align: left">' . $tableHeaders[8] . '</td>
+                <td style="width:70px;text-align: left">' . $tableHeaders[9] . '
                 </td></tr>';
 
         $aData = $this->resultHtmlPlanillas();
         $dSalarioTotalTodos = 0;
-        //print_r($aData['empleados']);exit;
+
         for ($i = 0; $i < count($aData['empleados']); $i++) {
             $empleado = $aData['empleados'][$i];
             $datos_economicos = $aData['empleados'][$i]['datos_economicos'];
@@ -1047,23 +1070,23 @@ class CPlanillasManagers {
             $bonificaciones = $datos_economicos['bonificaciones'];
             //print_r($bonificaciones['bonificaciones']);exit;
             $deudas = $datos_economicos['deudas'];
-            $dSalarioTotalTodos+= $empleado['datos_economicos']['salario_total_empleado'];
-            $html.='<tr>
+            $dSalarioTotalTodos += $empleado['datos_economicos']['salario_total_empleado'];
+            $html .= '<tr>
 
-                    <td>' . $empleado['datos_personales']['nombre'] . ' ' . $empleado['datos_personales']['apellidos'] . '</td>
-                    <td>' . $empleado['datos_economicos']['salario_base'] . '</td>
-                    <td>' . $empleado['datos_economicos']['bonificaciones']['total'] . '</td>
-                    <td>' . $empleado['datos_economicos']['deudas']['total'] . '</td>
-                    <td>' . $empleado['datos_economicos']['dias_extra']['total'] . '</td>
-                    <td>' . $empleado['datos_economicos']['horas_extras']['total'] . '</td>
-                    <td>' . $empleado['datos_economicos']['dias_menos']['total'] . '</td>
-                    <td>' . $empleado['datos_economicos']['incapacidades']['total'] . '</td>
-                    <td>' . $empleado['datos_economicos']['salario_total_empleado'] . '</td>';
+                    <td style="text-align: left">' . $empleado['datos_personales']['nombre'] . ' ' . $empleado['datos_personales']['apellidos'] . '</td>
+                    <td style="text-align: left">¢' . $empleado['datos_economicos']['salario_base'] . '</td>
+                    <td style="text-align: left">¢' . $empleado['datos_economicos']['bonificaciones']['total'] . '</td>
+                    <td style="text-align: left">¢' . $empleado['datos_economicos']['deudas']['total'] . '</td>
+                    <td style="text-align: left">¢' . $empleado['datos_economicos']['dias_extra']['total'] . '</td>
+                    <td style="text-align: left">¢' . $empleado['datos_economicos']['horas_extras']['total'] . '</td>
+                    <td style="text-align: left">¢' . $empleado['datos_economicos']['dias_menos']['total'] . '</td>
+                    <td style="text-align: left">¢' . $empleado['datos_economicos']['incapacidades']['total'] . '</td>
+                    <td style="text-align: left">¢' . $empleado['datos_economicos']['salario_total_empleado'] . '</td>';
 
-            $html.='</tr>';
+            $html .= '</tr>';
 
             $componentesHtml = '
-                   <h3>Empleado: '.$empleado['datos_personales']['nombre'] . ' ' . $empleado['datos_personales']['apellidos'] .'</h3>
+                   <h3>Empleado: ' . $empleado['datos_personales']['nombre'] . ' ' . $empleado['datos_personales']['apellidos'] . '</h3>
                    
                    <table>
                                 
@@ -1074,37 +1097,37 @@ class CPlanillasManagers {
 
                                 </tr>
                                 ';
-            
-            if (count($bonificaciones)>0 && array_key_exists('bonificaciones', $bonificaciones)) {
-                $temp=$bonificaciones['bonificaciones'][0] ;
-                foreach ($bonificaciones['bonificaciones'] as $b) {        
+
+            if (count($bonificaciones) > 0 && array_key_exists('bonificaciones', $bonificaciones)) {
+                $temp = $bonificaciones['bonificaciones'][0];
+                foreach ($bonificaciones['bonificaciones'] as $b) {
                     $componentesHtml .= '
                                             <tr>
                                                 <td>
-                                                   '. $b['descripcion'].'
+                                                   ' . $b['descripcion'] . '
                                                 </td>
                                                 <td style="text-align: right">
-                                                   '.  $b['monto_total'].'
+                                                   ' . $b['monto_total'] . '
                                                 </td>
 
-                                            </tr>'; 
+                                            </tr>';
                     //echo $b['descripcion'];exit;
-                    
-                   
+
+
                 }
-                $componentesHtml.='
+                $componentesHtml .= '
                                      <tr>
                                      <td style="text-align: right">
                                       <strong>Total</strong>
                                      </td>
-                                     <td>'.$bonificaciones['total'] .'</td>
+                                     <td>' . $bonificaciones['total'] . '</td>
                                      </tr>
                                    ';
-                $componentesHtml.='
+                $componentesHtml .= '
                             </table>';
             }
             //print_r($componentesHtml);exit;
-            $componentesHtml.= '
+            $componentesHtml .= '
 
                    <h4>Deudas</h4>
                    <table class="table table-bordered">
@@ -1117,8 +1140,8 @@ class CPlanillasManagers {
                                 </tr>
                                 </thead>
                                 <tbody>';
-            if (count($deudas)&& array_key_exists('deudas', $deudas)) {
-                $temp=$deudas['deudas'] ;
+            if (count($deudas) && array_key_exists('deudas', $deudas)) {
+                $temp = $deudas['deudas'];
                 foreach ($temp as $b) {
                     $componentesHtml . '
                                             <tr>
@@ -1131,12 +1154,12 @@ class CPlanillasManagers {
 
                                             </tr>';
                 }
-                $componentesHtml.='</tbody>
+                $componentesHtml .= '</tbody>
                             </table>';
             }
             $aComplementos[] = $componentesHtml;
         }
-        $html.='<tr>
+        $html .= '<tr>
 
                     <td></td>
                     <td></td>
@@ -1146,10 +1169,10 @@ class CPlanillasManagers {
                     <td></td>
                     <td></td>
                     <td style="text-align: right"><strong>Total:</strong></td>
-                    <td>' . $dSalarioTotalTodos . '</td>';
+                    <td>¢' . $dSalarioTotalTodos . '</td>';
 
-        $html.='</tr>';
-        $html.='</table>';
+        $html .= '</tr>';
+        $html .= '</table>';
 
         $pdf->AddPage('L');
         $pdf->writeHTML($html, true, false, true, false, '');
@@ -1160,7 +1183,7 @@ class CPlanillasManagers {
             
             $pdf->writeHTML($complemento, true, false, true, false, '');
         }*/
-        
+
         $pdf->Output('planillaPago.pdf', 'FD');
     }
 

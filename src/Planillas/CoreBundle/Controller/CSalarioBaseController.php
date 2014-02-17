@@ -95,7 +95,9 @@ class CSalarioBaseController extends Controller {
         } else {
             $form = $this->createEditForm($entity);
         }
-        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado));
+        
+        
+        $entities = $this->getComponentesPagadas($id_empleado); //$em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado));
         return $this->render('PlanillasCoreBundle:CSalarioBase:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -139,7 +141,7 @@ class CSalarioBaseController extends Controller {
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $entity->getEmpleado()->getId()));
+        $entities = $this->getComponentesPagadas($id);//$em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $entity->getEmpleado()->getId()));
         return $this->render('PlanillasCoreBundle:CSalarioBase:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -234,6 +236,17 @@ class CSalarioBaseController extends Controller {
                         ->setMethod('DELETE')
                         ->add('submit', 'submit', array('label' => 'Delete'))
                         ->getForm();
+    }
+    /*Helper functions*/
+    public function getComponentesPagadas($iIdEmpleado)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $sql = 'SELECT c  FROM PlanillasEntidadesBundle:EcomponentesSalariales c';
+        $sql .= ' where c.planilla > 0 and c.empleado='.$iIdEmpleado;
+        $sql.=' order by c.id desc';
+   
+        $query = $em->createQuery($sql);
+        return $query->getResult();
     }
 
 }
