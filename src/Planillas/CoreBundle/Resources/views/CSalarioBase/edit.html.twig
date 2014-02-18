@@ -87,54 +87,52 @@
                         </tr>
                     </thead>
                     <tbody>
-                {% for entitys in entities %}
-                            {% if entitys.deletedAt is null%}
-                
-                            <tr>
-                                <td>{%if entitys.componente==0%}Rebajo{% else %}Bonificación{%endif%}</td>{#esto hay que cambiarlo#}
-                                <td>
-                                    {% if entitys.componente ==0 %}
-                                        {{tipodeuda[entitys.tipoDeuda]}}
-                                        
-                                        
-                                    {%else%}
-                                        ----
-                                    {% endif%}
-                                </td>
-                                <td>
-                                   {{entitys.planilla.fechaInicio|date('d-m-Y')}} al {{entitys.planilla.fechaFin|date('d-m-Y')}}
-                                 
-                                </td>
-                                <td>{% if entitys.moneda==0%}Colón{% else %}USD{%endif%}</td>
-                                <td>
-                                  {% if entitys.componente ==0 %}
-                                   {{ entitys.montoTotal }}
-                                    {% else %}
+                    {% for entitys in entities %}
+
+
+                        <tr>
+                            <td>{%if entitys.componente==0%}Rebajo{% else %}Bonificación{%endif%}</td>{#esto hay que cambiarlo#}
+                            <td>
+                                {% if entitys.componente ==0 %}
+                                    {{tipodeuda[entitys.tipoDeuda]}}
+
+
+                                {%else%}
+                                    ----
+                                {% endif%}
+                            </td>
+                            <td>
+                                {{entitys.planilla.fechaInicio|date('d-m-Y')}} al {{entitys.planilla.fechaFin|date('d-m-Y')}}
+
+                            </td>
+                            <td>{% if entitys.moneda==0%}Colón{% else %}USD{%endif%}</td>
+                            <td>
+                                {% if entitys.componente ==0 %}
+                                    {{ entitys.montoTotal }}
+                                {% else %}
                                     {{ entitys.cantidad }}
-                                        
-                                     {% endif %}
-                                        
-                                    </td>
-                                    <td>
-                                      {% if entitys.planilla ==null  %}
-                                        <i class="glyphicon glyphicon-remove" title="No pagado"></i>
-                                        {% else %}
-                                
-                                        <i class="glyphicon glyphicon-ok" title="Pagado"></i>
+
+                                {% endif %}
+
+                            </td>
+                            <td>
+
+                                <i class="glyphicon glyphicon-ok" title="Pagado"></i>
 
 
-                                        {% endif %}
-                                    </td>
-                                    <!--
+
+                            </td>
+                            <!--
                                     <td>
                                         <a href="{# path('ecomponentessalariales_delete',{'id':entitys.id})#}" class="btn btn-primary"><i class="glyphicon glyphicon-trash"></i> Eliminar</a>
 
                                     </td>-->
-                                </tr>
-                {% endif%}
-                {% endfor %}
+                        </tr>
 
-                            </tbody>
+                    {% endfor %}
+
+
+                    </tbody>
                         </table>
            </div>
         </div> <!--Div general del tab-->

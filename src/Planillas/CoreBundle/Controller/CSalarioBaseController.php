@@ -268,7 +268,7 @@ class CSalarioBaseController extends Controller {
                         'tipoDeuda' => $r->getTipoDeuda(),
                         'montoTotal' => $r->getMontoTotal(),
                         'moneda' => $r->getMoneda(),
-                        'planilla' => array('fechaInicio' => $r->getPlanilla()->getFechaInicio(), 'fechaFin' => $r->getPlanilla()->getFechaInicio()),
+                        'planilla' => array('fechaInicio' => $r->getPlanilla()->getFechaInicio(), 'fechaFin' => $r->getPlanilla()->getFechaFin()),
                     );
                 }
             } else {
