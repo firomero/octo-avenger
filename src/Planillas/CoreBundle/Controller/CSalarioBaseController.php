@@ -20,7 +20,7 @@ class CSalarioBaseController extends Controller {
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->findByPagado(array('pagado'=>0));//los no pagados
+        $entities = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->findByPagado(array('pagado' => 0)); //los no pagados
 
         return $this->render('PlanillasCoreBundle:CSalarioBase:index.html.twig', array(
                     'entities' => $entities,
@@ -95,8 +95,8 @@ class CSalarioBaseController extends Controller {
         } else {
             $form = $this->createEditForm($entity);
         }
-        
-        
+
+
         $entities = $this->getComponentesPagadas($id_empleado); //$em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado));
         return $this->render('PlanillasCoreBundle:CSalarioBase:new.html.twig', array(
                     'entity' => $entity,
@@ -141,13 +141,13 @@ class CSalarioBaseController extends Controller {
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-        $entities = $this->getComponentesPagadas($id);//$em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $entity->getEmpleado()->getId()));
+        $entities = $this->getComponentesPagadas($id); //$em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $entity->getEmpleado()->getId()));
         return $this->render('PlanillasCoreBundle:CSalarioBase:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
                     'eEmpleado' => $entity->getEmpleado(),
-                    'entities'=>$entities
+                    'entities' => $entities
         ));
     }
 
@@ -237,16 +237,67 @@ class CSalarioBaseController extends Controller {
                         ->add('submit', 'submit', array('label' => 'Delete'))
                         ->getForm();
     }
-    /*Helper functions*/
-    public function getComponentesPagadas($iIdEmpleado)
-    {
+
+    /* Helper functions */
+
+    public function getComponentesPagadas($iIdEmpleado) {
         $em = $this->getDoctrine()->getManager();
         $sql = 'SELECT c  FROM PlanillasEntidadesBundle:EcomponentesSalariales c';
-        $sql .= ' where c.planilla > 0 and c.empleado='.$iIdEmpleado;
+        $sql .= ' where c.empleado=' . $iIdEmpleado;
         $sql.=' order by c.id desc';
-   
         $query = $em->createQuery($sql);
-        return $query->getResult();
+        $results = $query->getResult();
+        /* $sql = 'SELECT c  FROM PlanillasCoreBundle:CPlanillasComponentesPermanentes c  right Join c.componentePermanente e ';
+          $sql .= ' where c.empleado=' . $iIdEmpleado;
+          $sql.=' order by c.id desc';
+          $sql = "SELECT * FROM `e_componentes_salariales`
+          RIGHT JOIN `c_planillas_componentes` ON (`e_componentes_salariales`.id = `c_planillas_componentes`.componentePermanente_id)";
+          $query =  $em->createQuery($sql);
+          $data = $query->getArrayResult(); */
+        /* foreach($data as $d)
+          {
+          print_r($d->getComponentePermenante());
+          }exit; */
+        $salida = array();
+        foreach ($results as $r) {
+            if ($r->getPlanilla() != null) {
+                if ($r->getComponente() == 0 && $r->getPermanente() == false) {
+
+                    $salida[] = array(
+                        'componente' => $r->getComponente(),
+                        'tipoDeuda' => $r->getTipoDeuda(),
+                        'montoTotal' => $r->getMontoTotal(),
+                        'moneda' => $r->getMoneda(),
+                        'planilla' => array('fechaInicio' => $r->getPlanilla()->getFechaInicio(), 'fechaFin' => $r->getPlanilla()->getFechaInicio()),
+                    );
+                }
+            } else {
+                $componentes = $oBonificaciones = $em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findBy(array('componentePermanente' => $r->getId(), 'empleado' => $iIdEmpleado));
+                if (count($componentes) > 0) {
+                    foreach ($componentes as $comp) {
+                        if ($r->getComponente() == 1) {
+                            $salida[] = array(
+                                'componente' => $r->getComponente(),
+                                'tipoDeuda' => $r->getTipoDeuda(),
+                                'cantidad' => $r->getCantidad(),
+                                'moneda' => $r->getMoneda(),
+                                'planilla' => array('fechaInicio' => $comp->getPlanilla()->getFechaInicio(), 'fechaFin' => $comp->getPlanilla()->getFechaFin()),
+                            );
+                        } else {
+                            $salida[] = array(
+                                'componente' => $r->getComponente(),
+                                'tipoDeuda' => $r->getTipoDeuda(),
+                                'montoTotal' => $r->getMontoTotal(),
+                                'moneda' => $r->getMoneda(),
+                                'planilla' => array('fechaInicio' => $comp->getPlanilla()->getFechaInicio(), 'fechaFin' => $comp->getPlanilla()->getFechaFin()),
+                            );
+                        }
+                    }
+                }
+            }
+        }
+
+        return $salida; //$query->getArrayResult();
     }
 
 }

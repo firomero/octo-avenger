@@ -84,7 +84,7 @@ Adiciona Empleado
                     </thead>
                     <tbody>
                 {% for entitys in entities %}
-                            {% if entitys.deletedAt is null%}
+                            
                 
                             <tr>
                                 <td>{%if entitys.componente==0%}Rebajo{% else %}Bonificación{%endif%}</td>{#esto hay que cambiarlo#}
@@ -112,14 +112,11 @@ Adiciona Empleado
                                         
                                     </td>
                                     <td>
-                                      {% if entitys.planilla ==null  %}
-                                        <i class="glyphicon glyphicon-remove" title="No pagado"></i>
-                                        {% else %}
-                                
+                                     
                                         <i class="glyphicon glyphicon-ok" title="Pagado"></i>
 
 
-                                        {% endif %}
+                                      
                                     </td>
                                     <!--
                                     <td>
@@ -127,7 +124,7 @@ Adiciona Empleado
 
                                     </td>-->
                                 </tr>
-                {% endif%}
+                
                 {% endfor %}
 
                             </tbody>

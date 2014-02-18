@@ -36,8 +36,8 @@ class CPlanillasController extends Controller {
               $this->get('session')->getFlashBag()->add('danger', 'El período de seleccionado es inválido.');
             }
             $entities = array('id_planilla' => 0);
-            $entities['periodo']['inicio'] = $manager->getFechaInicio()->format('Y-m-d');
-            $entities['periodo']['fin'] =  $manager->getFechaFin()->format('Y-m-d');
+            $entities['periodo']['inicio'] = ($manager->getFechaInicio()!=null)?$manager->getFechaInicio()->format('Y-m-d'):'';
+            $entities['periodo']['fin'] =  ($manager->getFechaFin()!=null)?$manager->getFechaFin()->format('Y-m-d'):'';
             $entities['empleados'] = array();
             return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
                         'entities' => $entities,

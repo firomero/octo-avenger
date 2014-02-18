@@ -31,8 +31,8 @@ class EComponentesSalarialesController extends Controller {
 
     public function componentesByIdEmpleadoAction($id_empleado) {
         $em = $this->getDoctrine()->getManager();
-        
-        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado, 'pagado' => 0,'planilla'=>null, 'deleted_at' => null));
+
+        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado, 'pagado' => 0, 'planilla' => null, 'deleted_at' => null));
         $aDeleteForm = array();
         foreach ($entities as $entity) {
 
@@ -222,8 +222,13 @@ class EComponentesSalarialesController extends Controller {
             throw $this->createNotFoundException('Unable to find EComponentesSalariales entity.');
         }
         /* Validando que no se haya pagado antes */
-
+        //$planillaComponente=$em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findOneBy(array())
         if ($entity->getPlanilla() != null || $entity->getPlanilla() != "") {
+            $this->get('session')->getFlashBag()->add('danger', 'No se pueden actualizar datos asociados a una planilla de pago.');
+            return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
+        }
+        $planillaComponente = $em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findOneBy(array('componentePermanente' => $entity->getId()));
+        if ($planillaComponente) {
             $this->get('session')->getFlashBag()->add('danger', 'No se pueden actualizar datos asociados a una planilla de pago.');
             return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
         }
@@ -266,20 +271,21 @@ class EComponentesSalarialesController extends Controller {
         }
         $eEmpleado = $entity->getEmpleado();
 
-        if ($entity->getPermanente() == true) {//si  es permanente no se elimina se pone delete_at con la fecha
+        //if ($entity->getPermanente() == true) {//si  es permanente no se elimina se pone delete_at con la fecha
             $entity->setDeletedAt(new \DateTime(date('Y-m-d', time())));
             $em->persist($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Se ha eliminado la entidad correctamente.');
-        } else {
-            if ($entity->getPlanilla() == null) {
-                $em->remove($entity);
+        //} else {
+            /*//if ($entity->getPlanilla() == null) {
+                $entity->setDeletedAt()
+                //$em->remove($entity);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('info', 'Se ha eliminado la entidad correctamente.');
             } else {
                 $this->get('session')->getFlashBag()->add('info', 'No se puede eliminar una componente asociada a un planilla de pago.');
-            }
-        }
+            }*/
+        //}
 
 
         return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $eEmpleado->getId())));
@@ -390,9 +396,7 @@ class EComponentesSalarialesController extends Controller {
                     $manager->flush();
                     return $myentity;
                 } else {//es solo modificar una sola
-                   
-                    if($entity->getPermanente())
-                    {
+                    if ($entity->getPermanente()) {
                         $entity->setFechaInicio(null);
                         $entity->setFechaVencimiento(null);
                         $entity->setNumeroCuotas(0);
@@ -405,7 +409,6 @@ class EComponentesSalarialesController extends Controller {
                     //$entity->setMontoRestante($entity->getMontoTotal());
                 }
             } else { //bonificacion
-
                 if ($entity->getPermanente()) {
                     $entity->setPermanente(true);
                     $entity->setFechaVencimiento(null);

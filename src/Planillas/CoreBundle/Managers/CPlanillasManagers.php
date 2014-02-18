@@ -162,7 +162,8 @@ class CPlanillasManagers
           } */
         $oEmpleado = $this->em->getRepository('PlanillasCoreBundle:CEmpleado')->find($empleado);
         if (!$oEmpleado) {
-            throw new Exception("No existe el empleado");
+             return false;
+            //throw new Exception("No existe el empleado");
         }
 
         $oPermanente = new CPlanillasComponentesPermanentes();
@@ -370,6 +371,7 @@ class CPlanillasManagers
         $bIndicador = false;
         if ($oPlanilla != null) {
             $bIndicador = true;
+            //esto hay que cambiarlo para que busque en planillasComponentes
             $oBonificaciones = $this->em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('componente' => 1, 'planilla' => $oPlanilla, 'empleado' => $idEMpleado));
         } else
             $oBonificaciones = $this->em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('componente' => 1, 'empleado' => $idEMpleado));
@@ -399,17 +401,25 @@ class CPlanillasManagers
                 }
                 if ($update === true) {
                     /**
-                     * vamos a preguntar si la bonificacion es permanente y no esta eliminada
+                     * vamos a preguntar si la bonificacion es no esta eliminada
                      */
-                    if ($oBonificacion->getPermanente() && $oBonificacion->getDeletedAt() == null) {
-                        $this->savePlanillaComponentePermanente($this->planilla, $oBonificacion, $idEMpleado);
-                    } else { //como no es permanente entoces procedemos a poner el id de la planilla
-                        $oBonificacion->setPlanilla($this->planilla);
-                        $this->em->persist($oBonificacion);
-                        $this->em->flush();
-                    }
-                    /* Aqui falta sacar las bonificaciones permanentes para una tabla temporal */
-                } else {
+                    
+                    if (/*$oBonificacion->getPermanente() &&*/ $oBonificacion->getDeletedAt() == null) {
+                        
+                        //esto cambio el dia 18-02-2014 porque tenia un pequeno bug
+                        //a la hora de asociar la planilla a la componente
+                        $this->savePlanillaComponentePermanente($this->planilla, $oBonificacion, $idEMpleado);}
+                
+                    
+//                    if ($oBonificacion->getPermanente() && $oBonificacion->getDeletedAt() == null) {
+//                        $this->savePlanillaComponentePermanente($this->planilla, $oBonificacion, $idEMpleado);
+//                    } else { //como no es permanente entoces procedemos a poner el id de la planilla
+//                        $oBonificacion->setPlanilla($this->planilla);
+//                        $this->em->persist($oBonificacion);
+//                        $this->em->flush();
+//                    }
+                    
+                } else {//obteniendo todas la bonificaciones sin 
                     if ($oBonificacion->getDeletedAt() == null) {
                         $aSalida['bonificaciones'][] = array(
                             'id' => $oBonificacion->getId(),
@@ -422,25 +432,30 @@ class CPlanillasManagers
                 }
             }
         }
+        //esto debe cambiar
+        
         if ($bIndicador && $update == false) { //esta buscando planillas ya creadas
-            $sql = 'SELECT c  FROM PlanillasEntidadesBundle:EComponentesSalariales c INNER Join c.empleado e WHERE e.activo=1 and e.id=' . $idEMpleado;
-            $sql .= ' and c.componente=1 and c.permanente=1'; //componente ==0 para que solo verifique las deudas
+            //ebteniendo las bonificaciones ya pagadas
+            $sql = 'SELECT c,e  FROM PlanillasCoreBundle:CPlanillasComponentesPermanentes c INNER Join c.componentePermanente e WHERE c.empleado='. $idEMpleado;
+            $sql .= ' and c.planilla='.$oPlanilla; //componente ==0 para que solo verifique las deudas
             $query = $this->em->createQuery($sql);
-            $deudasPermanentes = $query->getResult();
+            //$oBonificaciones = $query->getResult();//getResult();
+            $bonificacionesPagadas = $query->getArrayResult();
             //$deudasPermanentes = $this->em->//$this->findDeudasPermanentesByEmpleado($idEmpleado, $update, $oPlanilla);
-            if (count($deudasPermanentes) > 0) {
-                foreach ($deudasPermanentes as $permanente) {
-                    $oCPlanillasComponentesPermanentes = $this->em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findOneBy(array('planilla' => $oPlanilla, 'componentePermanente' => $permanente->getId(), 'empleado' => $idEMpleado));
+            if (count($bonificacionesPagadas) > 0) {
+                foreach ($bonificacionesPagadas as $permanente) {
+                   /* $oCPlanillasComponentesPermanentes = $this->em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findOneBy(array('planilla' => $oPlanilla, 'componentePermanente' => $permanente->getId(), 'empleado' => $idEMpleado));
                     if (!$oCPlanillasComponentesPermanentes) {
                         continue;
-                    }
+                    }*/
+                    
                     $aSalida['bonificaciones'][] = array(
-                        'id' => $permanente->getId(),
-                        'fecha_inicio' => null, //$sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
-                        'descripcion' => $permanente->getDescripcion(),
-                        'monto_total' => number_format($permanente->getCantidad(), 2, '.', ''));
+                        'id' => $permanente['componentePermanente']['id'],
+                        'fecha_inicio' =>($permanente['componentePermanente']['permanente']==true)?null:$permanente['componentePermanente']['fechaVencimiento']->format('Y-m-d'),
+                        'descripcion' => $permanente['componentePermanente']['descripcion'],
+                        'monto_total' => number_format($permanente['componentePermanente']['cantidad'], 2, '.', ''));
 
-                    $aSalida['total'] += $permanente->getCantidad();
+                    $aSalida['total'] += $permanente['componentePermanente']['cantidad'];
                 }
             }
         }
@@ -1040,7 +1055,7 @@ class CPlanillasManagers
             'Ausencias',
             'Incapacidades',
             'Total');
-        $html = '<table border="0" cellspacing="0" cellpadding="0">
+        $html = '<table border="0" cellspacing="5" cellpadding="5">
              <tr>
 
                 <td style="width:150px;text-align: left">' . $tableHeaders[1] . '</td>
