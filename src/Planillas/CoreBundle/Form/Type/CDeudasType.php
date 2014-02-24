@@ -20,7 +20,7 @@ class CDeudasType extends AbstractType
             ->add('numeroCuotas')
             ->add('tipoDeuda','choice',array('choices'=>array('Uniformes','Sanciones','Préstamos')))
             ->add('pagado','choice',array('choices'=>array('No pagado','Pagado')))
-            ->add('fechaInicio','date',array('attr'=>array('id'=>'datetimepickeriniciodeudas'),'widget'=>'single_text','label'=>'Inicio de pago'))
+            ->add('fechaInicio','date',array('required'=>true,'attr'=>array('id'=>'datetimepickeriniciodeudas'),'widget'=>'single_text','label'=>'Inicio de pago'))
             ->add('empleado')
         ;
     }

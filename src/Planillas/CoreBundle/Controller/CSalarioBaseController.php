@@ -181,7 +181,7 @@ class CSalarioBaseController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find CSalarioBase entity.');
         }
-
+       $entities = $this->getComponentesPagadas($id); 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -194,8 +194,9 @@ class CSalarioBaseController extends Controller {
 
         return $this->render('PlanillasCoreBundle:CSalarioBase:new.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+                    'form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'entities' => $entities,
                     'eEmpleado' => $entity->getEmpleado(),
         ));
     }
@@ -241,6 +242,17 @@ class CSalarioBaseController extends Controller {
     /* Helper functions */
 
     public function getComponentesPagadas($iIdEmpleado) {
+
+        /*$con=$this->container->get('database_connection');
+        $sql=$sql = 'SELECT  * FROM e_componentes_salariales LEFT JOIN c_planillas_componentes ON (e_componentes_salariales.id=c_planillas_componentes.componentePermanente_id)';
+        $rows=$con->query($sql);
+        echo "<pre>";print_r($rows->fetchAll());echo "</pre>";exit;*/
+        /*
+         *  $conn = $this->container->get('database_connection');
+            $sql = 'SELECT res.id, COUNT(*)...';
+            $rows = $conn->query($sql);
+         * */
+
         $em = $this->getDoctrine()->getManager();
         $sql = 'SELECT c  FROM PlanillasEntidadesBundle:EcomponentesSalariales c';
         $sql .= ' where c.empleado=' . $iIdEmpleado;
@@ -299,5 +311,27 @@ class CSalarioBaseController extends Controller {
 
         return $salida; //$query->getArrayResult();
     }
+    /**
+     *  public function findStadisticsYear($costumer_id, $year){
+    $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
+    $rsm->addScalarResult('month', 'month');
+    $rsm->addScalarResult('num_invoices', 'num_invoices');
+    $rsm->addScalarResult('total_amount', 'total_amount');
+    $q = $this->getEntityManager()->createNativeQuery(
+    'SELECT MONTH(i.date) as month,
+    count(i.id) as num_invoices,
+    sum(i.amount) as total_amount
+    FROM invoice
+    WHERE costumer_id=:idCostumer
+    AND YEAR(i.date) = :year
+    GROUP BY MONTH(i.date) ',
+    $rsm);
+
+    $q->setParameter('idCostumer', $costumer_id)
+    ->setParameter('year', $year);
+
+    return $q->getResult();
+    }
+     */
 
 }

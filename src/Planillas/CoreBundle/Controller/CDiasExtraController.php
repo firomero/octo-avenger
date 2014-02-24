@@ -5,7 +5,6 @@ namespace Planillas\CoreBundle\Controller;
 use Planillas\CoreBundle\Form\Type\BuscarDiasExtraType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Planillas\CoreBundle\Entity\CDiasExtra;
 use Planillas\CoreBundle\Form\Type\CDiasExtraType;
 
@@ -13,15 +12,13 @@ use Planillas\CoreBundle\Form\Type\CDiasExtraType;
  * CDiasExtra controller.
  *
  */
-class CDiasExtraController extends Controller
-{
+class CDiasExtraController extends Controller {
 
     /**
      * Lists all CDiasExtra entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $aDatos = array();
@@ -39,45 +36,44 @@ class CDiasExtraController extends Controller
         if ($request->get('query')) {
             $filtros = array();
             $this->setFiltros($filtros);
-
         }
-        $filtros =$this->getFiltros();
+        $filtros = $this->getFiltros();
         $this->setPage($this->get('request')->query->get('page', 1));
-        $page = (int)$this->getPage();//$this->get('session')->get('diasextra.page', $this->get('request')->query->get('page', 1));
+        $page = (int) $this->getPage(); //$this->get('session')->get('diasextra.page', $this->get('request')->query->get('page', 1));
         $result = $em->getRepository('PlanillasCoreBundle:CDiasExtra')->filterDiasExtra($filtros);
         $pagination = $paginator->paginate(
-            $result, $page, $this->getLimite()
+                $result, $page, $this->getLimite()
         );
         $entity = new CDiasExtra();
         $form_new = $this->createCreateForm($entity);
         return $this->render('PlanillasCoreBundle:CDiasExtra:index.html.twig', array(
-            'pagination' => $pagination,
-            'form_buscar' => $form->createView(),
-            'form' => $form_new->createView()
+                    'pagination' => $pagination,
+                    'form_buscar' => $form->createView(),
+                    'form' => $form_new->createView()
         ));
     }
+
     /**
      * Creates a new CDiasExtra entity.
      *
      */
-    public function createAction(Request $request)
-    {
-        /*$entity = new CDiasExtra();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
+    public function createAction(Request $request) {
+        /* $entity = new CDiasExtra();
+          $form = $this->createCreateForm($entity);
+          $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+          if ($form->isValid()) {
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($entity);
+          $em->flush();
 
-            return $this->redirect($this->generateUrl('cdiasextra_show', array('id' => $entity->getId())));
-        }
+          return $this->redirect($this->generateUrl('cdiasextra_show', array('id' => $entity->getId())));
+          }
 
-        return $this->render('PlanillasCoreBundle:CDiasExtra:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));*/
+          return $this->render('PlanillasCoreBundle:CDiasExtra:new.html.twig', array(
+          'entity' => $entity,
+          'form'   => $form->createView(),
+          )); */
         $entity = new CDiasExtra();
         $em = $this->getDoctrine()->getManager();
         $form = new CDiasExtraType();
@@ -89,13 +85,11 @@ class CDiasExtraController extends Controller
             $entity = $em->getRepository('PlanillasCoreBundle:CDiasExtra')->find($data['id']);
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find CDiasExtra entity.');
-
             } else {
 
 
                 $form = $this->createEditForm($entity);
             }
-
         } else {
             $form = $this->createCreateForm($entity);
         }
@@ -103,12 +97,7 @@ class CDiasExtraController extends Controller
         if ($form->isValid()) {
 
 
-            if($entity->getPlanilla()!=null || $entity->getPlanilla()!=0)
-            {
-                $this->get('session')->getFlashBag()->add('danger', 'No se puede modificar ya que está asociada a un planilla de pago');
-                return $this->redirect($this->generateUrl('cdiasextra'));
-                
-            }
+
             $em->persist($entity);
             $em->flush();
             //poner un mensaje flash
@@ -121,14 +110,13 @@ class CDiasExtraController extends Controller
     }
 
     /**
-    * Creates a form to create a CDiasExtra entity.
-    *
-    * @param CDiasExtra $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(CDiasExtra $entity)
-    {
+     * Creates a form to create a CDiasExtra entity.
+     *
+     * @param CDiasExtra $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(CDiasExtra $entity) {
         $form = $this->createForm(new CDiasExtraType(), $entity, array(
             'action' => $this->generateUrl('cdiasextra_create'),
             'method' => 'POST',
@@ -143,14 +131,13 @@ class CDiasExtraController extends Controller
      * Displays a form to create a new CDiasExtra entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new CDiasExtra();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('PlanillasCoreBundle:CDiasExtra:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -158,8 +145,7 @@ class CDiasExtraController extends Controller
      * Finds and displays a CDiasExtra entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CDiasExtra')->find($id);
@@ -171,16 +157,15 @@ class CDiasExtraController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasCoreBundle:CDiasExtra:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing CDiasExtra entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CDiasExtra')->find($id);
@@ -193,21 +178,20 @@ class CDiasExtraController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasCoreBundle:CDiasExtra:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a CDiasExtra entity.
-    *
-    * @param CDiasExtra $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(CDiasExtra $entity)
-    {
+     * Creates a form to edit a CDiasExtra entity.
+     *
+     * @param CDiasExtra $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(CDiasExtra $entity) {
         $form = $this->createForm(new CDiasExtraType(), $entity, array(
             'action' => $this->generateUrl('cdiasextra_update', array('id' => $entity->getId())),
             'method' => 'POST',
@@ -217,12 +201,12 @@ class CDiasExtraController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing CDiasExtra entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CDiasExtra')->find($id);
@@ -230,7 +214,10 @@ class CDiasExtraController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find CDiasExtra entity.');
         }
-
+        if ($entity->getPlanilla() != null || $entity->getPlanilla() != 0) {
+            $this->get('session')->getFlashBag()->add('danger', 'No se puede modificar ya que está asociada a un planilla de pago');
+            return $this->redirect($this->generateUrl('cdiasextra'));
+        }
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
@@ -242,17 +229,17 @@ class CDiasExtraController extends Controller
         }
 
         return $this->render('PlanillasCoreBundle:CDiasExtra:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a CDiasExtra entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         try {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('PlanillasCoreBundle:CDiasExtra')->find($id);
@@ -260,23 +247,20 @@ class CDiasExtraController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find CDiasExtra entity.');
             }
-            if($entity->getPlanilla()!=null || $entity->getPlanilla()!=0)
-            {
+            if ($entity->getPlanilla() != null || $entity->getPlanilla() != 0) {
                 $this->get('session')->getFlashBag()->add('danger', 'No se puede eliminar ya que está asociada a un planilla de pago');
                 return $this->redirect($this->generateUrl('cdiasextra'));
-                
             }
             $em->remove($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido eliminados correctamente');
-
         } catch (Exception $e) {
             $this->get('session')->getFlashBag()->add('info', 'No se pudieron eliminar los datos');
         }
         return $this->redirect($this->generateUrl('cdiasextra'));
     }
-    public function editajaxAction(Request $request)
-    {
+
+    public function editajaxAction(Request $request) {
         $id = $request->get('id');
         //print_r($id);exit;
         $em = $this->getDoctrine()->getManager();
@@ -290,7 +274,6 @@ class CDiasExtraController extends Controller
         return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
     }
 
-
     /**
      * Creates a form to delete a CDiasExtra entity by id.
      *
@@ -298,44 +281,40 @@ class CDiasExtraController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('cdiasextra_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('cdiasextra_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
-    /*Filtros*/
-    protected function  getFiltros()
-    {
-        return $this->get('session')->get('cdiasextra.filtros', array());
 
+    /* Filtros */
+
+    protected function getFiltros() {
+        return $this->get('session')->get('cdiasextra.filtros', array());
     }
 
-    protected function setFiltros($filtros)
-    {
+    protected function setFiltros($filtros) {
         $this->get('session')->set('cdiasextra.filtros', $filtros);
     }
 
-    protected function setPage($page)
-    {
+    protected function setPage($page) {
         $this->get('session')->set('cdiasextra.page', $page);
-
     }
 
-    protected function getPage()
-    {
+    protected function getPage() {
         return $this->get('session')->get('cdiasextra.page', 1);
     }
 
-    protected function getLimite(){
+    protected function getLimite() {
         return $this->get('session')->get('cdiasextra.limit', 10);
     }
-    protected  function setLimite($limite)
-    {
 
-        $this->get('session')->set('cdiasextra.page', $limite);
+    protected function setLimite($limite) {
+
+        $this->get('session')->set('cdiasextra.limit', $limite);
     }
+
 }

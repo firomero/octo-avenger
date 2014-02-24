@@ -48,11 +48,14 @@
         })
 
         function buscar(id) {
+            $('#progreso').css('display', 'block');
+        
             $.ajax({
                 url: '{{ path('ceditajaxincapacidades') }}',
                 data: {id: id},
                 dataType: 'json',
                 success: function (data) {
+                    $('#progreso').css('display', 'none');
                     if (data.success) {
                         $('#planillas_corebundle_cincapacidades_empleado').val(data.data.empleado);
                         $('#planillas_corebundle_cincapacidades_tipoIncapacidad').val(data.data.tipoIncapacidad);
@@ -64,7 +67,8 @@
                         $('#myTab a:first').tab('show')
                     }
                     else {
-                        alert("Ocurrió un error al obtener los datos")
+                       $('#progreso').css('display', 'none');
+                        alert(data.mensaje)
 
                     }
 
@@ -212,6 +216,12 @@
                         </h3>
                     </div>
                     <div class="panel-body">
+                         <div id="progreso" style="display: none">
+                                   <h4>Cargando... por favor espere.</h4>
+                                   <div class="progress progress-striped active">
+                                       <div class="progress-bar" style="width: 100%"></div>
+                                   </div>
+                          </div>
                         <div class="btn-group">
 
                             <a class="btn btn-primary" id="add_new" href="#">

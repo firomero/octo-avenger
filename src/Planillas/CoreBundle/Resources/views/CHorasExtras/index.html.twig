@@ -43,24 +43,33 @@
         })
 
         function buscar(id){
+            $('#progreso').css('display', 'block');
             $.ajax({
                 url:'{{ path('ceditajax') }}',
                 data:{id:id},
                 dataType:'json',
                 success:function(data)
                 {
+                    $('#progreso').css('display', 'none');
+                    if(data.success){
                     $('#planillas_corebundle_chorasextras_empleado').val(data.data.empleado);
                     $('#planillas_corebundle_chorasextras_cantidadHoras').val(data.data.cantidadHoras);
-                    $('#planillas_corebundle_chorasextras_fechaHorasExtras').val(data.data.fechHorasExtras);
+                    $('#planillas_corebundle_chorasextras_fechaHorasExtras').val(data.data.fechaHorasExtras);
 
                     $('#planillas_corebundle_chorasextras_motivo').val(data.data.motivo);
                     $('#planillas_corebundle_chorasextras_id').val(data.data.id);
                     $('#btn_actualizar').html('Actualizar');
                     $('#myTab a:first').tab('show')
+                    }
+                    else
+                     {
+                        alert(data.mensaje); 
+                     }
 
                 },
-                failure:function()
+                failure:function(data)
                 {
+                    $('#progreso').css('display', 'none');
                     alert("Ocurrio un error al salvar los datos");
                 }
 
@@ -96,7 +105,9 @@
                                         <div class="row-fluid">
                                             <div class="col-lg-4">{{ form_row(form.empleado) }}</div>
                                             <div class="col-lg-4">{{ form_row(form.cantidadHoras) }}</div>
-                                            <div class="col-lg-4">{{ form_row(form.fechaHorasExtras) }}
+                                            <div class="col-lg-4">
+                                             
+                                             {{ form_row(form.fechaHorasExtras) }}
 
                                             </div>
                                         </div>
@@ -176,6 +187,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
+                            
                             <div class="btn-group">
 
                                 <a class="btn btn-primary" id="add_new" href="#">
@@ -185,10 +197,16 @@
                         </h3>
                     </div>
                     <div class="panel-body">
+                         <div id="progreso" style="display: none">
+                                   <h4>Cargando... por favor espere.</h4>
+                                   <div class="progress progress-striped active">
+                                       <div class="progress-bar" style="width: 100%"></div>
+                                   </div>
+                            </div>
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Cantidad Horas</th>
+                                <th>Cantidad de Horas</th>
                                 <th>Empleado</th>
 
                                 <th>Fecha</th>
@@ -202,7 +220,7 @@
                                     <td>{{ entity.cantidadHoras }}</td>
                                     <td>{{ entity.empleado }}</td>
 
-                                    <td>{% if entity.fechaHorasExtras %}{{ entity.fechaHorasExtras|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                    <td>{% if entity.fechaHorasExtras %}{{ entity.fechaHorasExtras|date('Y-m-d') }}{% endif %}</td>
 
                                     <td>{{ entity.motivo }}</td>
                                     <td>

@@ -5,7 +5,6 @@ namespace Planillas\CoreBundle\Controller;
 use Planillas\CoreBundle\Form\Type\BuscarHorasExtrasType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Planillas\CoreBundle\Entity\CHorasExtras;
 use Planillas\CoreBundle\Form\Type\CHorasExtrasType;
 
@@ -13,15 +12,13 @@ use Planillas\CoreBundle\Form\Type\CHorasExtrasType;
  * CHorasExtras controller.
  *
  */
-class CHorasExtrasController extends Controller
-{
+class CHorasExtrasController extends Controller {
 
     /**
      * Lists all CHorasExtras entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $aDatos = array();
@@ -36,22 +33,22 @@ class CHorasExtrasController extends Controller
         $paginator = $this->get('knp_paginator');
         $session = $this->get('session')->set('filtros', array()); //hay que meter la busqueda en la sesion
         $pagination = $paginator->paginate(
-            $result, $this->get('request')->query->get('page', 1), 10
+                $result, $this->get('request')->query->get('page', 1), 10
         );
         $entity = new CHorasExtras();
         $form_new = $this->createCreateForm($entity);
         return $this->render('PlanillasCoreBundle:CHorasExtras:index.html.twig', array(
-            'pagination' => $pagination,
-            'form_buscar' => $form->createView(),
-            'form' => $form_new->createView()
+                    'pagination' => $pagination,
+                    'form_buscar' => $form->createView(),
+                    'form' => $form_new->createView()
         ));
     }
+
     /**
      * Creates a new CHorasExtras entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new CHorasExtras();
         $em = $this->getDoctrine()->getManager();
         $form = new CHorasExtrasType();
@@ -65,10 +62,7 @@ class CHorasExtrasController extends Controller
             } else {
                 $form = $this->createEditForm($entity);
             }
-
-        }
-        else
-        {
+        } else {
             $form = $this->createCreateForm($entity);
         }
         $form->handleRequest($request);
@@ -86,14 +80,13 @@ class CHorasExtrasController extends Controller
     }
 
     /**
-    * Creates a form to create a CHorasExtras entity.
-    *
-    * @param CHorasExtras $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(CHorasExtras $entity)
-    {
+     * Creates a form to create a CHorasExtras entity.
+     *
+     * @param CHorasExtras $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(CHorasExtras $entity) {
         $form = $this->createForm(new CHorasExtrasType(), $entity, array(
             'action' => $this->generateUrl('chorasextras_create'),
             'method' => 'POST',
@@ -108,14 +101,13 @@ class CHorasExtrasController extends Controller
      * Displays a form to create a new CHorasExtras entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new CHorasExtras();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('PlanillasCoreBundle:CHorasExtras:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -123,8 +115,7 @@ class CHorasExtrasController extends Controller
      * Finds and displays a CHorasExtras entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CHorasExtras')->find($id);
@@ -136,16 +127,15 @@ class CHorasExtrasController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasCoreBundle:CHorasExtras:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing CHorasExtras entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CHorasExtras')->find($id);
@@ -158,21 +148,20 @@ class CHorasExtrasController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('PlanillasCoreBundle:CHorasExtras:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a CHorasExtras entity.
-    *
-    * @param CHorasExtras $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(CHorasExtras $entity)
-    {
+     * Creates a form to edit a CHorasExtras entity.
+     *
+     * @param CHorasExtras $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(CHorasExtras $entity) {
         $form = $this->createForm(new CHorasExtrasType(), $entity, array(
             'action' => $this->generateUrl('chorasextras_update', array('id' => $entity->getId())),
             'method' => 'post',
@@ -182,12 +171,12 @@ class CHorasExtrasController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing CHorasExtras entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CHorasExtras')->find($id);
@@ -207,33 +196,30 @@ class CHorasExtrasController extends Controller
         }
 
         return $this->render('PlanillasCoreBundle:CHorasExtras:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a CHorasExtras entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
-        //$form = $this->createDeleteForm($id);
-        //$form->handleRequest($request);
+    public function deleteAction(Request $request, $id) {
 
-        // if ($form->isValid()) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasCoreBundle:CHorasExtras')->find($id);
-
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find CHorasExtras entity.');
         }
-
+        if ($entity->getPlanilla() != null) {
+            $this->get('session')->getFlashBag()->add('danger', 'No puede eliminar la entidad porque ya que está asociada a una planilla de efectivo.');
+            return $this->redirect($this->generateUrl('chorasextras'));
+        }
         $em->remove($entity);
         $em->flush();
-        // }
-
-        return $this->redirect($this->generateUrl('causencias'));
+        return $this->redirect($this->generateUrl('chorasextras'));
     }
 
     /**
@@ -243,17 +229,16 @@ class CHorasExtrasController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('chorasextras_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-           // ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('chorasextras_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        // ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
-    public function editajaxAction(Request $request)
-    {
+
+    public function editajaxAction(Request $request) {
         $id = $request->get('id');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasCoreBundle:CHorasExtras')->find($id);
@@ -262,7 +247,13 @@ class CHorasExtrasController extends Controller
             $response['success'] = false;
             return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
         }
+        if ($entity->getPlanilla() != null) {
+            $response['success'] = false;
+            $response['mensaje'] = 'No puede editar la entidad ya que está asociada a una planilla de efectivo.';
+            return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
+        }
         $response['data'] = $entity->getJson();
         return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
     }
+
 }

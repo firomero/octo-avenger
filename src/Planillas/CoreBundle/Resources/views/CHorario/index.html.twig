@@ -158,7 +158,7 @@ Sistema de Planillas:{{ headline }}
             data: {id: id},
             dataType: 'json',
             success: function(data) {
-                console.log(data);
+                //console.log(data);
                 if (data.success) {
                     $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').val(data.dias.Lunes.inicio);//lunes
                     $('#planillas_corebundle_chorario_horarioDias_1_horaInicio').val(data.dias.Martes.inicio);//martes
@@ -215,7 +215,7 @@ Sistema de Planillas:{{ headline }}
                 }
                 else {
                     $('#progreso').css('display', 'none');
-                    alert("Ocurrió un error al obtener los datos")
+                    alert("Ocurrió un error al obtener los datos");
 
                 }
 

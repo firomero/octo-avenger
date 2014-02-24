@@ -15,7 +15,7 @@ class CDiasExtraType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fecha','date',array('required'=>false,'attr'=>array('id'=>'datetimepickerdia'),'widget'=>'single_text','label'=>'Día'))
+            ->add('fecha','date',array('required'=>true,'attr'=>array('id'=>'datetimepickerdia'),'widget'=>'single_text','label'=>'Día'))
             ->add('empleado')
         ;
     }

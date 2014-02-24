@@ -31,9 +31,9 @@ class EComponentesSalarialesType extends AbstractType
                     0 => 'Quincenal',
                     1 => 'Mensual',
                 )))*/
-            ->add('numeroCuotas')
+            ->add('numeroCuotas',null,array('label'=>'Número de cuotas'))
             ->add('permanente','checkbox',array('required'=>false))
-            ->add('pagado','choice',array('choices'=>array('No pagado','Pagado')))
+            #->add('pagado','choice',array('choices'=>array('No pagado','Pagado')))
             ->add('fechaInicio','date',array('required'=>false,'attr'=>array('id'=>'datetimepickeriniciodeudas'),'widget'=>'single_text','label'=>'Inicio de pago'))
             ->add('descripcion','textarea',array('required'=>false))
             ->add('fechaVencimiento','date',array('required'=>false,'attr'=>array('id'=>'datetimepickerfechavencimiento'),'widget'=>'single_text','label'=>'Vencimiento'))

@@ -337,7 +337,7 @@
                                 <thead>
                                     <tr>
 
-                                        <th>Dias menos</th>
+                                        <th>Días menos</th>
 
                                         <th style="text-align: right">Monto</th>
 
@@ -374,19 +374,24 @@
                                     <tr>
 
                                         <th>Incapacidades</th>
-
+                                        <th>Descripción</th>
                                         <th style="text-align: right">Monto</th>
+                                        
 
                                     </tr>
                                 </thead>
                                 <tbody>
+                                 {% set incapacidadesArray=['Incapacidades CCSS','Incapacidades INS']%}
                                 {% if datos_economicos.incapacidades|length >0 %}
 
                                     {% for incapacidades in datos_economicos.incapacidades %}
                                         {% for incapacidad in incapacidades %}
                                         <tr>
-                                            <td>
+                                                <td>
                                                     {{ incapacidad.fecha }}
+                                                </td>
+                                                <td>
+                                                    {{ incapacidadesArray[incapacidad.incapacidad] }}
                                                 </td>
                                                 <td style="text-align: right">
                                                     ¢{{ incapacidad.monto_total }}

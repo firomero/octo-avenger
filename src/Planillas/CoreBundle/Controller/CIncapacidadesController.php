@@ -244,13 +244,16 @@ class CIncapacidadesController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find CIncapacidades entity.');
             }
-
+            if ($entity->getPlanilla()!=null) {
+                $this->get('session')->getFlashBag()->add('danger', 'No puede eliminar la entidad porque ya que está asociada a una planilla de efectivo');
+                return $this->redirect($this->generateUrl('cincapacidades'));
+            }
             $em->remove($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido eliminados correctamente');
 
         } catch (Exception $e) {
-            $this->get('session')->getFlashBag()->add('info', 'No se pudieron eliminar los datos');
+            $this->get('session')->getFlashBag()->add('danger', 'No se pudieron eliminar los datos');
         }
         return $this->redirect($this->generateUrl('cincapacidades'));
     }
@@ -274,14 +277,21 @@ class CIncapacidadesController extends Controller
     public function editajaxAction(Request $request)
     {
         $id = $request->get('id');
-        //print_r($id);exit;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasCoreBundle:CIncapacidades')->find($id);
         $response = array("success" => true);
         if (!$entity) {
             $response['success'] = false;
+            $response['mensaje']='No existe la entidad.';
             return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
         }
+        if($entity->getPlanilla()!=null)
+        {
+            $response['success'] = false;
+            $response['mensaje']='No puede editar la entidad ya que está asociada a una planilla de efectivo.';
+            return new \Symfony\Component\HttpFoundation\Response(json_encode($response)); 
+        }
+        
         $response['data'] = $entity->getJson();
         return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
     }

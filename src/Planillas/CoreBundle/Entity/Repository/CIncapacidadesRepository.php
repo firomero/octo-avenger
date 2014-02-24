@@ -41,6 +41,8 @@ class CIncapacidadesRepository extends EntityRepository
             if (isset($filtros['empleado']) && !empty($filtros['empleado'])) {
                 $sql .= ($case == true) ? " AND " : " WHERE ";
                 $sql .= ' e.nombre LIKE \'%' . $filtros['empleado'] . '%\'';
+                $sql .= ' OR e.primerApellido LIKE \'%' . $filtros['empleado'] . '%\'';
+                //$sql .= ' OR e.primerApellido LIKE \'%' . $filtros['empleado'] . '%\'';
                 $case = true;
 
             }
