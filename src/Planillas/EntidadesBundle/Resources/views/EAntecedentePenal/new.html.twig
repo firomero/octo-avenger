@@ -1,19 +1,19 @@
 {% extends '::base.html.twig' %}
 {% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
 {% block title %}
-    Nuevo Antecedente Penal
+    Adicionar Antecedente Penal
 {% endblock %}
 {% block content_content %}
-   {% for mensaje in app.session.flashbag.get('info') %}
-    <div class="alert alert-info">{{ mensaje }}</div>
-   {% endfor %}
+   {# for mensaje in app.session.flashbag.get('info') #}
+    <!--<div class="alert alert-info">{# mensaje #}</div>-->
+   {# endfor #}
     
     <div class="row">
         {% block content %} 
             <div class="col-lg-9">
                 <div class="panel panel-default">
                     <div class="panel-heading"> <!-- Encabezado panel central -->
-                        <h2 class="panel-title">Nuevo antecedente penal</h2>
+                        <h2 class="panel-title">Adicionar antecedente penal</h2>
                     </div>
                     <div class="panel-body">
                         {{ form_start(form) }}
@@ -31,7 +31,7 @@
                                     <input type="submit" class="btn btn-primary" value="Adicionar">
                                 </div>
                                 <div class="btn-group">
-                                    <a href="{{ path('antecedentepenal',{'id_empleado':entity.empleado.id}) }}" class="btn btn-primary">Regresar</a>
+                                    <a href="{{ path('antecedentepenal',{'id_empleado':entity.empleado.id}) }}" class="btn btn-default">Regresar</a>
                                 </div>
                             </fieldset>
                             {{ form_end(form) }}    

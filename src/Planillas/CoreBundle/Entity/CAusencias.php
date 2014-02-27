@@ -1,7 +1,7 @@
 <?php
 
 namespace Planillas\CoreBundle\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -33,7 +33,7 @@ class CAusencias
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="motivo", type="string", length=254, nullable=false)
      */
     private $motivo;
@@ -246,5 +246,19 @@ class CAusencias
     public function getPlanilla()
     {
         return $this->planilla;
+    }
+    /**
+    * @Assert\True(message = "La fecha de inicial debe ser mayor que la fecha final")
+    */
+    public function isFechaInicioValid()
+    {
+       return $this->fechaInicio->getTimestamp()<=$this->fechaFin->getTimestamp();        
+    }
+    /**
+    * @Assert\True(message = "La fecha final no puede ser mayor que la fecha actual")
+    */
+    public function isFechaFinValid()
+    {
+       return $this->fechaFin->getTimestamp() <  time();        
     }
 }

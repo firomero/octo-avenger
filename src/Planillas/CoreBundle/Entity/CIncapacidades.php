@@ -3,7 +3,7 @@
 namespace Planillas\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CIncapacidades
@@ -56,6 +56,7 @@ class CIncapacidades
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="incapacidades")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $empleado;
     /**
@@ -226,5 +227,19 @@ class CIncapacidades
     public function getPlanilla()
     {
         return $this->planilla;
+    }
+    /**
+    * @Assert\True(message = "La fecha de inicial debe ser mayor que la fecha final")
+    */
+    public function isFechaInicioValid()
+    {
+       return $this->fechaInicio->getTimestamp()<=$this->fechaFin->getTimestamp();        
+    }
+    /**
+    * @Assert\True(message = "La fecha final no puede ser mayor que la fecha actual")
+    */
+    public function isFechaFinValid()
+    {
+       return $this->fechaFin->getTimestamp() <  time();        
     }
 }

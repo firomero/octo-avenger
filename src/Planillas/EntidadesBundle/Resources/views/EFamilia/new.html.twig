@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 {% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
 {% block title %}
-    Modificar familiar
+    Adicionar familiar
 {% endblock %}
 
 {% block content_content %}
@@ -43,17 +43,11 @@
                         <form>
                 </div>
             </div>
-
         </div>
         <div class="col-sm-3">
             {{ macros.empleado_foto(eEmpleado) }}
             {{ macros.menu_empleado('familiares',eEmpleado) }}
-
-
         </div>
-
-
-
         </div>
     {% endblock content %}
     </div>

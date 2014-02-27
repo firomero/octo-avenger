@@ -3,6 +3,7 @@
 namespace Planillas\EntidadesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * EPersonaDependen
@@ -41,6 +42,8 @@ class EPersonaDependen
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=30, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/^(([a-zA-ZñÑáéíóúÁÉÍÓÚ])([ ])*)+$/", message="El nombre no es correcto")
      */
     private $nombre;
 
@@ -48,6 +51,9 @@ class EPersonaDependen
      * @var integer
      *
      * @ORM\Column(name="edad", type="integer", nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 1)
+     * @Assert\Regex(pattern="/^([0-9]){2}$/", message="La edad no es correcta")
      */
     private $edad;
 

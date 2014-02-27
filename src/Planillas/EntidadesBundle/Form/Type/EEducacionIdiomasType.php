@@ -20,7 +20,7 @@ class EEducacionIdiomasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('porientoIdioma')
+            ->add('porientoIdioma',null,array('label'=>'Porciento'))
             ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))
             ->add('idioma')
         ;

@@ -22,8 +22,8 @@ class EPersonaDependenType extends AbstractType
             ->add('nombre')
             ->add('edad')
             ->add('parentesco')
-            ->add('ocupacion')
-             ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))
+            ->add('ocupacion',null,array('label'=>'Ocupación'))
+            ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))
         ;
         
         if($this->bDestruyeEmpleado)

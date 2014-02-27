@@ -22,7 +22,7 @@ class EAntecedentePenalType extends AbstractType
     {
         $builder
             ->add('motivo')
-            ->add('descripcion')
+            ->add('descripcion','textarea',array('label'=>'Descripción'))
             ->add('empleado')
         ;
         

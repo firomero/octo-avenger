@@ -3,7 +3,7 @@
 namespace Planillas\EntidadesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * EEducacionIdiomas
  *
@@ -28,8 +28,10 @@ class EEducacionIdiomas
     private $empleado;
     /**
      * @var decimal
-     *
      * @ORM\Column(name="porciento_idioma", type="decimal", nullable=false)
+     * @Assert\Regex(pattern="/^(100)|[1-9]([0-9]){0,1}$/", message="El porciento no es correcto")
+     * @Assert\Length(max = 3)
+
      */
     private $porientoIdioma;
 
@@ -37,6 +39,7 @@ class EEducacionIdiomas
      * @var $idioma Planillas/NomencladorBundle/Entity/NIdioma
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NIdioma")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $idioma;
 
@@ -117,4 +120,5 @@ class EEducacionIdiomas
     {
         return $this->idioma;
     }
+   
 }

@@ -37,7 +37,7 @@ class CHorario
 
      /**
      * @var string
-     * @ORM\Column(name="titulo", type="string", length=100, nullable=true)
+     * @ORM\Column(name="titulo", type="string", length=100, nullable=false)
      */
     private $titulo;
 

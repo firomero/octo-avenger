@@ -3,7 +3,7 @@
 namespace Planillas\EntidadesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * ELicencia
  *
@@ -25,13 +25,13 @@ class ELicencia
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="licencias")
-     * @ORM\JoinColumn(name="id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="licencias", referencedColumnName="id", nullable=false)
      */
     private $empleado;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\Date(),
      * @ORM\Column(name="vence", type="date", nullable=false)
      */
     private $vence;
@@ -40,6 +40,7 @@ class ELicencia
      * @var $tipo Planillas/NomencladorBundle/Entity/NTipoLicencia
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NTipoLicencia")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $tipoLicencia;
 

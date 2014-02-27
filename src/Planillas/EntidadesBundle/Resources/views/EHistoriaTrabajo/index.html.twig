@@ -3,14 +3,15 @@
     <tr>
 
         <th>Momento</th>
-        <th>Fecha Inicio</th>
-        <th>Fecha Fin</th>
+        <th>Desde</th>
+        <th>Hasta</th>
         <th>Tiempo</th>
 
         <th>Acciones</th>
     </tr>
     </thead>
     <tbody>
+     {% if entities|length >0%}
     {% for entity in entities %}
         <tr>
 
@@ -26,10 +27,16 @@
 
             <td>
                 <a  class="btn btn-default" href="{{ path('historiatrabajo_edit', { 'id': entity.id }) }}"><i class="glyphicon glyphicon-pencil"></i>Editar</a>
-                <a  class="btn btn-default" href="{{ path('historiatrabajo_delete', { 'id': entity.id }) }}"><i class="glyphicon glyphicon-trash"></i>Borrar</a>
+                <a  class="btn btn-default" href="{{ path('historiatrabajo_delete', { 'id': entity.id }) }}"><i class="glyphicon glyphicon-trash"></i>Eliminar</a>
             </td>
         </tr>
     {% endfor %}
+    {%else%}
+        
+        <tr>
+            <td colspan="5">No hay datos que mostrar</td>
+        </tr>
+    {%endif%}
 
     </tbody>
 </table>

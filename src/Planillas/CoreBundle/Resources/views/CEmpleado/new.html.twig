@@ -5,9 +5,9 @@
 {% endblock %}
 {% block foot_script %}
     {{ parent() }}
-     <script src="{{ asset('bundles/planillastemplate/js/jqBootstrapValidation.js') }}"></script>
+     <script src="{# asset('bundles/planillastemplate/js/jqBootstrapValidation.js') #}"></script>
      <script type="text/javascript">
-         $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+         //$(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
      </script>
 {% endblock %}
 {% block content_content %}

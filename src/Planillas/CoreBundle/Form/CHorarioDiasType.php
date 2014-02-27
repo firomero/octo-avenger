@@ -21,7 +21,7 @@ class CHorarioDiasType extends AbstractType
             ));
          * */
         $builder
-            ->add('dia')
+            ->add('dia',null,array('label'=>'Día'))
             ->add('activo')
             ->add('horaInicio','time',array('attr'=>array('class'=>'input-small'),
                 'input'  => 'datetime',

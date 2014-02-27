@@ -17,7 +17,7 @@ Sistema de Planillas:{{ headline }}
         };
         $("#myModal").on("show", function() { // wire up the OK button to dismiss the modal when shown
             $("#myModal a.btn").on("click", function(e) {
-                console.log("button pressed"); // just as an example...
+                //console.log("button pressed"); // just as an example...
                 $("#myModal").modal('hide'); // dismiss the dialog
             });
         });
@@ -258,11 +258,12 @@ Sistema de Planillas:{{ headline }}
                                     <th>Motivo</th>
                                     <th>Desde</th>
                                     <th>Hasta</th>
-                                    <th>Actions</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                             {% set tipoAusencia=['Ausencia','Permiso sin goce de salario','Permiso con goce de salario','Suspención'] %}
+                             {% if pagination|length>0%}
                             {% for entity in pagination %}
                                     <tr>
                                         <td>
@@ -285,6 +286,13 @@ Sistema de Planillas:{{ headline }}
                                         </td>
                                     </tr>
                             {% endfor %}
+                                   {%else%}
+                                    <tr>
+                                        <td colspan="6">
+                                        No hay datos que mostrar
+                                        </td>
+                                    </tr>
+                                   {%endif%}
 
                                 </tbody>
                             </table>

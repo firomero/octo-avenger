@@ -21,7 +21,7 @@ class ECursosType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('descripcion','textarea')
+            ->add('descripcion','textarea',array('label'=>'Descripción'))
             //->add('vence')
             ->add('vence','date',array('attr'=>array('id'=>'datetimepicker'),'widget'=>'single_text'))
             ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))

@@ -26,14 +26,14 @@ class CDeudas
      * @var float
      *
      * @ORM\Column(name="monto_total", type="decimal", scale=2, nullable=false)
-     * @Assert\Range(min = 0)
+     * @Assert\Range(min = 1)
      */
     private $montoTotal;
     /**
      * @var float
      *
      * @ORM\Column(name="monto_reducir", type="decimal", scale=2, nullable=false)
-     * @Assert\Range(min = 0)
+     * @Assert\Range(min = 1)
      */
     private $montoReducir;
     /**

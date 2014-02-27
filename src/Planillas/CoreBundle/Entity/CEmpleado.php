@@ -26,12 +26,14 @@ class CEmpleado {
      *
      * @ORM\Column(name="nombre", type="string", length=32, nullable=true)
      * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/^(([a-zA-ZñÑáéíóúÁÉÍÓÚ])([ ])*)+$/", message="El nombre no es correcto")
      */
     private $nombre;
 
     /**
      * @var string
      * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/", message="El segundo apellido no es correcto")
      * @ORM\Column(name="segundo_apellido", type="string", length=32, nullable=true)
      */
     private $segundoApellido;
@@ -39,14 +41,16 @@ class CEmpleado {
     /**
      * @var string
      * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/", message="El primer apellido no es correcto")     
      * @ORM\Column(name="primer_apellido", type="string", length=32, nullable=true)
      */
     private $primerApellido;
 
     /**
      * @var string
-     * @Assert\NotBlank()
      * @ORM\Column(name="cedula", type="string", length=32, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/^([0-9])+$/", message="La cédula no es correcta")
      */
     private $cedula;
 

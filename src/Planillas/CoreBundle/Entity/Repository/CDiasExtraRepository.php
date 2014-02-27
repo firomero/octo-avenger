@@ -39,7 +39,8 @@ class CDiasExtraRepository extends EntityRepository
 
             if (isset($filtros['fecha']) && $filtros['fecha'] != null) {
                 $sql .= ($case == true) ? " AND " : " WHERE ";
-                $sql .= ' s.fecha = ' . $filtros['fecha']->format('Y-m-d');
+                $sql .= ' s.fecha <= \'' . date_format($filtros['fecha'],'Y-m-d'). '\'';
+                //$sql .= ' s.fecha = ' . $filtros['fecha']->format('Y-m-d');
                 $case = true;
             }
 

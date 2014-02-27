@@ -3,7 +3,7 @@
 namespace Planillas\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CDiasExtra
@@ -25,7 +25,7 @@ class CDiasExtra
 
     /**
      * @var \DateTime
-     *
+     * @Assert\Date(),
      * @ORM\Column(name="fecha", type="date", nullable=false)
      */
     private $fecha;
@@ -33,7 +33,8 @@ class CDiasExtra
     /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="incapacidades")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="diasextra")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $empleado;
 
@@ -136,5 +137,12 @@ class CDiasExtra
     public function getPlanilla()
     {
         return $this->planilla;
+    }
+    /**
+    * @Assert\True(message = "La fecha seleccionada no puede ser mayor que la fecha actual")
+    */
+    public function isFechaValid()
+    {
+       return $this->fecha->getTimestamp() <  time();        
     }
 }

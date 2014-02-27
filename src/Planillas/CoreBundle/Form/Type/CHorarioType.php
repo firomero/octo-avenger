@@ -24,7 +24,7 @@ class CHorarioType extends AbstractType {
                     'by_reference' => false,
                     'allow_delete' => true))
                 
-                ->add('titulo');
+                ->add('titulo',null,array('label'=>'Título'));
                 //->add('empleado', 'hidden', array('data_class' => 'Planillas\CoreBundle\Entity\CEmpleado', 'property_path' => 'id'));
 
        

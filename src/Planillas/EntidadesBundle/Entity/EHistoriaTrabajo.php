@@ -1,7 +1,7 @@
 <?php
 
 namespace Planillas\EntidadesBundle\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,14 +23,14 @@ class EHistoriaTrabajo
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="momento", type="string", length=32, nullable=false)
      */
     private $momento;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="empresa_patrono", type="string", length=64, nullable=true)
      */
     private $empresaPatrono;
@@ -44,21 +44,21 @@ class EHistoriaTrabajo
 
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/^([0-9]){5,20}$/", message="El teléfono no es correcto")
      * @ORM\Column(name="telefono", type="string", length=15, nullable=true)
      */
     private $telefono;
 
     /**
      * @var decimal
-     *
+     * @Assert\Regex(pattern="/^([0-9]+)|([0-9]+)(,|.)([0-9])+$/", message="El salario no es correcto")
      * @ORM\Column(name="salario", type="decimal", nullable=true)
      */
     private $salario;
 
     /**
      * @var string
-     *
+     * @Assert\Regex(pattern="/^(([a-zA-ZñÑáéíóúÁÉÍÓÚ])([ ])*)+$/", message="El nombre no es correcto")
      * @ORM\Column(name="nombre_jefe", type="string", length=64, nullable=true)
      */
     private $nombreJefe;
@@ -391,4 +391,20 @@ class EHistoriaTrabajo
     {
         return $this->empleado;
     }
+    /**
+    * @Assert\True(message = "La fecha de inicial debe ser mayor que la fecha final")
+    */
+    public function isFechaInicioValid()
+    {
+       return $this->fechaInicio->getTimestamp()<=$this->fechaFin->getTimestamp();        
+    }
+    /**
+    * @Assert\True(message = "La fecha final no puede ser mayor que la fecha actual")
+    */
+    public function isFechaFinValid()
+    {
+       return $this->fechaFin->getTimestamp() <  time();        
+    }
+   
+
 }

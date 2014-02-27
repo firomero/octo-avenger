@@ -47,44 +47,30 @@ class CIncapacidadesRepository extends EntityRepository
 
             }
 
-            if (isset($filtros['fechaInicio']) && $filtros['fechaInicio']!=null) {
+            
 
-
-                if(isset($filtros['fechaFin']) && $filtros['fechaFin']!=null)
-                {
-                    $sql .= ($case == true) ? " AND " : " WHERE ";
-                    $sql .= ' s.fechaInicio >= '.$filtros['fechaInicio']->format('Y-m-d');
-                    $case = true;
-                }
-                else
-                {
-                    $sql .= ($case == true) ? " AND " : " WHERE ";
-                    $sql .= ' s.fechaInicio = '.$filtros['fechaInicio']->format('Y-m-d');
-                    $case = true;
-                }
-
-            }
-            if (isset($filtros['fechaFin']) && $filtros['fechaFin']!=null) {
 
                 if(isset($filtros['fechaInicio']) && $filtros['fechaInicio']!=null)
                 {
                     $sql .= ($case == true) ? " AND " : " WHERE ";
-                    $sql .= ' s.fechaFin >= '.$filtros['fechaFin']->format('Y-m-d');
-                    $case = true;
-                }
-                else
-                {
-                    $sql .= ($case == true) ? " AND " : " WHERE ";
-                    $sql .= ' s.fechaFin >= '.$filtros['fechaFin']->format('Y-m-d');
+                    //$sql .= ' s.fechaInicio >= '.$filtros['fechaInicio']->format('Y-m-d');
+                    $sql .= ' s.fechaInicio >- \'' . date_format($filtros['fechaInicio'],'Y-m-d'). '\'';
                     $case = true;
                 }
 
-            }
+                if(isset($filtros['fechaFin']) && $filtros['fechaFin']!=null)
+                {
+                    $sql .= ($case == true) ? " AND " : " WHERE ";
+                    $sql .= ' s.fechaFin <= \'' . date_format($filtros['fechaFin'],'Y-m-d'). '\'';
+                    //$sql .= ' s.fechaFin <= '.$filtros['fechaFin']->format('Y-m-d');
+                    $case = true;
+                }
+                
+            
 
 
             $sql .= ' ORDER BY s.id DESC';
             $query = $this->_em->createQuery($sql);
-            //print_r($query->getSQL());exit;
             return $query->getResult();
         } catch (NoResultException $e) {
             return array();

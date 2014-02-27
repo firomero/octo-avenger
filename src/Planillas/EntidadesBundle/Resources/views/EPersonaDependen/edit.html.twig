@@ -1,38 +1,64 @@
 {% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+Gestionar Dependencias
+{% endblock %}
 
 {% block content_content %}
 
- {% for mensaje in app.session.flashbag.get('info') %}
-    <div class="alert alert-info">{{ mensaje }}</div>
- {% endfor %}
-    
- <form class="form-horizontal" action="{{ path('personadepende_update',{ 'id': entity.id }) }}"
-       method="post" {{ form_enctype(edit_form) }}>  
-    <fieldset>
-        <legend>Persona que depende</legend>
-        {{ form_errors(edit_form) }}
-        <div class="row-fluid">
-            <div class="col-lg-4">{{ form_row(edit_form.parentesco) }}</div>
-            <div class="col-lg-4">{{ form_row(edit_form.nombre) }}</div>
-            <div class="col-lg-4">{{ form_row(edit_form.edad) }}</div>
-            <div class="col-lg-4">{{ form_row(edit_form.ocupacion) }}</div>
-        </div>
+<div class="row">
+    {% block content %}
+        <div class="col-lg-9">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Modificar Dependencia</h2>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="{{ path('personadepende_update',{ 'id': entity.id }) }}"
+                          method="post" {{ form_enctype(edit_form) }}>  
+                        <fieldset>
+                            <legend>Persona que depende</legend>
+                            {{ form_errors(edit_form) }}
+                            <div class="row-fluid">
+                                <div class="col-lg-4">{{ form_row(edit_form.parentesco) }}</div>
+                                <div class="col-lg-4">{{ form_row(edit_form.nombre) }}</div>
+                                <div class="col-lg-4">{{ form_row(edit_form.edad) }}</div>
+                                <div class="col-lg-4">{{ form_row(edit_form.ocupacion) }}</div>
+                            </div>
         {# form(delete_form) #}
 
-    </fieldset>
-    {{ form_rest(edit_form) }}
-     <fieldset>
-         <legend></legend>
-         <div class="btn-group">
-             <button type="submit" name="btn_actualizar" class="btn btn-primary">Actualizar</button>
+                        </fieldset>
+                         {{ form_rest(edit_form) }}
+                        <fieldset>
+                            <legend></legend>
+                            <div class="btn-group">
+                                <button type="submit" name="btn_actualizar" class="btn btn-primary">Actualizar</button>
 
-         </div>
-         <div class="btn-group">
-             <a href="{{ path('personadepende',{'id_empleado':entity.empleado.id}) }}" class="btn btn-default">Regresar</a>
+                            </div>
+                            <div class="btn-group">
+                                <a href="{{ path('personadepende',{'id_empleado':entity.empleado.id}) }}" class="btn btn-default">Regresar</a>
 
-         </div>
-     </fieldset>
+                            </div>
+                        </fieldset>
 
 
- </form>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-3">
+            {{ macros.empleado_foto(eEmpleado) }}
+            {{ macros.menu_empleado('personadepende',eEmpleado) }}
+
+
+            </div>
+
+
+
+        </div>
+    {% endblock content %}
+    </div>
+
 {% endblock %}

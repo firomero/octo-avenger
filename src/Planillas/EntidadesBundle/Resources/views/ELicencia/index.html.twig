@@ -2,7 +2,7 @@
 
 {% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
 {% block title %}
-    Modificar Licencias
+    Licencias
 {% endblock %}
 {% block content_content %}
     {% for mensaje in app.session.flashbag.get('info') %}
@@ -21,18 +21,19 @@
                                 <table class="table table-bordered table-hover table-responsive">
                                     <thead>
                                         <tr>
-                                            <th>Nombre</th>
+                                            <th>Licencia</th>
                                             <th>Código</th>
                                             <th>Vence</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    {% if entities|length >0%}
                                     {% for entity in entities %}
                                         <tr>
                                             <td><a href="{{ path('elicencia_edit', { 'id': entity.id }) }}">{% if entity.tipoLicencia %} {{ entity.tipoLicencia.nombre }} {% endif %}</a></td>
                                             <td>{% if entity.tipoLicencia %} {{ entity.tipoLicencia.codigo }} {% endif %}</td>
-                                            <td>{% if entity.vence %}{{ entity.vence|date('Y-m-d H:i:s') }}{% endif %}</td>
+                                            <td>{% if entity.vence %}{{ entity.vence|date('Y-m-d') }}{% endif %}</td>
                                             <td>
                                                 <div style="float: left">
                                                 <a class="btn btn-primary" href="{{ path('elicencia_edit', { 'id': entity.id }) }}">Editar</a>
@@ -45,12 +46,19 @@
                                             </td>
                                         </tr>
                                     {% endfor %}
+                                    {%else%}
+                                        <tr>
+                                            <td colspan="4">
+                                                No hay datos que mostrar
+                                            </td>
+                                        </tr>
+                                    {%endif%}
                                     </tbody>
                                 </table>
 
 
                                         <a class="btn btn-primary" href="{{ path('elicencia_new', { 'id_empleado': eEmpleado.id }) }}">
-                                            Nuevo
+                                            Nueva
                                         </a>
                             </div>                    
                 </div>

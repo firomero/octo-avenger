@@ -108,6 +108,7 @@
                                       id="incapacidadesForm">
                                     <input type="hidden" class=" not-removable form-control" name="planillas_id[id]"
                                            id="planillas_corebundle_incapacidades_id">
+                                    {{ form_errors(form) }}
                                     <fieldset>
                                         <div class="row-fluid">
                                             <div class="col-lg-4">{{ form_row(form.empleado) }}</div>
@@ -135,9 +136,9 @@
 
                                     </fieldset>
                                     {{ form_rest(form) }}
-
+                                    <hr>
                                     <fieldset>
-                                        <legend></legend>
+                                      
                                         <div class="btn-group">
                                             <button type="submit" id="btn_actualizar" name="btn_actualizar"
                                                     class="btn btn-primary">Crear

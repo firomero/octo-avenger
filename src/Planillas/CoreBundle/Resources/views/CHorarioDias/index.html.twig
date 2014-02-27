@@ -14,6 +14,7 @@
             </tr>
         </thead>
         <tbody>
+        {% if entities|length >0%}
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('chorariodias_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
@@ -32,6 +33,13 @@
                 </td>
             </tr>
         {% endfor %}
+        {%else%}
+            <tr>
+                <td colspan="">
+                    
+                </td>
+            </tr>
+        {%endif%}
         </tbody>
     </table>
 

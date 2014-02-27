@@ -68,8 +68,8 @@
 
     {% block content %}
         <ul id="myTab" class="nav nav-tabs">
-            <li><a href="#tab_diasextras" data-toggle="tab">Dias Extras</a></li>
-            <li class="active"><a href="#historial" data-toggle="tab">Historial de Días Extras</a></li>
+            <li><a href="#tab_diasextras" data-toggle="tab">Días extras</a></li>
+            <li class="active"><a href="#historial" data-toggle="tab">Historial de días extras</a></li>
 
         </ul>
         <div id="myTabContent" class="tab-content">
@@ -81,7 +81,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h2 class="panel-title">Agregar Dias Extras</h2>
+                                <h2 class="panel-title">Agregar días extras</h2>
                             </div>
                             <div class="panel-body">
                                 <form class="form" action="{{ path('cdiasextra_create') }}"
@@ -90,6 +90,7 @@
                                     <input type="hidden" class=" not-removable form-control" name="planillas_id[id]"
                                            id="planillas_corebundle_cdiasextra_id">
                                     <fieldset>
+                                        {{ form_errors(form) }}
                                         <div class="row-fluid">
                                             <div class="col-lg-4">{{ form_row(form.empleado) }}</div>
                                             <div class="col-lg-4">{{ form_row(form.fecha) }}</div>
@@ -99,8 +100,9 @@
 
                                     {{ form_rest(form) }}
 
+                                    <hr>
                                     <fieldset>
-                                        <legend></legend>
+                                        
                                         <div class="btn-group">
                                             <button type="submit" id="btn_actualizar" name="btn_actualizar"
                                                     class="btn btn-primary">Crear
@@ -128,7 +130,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2 class="panel-title">Buscar Días Extras</h2>
+                        <h2 class="panel-title">Buscar días extras</h2>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" action="{{ path('cdiasextra') }}"
@@ -144,6 +146,8 @@
                                 </div>
 
                             </fieldset>
+ 
+                            
                             <fieldset>
                                  {{ form_rest(form_buscar) }}
                             </fieldset>
@@ -171,7 +175,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Listado de Días Extras Trabajados
+                            Listado de días extras trabajados
                         </h3>
                     </div>
                     <div class="panel-body">
@@ -218,7 +222,7 @@
                                 </tr>
                             {% endfor %}
                             {% else %}
-                                <td colspan="3"> No se encontraron registros</td>
+                                <td colspan="3"> No hay datos que mostrar</td>
                             {% endif %}
 
                             </tbody>

@@ -38,15 +38,15 @@
                                     <div class="col-lg-6">{{ form_row(edit_form.vence) }}</div>
                                 </div>
                             </fieldset>
-                            
+                        <hr>    
                         <fieldset>
-                        <legend></legend>
+                        
                         <div class="btn-group">
                             <button type="submit" name="btn_actualizar" class="btn btn-primary">Actualizar</button>
 
                         </div>
                         <div class="btn-group">
-                           <a href="{{ path('cursos', { 'id_empleado': entity.empleado.id } ) }}" class="btn btn-primary">Regresar</a>
+                           <a href="{{ path('cursos', { 'id_empleado': entity.empleado.id } ) }}" class="btn btn-default">Regresar</a>
 
                         </div>
                         </fieldset>

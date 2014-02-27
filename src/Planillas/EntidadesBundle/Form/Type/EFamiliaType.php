@@ -25,7 +25,7 @@ class EFamiliaType extends AbstractType
             //->add('empleadoid'.'text')
 
             ->add('parentesco')
-            ->add('ocupacion')
+            ->add('ocupacion',null,array('label'=>'Ocupación'))
         ;
     }
 

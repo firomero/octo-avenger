@@ -47,7 +47,7 @@ class NTipoLicenciaAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
+           # ->add('id')
             ->add('nombre')
             ->add('codigo')
         ;
@@ -59,7 +59,7 @@ class NTipoLicenciaAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
+            #->add('id')
             ->add('nombre')
             ->add('codigo')
         ;

@@ -3,6 +3,22 @@
 {% block title %}
     Nueva Licencia
 {% endblock %}
+    {% block foot_script %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function () {
+            $('#planillas_entidadesbundle_elicencia_vence').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+           
+           
+
+        })
+       
+    </script>
+{% endblock %}
 {% block content_content %}
     
    {% for mensaje in app.session.flashbag.get('info') %}
@@ -35,7 +51,7 @@
                         <input type="submit" class="btn btn-primary" value="Adicionar">
                     </div>
                     <div class="btn-group">
-                        <a href="{{ path('elicencia',{'id_empleado':entity.empleado.id}) }}" class="btn btn-primary">Regresar</a>
+                        <a href="{{ path('elicencia',{'id_empleado':entity.empleado.id}) }}" class="btn btn-default">Regresar</a>
                     </div>
                 </fieldset>
 

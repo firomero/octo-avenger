@@ -12,7 +12,7 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2 class="panel-title">Adicionar Familiar</h2>
+                        <h2 class="panel-title">Modificar Familiar</h2>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" action="{{ path('familia_update',{ 'id': entity.id }) }}"
@@ -29,8 +29,8 @@
 
                             </fieldset>
                             
-                            <button type="submit" name="submit_button" class="btn btn-success">Actualizar</button>
-							<a href="{{ path('familia',{ 'id': eEmpleado.id }) }}" class="btn btn-success">Regresar</a>
+                            <button type="submit" name="submit_button" class="btn btn-primary">Actualizar</button>
+							<a href="{{ path('familia',{ 'id': eEmpleado.id }) }}" class="btn btn-primary">Regresar</a>
 							{# form_end(edit_form) #}
                             {{ form_rest(edit_form) }}
                             <form>
@@ -39,7 +39,7 @@
 
             </div>
             <div class="col-sm-3">
-                {{ macros.empleado_foto() }}
+                {{ macros.empleado_foto(eEmpleado) }}
                 {{ macros.menu_empleado('familiares',eEmpleado) }}
 
 

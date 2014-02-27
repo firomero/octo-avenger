@@ -7,7 +7,7 @@ personadepende_show:
     defaults: { _controller: "PlanillasEntidadesBundle:EPersonaDependen:show" }
 
 personadepende_new:
-    pattern:  /{id_empleado}/personadepende/newlapingamia
+    pattern:  /{id_empleado}/personadepende/nueva
     defaults: { _controller: "PlanillasEntidadesBundle:EPersonaDependen:new" }
 
 personadepende_create:

@@ -4,7 +4,27 @@
 {% block title %}
     Adicionar Historico
 {% endblock %}
+{% block foot_script %}
+    {{ parent() }}
+    <!--<script src="{# asset('bundles/planillascore/js/jquery.ui.1.8.16.js') #}"></script>-->
+    <script>
+        $(function () {
 
+
+
+            $('#planillas_entidadesbundle_ehistoriatrabajo_fechaInicio').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+            $('#planillas_entidadesbundle_ehistoriatrabajo_fechaFin').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+
+        })
+
+    </script>
+{% endblock %}
 {% block content_content %}
 
     <div class="row">
@@ -13,7 +33,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h2 class="panel-title">Adicionar Histórico Trabajo</h2>
+                    <h2 class="panel-title">Adicionar Trabajo Anterior</h2>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ path('historiatrabajo_create',{'id_empleado':eEmpleado.id}) }}"
@@ -46,12 +66,19 @@
 						   <div class="row-fluid">
 							<div class="col-lg-4">{{ form_row(form.momento) }}</div>
 							<div class="col-lg-4">{{ form_row(form.direccion) }}</div>
-                            <div class="col-lg-4">{{ form_row(form.empresaPatrono) }}</div>
+                           
 							</div>
 						</fieldset>
+                        <hr>
+                        <fieldset>
+                            <div class="row">
+                                 <div class="col-lg-8">{{ form_row(form.empresaPatrono) }}</div>
+                              </div>
+                        </fieldset>
+                        <hr>
 						 <fieldset>
 
-                          
+                              
                             <div class="row-fluid">
                                 
                                 <div class="col-lg-4">{{ form_row(form.salario) }}</div> 

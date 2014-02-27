@@ -25,7 +25,9 @@ class CAusenciasRepository extends EntityRepository
 
             if (isset($filtros['fechaInicio']) && !empty($filtros['fechaInicio'])) {
                 $sql .= ($case == true) ? " AND " : " WHERE ";
-                $sql .= ' s.fechaInicio >= '. $filtros['fechaInicio'] ;
+                //$fInicio=new \DateTime($filtros['fechaInicio']);
+                $sql .= ' s.fechaInicio >= \'' . date_format($filtros['fechaInicio'],'Y-m-d'). '\'';
+                //$sql .= ' s.fechaInicio >= '. date_format(new \DateTime($filtros['fechaInicio']) ,'Y-m-d');
                 $case = true;
             }
             if(isset($filtros['empleado'])&& !empty($filtros['empleado']))
@@ -38,13 +40,14 @@ class CAusenciasRepository extends EntityRepository
             }
             if (isset($filtros['fechaFin']) && !empty($filtros['fechaFin'])) {
                 $sql .= ($case == true) ? " AND " : " WHERE ";
-                $sql .= ' s.fechaFin <= '. $filtros['fechaFin'] ;
+                //$sql .= ' s.fechaFin <= '. $filtros['fechaFin'] ;
+                $sql .= ' s.fechaFin <= \'' . date_format($filtros['fechaFin'],'Y-m-d'). '\'';
                 $case = true;
             }
 
             $sql .= ' ORDER BY s.id DESC';
             $query = $this->_em->createQuery($sql);
-
+            //print_r($query->getSQL());exit;
             return $query->getResult();
         } catch (NoResultException $e) {
             return array();
