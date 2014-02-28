@@ -12,13 +12,15 @@
     </tr>
     </thead>
     <tbody>
+    {% if entities|length >0%}
+    {% set tipodeuda= ['Uniformes','Sanciones','Préstamos']%}
     {% for entitys in entities %}
         <tr>
             <td>
                 {% if  entitys.planilla is null%}
                     {% if entitys.permanente ==0%}
                 <a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">
-                     {%if entitys.componente==0%}Rebajo{% else %}Bonificación
+                     {%if entitys.componente==0%}Rebajo({{tipodeuda[entitys.tipoDeuda]}}){% else %}Bonificación
                      {%endif%}
                 </a>
                     {%else %}
@@ -73,6 +75,12 @@
             </td>
         </tr>
     {% endfor %}
-
+    {% else %}
+        <tr>
+            <td colspan="6">
+                No hay datos que mostrar
+            </td>
+        </tr>
+    {% endif %}
     </tbody>
 </table>

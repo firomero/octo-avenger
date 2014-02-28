@@ -105,7 +105,10 @@ class CPlanillasController extends Controller {
         $fechaFin=false;
         if(count($entities)==0)
         {
-            $this->get('session')->getFlashBag()->add('info', 'No existen planillas para el periodo deseado');
+            if($request->getMethod()=="GET")
+                $this->get('session')->getFlashBag()->add('info', 'Seleccione el período deseado');
+            else
+            $this->get('session')->getFlashBag()->add('danger', 'No existen planillas para el período deseado');
         }
         if($manager->getFechaInicio()!=null)
         {
@@ -120,7 +123,7 @@ class CPlanillasController extends Controller {
         $page=$this->get('request')->query->get('page', 1);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-                $entities, $page, 3
+                $entities, $page, 20
         );
         return $this->render('PlanillasCoreBundle:CPlanillas:planillas.html.twig', array(
                     'entities' => $pagination,

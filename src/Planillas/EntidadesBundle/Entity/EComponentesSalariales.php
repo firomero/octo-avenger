@@ -3,7 +3,7 @@
 namespace Planillas\EntidadesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * EComponentesSalariales
  *
@@ -30,7 +30,7 @@ class EComponentesSalariales
 
     /**
      * @var decimal
-     *
+     * @Assert\Regex(pattern="/^([1-9])?.([0-9])+$/", message="La cantidad no es correcta")
      * @ORM\Column(name="cantidad", type="decimal", nullable=true)
      */
     private $cantidad;

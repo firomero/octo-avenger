@@ -40,22 +40,70 @@
             ({
                 format: "yyyy-mm-dd"
             });
-            valdefaul = $('#planillas_entidadesbundle_ecomponentessalariales_componente').val();
-            if (valdefaul == 1) {
+            valdefault = $('#planillas_entidadesbundle_ecomponentessalariales_componente').val();
+            if (valdefault == 1) {
                 $("#collapseOne").collapse('show');
+                //eliminando atributos de las deudas cuando tiene seleccionado la bonificacion
+                    $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").removeAttr('required');
+                    
+                    //adicionando atributos de la bonificacion
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").attr('required','required');
+                    
+                    
+                
+                
             }
             else {
+                 $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").attr('required','required');
+                    
+                    //adicionando atributos de la bonificacion
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").removeAttr('required');
+                    
                 $("#collapseTwo").collapse('show')
             }
             $('#planillas_entidadesbundle_ecomponentessalariales_componente').change(function (value) {
                 var val = $(this).val();
-                if (val == 1) {
+                if (val == 1) {//bonificacion
+                    //eliminando atributos de las deudas cuando tiene seleccionado la bonificacion
+                    $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").removeAttr('required');
+                    
+                    //adicionando atributos de la bonificacion
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").attr('required','required');
+                    
+                    
+                    
                     $("#collapseOne").collapse('show');
                     $("#collapseTwo").collapse('hide')
 
 
                 }
                 else {
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").attr('required','required');
+                    
+                    //adicionando atributos de la bonificacion
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").removeAttr('required');
+                    
                     $("#collapseOne").collapse('hide');
                     $("#collapseTwo").collapse('show');
 
@@ -88,7 +136,7 @@
             <div class="col-lg-9">
                 <div class="panel panel-default">
                     <div class="panel-heading"> <!-- Encabezado panel central -->
-                        <h2 class="panel-title">Agregar Componente Salarial</h2>
+                        <h2 class="panel-title">Agregar componente salarial</h2>
                     </div>
                     <div class="panel-body">
                         {{ form_start(form) }}

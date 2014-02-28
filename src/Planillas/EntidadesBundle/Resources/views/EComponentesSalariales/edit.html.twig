@@ -12,24 +12,28 @@
     <script type="text/javascript">
         
         $(function () {
-             $('#planillas_entidadesbundle_ecomponentessalariales_permanente').change(function (){
+              $('#planillas_entidadesbundle_ecomponentessalariales_componente').attr('disabled',true);
+              $('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').attr('disabled',true);
+              $('#planillas_entidadesbundle_ecomponentessalariales_permanente').change(function (){
                if(this.checked)
                {
                  //alert("hola")
                  $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').attr('disabled',true);
-                 $('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').attr('disabled',true);
+                 //$('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').attr('disabled',true);
                 $('#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento').attr('disabled',true);
                }
                else
                {
                  $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').removeAttr('disabled');
-                 $('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').removeAttr('disabled');
+                 //$('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').removeAttr('disabled');
                  $('#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento').removeAttr('disabled');
                  
                }
                
            })
-            
+
+
+
             $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').datepicker
             ({
                 format: "yyyy-mm-dd"
@@ -38,28 +42,76 @@
             ({
                 format: "yyyy-mm-dd"
             });
-            valdefaul = $('#planillas_entidadesbundle_ecomponentessalariales_componente').val();
-            $('#planillas_entidadesbundle_ecomponentessalariales_componente').attr('disabled','disabled');
-            if (valdefaul == 1) {
+            valdefault = $('#planillas_entidadesbundle_ecomponentessalariales_componente').val();
+            if (valdefault == 1) {
                 $("#collapseOne").collapse('show');
+                //eliminando atributos de las deudas cuando tiene seleccionado la bonificacion
+                    $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").removeAttr('required');
+                    
+                    //adicionando atributos de la bonificacion
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").attr('required','required');
+                    
+                    
+                
+                
             }
             else {
+                 $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").attr('required','required');
+                    
+                    //adicionando atributos de la bonificacion
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").removeAttr('required');
+                    
                 $("#collapseTwo").collapse('show')
             }
             $('#planillas_entidadesbundle_ecomponentessalariales_componente').change(function (value) {
                 var val = $(this).val();
-                if (val == 1) {
+                if (val == 1) {//bonificacion
+                    //eliminando atributos de las deudas cuando tiene seleccionado la bonificacion
+                    $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").removeAttr('required');
+                    
+                    //adicionando atributos de la bonificacion
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").attr('required','required');
+                    
+                    
+                    
                     $("#collapseOne").collapse('show');
                     $("#collapseTwo").collapse('hide')
 
 
                 }
                 else {
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").attr('required','required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").attr('required','required');
+                    
+                    //adicionando atributos de la bonificacion
+                    
+                    $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").removeAttr('required');
+                    $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").removeAttr('required');
+                    
                     $("#collapseOne").collapse('hide');
                     $("#collapseTwo").collapse('show');
 
                 }
 
+     
             })
 
         })
@@ -142,7 +194,7 @@
                                             <div class="row-fluid">
                                                 <div class="col-lg-4">{{ form_row(form.tipoDeuda) }}</div>
                                                 <div class="col-lg-4"><div class="noclass" id="divfechainicio">{{ form_row(form.fechaInicio) }}</div></div>
-                                                <div class="col-lg-4">{{ form_row(form.pagado) }}</div>
+                                                
 
                                             </div>
                                         </fieldset>

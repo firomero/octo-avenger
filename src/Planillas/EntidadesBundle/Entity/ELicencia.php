@@ -25,7 +25,7 @@ class ELicencia
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="licencias")
-     * @ORM\JoinColumn(name="licencias", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $empleado;
 

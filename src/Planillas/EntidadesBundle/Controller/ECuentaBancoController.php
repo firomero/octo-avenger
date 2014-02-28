@@ -242,7 +242,7 @@ class ECuentaBancoController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('cuentasbancos_delete', array('id_banco' => $id_banco, 'id_empleado'=>$id_empleado)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-success')))
+            ->add('submit', 'submit', array('label' => 'Eliminar', 'attr'=>array('class'=>'btn btn-default')))
             ->getForm()
         ;
     }

@@ -417,6 +417,12 @@
                         <td colspan="9">Aqui van los detalles de cada empleado</td>
                     </tr>-->
                     {% endfor %}
+                    {% else %}
+                    <tr>
+                        <td colspan="11">
+                             No hay datos que mostrar
+                        </td>
+                    </tr>
                     {% endif %}
                 </tbody>
             </table>

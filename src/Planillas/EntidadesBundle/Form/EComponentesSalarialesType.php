@@ -23,20 +23,15 @@ class EComponentesSalarialesType extends AbstractType
             ->add('componente','choice',array('choices'=>self::componentesChoices()))
             ->add('moneda','choice',array('choices'=>self::monedaChoices()))
             ->add('tipoDeuda','choice',array('choices'=>array('Uniformes','Sanciones','Préstamos')))
-            ->add('cantidad')
-            ->add('montoTotal'/*'money'*/)
-            ->add('montoReducir','hidden')
-            /*->add('periodoPagoDeuda','choice',array(
-                'choices' => array(
-                    0 => 'Quincenal',
-                    1 => 'Mensual',
-                )))*/
-            ->add('numeroCuotas',null,array('label'=>'Número de cuotas'))
+            ->add('cantidad',null,array('required'=>true,'pattern'=>"\d+([,.]\d+)?"))
+            ->add('montoTotal',null,array('required'=>true,'pattern'=>"\d+([,.]\d+)?"))
+            
+            ->add('numeroCuotas',null,array('label'=>'Número de cuotas','required'=>true,'pattern'=>"\d+"))
             ->add('permanente','checkbox',array('required'=>false))
             #->add('pagado','choice',array('choices'=>array('No pagado','Pagado')))
-            ->add('fechaInicio','date',array('required'=>false,'attr'=>array('id'=>'datetimepickeriniciodeudas'),'widget'=>'single_text','label'=>'Inicio de pago'))
+            ->add('fechaInicio','date',array('required'=>true,'attr'=>array('id'=>'datetimepickeriniciodeudas'),'widget'=>'single_text','label'=>'Inicio de pago'))
             ->add('descripcion','textarea',array('required'=>false,'label'=>'Descripción'))
-            ->add('fechaVencimiento','date',array('required'=>false,'attr'=>array('id'=>'datetimepickerfechavencimiento'),'widget'=>'single_text','label'=>'Vencimiento'))
+            ->add('fechaVencimiento','date',array('required'=>true,'attr'=>array('id'=>'datetimepickerfechavencimiento'),'widget'=>'single_text','label'=>'Vencimiento'))
             ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))
         ;
 	    if($this->bDestruyeEmpleado)
