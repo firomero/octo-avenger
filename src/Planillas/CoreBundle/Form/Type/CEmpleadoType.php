@@ -25,7 +25,7 @@ class CEmpleadoType extends AbstractType {
         ->add('primerApellido')
         ->add('cedula','text',array('label'=>'Cédula','required'=>true,'attr'=>
                               array('pattern'=>"[a-zA-Z0-9]{1,15}",
-                                    'oninvalid'=>'setCustomValidity("La cédula no es correcta")')))
+                                    /*'oninvalid'=>'setCustomValidity("La cédula no es correcta")'*/)))
         ->add('tallaCalzado')
         ->add('tallaPantalon',null,array('label'=>'Talla de Pantalón'))
         ->add('tallaCamisa')
