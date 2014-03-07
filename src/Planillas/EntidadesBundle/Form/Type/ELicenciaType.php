@@ -22,7 +22,7 @@ class ELicenciaType extends AbstractType
         $builder
             ->add('tipoLicencia')
             #->add('vence')
-            ->add('vence','date',array('required'=>false,'attr'=>array('id'=>'datetimepickervence'),'widget'=>'single_text','label'=>'Vence'))
+            ->add('vence','date',array('required'=>true,'attr'=>array('id'=>'datetimepickervence'),'widget'=>'single_text','label'=>'Vence'))
             ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))
         ;
         

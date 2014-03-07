@@ -1,7 +1,7 @@
 <?php
 
 namespace Planillas\CoreBundle\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -24,7 +24,8 @@ class CHorasExtras
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/^([1-9]+)+$/", message="La cantidad de horas extras no es correcta")
      * @ORM\Column(name="tipo_ausencia", type="string", nullable=false)
      */
     private $cantidadHoras;

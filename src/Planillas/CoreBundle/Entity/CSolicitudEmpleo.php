@@ -3,7 +3,7 @@
 namespace Planillas\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * CSolicitudEmpleo
  *
@@ -31,13 +31,16 @@ class CSolicitudEmpleo
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/^(([a-zA-ZñÑáéíóúÁÉÍÓÚ])([ ])*)+$/", message="El nombre no es correcto")
      * @ORM\Column(name="nombre", type="string", length=32, nullable=false)
      */
     private $nombre;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
+     * @Assert\Regex(pattern="/^(([a-zA-ZñÑáéíóúÁÉÍÓÚ])([ ])*)+$/", message="Los apellidos no son correcto")
      * @ORM\Column(name="apellidos", type="string", length=64, nullable=false)
      */
     private $apellidos;

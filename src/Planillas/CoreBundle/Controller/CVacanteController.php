@@ -35,7 +35,7 @@ class CVacanteController extends Controller
         $result = $em->getRepository('PlanillasCoreBundle:CVacante')->filterVacante($aDatos);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $result, $this->get('request')->query->get('page', 1), 1
+            $result, $this->get('request')->query->get('page', 1), 20
         );
 
         return $this->render('PlanillasCoreBundle:CVacante:index.html.twig', array(
@@ -82,7 +82,7 @@ class CVacanteController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        //$form->add('submit', 'submit', array('label' => 'Nuevo'));
 
         return $form;
     }
@@ -234,7 +234,7 @@ class CVacanteController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('cvacante_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Eliminar'))
             ->getForm();
     }
 }

@@ -217,7 +217,7 @@
                             <tbody>
                             {% for entity in pagination %}
                                 <tr>
-                                    <td>{{ entity.cantidadHoras }}</td>
+                                    <td>{{ entity.cantidadHoras }} {% if entity.cantidadHoras > 1  %}horas{%else%}hora{%endif%}</td>
                                     <td>{{ entity.empleado }}</td>
 
                                     <td>{% if entity.fechaHorasExtras %}{{ entity.fechaHorasExtras|date('Y-m-d') }}{% endif %}</td>

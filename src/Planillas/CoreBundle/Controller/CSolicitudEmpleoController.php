@@ -36,7 +36,7 @@ class CSolicitudEmpleoController extends Controller
         $result = $em->getRepository('PlanillasCoreBundle:CSolicitudEmpleo')->filterSolicitudEmpleo($aDatos);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $result, $this->get('request')->query->get('page', 1), 10
+            $result, $this->get('request')->query->get('page', 1), 20
         );
 
         return $this->render('PlanillasCoreBundle:CSolicitudEmpleo:index.html.twig', array(
@@ -189,7 +189,8 @@ class CSolicitudEmpleoController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido actualizados correctamente');
-            return $this->redirect($this->generateUrl('csolicitudempleo_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('csolicitudempleo'));
+            //return $this->redirect($this->generateUrl('csolicitudempleo_edit', array('id' => $id)));
         }
         $this->get('session')->getFlashBag()->add('danger', 'No se pudieron actualizar los datos');
         return $this->render('PlanillasCoreBundle:CSolicitudEmpleo:edit.html.twig', array(

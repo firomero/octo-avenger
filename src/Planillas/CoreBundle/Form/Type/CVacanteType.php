@@ -28,8 +28,8 @@ class CVacanteType extends AbstractType
         $builder
             ->add('nombre')
             ->add('cantidadPlazas')
-            ->add('descripcion','textarea')
-            ->add('activo')
+            ->add('descripcion','textarea',array('label'=>'Descripción'))
+            ->add('activo',null,array('label'=>''))
             ->add('trabajo','entity',array(
                 'class' => 'PlanillasNomencladorBundle:NTrabajo',
                 'query_builder' => function(EntityRepository $er){

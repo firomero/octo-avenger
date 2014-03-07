@@ -18,7 +18,7 @@ class CSolicitudEmpleoType extends AbstractType
             ->add('salario')
             ->add('nombre')
             ->add('apellidos')
-            ->add('telefono')
+            ->add('telefono',null,array('label'=>'Teléfono','pattern'=>'[0-9]{5,20}'))
             ->add('correo')
             ->add('fecha','date',array('attr'=>array('id'=>'datetimepicker'),'widget'=>'single_text'))
             ->add('vacante', 'entity', array(
