@@ -2,6 +2,7 @@
 
 namespace Planillas\CoreBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Planillas\CoreBundle\Form\Type\BuscarAusenciaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,31 +20,19 @@ class CAusenciasController extends Controller {
      * Lists all CAusencias entities.
      *
      */
-    public function indexAction() {
-
-
+    public function indexAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();
-        $aDatos = array();
-        $form = $this->createForm(new BuscarAusenciaType());
-        $form->handleRequest($request);
-        if ($form->isValid()) {
 
-            $aDatos = $form->getData(); //filter data
-        }
-        //print_r($form->getErrors());exit;
-        $result = $em->getRepository('PlanillasCoreBundle:CAusencias')->filterAusencias($aDatos);
-        $paginator = $this->get('knp_paginator');
-        $session = $this->get('session')->set('filtros', array()); //hay que meter la busqueda en la sesion
-        $pagination = $paginator->paginate(
-                $result, $this->get('request')->query->get('page', 1), 10
-        );
+        $parameters = $this->createHistorialAusencias($request, $em);
+
         $entity = new CAusencias();
-        $form_new = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
+
         return $this->render('PlanillasCoreBundle:CAusencias:index.html.twig', array(
-                    'pagination' => $pagination,
-                    'form_buscar' => $form->createView(),
-                    'form' => $form_new->createView()
+            'pagination' => $parameters['pagination'],
+            'form_buscar' => $parameters['search_form']->createView(),
+            'form' => $form->createView()
         ));
     }
 
@@ -51,10 +40,10 @@ class CAusenciasController extends Controller {
      * Creates a new CAusencias entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new CAusencias();
         $em = $this->getDoctrine()->getManager();
-        $form = new CAusenciasType();
 
         $data = $request->get('planillas_id');
         if (isset($data['id']) && !empty($data['id'])) {
@@ -67,27 +56,66 @@ class CAusenciasController extends Controller {
         } else {
             $form = $this->createCreateForm($entity);
         }
+
         $form->handleRequest($request);
-        
         if ($form->isValid()) {
             //validacion manual por lo que veo esta basura no valida bien
-            if(!self::isValidaDataRange($entity))
+            if (!self::isValidaDataRange($entity))
             {
                 $this->get('session')->getFlashBag()->add('danger', 'No se pudieron salvar los datos ya que existen errores en las fechas.');
+
                 return $this->redirect($this->generateUrl('causencias'));
             }
             
             if ($entity->getPlanilla() != null || $entity->getPlanilla() != 0) {
                 $this->get('session')->getFlashBag()->add('danger', 'No se puede modificar ya que está asociada a un planilla de pago');
+
                 return $this->redirect($this->generateUrl('causencias'));
             }
             $em->persist($entity);
             $em->flush();
+
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido guardados correctamente');
+
             return $this->redirect($this->generateUrl('causencias'));
         }
+
         $this->get('session')->getFlashBag()->add('danger', 'No se pudieron guardar los datos');
-        return $this->redirect($this->generateUrl('causencias'));
+
+        $parameters = $this->createHistorialAusencias($request, $em);
+
+        return $this->render('PlanillasCoreBundle:CAusencias:index.html.twig', array(
+            'pagination' => $parameters['pagination'],
+            'form_buscar' => $parameters['search_form']->createView(),
+            'form' => $form->createView(),
+            'formactive' => true,
+        ));
+    }
+
+    private function createHistorialAusencias(Request $request, EntityManager $em)
+    {
+        $aDatos = array();
+        $form = $this->createForm(new BuscarAusenciaType());
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $aDatos = $form->getData(); //filter data
+        }
+
+        $result = $em->getRepository('PlanillasCoreBundle:CAusencias')->filterAusencias($aDatos);
+        $paginator = $this->get('knp_paginator');
+        $session = $this->get('session')->set('filtros', array()); //hay que meter la busqueda en la sesion
+
+        $pagination = $paginator->paginate(
+            $result,
+            $request->query->get('page', 1),
+            10
+        );
+
+        return array(
+            'pagination'  => $pagination,
+            'search_form' => $form,
+        );
     }
 
     /**
