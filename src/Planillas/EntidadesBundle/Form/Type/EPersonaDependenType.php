@@ -8,22 +8,32 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EPersonaDependenType extends AbstractType
 {
-    public function __construct($bDestruyeEmpleado=false){
+    public function __construct ($bDestruyeEmpleado=false)
+    {
        $this->bDestruyeEmpleado = $bDestruyeEmpleado;    
     }
-        /**
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-	 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('nombre')
             ->add('edad')
-            ->add('parentesco')
-            ->add('ocupacion',null,array('label'=>'Ocupación'))
-            ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))
+            ->add('parentesco', 'entity', array(
+                'class' => 'PlanillasNomencladorBundle:NParentesco',
+                'required' => true,
+            ))
+            ->add('ocupacion', 'entity', array(
+                'class' => 'PlanillasNomencladorBundle:NOcupacion',
+                'label'     => 'Ocupación',
+                'required'  => true,
+            ))
+            ->add('empleado', 'hidden', array(
+                'data_class' => 'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id',
+            ))
         ;
         
         if($this->bDestruyeEmpleado)

@@ -50,7 +50,7 @@ class CEmpleado {
      * @var string
      * @ORM\Column(name="cedula", type="string", length=32, nullable=false)
      * @Assert\NotBlank()
-     * @Assert\Regex(pattern="/^([0-9])+$/", message="La cédula no es correcta")
+     * @Assert\Length(min=3, max=15)
      */
     private $cedula;
 

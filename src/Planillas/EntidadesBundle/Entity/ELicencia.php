@@ -4,6 +4,7 @@ namespace Planillas\EntidadesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * ELicencia
  *
@@ -33,6 +34,7 @@ class ELicencia
      * @var \DateTime
      * @Assert\Date(),
      * @ORM\Column(name="vence", type="date", nullable=false)
+     * @Assert\NotBlank()
      */
     private $vence;
 
@@ -41,6 +43,8 @@ class ELicencia
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NTipoLicencia")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
+     *
      */
     private $tipoLicencia;
 

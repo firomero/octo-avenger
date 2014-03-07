@@ -38,9 +38,8 @@ class EPersonaDependenController extends Controller {
      * Creates a new EPersonaDependen entity.
      *
      */
-    public function createAction(Request $request, $id_empleado) {
-
-
+    public function createAction(Request $request, $id_empleado)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = new EPersonaDependen();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
@@ -54,12 +53,18 @@ class EPersonaDependenController extends Controller {
             $em->persist($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', 'Se han adicionado los datos correctamente');
-            return $this->redirect($this->generateUrl('personadepende', array('id_empleado' => $entity->getEmpleado()->getId())));
+
+            return $this->redirect($this->generateUrl('personadepende', array(
+                'id_empleado' => $entity->getEmpleado()->getId()
+            )));
         }
+
         $this->get('session')->getFlashBag()->add('danger', 'No se pudieron agregar los datos');
+
         return $this->render('PlanillasEntidadesBundle:EPersonaDependen:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'eEmpleado' => $eEmpleado,
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 

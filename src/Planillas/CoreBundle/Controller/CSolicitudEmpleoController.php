@@ -59,9 +59,12 @@ class CSolicitudEmpleoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            $oCvacante=$this->getDoctrine()->getManager()->getRepository('PlanillasCoreBundle:CVacante')->find($entity->getId());
 
-            return $this->redirect($this->generateUrl('csolicitudempleo_edit', array('id' => $entity->getId())));
+            $oCvacante = $this->getDoctrine()->getManager()->getRepository('PlanillasCoreBundle:CVacante')->find($entity->getId());
+
+            return $this->redirect($this->generateUrl('csolicitudempleo', array(
+                'id' => $entity->getId()
+            )));
         }
 
         return $this->render('PlanillasCoreBundle:CSolicitudEmpleo:new.html.twig', array(

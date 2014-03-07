@@ -19,7 +19,7 @@ class CSolicitudEmpleoType extends AbstractType
             ->add('nombre')
             ->add('apellidos')
             ->add('telefono',null,array('label'=>'Teléfono','pattern'=>'[0-9]{5,20}'))
-            ->add('correo')
+            ->add('correo','email')
             ->add('fecha','date',array('attr'=>array('id'=>'datetimepicker'),'widget'=>'single_text'))
             ->add('vacante', 'entity', array(
                     'class' => 'PlanillasCoreBundle:CVacante',

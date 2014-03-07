@@ -18,18 +18,12 @@
                     <form class="form-horizontal" action="{{ path('personadepende_create',{'id_empleado':eEmpleado.id}) }}"
                           method="post" {{ form_enctype(form) }}>
                         <fieldset>
-
                             {{ form_errors(form) }}
                             <div class="row-fluid">
                                 <div class="col-lg-5">{{ form_row(form.parentesco) }}</div>
                                 <div class="col-lg-4">{{ form_row(form.nombre) }}</div>
                                 <div class="col-lg-3">{{ form_row(form.edad) }}</div>
-                                
                             </div>
-							
-							 
-							 
-
                         </fieldset>
 						<fieldset>
 						 <div class="row-fluid">
@@ -52,8 +46,7 @@
                             </div>
                         </fieldset>
                         <!--<input type="hidden" value="{# eEmpleado.id #}" name="empleadoid">-->
-
-                        <form>
+                    </form>
                 </div>
             </div>
 
@@ -61,16 +54,12 @@
         <div class="col-sm-3">
             {{ macros.empleado_foto(eEmpleado) }}
             {{ macros.menu_empleado('personadepende',eEmpleado) }}
-
-
         </div>
 
 
 
-        </div>
-    {% endblock content %}
     </div>
-
+    {% endblock content %}
 {% endblock %}
 
 

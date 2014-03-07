@@ -27,6 +27,7 @@ class EPersonaDependen
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NParentesco")
      * @ORM\JoinColumn(name="parentesco_id", referencedColumnName="id", nullable=false)
+     * @Assert\NotBlank()
      */
     private $parentesco;
 
@@ -35,6 +36,7 @@ class EPersonaDependen
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NOcupacion")
      * @ORM\JoinColumn(name="ocupacion_id", referencedColumnName="id", nullable=false)
+     * @Assert\NotBlank()
      */
     private $ocupacion;
 
@@ -52,7 +54,6 @@ class EPersonaDependen
      *
      * @ORM\Column(name="edad", type="integer", nullable=false)
      * @Assert\NotBlank()
-     * @Assert\Length(min = 1)
      * @Assert\Regex(pattern="/^([0-9]){2}$/", message="La edad no es correcta")
      */
     private $edad;

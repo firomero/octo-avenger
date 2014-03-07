@@ -25,6 +25,9 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    form:
+      resources:
+        - PlanillasTemplateBundle:Form:form_div_layout.html.twig
 
 # Assetic Configuration
 assetic:
@@ -90,6 +93,12 @@ sonata_admin:
 # MopaBootstrap
 mopa_bootstrap:
     navbar: ~
+    form:
+      render_required_asterisk: true
+      render_optional_text:  false
+      error_type: 'block'
+      horizontal_label_class:  col-lg-4
+      horizontal_input_wrapper_class:  col-lg-8
 
 #KnpPaginator
 knp_paginator:

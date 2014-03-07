@@ -30,8 +30,7 @@ class EEducacionIdiomas
      * @var decimal
      * @ORM\Column(name="porciento_idioma", type="decimal", nullable=false)
      * @Assert\Regex(pattern="/^(100)|[1-9]([0-9]){0,1}$/", message="El porciento no es correcto")
-     * @Assert\Length(max = 3)
-
+     * @Assert\Length(min=1, max=3)
      */
     private $porientoIdioma;
 
@@ -40,6 +39,7 @@ class EEducacionIdiomas
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NIdioma")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $idioma;
 
