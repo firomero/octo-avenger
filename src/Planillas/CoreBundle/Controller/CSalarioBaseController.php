@@ -2,6 +2,7 @@
 
 namespace Planillas\CoreBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Planillas\CoreBundle\Entity\CSalarioBase;
@@ -32,6 +33,7 @@ class CSalarioBaseController extends Controller {
      *
      */
     public function createAction(Request $request, $id_empleado) {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
         if (!$eEmpleado) {
@@ -44,6 +46,11 @@ class CSalarioBaseController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
+            $periodoPago = $em->getRepository('PlanillasNomencladorBundle:NPeriodoPago')->findOneBy(array(
+                'activo' => true,
+            ));
+            $entity->setPeriodoPago($periodoPago);
 
             $em->persist($entity);
             $em->flush();
@@ -181,7 +188,8 @@ class CSalarioBaseController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find CSalarioBase entity.');
         }
-       $entities = $this->getComponentesPagadas($id); 
+
+        $entities = $this->getComponentesPagadas($id);
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
