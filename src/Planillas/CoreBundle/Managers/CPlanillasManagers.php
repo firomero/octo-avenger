@@ -465,7 +465,8 @@ class CPlanillasManagers {
      * @param type $oPlanilla
      * @return type
      */
-    public function findDeudasByEmpleado($idEmpleado, $update = false, $oPlanilla = null) {
+    public function findDeudasByEmpleado($idEmpleado, $update = false, $oPlanilla = null)
+    {
         $bIndicador = false;
         if ($oPlanilla != null) {
             $bIndicador = true;
@@ -493,7 +494,9 @@ class CPlanillasManagers {
                         'id' => $sDeuda->getId(),
                         'fecha_inicio' => $sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
                         'componente' => $sDeuda->getComponente(),
-                        'monto_total' => number_format($sDeuda->getMontoTotal(), 2, '.', ''));
+                        'monto_total' => number_format($sDeuda->getMontoTotal(), 2, '.', ''),
+                        'permanente' => $sDeuda->getPermanente(),
+                    );
 
                     $aSalida['total'] += $sDeuda->getMontoTotal();
                     continue;
@@ -516,7 +519,9 @@ class CPlanillasManagers {
                             'id' => $sDeuda->getId(),
                             'fecha_inicio' => ($sDeuda->getFechaInicio() == null) ? "Indefinido" : $sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
                             'componente' => $sDeuda->getComponente(),
-                            'monto_total' => number_format($sDeuda->getMontoTotal(), 2, '.', ''));
+                            'monto_total' => number_format($sDeuda->getMontoTotal(), 2, '.', ''),
+                            'permanente' => $sDeuda->getPermanente(),
+                        );
 
                         $aSalida['total'] += $sDeuda->getMontoTotal();
                     }
@@ -544,13 +549,14 @@ class CPlanillasManagers {
                         'id' => $permanente->getId(),
                         'fecha_inicio' => null, //$sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
                         'componente' => $permanente->getComponente(),
-                        'monto_total' => number_format($permanente->getMontoTotal(), 2, '.', ''));
+                        'monto_total' => number_format($permanente->getMontoTotal(), 2, '.', ''),
+                        'permanente' => $permanente->getPermanente(),
+                    );
 
                     $aSalida['total'] += $permanente->getMontoTotal();
                 }
             }
         }
-        //print_r($aSalida);exit;
 
         return $aSalida;
     }

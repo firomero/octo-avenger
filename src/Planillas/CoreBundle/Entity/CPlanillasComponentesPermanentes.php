@@ -29,12 +29,14 @@ class CPlanillasComponentesPermanentes
      * @ORM\ManyToOne(targetEntity="Planillas\EntidadesBundle\Entity\EComponentesSalariales")
      */
     private $componentePermanente;
+
     /**
      * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
      */
    private $planilla;
+
    /**
      * @var $empleado Planillas/CoreBundle/Entity/CPlanillas
      *

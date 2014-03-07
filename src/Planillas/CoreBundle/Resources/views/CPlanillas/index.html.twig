@@ -223,11 +223,8 @@
                                 </thead>
                                 <tbody>
                                 {% if datos_economicos.deudas|length >0 %}
-
                                     {% for deudas in datos_economicos.deudas %}
                                         {% for deuda in deudas %}
-
-
                                             <tr>
                                                 <td>
                                                     {% for key, deudatext in tipodeuda %}
@@ -235,20 +232,19 @@
                                                             {{ deudatext }}
                                                         {% endif %}
                                                     {% endfor %}
-
                                                 </td>
                                                 <td>
-                                                    {{ deuda.fecha_inicio }}
+                                                    {% if deuda.permanente %}
+                                                        {{ 'Permanente' }}
+                                                    {% else %}
+                                                        {{ deuda.fecha_inicio }}
+                                                    {% endif %}
                                                 </td>
                                                 <td style="text-align: right">
                                                     ¢{{ deuda.monto_total }}
                                                 </td>
-
                                             </tr>
-
                                         {% endfor %}
-
-
                                     {% endfor %}
                                     <tr>
                                         <td></td>

@@ -13,7 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  */
 class CPlanillasController extends Controller {
 
-    public function pagosAction(Request $request) {
+    public function pagosAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $manager = new CPlanillasManagers($em, $request);
         $idPlanilla = $request->request->get('id');
@@ -36,13 +37,14 @@ class CPlanillasController extends Controller {
               $this->get('session')->getFlashBag()->add('danger', 'El período seleccionado es inválido.');
             }
             $entities = array('id_planilla' => 0);
-            $entities['periodo']['inicio'] = ($manager->getFechaInicio()!=null)?$manager->getFechaInicio()->format('Y-m-d'):'';
-            $entities['periodo']['fin'] =  ($manager->getFechaFin()!=null)?$manager->getFechaFin()->format('Y-m-d'):'';
+            $entities['periodo']['inicio'] = ($manager->getFechaInicio()!=null) ? $manager->getFechaInicio()->format('Y-m-d'):'';
+            $entities['periodo']['fin'] =  ($manager->getFechaFin()!=null) ? $manager->getFechaFin()->format('Y-m-d'):'';
             $entities['empleados'] = array();
+
             return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
-                        'entities' => $entities,
-                        'ultimoPeriodoPago'=>$ultimoPeriodoPago,//CPlanilla
-                        'periodo' => $oPeriodoPagoActivo //periodo en NPeriodoPago
+                        'entities'          => $entities,
+                        'ultimoPeriodoPago' => $ultimoPeriodoPago,//CPlanilla
+                        'periodo'           => $oPeriodoPagoActivo //periodo en NPeriodoPago
             ));
         } else {
 
@@ -63,9 +65,11 @@ class CPlanillasController extends Controller {
                 }
                 if ($manager->savePlanilla()) {
                     $this->get('session')->getFlashBag()->add('info', 'La planilla de efectivo ha sido creada correctamente.');
+
                     return $this->redirect($this->generateUrl('cplanillas_listar'));
                 } else {
                     $this->get('session')->getFlashBag()->add('danger', 'Error al guardar la planilla de efectivo.');
+
                     return $this->redirect($this->generateUrl('cplanillas_listar'));
                 }
             }
@@ -82,6 +86,7 @@ class CPlanillasController extends Controller {
                 } else {
                     $entities = $manager->resultHtmlPlanillas();
                 }
+
                 return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
                             'entities' => $entities,
                             'ultimoPeriodoPago'=>$ultimoPeriodoPago,//CPlanilla
@@ -146,8 +151,7 @@ class CPlanillasController extends Controller {
           echo "</pre>";
           exit; */
        /*Obtener el ultimo periodo de pago hecho como datos para mostrar*/
-        $ultimoPeriodoPago=$manager->getUltimaPlanilla();
-
+        $ultimoPeriodoPago = $manager->getUltimaPlanilla();
 
         /*Fin obtener ultimo periodo de pago*/
         return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(

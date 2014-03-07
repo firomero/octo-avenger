@@ -12,8 +12,8 @@
     <div class="row-fluid">  
         <div class="col-lg-9">
              <ul id="myTab" class="nav nav-tabs">
-                <li><a href="#sueldoedit" data-toggle="tab">Sueldo</a></li>
-                <li class="active"><a href="#historialedit" data-toggle="tab">Historial de Deudas</a></li>
+                <li class="active"><a href="#sueldoedit" data-toggle="tab">Sueldo</a></li>
+                <li><a href="#historialedit" data-toggle="tab">Historial de Deudas</a></li>
 
             </ul> 
             <div id="myTabContent" class="tab-content">
@@ -55,9 +55,6 @@
 				    <fieldset>
 					 <a class="btn btn-primary" href="{{ path('ecomponentessalariales_new',{'id_empleado':eEmpleado.id}) }}">Adicionar</a>
 					</fieldset>
-					
-                                        <hr/>
-
 
                         {# render(controller('PlanillasEntidadesBundle:EComponentesSalariales:salarioTotalByIdEmpleado',{'id_empleado':eEmpleado.id}))#}
 
