@@ -3,6 +3,7 @@
 namespace Planillas\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CVacante
@@ -24,6 +25,7 @@ class CVacante
     /**
      * @var $trabajo NTrabajo
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NTrabajo")
+     * @Assert\NotBlank()
      */
     private $trabajo;
 
@@ -31,6 +33,7 @@ class CVacante
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=64, nullable=false)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -38,6 +41,7 @@ class CVacante
      * @var integer
      *
      * @ORM\Column(name="cantidad_plazas", type="integer", nullable=false)
+     * @Assert\NotBlank()
      */
     private $cantidadPlazas;
 
@@ -45,6 +49,7 @@ class CVacante
      * @var string
      *
      * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      */
     private $descripcion;
 

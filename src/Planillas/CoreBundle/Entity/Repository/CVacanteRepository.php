@@ -10,42 +10,41 @@
 namespace Planillas\CoreBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 
-class CVacanteRepository extends  EntityRepository {
-
-
-    public function filterVacante($filtros=array()){
+class CVacanteRepository extends  EntityRepository
+{
+    public function filterVacante($filtros=array())
+    {
         try{
-
-            $sql = "SELECT v  FROM PlanillasCoreBundle:CVacante v INNER Join v.trabajo t ";
+            $sql = "SELECT v,t  FROM PlanillasCoreBundle:CVacante v INNER JOIN v.trabajo t";
             $case=false;
-            //print_r($filtros['trabajo']->getId());exit;
-            if(isset($filtros['nombre'])&& !empty($filtros['nombre']))
-            {
-                $sql.=($case==true)?" AND ":" WHERE ";
+
+            if (isset($filtros['nombre'])&& !empty($filtros['nombre'])) {
+                $sql.=($case==true)?" AND ":" WHERE";
                 $sql.=' v.nombre LIKE \'%'.$filtros['nombre'].'%\'';
                 $case=true;
             }
-            if(isset($filtros['trabajo'])&& !empty($filtros['trabajo']))
-            {
-               $sql.=($case==true)?" AND ":" WHERE ";
+
+            if (isset($filtros['trabajo'])&& !empty($filtros['trabajo'])) {
+               $sql.=($case==true)?" AND ":" WHERE";
                $sql.=' t.id='.$filtros['trabajo']->getId();
                $case=true;
 
             }
-            if(isset($filtros['activo'])&& !empty($filtros['activo']))
-            {
+
+            if (isset($filtros['activo'])&& !empty($filtros['activo'])) {
                 $sql.=($case==true)?" AND ":" WHERE ";
-                $sql.='v.activo = 1';
-                $case=true;
+                $sql.=' v.activo = 1';
             }
+
             $sql .=' ORDER BY v.id DESC';
             $query = $this->_em->createQuery($sql);
 
             return $query->getResult();
-        }catch (NoResultException $e){
+        }catch (NoResultException $e) {
+
             return array();
         }
     }
-
 }

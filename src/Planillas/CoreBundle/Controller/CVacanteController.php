@@ -29,9 +29,9 @@ class CVacanteController extends Controller
         $form = $this->createForm(new BuscarVacanteType());
         $form->handleRequest($request);
         if ($form->isValid()) {
-
             $aDatos = $form->getData(); //filter data
         }
+
         $result = $em->getRepository('PlanillasCoreBundle:CVacante')->filterVacante($aDatos);
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

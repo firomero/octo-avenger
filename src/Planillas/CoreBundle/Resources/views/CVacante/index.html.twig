@@ -15,15 +15,12 @@
             <form class="form-horizontal" action="{{ path('cvacante') }}"
                   method="post" id="form_buscar_vacante">
                 <fieldset>
-
-
                     <div class="row-fluid">
                         <div class="col-lg-4">{{ form_row(form.nombre) }}</div>
                         <div class="col-lg-4">{{ form_row(form.trabajo) }}</div>
                         <div class="col-lg-4">{{ form_widget(form.activo) }}</div>
                         <div class="col-lg-4">{{ form_rest(form) }}</div>
                     </div>
-
                 </fieldset>
                 <fieldset>
                     <div class="btn-group">
@@ -70,16 +67,15 @@
                 {% for entity in pagination %}
                     <tr>
                         <td><a href="{{ path('cvacante_edit', { 'id': entity.id }) }}">{{ entity.nombre }}</a></td>
-                        <td><a href="{{ path('cvacante_edit', { 'id': entity.id }) }}">{{ entity.trabajo }}</a></td>
+                        <td>{{ entity.trabajo }}</td>
 
                         <td>{{ entity.cantidadPlazas }}</td>
-                        <td>{% if entity.activo %}
-                            <i class="glyphicon glyphicon-ok" title="Activo"></i>
+                        <td>
+                            {% if entity.activo %}
+                                <i class="glyphicon glyphicon-ok" title="Activo"></i>
                             {% else %}
-                            <i class="glyphicon glyphicon-remove" title="Inactivo"></i>
-
-
-                          {% endif %}
+                                <i class="glyphicon glyphicon-remove" title="Inactivo"></i>
+                            {% endif %}
                         </td>
 
                         <td>{{ entity.descripcion }}</td>
