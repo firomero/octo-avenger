@@ -16,7 +16,7 @@ class BuscarHorasExtrasType extends AbstractType
     {
         $builder
             ->add('empleado'/*,'entity',array('class'=>'PlanillasCoreBundle:CEmpleado')*/,null,array('required'=>false))
-            ->add('cantidadHoras',null,array('required'=>false))
+            ->add('cantidadHoras',null,array('required'=>false,'pattern'=>'[0-9]+'))
             ->add('fechaHorasExtras','date',array('attr'=>array('id'=>'datetimepickercomienzo'),'widget'=>'single_text','label'=>'Fecha','required'=>false))
             //->add('fechaFin','date',array('attr'=>array('id'=>'datetimepickerfin'),'widget'=>'single_text','label'=>'Fecha Fin','required'=>false))
 

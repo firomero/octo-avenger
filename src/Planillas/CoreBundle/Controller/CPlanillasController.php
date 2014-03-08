@@ -33,7 +33,7 @@ class CPlanillasController extends Controller {
         if ($bValidaPeriodoPago === false) { //hay que buscar si el periodo existe ya para que no pueda insertar de nuevo
             if($request->getMethod()!="GET")
             {
-              $this->get('session')->getFlashBag()->add('danger', 'El período de seleccionado es inválido.');
+              $this->get('session')->getFlashBag()->add('danger', 'El período seleccionado es inválido.');
             }
             $entities = array('id_planilla' => 0);
             $entities['periodo']['inicio'] = ($manager->getFechaInicio()!=null)?$manager->getFechaInicio()->format('Y-m-d'):'';

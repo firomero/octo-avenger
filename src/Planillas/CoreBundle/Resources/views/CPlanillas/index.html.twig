@@ -184,7 +184,12 @@
 
                                             <tr>
                                                 <td>
+                                                    {% if  bonificacion.descripcion == null %}
+
+                                                        Fecha Vencimiento: {{ bonificacion.fecha_inicio}}
+                                                    {% else %}
                                                     {{ bonificacion.descripcion }}
+                                                    {% endif %}
                                                 </td>
                                                 <td style="text-align: right">
                                                     ¢{{ bonificacion.monto_total }}
@@ -259,7 +264,7 @@
                                 <thead>
                                 <tr>
 
-                                    <th>Dias extras</th>
+                                    <th>Días extras</th>
                                     
                                     <th style="text-align: right">Monto</th>
 
@@ -401,7 +406,7 @@
                                     {% endfor %}
                                                 <tr>
                                                     <td></td>
-                                                    
+                                                    <td></td>
                                                     <td style="text-align: right">
                                                         <em><strong>Total: ¢{{ datos_economicos.incapacidades.total }}</strong></em></td>
                                                 </tr>

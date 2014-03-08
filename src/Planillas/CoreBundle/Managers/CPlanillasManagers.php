@@ -416,7 +416,7 @@ class CPlanillasManagers {
                         $aSalida['bonificaciones'][] = array(
                             'id' => $oBonificacion->getId(),
                             'descripcion' => $oBonificacion->getDescripcion(),
-                            'fecha_inicio' => ($oBonificacion->getFechaVencimiento() == null) ? null : $oBonificacion->getFechaVencimiento()->format('Y-m-d'),
+                            'fecha_inicio' => ($oBonificacion->getFechaVencimiento() == null) ? "Indefinido" : $oBonificacion->getFechaVencimiento()->format('Y-m-d'),
                             'monto_total' => number_format($oBonificacion->getCantidad(), 2, '.', ''));
 
                         $aSalida['total'] += $oBonificacion->getCantidad();
@@ -443,7 +443,7 @@ class CPlanillasManagers {
 
                     $aSalida['bonificaciones'][] = array(
                         'id' => $permanente['componentePermanente']['id'],
-                        'fecha_inicio' => ($permanente['componentePermanente']['permanente'] == true) ? null : $permanente['componentePermanente']['fechaVencimiento']->format('Y-m-d'),
+                        'fecha_inicio' => ($permanente['componentePermanente']['permanente'] == true) ? "Permanente" : $permanente['componentePermanente']['fechaVencimiento']->format('Y-m-d'),
                         'descripcion' => $permanente['componentePermanente']['descripcion'],
                         'monto_total' => number_format($permanente['componentePermanente']['cantidad'], 2, '.', ''));
 
@@ -510,11 +510,11 @@ class CPlanillasManagers {
                         $this->em->flush();
                     }
                 } else {
-                    //echo $sDeuda->getDeletedAt()->format('y-m-d');exit;
+
                     if ($sDeuda->getDeletedAt() == null) {
                         $aSalida['deudas'][] = array(
                             'id' => $sDeuda->getId(),
-                            'fecha_inicio' => ($sDeuda->getFechaInicio() == null) ? null : $sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
+                            'fecha_inicio' => ($sDeuda->getFechaInicio() == null) ? "Indefinido" : $sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
                             'componente' => $sDeuda->getComponente(),
                             'monto_total' => number_format($sDeuda->getMontoTotal(), 2, '.', ''));
 
@@ -923,6 +923,7 @@ class CPlanillasManagers {
                         $aSalida['incapacidades'][] = array(
                             'id' => $oIncapacidad->getId(),
                             'incapacidad' => $oIncapacidad->getTipoIncapacidad(),
+                            'descripcion' => $oIncapacidad->getMotivo(),
                             'fecha' => $oIncapacidad->getFechaInicio()->format('Y-m-d') . '/' . $oIncapacidad->getFechaFin()->format('Y-m-d'),
                             'monto_total' => number_format($dImporte, 2, '.', ''));
 
@@ -961,6 +962,7 @@ class CPlanillasManagers {
                                 $aSalida['incapacidades'][] = array(
                                     'id' => $oIncapacidad->getId(),
                                     'incapacidad' => $oIncapacidad->getTipoIncapacidad(),
+                                    'descripcion' => $oIncapacidad->getMotivo(),
                                     'fecha' => $oIncapacidad->getFechaInicio()->format('Y-m-d') . '/' . $oIncapacidad->getFechaFin()->format('Y-m-d'),
                                     'monto_total' => number_format($dImporte, 2, '.', ''));
 
@@ -986,6 +988,7 @@ class CPlanillasManagers {
                                 $aSalida['incapacidades'][] = array(
                                     'id' => $oIncapacidad->getId(),
                                     'incapacidad' => $oIncapacidad->getTipoIncapacidad(),
+                                    'descripcion' => $oIncapacidad->getMotivo(),
                                     'fecha' => $oIncapacidad->getFechaInicio()->format('Y-m-d') . '/' . $oIncapacidad->getFechaFin()->format('Y-m-d'),
                                     'monto_total' => number_format($dImporte, 2, '.', ''));
 
@@ -995,10 +998,6 @@ class CPlanillasManagers {
                     }
                 }
             }
-            //echo "<pre>";
-            //print_r($aSalida);
-           // echo "</pre>";
-           // exit;
         }
         return $aSalida;
     }

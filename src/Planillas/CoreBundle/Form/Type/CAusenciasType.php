@@ -20,7 +20,7 @@ class CAusenciasType extends AbstractType
                                                                  'Permiso con goce de salario',
                                                                  'Suspención')))
             ->add('motivo','textarea')
-            ->add('fechaInicio','date',array('required'=>true ,'attr'=>array('id'=>'datetimepickercomienzo'),'widget'=>'single_text','label'=>'Fecha Inicio'))
+            ->add('fechaInicio','date',array('required'=>true,'attr'=>array('id'=>'datetimepickercomienzo'),'widget'=>'single_text','label'=>'Fecha Inicio'))
             ->add('fechaFin','date',array('required'=>true ,'attr'=>array('id'=>'datetimepickerfin'),'widget'=>'single_text','label'=>'Fecha Fin'))
             ->add('empleado',null,array('required'=>true))
         ;

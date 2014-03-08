@@ -16,6 +16,9 @@ empleado_create:
 empleado_edit:
     defaults: { _controller: PlanillasCoreBundle:CEmpleado:edit}
     pattern:   /empleado/{id}/edit
+empleado_activar:
+    defaults: { _controller: PlanillasCoreBundle:CEmpleado:activar}
+    pattern:   /empleado/{id}
 empleado_delete:
     defaults: { _controller: PlanillasCoreBundle:CEmpleado:delete}
     pattern:   /empleado/{id}/delete

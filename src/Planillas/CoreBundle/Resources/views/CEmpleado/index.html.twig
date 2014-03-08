@@ -95,9 +95,9 @@
 
                         <td>{{ entity.supervisor }}</td>
                         <td>{% if entity.activo %}
-                                <i class="glyphicon glyphicon-ok" title="Activo"></i>
+                               <a href="{{ path('empleado_activar', { 'id': entity.id }) }}?action=desactivar"> <i class="glyphicon glyphicon-ok" title="Activo, click para desactivar"></i></a>
                             {% else %}
-                                <i class="glyphicon glyphicon-remove" title="Inactivo"></i>
+                            <a href="{{ path('empleado_activar', { 'id': entity.id }) }}?action=activar"><i class="glyphicon glyphicon-remove" title="Inactivo, click para activar"></i></a>
 
 
                             {% endif %}

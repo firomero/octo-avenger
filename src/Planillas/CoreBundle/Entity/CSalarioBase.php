@@ -45,7 +45,7 @@ class CSalarioBase
     /**
      * @var integer
      *
-     * @ORM\Column(name="periodo_pago", type="integer", nullable=false)
+     * @ORM\Column(name="periodo_pago", type="integer", nullable=true)
      */
     private $periodoPago;
 

@@ -316,6 +316,29 @@ class CEmpleadoController extends Controller {
         return $this->redirect($this->generateUrl('chorario_empleado',array('id_empleado'=>$entity->getId())));
         
     }
+    public function activarAction(Request $request,$id)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $entity = $manager->getRepository('PlanillasCoreBundle:CEmpleado')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find CEmpleado entity.');
+        }
+
+        $param=$request->get('action');
+        if($param=="activar")
+        {
+            $entity->setActivo(true);
+        }
+        else if($param=="desactivar")
+        {
+            $entity->setActivo(false);
+        }
+        $manager->persist($entity);
+        $manager->flush();
+        return $this->redirect($this->generateUrl('empleado_index'));
+
+    }
 
     /**
      * funcion que busca un determinado empleado
