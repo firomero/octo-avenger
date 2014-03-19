@@ -16,7 +16,6 @@ class NTipoPagoCasaAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('id')
             ->add('nombre')
         ;
     }
@@ -27,7 +26,6 @@ class NTipoPagoCasaAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('id')
             ->add('nombre')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -45,7 +43,6 @@ class NTipoPagoCasaAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('id')
             ->add('nombre')
         ;
     }
@@ -56,7 +53,6 @@ class NTipoPagoCasaAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
             ->add('nombre')
         ;
     }

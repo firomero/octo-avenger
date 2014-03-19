@@ -24,7 +24,7 @@ class NSexo
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=20, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=20, nullable=false)
      */
     private $nombre;
 
