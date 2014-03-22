@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NTipoEnfermedad
@@ -24,14 +25,15 @@ class NTipoEnfermedad
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=32)
+     * @ORM\Column(name="nombre", type="string", length=64)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="codigo", type="string", length=32)
+     * @ORM\Column(name="codigo", type="string", length=64, nullable=true)
      */
     private $codigo;
 
@@ -90,5 +92,10 @@ class NTipoEnfermedad
     public function getCodigo()
     {
         return $this->codigo;
+    }
+
+    public function __toString()
+    {
+        return $this->nombre;
     }
 }

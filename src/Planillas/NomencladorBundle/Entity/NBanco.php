@@ -3,9 +3,8 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-use Planillas\CoreBundle\Entity\CEmpleado;
-//use Planillas\NomencladorBundle\Entity\NBanco;
 /**
  * NBanco
  *
@@ -26,7 +25,7 @@ class NBanco
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=40, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=64, nullable=true)
      */
     private $nombre;
  
@@ -93,8 +92,9 @@ class NBanco
     function __construct(){
         $this->empleados = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-    function __toString(){
+
+    public function __toString()
+    {
         return $this->nombre;
     }
 }

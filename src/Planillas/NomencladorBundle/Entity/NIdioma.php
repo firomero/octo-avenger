@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NIdioma
@@ -24,7 +25,7 @@ class NIdioma
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=32, nullable=false)
+     * @ORM\Column(name="nombre", type="string", length=64, nullable=false)
      */
     private $nombre;
 
@@ -61,8 +62,9 @@ class NIdioma
     {
         return $this->nombre;
     }
-	public function __toString()
-	{
-	  return $this->getNombre();
-	}
+
+    public function __toString()
+    {
+        return $this->nombre;
+    }
 }

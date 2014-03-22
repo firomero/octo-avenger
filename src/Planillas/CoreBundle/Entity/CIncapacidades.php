@@ -25,16 +25,16 @@ class CIncapacidades
     /**
      * @var string
      *
-     * @ORM\Column(name="tipo_ausencia", type="string", nullable=false)
+     * @ORM\Column(name="tipo_incapacidad", type="string", nullable=false)
+     * @Assert\NotBlank()
      */
     private $tipoIncapacidad;
-
-
 
     /**
      * @var string
      *
      * @ORM\Column(name="motivo", type="string", length=254, nullable=false)
+     * @Assert\NotBlank()
      */
     private $motivo;
 
@@ -42,6 +42,7 @@ class CIncapacidades
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
+     * @Assert\NotBlank()
      */
     private $fechaInicio;
 
@@ -49,6 +50,7 @@ class CIncapacidades
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_fin", type="date", nullable=false)
+     * @Assert\NotBlank()
      */
     private $fechaFin;
 
@@ -57,8 +59,10 @@ class CIncapacidades
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="incapacidades")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $empleado;
+
     /**
      * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
      *
@@ -228,18 +232,12 @@ class CIncapacidades
     {
         return $this->planilla;
     }
+
     /**
-    * @Assert\True(message = "La fecha de inicial debe ser mayor que la fecha final")
-    */
-    public function isFechaInicioValid()
+     * @Assert\True(message = "Los valores entrados para las fechas no son correctos")
+     */
+    public function isFechasValid()
     {
-       return $this->fechaInicio->getTimestamp()<=$this->fechaFin->getTimestamp();        
-    }
-    /**
-    * @Assert\True(message = "La fecha final no puede ser mayor que la fecha actual")
-    */
-    public function isFechaFinValid()
-    {
-       return $this->fechaFin->getTimestamp() <  time();        
+        return $this->fechaInicio->getTimestamp() <= $this->fechaFin->getTimestamp() && $this->fechaFin->getTimestamp() <  time();
     }
 }

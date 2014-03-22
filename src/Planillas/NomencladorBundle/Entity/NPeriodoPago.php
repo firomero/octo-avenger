@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NPeriodoPago
@@ -24,7 +25,8 @@ class NPeriodoPago
     /**
      * @var string
      *
-     * @ORM\Column(name="periodo", type="string", length=40, nullable=false)
+     * @ORM\Column(name="periodo", type="string", length=64)
+     * @Assert\NotBlank()
      */
     private $periodo;
 
@@ -36,7 +38,8 @@ class NPeriodoPago
     
     /**
      * @var integer
-     * @ORM\Column(name="cantdias", type="integer", nullable=false)
+     * @ORM\Column(name="cantdias", type="integer")
+     * @Assert\NotBlank()
      */
     private $cantdias;
 
@@ -96,7 +99,9 @@ class NPeriodoPago
     {
         return $this->activo;
     }
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->periodo;
     }
 

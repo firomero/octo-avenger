@@ -17,6 +17,7 @@ class NDistritoAdmin extends Admin
     {
         $datagridMapper
             ->add('nombre')
+            ->add('provincia')
         ;
     }
 
@@ -27,6 +28,7 @@ class NDistritoAdmin extends Admin
     {
         $listMapper
             ->add('nombre')
+            ->add('provincia')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -44,6 +46,7 @@ class NDistritoAdmin extends Admin
     {
         $formMapper
             ->add('nombre')
+            ->add('provincia')
         ;
     }
 
@@ -54,6 +57,7 @@ class NDistritoAdmin extends Admin
     {
         $showMapper
             ->add('nombre')
+            ->add('provincia')
         ;
     }
 }

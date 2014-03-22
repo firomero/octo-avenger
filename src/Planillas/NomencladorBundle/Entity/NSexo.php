@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NSexo
@@ -24,7 +25,8 @@ class NSexo
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=20, nullable=false)
+     * @ORM\Column(name="nombre", type="string", length=32)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -61,6 +63,7 @@ class NSexo
     {
         return $this->nombre;
     }
+
     public function __toString(){
 
         return  $this->nombre;

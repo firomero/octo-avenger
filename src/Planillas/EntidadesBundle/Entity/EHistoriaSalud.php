@@ -88,7 +88,7 @@ class EHistoriaSalud
     /**
      * @var $deportes Doctrine/Common/Collections/ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NDeportes", cascade={"persist"}, inversedBy="historias_salud")
+     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NDeportes", cascade={"persist"})
      * @ORM\JoinTable(name="e_historia_salud_deportes")
      */
     private $deportes;

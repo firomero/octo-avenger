@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NEstadoCivil
@@ -24,7 +25,7 @@ class NEstadoCivil
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=20, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=64, nullable=true)
      */
     private $nombre;
 
@@ -67,7 +68,8 @@ class NEstadoCivil
      * funcion que toString para mostrar en los combos
      * @return string
      */
-    public function __toString(){
-        return  $this->nombre;
+    public function __toString()
+    {
+        return $this->nombre;
     }
 }

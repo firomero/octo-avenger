@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NDistrito
@@ -24,7 +25,8 @@ class NDistrito
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=32, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=64)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -32,6 +34,7 @@ class NDistrito
      * @var $provincia NProvincia
      *
      * @ORM\ManyToOne(targetEntity="NProvincia", inversedBy="distritos")
+     * @Assert\NotBlank()
      */
     private $provincia;
 
@@ -89,5 +92,10 @@ class NDistrito
     public function getProvincia()
     {
         return $this->provincia;
+    }
+
+    public function __toString()
+    {
+        return $this->nombre;
     }
 }

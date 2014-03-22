@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NNivelEducacional
@@ -24,7 +25,8 @@ class NNivelEducacional
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=30, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=64, nullable=true)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -58,6 +60,11 @@ class NNivelEducacional
      * @return string 
      */
     public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    public function __toString()
     {
         return $this->nombre;
     }

@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NTipoPagoCasa
@@ -24,7 +25,8 @@ class NTipoPagoCasa
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=20, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=64)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -59,6 +61,11 @@ class NTipoPagoCasa
      * @return string 
      */
     public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    public function __toString()
     {
         return $this->nombre;
     }

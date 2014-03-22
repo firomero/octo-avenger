@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NParentesco
@@ -24,7 +25,8 @@ class NParentesco
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=30, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=64)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -60,7 +62,9 @@ class NParentesco
     {
         return $this->nombre;
     }
-	public function __toString(){
+
+	public function __toString()
+    {
 	  return $this->nombre;
 	}
 }

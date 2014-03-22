@@ -1,9 +1,9 @@
 <?php
 
 namespace Planillas\CoreBundle\Entity;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * CAusencias
@@ -26,31 +26,33 @@ class CAusencias
      * @var string
      *
      * @ORM\Column(name="tipo_ausencia", type="string", nullable=false)
+     * @Assert\NotBlank()
      */
     private $tipoAusencia;
 
-
-
     /**
      * @var string
-     * @Assert\NotBlank()
+     *
      * @ORM\Column(name="motivo", type="string", length=254, nullable=false)
+     * @Assert\NotBlank()
      */
     private $motivo;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
      * @Assert\NotBlank()
      * @Assert\Date()
-     * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
      */
     private $fechaInicio;
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_fin", type="date", nullable=false)
      * @Assert\NotBlank()
      * @Assert\Date()
-     * @ORM\Column(name="fecha_fin", type="date", nullable=false)
      */
     private $fechaFin;
 
@@ -58,6 +60,7 @@ class CAusencias
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="ausencias")
+     * @Assert\NotBlank()
      */
     private $empleado;
 
@@ -249,31 +252,13 @@ class CAusencias
     {
         return $this->planilla;
     }
-    /**
-    * @Assert\True(message = "La fecha de inicial debe ser mayor que la fecha final")
-    */
-    public function isFechaInicioValid()
-    {
-        $dFechaFin=date_parse($this->fechaFin);
-        $dFechaInicio=date_parse($this->fechaInicio);
-        if($dFechaInicio===false)
-            return false;
-        if($dFechaFin===false)
-            return false;
 
-       if($dFechaInicio['error_count']>0)return false;
-       if($dFechaInicio['error_count']>0)return false;
-       return $this->fechaInicio->getTimestamp()<=$this->fechaFin->getTimestamp();
-    }
     /**
-    * @Assert\True(message = "La fecha final no puede ser mayor que la fecha actual")
+    * @Assert\True(message = "Los valores entrados para las fechas no son correctos")
     */
-    public function isFechaFinValid()
+    public function isFechasValid()
     {
-       $fecha=date_parse($this->fechaFin);
-       if(date_parse($this->fechaFin)===false)
-           return false;
-        if($fecha['error_count']>0)return false;
-       return $this->fechaFin->getTimestamp() <  time();        
+        return $this->fechaInicio->getTimestamp() <= $this->fechaFin->getTimestamp() && $this->fechaFin->getTimestamp() <  time();
     }
+
 }

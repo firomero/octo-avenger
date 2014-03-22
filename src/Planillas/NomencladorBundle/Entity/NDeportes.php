@@ -3,6 +3,7 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NDeportes
@@ -24,31 +25,10 @@ class NDeportes
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=30, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=64)
+     * @Assert\NotBlank()
      */
     private $nombre;
-
-
-    /**
-     * @var $deportes Doctrine/Common/Collections/ArrayCollection
-     *
-     * @ORM\ManyToMany(targetEntity="Planillas\EntidadesBundle\Entity\EHistoriaSalud",mappedBy="deportes")
-     */
-    private $historias_salud;
-    /**
-     * Get deporteId
-     *
-     * @return integer 
-     */
-    public function getHistoriasSalud()
-    {
-        return $this->historias_salud;
-    }
-    
-    public function setHistoriasSalud(\Planillas\EntidadesBundle\Entity\EHistoriaSalud $historia_salud)
-    {
-        return $this->historias_salud->add($historia_salud);
-    }
 
     /**
      * Set nombre
@@ -89,5 +69,10 @@ class NDeportes
     public function __construct()
     {
         $this->historias_salud = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->nombre;
     }
 }
