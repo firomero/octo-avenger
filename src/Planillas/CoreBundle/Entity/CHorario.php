@@ -31,7 +31,7 @@ class CHorario
     /**
      * @var $fechaexcepcional CFechaExcepcional
      *
-     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CFechaExcepcional", mappedBy="fechaexcepcional")
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CFechaExcepcional", mappedBy="horario")
      */
     private $fechaexcepcional;
 

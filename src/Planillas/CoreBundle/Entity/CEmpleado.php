@@ -209,7 +209,7 @@ class CEmpleado {
     /**
      * @var $cuentasBancos Doctrine/Common/Collections/ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NBanco")
+     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NBanco", inversedBy="empleados")
      * @ORM\JoinTable(name="c_empleado_cuenta_banco")
      */
     private $cuentasBancos;

@@ -27,17 +27,19 @@ class EFamilia
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="familiares")
      */
     private $empleado;
+
     /**
      * @var $empleado Planillas/NomencladorBundle/Entity/NParentesco
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NParentesco", inversedBy="parentesco")
+     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NParentesco")
      * @ORM\JoinColumn(nullable=false)
      */
     private $parentesco;
+
     /**
      * @var $empleado Planillas/NomencladorBundle/Entity/NOcupacion
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NOcupacion", inversedBy="ocupacion")
+     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NOcupacion")
      * @ORM\JoinColumn(nullable=false)
      */
     private $ocupacion;

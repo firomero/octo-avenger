@@ -24,18 +24,18 @@ class CHorasExtras
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="cantidad_horas", type="string", nullable=false)
      * @Assert\NotBlank()
      * @Assert\Regex(pattern="/^([1-9]+)$/", message="La cantidad de horas extras no es correcta")
-     * @ORM\Column(name="tipo_ausencia", type="string", nullable=false)
      */
     private $cantidadHoras;
-
-
 
     /**
      * @var string
      *
      * @ORM\Column(name="motivo", type="string", length=254, nullable=false)
+     * @Assert\NotBlank()
      */
     private $motivo;
 
@@ -43,12 +43,15 @@ class CHorasExtras
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_horas_extras", type="date", nullable=false)
+     * @Assert\NotBlank()
      */
     private $fechaHorasExtras;
+
     /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="horasextras")
+     * @Assert\NotBlank()
      */
     private $empleado;
 

@@ -28,8 +28,6 @@ class NParentesco
      */
     private $nombre;
 
-
-
     /**
      * Get id
      *

@@ -24,13 +24,14 @@ class CFechaExcepcional
     /**
      * @var $horario CHorario
      *
-     * @ORM\ManyToOne(targetEntity="CHorario")
+     * @ORM\ManyToOne(targetEntity="CHorario", inversedBy="fechaexcepcional")
      */
     private $horario;
+
     /**
      * @var $empleado CEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="CEmpleado")
+     * @ORM\ManyToOne(targetEntity="CEmpleado", inversedBy="fechaexcepcional")
      */
     private $empleado;
 
@@ -40,6 +41,7 @@ class CFechaExcepcional
      * @ORM\Column(name="fecha", type="date", nullable=true)
      */
     private $fecha;
+
     /**
      * @var string
      * @ORM\Column(name="observacion", type="string", length=254, nullable=true)
