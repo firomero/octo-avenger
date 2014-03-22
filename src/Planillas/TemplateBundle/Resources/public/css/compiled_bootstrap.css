@@ -2173,8 +2173,8 @@ input[type="button"].btn-block {
 }
 @font-face {
     font-family: 'Glyphicons Halflings';
-    src: url('http://localhost/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.eot');
-    src: url('http://localhost/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://localhost/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://localhost/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://localhost/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+    src: url('http://buses.ddnscr.com/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.eot');
+    src: url('http://buses.ddnscr.com/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('http://buses.ddnscr.com/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('http://buses.ddnscr.com/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('http://buses.ddnscr.com/planillas_hrm/web/bundles/planillastemplate/less/../vendors/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }
 .glyphicon {
     position: relative;
@@ -5417,12 +5417,12 @@ body.modal-open,
     position: fixed;
 }
 @-ms-viewport {
-  width: device-width;
+    width: device-width;
 }
 @media screen and (max-width: 400px) {
-@-ms-viewport {
-    width: 320px;
-  }
+    @-ms-viewport {
+        width: 320px;
+    }
 }
 .hidden {
     display: none !important;
