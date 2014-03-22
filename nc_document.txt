@@ -1,0 +1,1 @@
+NC#1 - La acción eliminar en el listado de empleados no elimina, lo que hace es redireccionar a la página de editar.
