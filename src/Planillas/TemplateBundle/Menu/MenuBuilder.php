@@ -18,41 +18,52 @@ class MenuBuilder
     {
         $menu = $factory->createItem('root', array(
             'navbar' => true,
-            'pull-right' => true,
+            'pull-right' => false,
         ));
 
         $menu->addChild('Inicio', array(
             'route' => 'planillas_core_homepage'
         ));
-	    $menu->addChild('Empleados', array(
-            'route' => 'empleado_index'
+
+        //empleado
+	    $empleado = $menu->addChild('Empleados', array(
+            'dropdown' => true,
+            'caret' => true,
         ));
-		$menu->addChild('Nomencladores', array(
+        $empleado->addChild('Gestionar Empleados', array(
+            'route' => 'empleado_index',
+        ));
+        $empleado->addChild('Horas extras', array(
+            'route' => 'chorasextras'
+        ));
+        $empleado->addChild('Incapacidades', array(
+            'route' => 'cincapacidades'
+        ));
+        //$menu->addChild('Deudas', array('route' => 'cdeudas'));
+        $empleado->addChild('Días extras', array(
+            'route' => 'cdiasextra'
+        ));
+        $empleado->addChild('Días menos', array(
+            'route' => 'causencias'
+        ));
+
+        //configuracion
+        $config = $menu->addChild('Configuración', array(
+            'dropdown' => true,
+            'caret' => true,
+        ));
+        $config->addChild('Nomencladores', array(
             'route' => 'sonata_admin_dashboard'
         ));
+        $config->addChild('Definir horarios',array(
+            'route'=>'chorario'
+        ));
+
         $menu->addChild('Vacantes', array(
             'route' => 'cvacante'
         ));
         $menu->addChild('Solicitudes', array(
             'route' => 'csolicitudempleo'
-        ));
-        //$menu->addChild('Horarios', array('route' => 'chorario'));
-        
-        $menu->addChild('Horas extras', array(
-            'route' => 'chorasextras'
-        ));
-        $menu->addChild('Incapacidades', array(
-            'route' => 'cincapacidades'
-        ));
-        //$menu->addChild('Deudas', array('route' => 'cdeudas'));
-        $menu->addChild('Días extras', array(
-            'route' => 'cdiasextra'
-        ));
-        $menu->addChild('Días menos', array(
-            'route' => 'causencias'
-        ));
-        $menu->addChild('Definir horarios',array(
-            'route'=>'chorario'
         ));
         $menu->addChild('Planillas de pago',array(
             'route'=>'cplanillas_listar'

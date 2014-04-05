@@ -1,30 +1,3 @@
-{% block form_label %}
-    {% if 'checkbox' not in block_prefixes or widget_checkbox_label in ['label', 'both'] %}
-        {% spaceless %}
-            {% if label is not sameas(false) %}
-                {% if label is empty %}
-                    {% set label = name|humanize %}
-                {% endif %}
-                {% if not compound %}
-                    {% set label_attr = label_attr|merge({'for': id}) %}
-                {% endif %}
-                {% set label_attr_class = ' control-label ' %}
-                {% if horizontal %}
-                    {% set label_attr_class = label_attr_class ~ horizontal_label_class %}
-                {% endif %}
-                {% set label_attr = label_attr|merge({'class': label_attr.class|default('') ~ label_attr_class ~ (required ? ' required' : ' optional') }) %}
-                <label{% for attrname,attrvalue in label_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
-                {{ label|trans({}, translation_domain) }}
-                {{ block('label_asterisk') }}
-                {% if help_label %}
-                    {{ block('help_label') }}
-                {% endif %}
-                </label>
-            {% endif %}
-        {% endspaceless %}
-    {% endif %}
-{% endblock form_label %}
-
 {% block label_asterisk %}
     {% if required %}
         {% if render_required_asterisk %}<span title="Este campo es requerido">*</span>{% endif %}
