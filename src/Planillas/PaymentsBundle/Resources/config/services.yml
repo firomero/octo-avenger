@@ -1,0 +1,7 @@
+parameters:
+#    planillas_payments.example.class: Planillas\PaymentsBundle\Example
+
+services:
+    planillas_payments.payment.manager:
+        class: Planillas\PaymentsBundle\Managers\PaymentManager
+        arguments: [@service_container]

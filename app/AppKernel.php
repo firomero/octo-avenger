@@ -31,6 +31,7 @@ class AppKernel extends Kernel
 			new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
+            new Planillas\PaymentsBundle\PlanillasPaymentsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

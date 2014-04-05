@@ -16,7 +16,9 @@ class CPlanillasController extends Controller {
     public function pagosAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $manager = new CPlanillasManagers($em, $request);
+        $paymentManager = $this->get('planillas_payments.payment.manager');
+
+        $manager = new CPlanillasManagers($em, $request, $paymentManager);
         $idPlanilla = $request->request->get('id');
         
         $bValidaPeriodoPago = $manager->validarPeriodoPago(); //valida intervalo de dias
@@ -103,8 +105,9 @@ class CPlanillasController extends Controller {
      */
     public function listarAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
+        $paymentManager = $this->get('planillas_payments.payment.manager');
 
-        $manager = new CPlanillasManagers($em, $request);
+        $manager = new CPlanillasManagers($em, $request, $paymentManager);
         $entities = $manager->getPlanillas();
         $fechaInicio=false;
         $fechaFin=false;
@@ -141,8 +144,9 @@ class CPlanillasController extends Controller {
     public function detallesAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasCoreBundle:CPlanillas')->find($id);
+        $paymentManager = $this->get('planillas_payments.payment.manager');
 
-        $manager = new CPlanillasManagers($em, $request, $id);
+        $manager = new CPlanillasManagers($em, $request, $paymentManager, $id);
         $manager->setFechaInicio($entity->getFechaInicio());
         $manager->setFechaFin($entity->getFechaFin());
         $entities = $manager->resultHtmlPlanillas();
@@ -162,7 +166,9 @@ class CPlanillasController extends Controller {
 
     public function reporteAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $manager = new CPlanillasManagers($em, $request);
+        $paymentManager = $this->get('planillas_payments.payment.manager');
+
+        $manager = new CPlanillasManagers($em, $request, $paymentManager);
         $manager->reportePagoPDF();
     }
 

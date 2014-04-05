@@ -113,3 +113,8 @@ knp_paginator:
     template:
         pagination: PlanillasCoreBundle:Pagination:twitter_bootstrap_pagination.html.twig     # sliding pagination controls template
         #sortable: GficrCoreBundle:Pagination:sortable_link.html.twig # sort link template
+
+#configuraciones para bundle de pagos
+planillas_payments:
+    days_in_month: 30
+    insurance: 0.09

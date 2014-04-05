@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CSalarioBase
  *
  * @ORM\Table(name="c_salario_base")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Planillas\CoreBundle\Entity\Repository\CSalarioBaseRepository")
  */
 class CSalarioBase
 {

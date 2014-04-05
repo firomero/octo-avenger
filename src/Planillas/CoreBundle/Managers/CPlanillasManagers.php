@@ -14,9 +14,8 @@ use Doctrine\ORM\EntityManager;
 use Planillas\CoreBundle\Entity\CPlanillas;
 use Planillas\CoreBundle\Entity\CPlanillasEmpleado;
 use Planillas\CoreBundle\Entity\CPlanillasComponentesPermanentes;
-
-#use Planillas\EntidadesBundle\Controller\EComponentesSalarialesController;
 use Planillas\EntidadesBundle\Entity\EComponentesSalariales;
+use Planillas\PaymentsBundle\Managers\PaymentManager;
 use Symfony\Component\HttpFoundation\Request;
 use Planillas\CoreBundle\Helper\HelperDate;
 use Planillas\CoreBundle\Util\PdfObject;
@@ -38,13 +37,18 @@ class CPlanillasManagers {
     private $fechaFin;
     private $idplanilla;
 
-    public function __construct(EntityManager $em, Request $request, $id = null) {
+    /**
+     * @var PaymentManager
+     */
+    private $paymentManager;
+
+    public function __construct(EntityManager $em, Request $request,PaymentManager $paymentManager, $id = null) {
 
         $this->em = $em;
         $this->prequest = $request;
         $this->planilla = null;
         $this->idplanilla = $id;
-
+        $this->paymentManager = $paymentManager;
 
         $this->initialize();
     }
@@ -1030,11 +1034,12 @@ class CPlanillasManagers {
 
         /* Falta aplicar el rebajo de seguro */
         //$salarioBase = 0;
-        $oSalarioBase = $this->em->getRepository('PlanillasCoreBundle:CSalarioBase')->findOneBy(array('empleado' => $idEmpleado));
+        /*$oSalarioBase = $this->em->getRepository('PlanillasCoreBundle:CSalarioBase')->findOneBy(array('empleado' => $idEmpleado));
         if ($oSalarioBase) {
             return $oSalarioBase->getSalarioBase();
         }
-        return 0;
+        return 0;*/
+        return $this->paymentManager->getSalarioEmpleado($idEmpleado);
     }
 
     /**
@@ -1074,8 +1079,8 @@ class CPlanillasManagers {
     }
 
     /**
-     * funcion que valida si un periodo de pago es valido teniendo en cuenta solo los intervalos
-     * de dias entre ellos
+     * funcion que valida si un periodo de pago es válido teniendo en cuenta solo los intervalos
+     * de días entre ellos
      * @return array|bool
      */
     public function validarPeriodoPago() {
@@ -1091,12 +1096,11 @@ class CPlanillasManagers {
         if ($diff->days < 0) {
             return false;
         }
-       
-        if ($iCantDias != ($diff->days /*+ 1*/)) {
+
+        if ($iCantDias != ($diff->days + 1)) {
             return false;
         }
         //vamos validar que las fechas entradas no esten dentro de otro periodo pago
-
 
         return true;
     }

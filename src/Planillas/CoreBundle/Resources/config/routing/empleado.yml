@@ -1,42 +1,55 @@
 empleado_index:
-    defaults: { _controller: PlanillasCoreBundle:CEmpleado:index }
     pattern:   /
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleado:index" }
+
 empleado_show:
-    defaults: { _controller: PlanillasCoreBundle:CEmpleado:show}
     pattern:   /empleado/{id}/show
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleado:show" }
+
 empleado_update:
-    defaults: { _controller: PlanillasCoreBundle:CEmpleado:update}
     pattern:   /empleado/{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleado:update" }
+
 empleado_new:
-    defaults: { _controller: PlanillasCoreBundle:CEmpleado:new}
     pattern:   /empleado/new
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleado:new" }
+
 empleado_create:
-    defaults: { _controller: PlanillasCoreBundle:CEmpleado:create}
     pattern:   /empleado/create
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleado:create" }
+
 empleado_edit:
-    defaults: { _controller: PlanillasCoreBundle:CEmpleado:edit}
     pattern:   /empleado/{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleado:edit" }
+
 empleado_activar:
-    defaults: { _controller: PlanillasCoreBundle:CEmpleado:activar}
     pattern:   /empleado/{id}
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleado:activar" }
+
 empleado_delete:
-    defaults: { _controller: PlanillasCoreBundle:CEmpleado:delete}
     pattern:   /empleado/{id}/delete
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleado:delete" }
+
 empleado_foto:
-    defaults: { _controller: PlanillasCoreBundle:CEmpleado:updatePhoto}
     pattern:   /empleado/{id}/foto
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleado:updatePhoto" }
+
 cpagos:
-    defaults: { _controller: PlanillasCoreBundle:CPlanillas:buscar}
     pattern:   /planillas
+    defaults: { _controller: "PlanillasCoreBundle:CPlanillas:buscar" }
+
 cplanillas_buscar:
-    defaults: { _controller: PlanillasCoreBundle:CPlanillas:pagos}
     pattern:   /planillas/pagos
+    defaults: { _controller: "PlanillasCoreBundle:CPlanillas:pagos" }
+
 cplanillas_listar:
-    defaults: { _controller: PlanillasCoreBundle:CPlanillas:listar}
     pattern:   /planillas/listar
+    defaults: { _controller: "PlanillasCoreBundle:CPlanillas:listar" }
+
 cplanillas_detalles:
-    defaults: { _controller: PlanillasCoreBundle:CPlanillas:detalles}
     pattern:   /planillas/{id}/detalles
+    defaults: { _controller: "PlanillasCoreBundle:CPlanillas:detalles" }
+
 cplanillas_reporte:
-    defaults: { _controller: PlanillasCoreBundle:CPlanillas:reporte}
     pattern:   /planillas/reporte
+    defaults: { _controller: "PlanillasCoreBundle:CPlanillas:reporte" }
