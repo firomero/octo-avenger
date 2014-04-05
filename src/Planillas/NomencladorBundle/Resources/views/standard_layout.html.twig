@@ -32,7 +32,15 @@
 
 
 {% block navbar %}
-    {{ mopa_bootstrap_navbar('frontendNavbar') }}
+    {% embed '@MopaBootstrap/Navbar/navbar.html.twig' with { fixedTop: true, staticTop: false, inverse: true } %}
+        {% block brand %}
+            <a class="navbar-brand" href="#">{{ 'system_tittle' | trans({},'PlanillasCoreBundle')}}</a>
+        {% endblock %}
+
+        {% block menu %}
+            {{ mopa_bootstrap_menu('PlanillasTemplateBundle:MenuBuilder:mainMenu') }}
+        {% endblock %}
+    {% endembed %}
 {% endblock navbar %}
 
 

@@ -16,14 +16,8 @@
                 <label{% for attrname,attrvalue in label_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>
                 {{ label|trans({}, translation_domain) }}
                 {{ block('label_asterisk') }}
-                {% if widget_add_btn %}
-                    {{ block('form_widget_add_btn') }}
-                {% endif %}
                 {% if help_label %}
                     {{ block('help_label') }}
-                {% endif %}
-                {% if help_label_tooltip_title %}
-                    {{ block('help_label_tooltip_title') }}
                 {% endif %}
                 </label>
             {% endif %}

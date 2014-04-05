@@ -5,11 +5,11 @@
     {% block head_style %}
       <link href="{{ asset('bundles/planillascore/css/jquery.ui.css') }}" type="text/css" rel="stylesheet" media="screen" />
       <link href="{{ asset('bundles/planillastemplate/css/bootstrap-timepicker.min.css') }}" type="text/css" rel="stylesheet" media="screen" />
-      <link href="{{ asset('bundles/planillastemplate/css/compiled_bootstrap.css') }}" type="text/css" rel="stylesheet" media="screen" />
+      <link href="{{ asset('bundles/planillastemplate/less/template.less') }}" type="text/less" rel="stylesheet" media="screen" />
     {% endblock head_style %}
 
     {% block head_script %}
-        {#<script src="{{ asset('bundles/planillastemplate/js/less-1.4.1.min.js') }}"></script>#}
+        <script src="{{ asset('bundles/planillastemplate/js/less-1.4.1.min.js') }}"></script>
     {% endblock head_script %}
 
     {% block title %}
@@ -25,7 +25,15 @@
     {% block body_start %}{% endblock body_start %}
 
     {% block navbar %}
-        {{ mopa_bootstrap_navbar('frontendNavbar') }}
+        {% embed '@MopaBootstrap/Navbar/navbar.html.twig' with { fixedTop: true, staticTop: false, inverse: true } %}
+            {% block brand %}
+                <a class="navbar-brand" href="#">{{ 'system_tittle' | trans({},'PlanillasCoreBundle')}}</a>
+            {% endblock %}
+
+            {% block menu %}
+                {{ mopa_bootstrap_menu('PlanillasTemplateBundle:MenuBuilder:mainMenu') }}
+            {% endblock %}
+        {% endembed %}
     {% endblock navbar %}
 
     {% block container %}
@@ -38,7 +46,7 @@
         {% block page_header %}
             <div class="page-header">
                 <h1>{% block headline %}{{ 'system_tittle' | trans({},'PlanillasCoreBundle') }}{% endblock headline %}</h1>
-                {{ mopa_bootstrap_navbar('sandboxNavbarsSubNavbar') }}
+                {#{{ mopa_bootstrap_navbar('sandboxNavbarsSubNavbar') }}#}
             </div>
         {% endblock page_header %}
 
