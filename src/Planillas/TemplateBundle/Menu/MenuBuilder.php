@@ -39,7 +39,6 @@ class MenuBuilder
         $empleado->addChild('Incapacidades', array(
             'route' => 'cincapacidades'
         ));
-        //$menu->addChild('Deudas', array('route' => 'cdeudas'));
         $empleado->addChild('Días extras', array(
             'route' => 'cdiasextra'
         ));
@@ -68,24 +67,21 @@ class MenuBuilder
         $menu->addChild('Planillas de pago',array(
             'route'=>'cplanillas_listar'
         ));
-        
-        //$menu->addChild('Cursos', array('route' => 'cursos'));
-        //$menu->addChild('Dato legal', array('route' => 'datolegal'));
-        //$menu->addChild('Educacion', array('route' => 'educacion'));
-        //$menu->addChild('Idioma', array('route' => 'educacionidiomas'));
-        
-        //$menu->addChild('Familia', array('route' => 'familia'));
-        //$menu->addChild('Persona dependen', array('route' => 'personadepende'));
 
         return $menu;
     }
 
-    public function subNavbar()
+    public function userMenu(FactoryInterface $factory, array $options)
     {
-        $menu = $this->createSubnavbarMenuItem();
+        $menu = $factory->createItem('userMenu', array(
+            'navbar' => true,
+            'pull-right' => true,
+        ));
 
-        $menu->addChild('Inicio', array('route' => 'planillas_core_homepage'));
-        //$menu->addChild('Listar', array('route' => 'empleado_index'));
+        $menu->addChild('Usuario', array(
+            'route' => 'sonata_admin_dashboard',
+            'icon' => 'user'
+        ));
 
         return $menu;
     }
