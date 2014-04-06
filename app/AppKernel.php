@@ -33,6 +33,7 @@ class AppKernel extends Kernel
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Planillas\PaymentsBundle\PlanillasPaymentsBundle(),
+            new Planillas\EstructuraBundle\PlanillasEstructuraBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

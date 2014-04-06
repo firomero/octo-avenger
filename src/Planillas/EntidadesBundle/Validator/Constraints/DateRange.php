@@ -11,7 +11,7 @@
  * @author Jose Mojena
  */
 
-namespace Planillas\EntidadesBundle\Validator\Constrainst;
+namespace Planillas\EntidadesBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 

@@ -1,0 +1,7 @@
+parameters:
+#    planillas_estructura.example.class: Planillas\EstructuraBundle\Example
+
+services:
+#    planillas_estructura.example:
+#        class: %planillas_estructura.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
