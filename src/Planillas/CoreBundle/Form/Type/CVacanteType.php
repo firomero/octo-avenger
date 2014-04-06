@@ -10,13 +10,13 @@ class CVacanteType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /*->add('boleta','entity',array(
                     'class' => 'BusBPMCoreBundle:Boleta',
-                    'query_builder' => function(EntityRepository $er){
+                    'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('b')
                             ->leftJoin('b.casocajero','cc')
                             ->leftJoin('b.casobarras', 'cb')
@@ -32,7 +32,7 @@ class CVacanteType extends AbstractType
             ->add('activo',null,array('label'=>''))
             ->add('trabajo','entity',array(
                 'class' => 'PlanillasNomencladorBundle:NTrabajo',
-                'query_builder' => function(EntityRepository $er){
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('t')
                         ->where('t.id NOT IN (SELECT v.id from PlanillasCoreBundle:CVacante v)');
                        // ->andWhere('cc IS NOT NULL AND cb IS NULL')
@@ -41,7 +41,7 @@ class CVacanteType extends AbstractType
             )
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -16,7 +16,7 @@ class CVacanteRepository extends  EntityRepository
 {
     public function filterVacante($filtros=array())
     {
-        try{
+        try {
             $sql = "SELECT v,t  FROM PlanillasCoreBundle:CVacante v INNER JOIN v.trabajo t";
             $case=false;
 
@@ -42,8 +42,7 @@ class CVacanteRepository extends  EntityRepository
             $query = $this->_em->createQuery($sql);
 
             return $query->getResult();
-        }catch (NoResultException $e) {
-
+        } catch (NoResultException $e) {
             return array();
         }
     }

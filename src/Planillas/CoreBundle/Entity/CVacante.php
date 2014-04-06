@@ -60,11 +60,10 @@ class CVacante
      */
     private $activo;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -74,20 +73,20 @@ class CVacante
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string   $nombre
      * @return CVacante
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -97,20 +96,20 @@ class CVacante
     /**
      * Set cantidadPlazas
      *
-     * @param integer $cantidadPlazas
+     * @param  integer  $cantidadPlazas
      * @return CVacante
      */
     public function setCantidadPlazas($cantidadPlazas)
     {
         $this->cantidadPlazas = $cantidadPlazas;
-    
+
         return $this;
     }
 
     /**
      * Get cantidadPlazas
      *
-     * @return integer 
+     * @return integer
      */
     public function getCantidadPlazas()
     {
@@ -120,20 +119,20 @@ class CVacante
     /**
      * Set descripcion
      *
-     * @param string $descripcion
+     * @param  string   $descripcion
      * @return CVacante
      */
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -143,20 +142,20 @@ class CVacante
     /**
      * Set activo
      *
-     * @param boolean $activo
+     * @param  boolean  $activo
      * @return CVacante
      */
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
     /**
      * Get activo
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActivo()
     {
@@ -166,13 +165,13 @@ class CVacante
     /**
      * Set trabajo
      *
-     * @param \Planillas\NomencladorBundle\Entity\NTrabajo $trabajo
+     * @param  \Planillas\NomencladorBundle\Entity\NTrabajo $trabajo
      * @return CVacante
      */
     public function setTrabajo(\Planillas\NomencladorBundle\Entity\NTrabajo $trabajo = null)
     {
         $this->trabajo = $trabajo;
-    
+
         return $this;
     }
 

@@ -2,7 +2,6 @@
 
 namespace Planillas\CoreBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
 use Planillas\CoreBundle\Managers\CPlanillasManagers;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,8 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * CAusencias controller.
  *
  */
-class CPlanillasController extends Controller {
-
+class CPlanillasController extends Controller
+{
     public function pagosAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
@@ -20,22 +19,20 @@ class CPlanillasController extends Controller {
 
         $manager = new CPlanillasManagers($em, $request, $paymentManager);
         $idPlanilla = $request->request->get('id');
-        
+
         $bValidaPeriodoPago = $manager->validarPeriodoPago(); //valida intervalo de dias
         if (isset($idPlanilla) && $idPlanilla>0) {
-              $bValidaPeriodoPago=true;          
+              $bValidaPeriodoPago=true;
         }
         /*Obtener el ultimo periodo de pago hecho como datos para mostrar*/
         $ultimoPeriodoPago=$manager->getUltimaPlanilla();
-
 
         /*Fin obtener ultimo periodo de pago*/
         $oPeriodoPagoActivo = $manager->getPeriodoPagoActivo();
         $bExistePeriodo = $manager->existePeriodPagoenBasedeDatos(); //valida existencia de la planilla en base de datos
 
         if ($bValidaPeriodoPago === false) { //hay que buscar si el periodo existe ya para que no pueda insertar de nuevo
-            if($request->getMethod()!="GET")
-            {
+            if ($request->getMethod()!="GET") {
               $this->get('session')->getFlashBag()->add('danger', 'El período seleccionado es inválido.');
             }
             $entities = array('id_planilla' => 0);
@@ -79,7 +76,7 @@ class CPlanillasController extends Controller {
                 $manager->reportePagoPDF();
             } else { //esta solo buscando
                 if ($bExistePeriodo == false /*|| is_array($bExistePeriodo)*/) {
-                    
+
                     $this->get('session')->getFlashBag()->add('danger', 'Existen coincidencias en las fechas con la planilla del período ' . $bExistePeriodo[1]);
                     $entities = array('id_planilla' => 0);
                     $entities['periodo']['inicio'] = "";
@@ -100,10 +97,11 @@ class CPlanillasController extends Controller {
 
     /**
      * funcion  que lista las planillas existentes
-     * @param Request $request
+     * @param  Request                                    $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listarAction(Request $request) {
+    public function listarAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $paymentManager = $this->get('planillas_payments.payment.manager');
 
@@ -111,20 +109,17 @@ class CPlanillasController extends Controller {
         $entities = $manager->getPlanillas();
         $fechaInicio=false;
         $fechaFin=false;
-        if(count($entities)==0)
-        {
+        if (count($entities)==0) {
             if($request->getMethod()=="GET")
                 $this->get('session')->getFlashBag()->add('info', 'Seleccione el período deseado');
             else
             $this->get('session')->getFlashBag()->add('danger', 'No existen planillas para el período deseado');
         }
-        if($manager->getFechaInicio()!=null)
-        {
+        if ($manager->getFechaInicio()!=null) {
             $fechaInicio=$manager->getFechaInicio()->format('Y-m-d');
             //print_r($fechaInicio);exit;
         }
-        if($manager->getFechaFin()!=null)
-        {
+        if ($manager->getFechaFin()!=null) {
             $fechaFin=$manager->getFechaFin()->format('Y-m-d');
             //print_r($fechaInicio);exit;
         }
@@ -133,6 +128,7 @@ class CPlanillasController extends Controller {
         $pagination = $paginator->paginate(
                 $entities, $page, 20
         );
+
         return $this->render('PlanillasCoreBundle:CPlanillas:planillas.html.twig', array(
                     'entities' => $pagination,
                     'fechaInicio'=>$fechaInicio,
@@ -141,7 +137,8 @@ class CPlanillasController extends Controller {
         ));
     }
 
-    public function detallesAction(Request $request, $id) {
+    public function detallesAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasCoreBundle:CPlanillas')->find($id);
         $paymentManager = $this->get('planillas_payments.payment.manager');
@@ -158,13 +155,15 @@ class CPlanillasController extends Controller {
         $ultimoPeriodoPago = $manager->getUltimaPlanilla();
 
         /*Fin obtener ultimo periodo de pago*/
+
         return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
                     'entities' => $entities,
                     'ultimoPeriodoPago'=>$ultimoPeriodoPago
         ));
     }
 
-    public function reporteAction(Request $request) {
+    public function reporteAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $paymentManager = $this->get('planillas_payments.payment.manager');
 

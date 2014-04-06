@@ -16,7 +16,7 @@ class CSalarioBaseRepository extends EntityRepository
 {
     /**
      * Obtiene el salario bruto de un empleado
-     * @param string $idEmpleado
+     * @param  string $idEmpleado
      * @return int
      */
     public function getSalarioBaseByEmpleado($idEmpleado)
@@ -34,4 +34,4 @@ class CSalarioBaseRepository extends EntityRepository
             return null;
         }
     }
-} 
+}

@@ -42,11 +42,10 @@ class EAntecedentePenal
      */
     private $descripcion;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -56,20 +55,20 @@ class EAntecedentePenal
     /**
      * Set motivo
      *
-     * @param string $motivo
+     * @param  string            $motivo
      * @return EAntecedentePenal
      */
     public function setMotivo($motivo)
     {
         $this->motivo = $motivo;
-    
+
         return $this;
     }
 
     /**
      * Get motivo
      *
-     * @return string 
+     * @return string
      */
     public function getMotivo()
     {
@@ -79,20 +78,20 @@ class EAntecedentePenal
     /**
      * Set descripcion
      *
-     * @param string $descripcion
+     * @param  string            $descripcion
      * @return EAntecedentePenal
      */
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -112,12 +111,13 @@ class EAntecedentePenal
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return this
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
+
         return $this;
     }
 }

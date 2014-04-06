@@ -8,14 +8,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EPersonaDependenType extends AbstractType
 {
-    public function __construct ($bDestruyeEmpleado=false)
+    public function __construct($bDestruyeEmpleado=false)
     {
-       $this->bDestruyeEmpleado = $bDestruyeEmpleado;    
+       $this->bDestruyeEmpleado = $bDestruyeEmpleado;
     }
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -35,11 +35,11 @@ class EPersonaDependenType extends AbstractType
                 'data_class' => 'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id',
             ))
         ;
-        
+
         if($this->bDestruyeEmpleado)
            $builder->remove('empleado');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

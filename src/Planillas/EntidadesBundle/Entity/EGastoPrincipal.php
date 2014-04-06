@@ -28,11 +28,10 @@ class EGastoPrincipal
      */
     private $descripcion;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -42,20 +41,20 @@ class EGastoPrincipal
     /**
      * Set descripcion
      *
-     * @param string $descripcion
+     * @param  string          $descripcion
      * @return EGastoPrincipal
      */
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {

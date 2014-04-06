@@ -44,11 +44,11 @@ class NProvincia
     {
         $this->distritos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -58,20 +58,20 @@ class NProvincia
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string     $nombre
      * @return NProvincia
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -81,13 +81,13 @@ class NProvincia
     /**
      * Add distritos
      *
-     * @param \Planillas\NomencladorBundle\Entity\NDistrito $distritos
+     * @param  \Planillas\NomencladorBundle\Entity\NDistrito $distritos
      * @return NProvincia
      */
     public function addDistrito(\Planillas\NomencladorBundle\Entity\NDistrito $distritos)
     {
         $this->distritos[] = $distritos;
-    
+
         return $this;
     }
 
@@ -104,14 +104,14 @@ class NProvincia
     /**
      * Get distritos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDistritos()
     {
         return $this->distritos;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->nombre;
     }

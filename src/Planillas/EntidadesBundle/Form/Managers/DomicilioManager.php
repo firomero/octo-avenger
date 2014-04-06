@@ -9,7 +9,6 @@
 
 namespace Planillas\EntidadesBundle\Form\Managers;
 
-use Planillas\CoreBundle\Entity\CEmpleado;
 use Doctrine\ORM\EntityManager;
 use Proxies\__CG__\Planillas\EntidadesBundle\Entity\EDomicilio;
 
@@ -27,24 +26,24 @@ class DomicilioManager
         $this->em = $em;
     }
 
-    public function  getManager()
+    public function getManager()
     {
         return $this->em;
     }
 
     /**
      * Metodo que salva un localizaciones en la base de datos
-     * @param EDomicilio $entity
+     * @param  EDomicilio $entity
      * @return EDomicilio
      */
-    public function  save(EDomicilio $entity)
+    public function save(EDomicilio $entity)
     {
         if ($entity instanceof EDomicilio) {
             $this->getManager()->persist($entity);
             $this->getManager()->flush();
+
             return $entity;
         }
-
 
     }
 

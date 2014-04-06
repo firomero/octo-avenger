@@ -11,13 +11,14 @@ use Planillas\EntidadesBundle\Form\Type\EPersonaDependenType;
  * EPersonaDependen controller.
  *
  */
-class EPersonaDependenController extends Controller {
-
+class EPersonaDependenController extends Controller
+{
     /**
      * Lists all EPersonaDependen entities.
      *
      */
-    public function indexAction($id_empleado) {
+    public function indexAction($id_empleado)
+    {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
 
@@ -27,6 +28,7 @@ class EPersonaDependenController extends Controller {
         foreach ($entities as $entity) {
             $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
+
         return $this->render('PlanillasEntidadesBundle:EPersonaDependen:index.html.twig', array(
                     'eEmpleado' => $eEmpleado,
                     'aDeleteForm' => $aDeleteForm,
@@ -75,14 +77,14 @@ class EPersonaDependenController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(EPersonaDependen $entity) {
+    private function createCreateForm(EPersonaDependen $entity)
+    {
         $form = $this->createForm(new EPersonaDependenType(), $entity, array(
             'action' => $this->generateUrl('personadepende_create', array('id_empleado' => $entity->getEmpleado()->getId())),
             'method' => 'POST',
         ));
 
         // $form->add('submit', 'submit', array('label' => 'Adicionar','attr'=>array('class'=>'btn btn-primary')));
-
         return $form;
     }
 
@@ -90,7 +92,8 @@ class EPersonaDependenController extends Controller {
      * Displays a form to create a new EPersonaDependen entity.
      *
      */
-    public function newAction($id_empleado) {
+    public function newAction($id_empleado)
+    {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
 
@@ -109,7 +112,8 @@ class EPersonaDependenController extends Controller {
      * Finds and displays a EPersonaDependen entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasEntidadesBundle:EPersonaDependen')->find($id);
@@ -129,7 +133,8 @@ class EPersonaDependenController extends Controller {
      * Displays a form to edit an existing EPersonaDependen entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasEntidadesBundle:EPersonaDependen')->find($id);
@@ -156,14 +161,14 @@ class EPersonaDependenController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(EPersonaDependen $entity) {
+    private function createEditForm(EPersonaDependen $entity)
+    {
         $form = $this->createForm(new EPersonaDependenType(true), $entity, array(
             'action' => $this->generateUrl('personadepende_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Actualizar'));
-
         return $form;
     }
 
@@ -171,7 +176,8 @@ class EPersonaDependenController extends Controller {
      * Edits an existing EPersonaDependen entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasEntidadesBundle:EPersonaDependen')->find($id);
@@ -187,9 +193,11 @@ class EPersonaDependenController extends Controller {
         if ($editForm->isValid()) {
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', 'Se han actualizado los datos correctamente.');
+
             return $this->redirect($this->generateUrl('personadepende_edit', array('id' => $id)));
         }
         $this->get('session')->getFlashBag()->add('danger', 'No se pudieron actualizar los datos.');
+
         return $this->render('PlanillasEntidadesBundle:EPersonaDependen:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -201,7 +209,8 @@ class EPersonaDependenController extends Controller {
      * Deletes a EPersonaDependen entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -227,7 +236,8 @@ class EPersonaDependenController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('personadepende_delete', array('id' => $id)))
                         ->setMethod('DELETE')

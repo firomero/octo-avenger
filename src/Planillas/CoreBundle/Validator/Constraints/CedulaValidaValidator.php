@@ -9,27 +9,24 @@
 
 namespace Planillas\CoreBundle\Validator\Constraints;
 
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\ExecutionContextInterface;
 use Symfony\Component\Security\Core\Util\StringUtils;
 
-class CedulaValidaValidator extends ConstraintValidator{
-
+class CedulaValidaValidator extends ConstraintValidator
+{
     private $security;
 
-    function __construct(SecurityContext $security)
+    public function __construct(SecurityContext $security)
     {
         $this->security = $security;
     }
 
-
     /**
      * Checks if the passed value is valid.
      *
-     * @param mixed $value      The value that should be validated
+     * @param mixed      $value      The value that should be validated
      * @param Constraint $constraint The constraint for the validation
      *
      * @api

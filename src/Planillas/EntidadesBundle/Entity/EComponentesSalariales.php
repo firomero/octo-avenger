@@ -22,7 +22,7 @@ class EComponentesSalariales
     private $id;
 
     /**
-     * @var integer 
+     * @var integer
      *
      * @ORM\Column(name="componente", type="integer", nullable=false)
      */
@@ -131,7 +131,7 @@ class EComponentesSalariales
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -141,20 +141,20 @@ class EComponentesSalariales
     /**
      * Set componente
      *
-     * @param integer $componente
+     * @param  integer                $componente
      * @return EComponentesSalariales
      */
     public function setComponente($componente)
     {
         $this->componente = $componente;
-    
+
         return $this;
     }
 
     /**
      * Get componente
      *
-     * @return integer 
+     * @return integer
      */
     public function getComponente()
     {
@@ -164,21 +164,20 @@ class EComponentesSalariales
     /**
      * Set cantidad
      *
-     * @param float $cantidad
+     * @param  float                  $cantidad
      * @return EComponentesSalariales
      */
     public function setCantidad($cantidad)
     {
         $this->cantidad = $cantidad;
-    
+
         return $this;
     }
-
 
     /**
      * Get cantidad
      *
-     * @return float 
+     * @return float
      */
     public function getCantidad()
     {
@@ -188,20 +187,20 @@ class EComponentesSalariales
     /**
      * Set moneda
      *
-     * @param integer $moneda
+     * @param  integer                $moneda
      * @return EComponentesSalariales
      */
     public function setMoneda($moneda)
     {
         $this->moneda = $moneda;
-    
+
         return $this;
     }
 
     /**
      * Get moneda
      *
-     * @return integer 
+     * @return integer
      */
     public function getMoneda()
     {
@@ -233,20 +232,20 @@ class EComponentesSalariales
     /**
      * Set descripcion
      *
-     * @param string $descripcion
+     * @param  string                 $descripcion
      * @return EComponentesSalariales
      */
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -256,20 +255,20 @@ class EComponentesSalariales
     /**
      * Set fechaVencimiento
      *
-     * @param \DateTime $fechaVencimiento
+     * @param  \DateTime              $fechaVencimiento
      * @return EComponentesSalariales
      */
     public function setFechaVencimiento($fechaVencimiento)
     {
         $this->fechaVencimiento = $fechaVencimiento;
-    
+
         return $this;
     }
 
     /**
      * Get fechaVencimiento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaVencimiento()
     {
@@ -279,20 +278,20 @@ class EComponentesSalariales
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EComponentesSalariales
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -302,20 +301,20 @@ class EComponentesSalariales
     /**
      * Set montoTotal
      *
-     * @param float $montoTotal
+     * @param  float                  $montoTotal
      * @return EComponentesSalariales
      */
     public function setMontoTotal($montoTotal)
     {
         $this->montoTotal = $montoTotal;
-    
+
         return $this;
     }
 
     /**
      * Get montoTotal
      *
-     * @return float 
+     * @return float
      */
     public function getMontoTotal()
     {
@@ -325,20 +324,20 @@ class EComponentesSalariales
     /**
      * Set montoReducir
      *
-     * @param float $montoReducir
+     * @param  float                  $montoReducir
      * @return EComponentesSalariales
      */
     public function setMontoReducir($montoReducir)
     {
         $this->montoReducir = $montoReducir;
-    
+
         return $this;
     }
 
     /**
      * Get montoReducir
      *
-     * @return float 
+     * @return float
      */
     public function getMontoReducir()
     {
@@ -348,20 +347,20 @@ class EComponentesSalariales
     /**
      * Set numeroCuotas
      *
-     * @param float $numeroCuotas
+     * @param  float                  $numeroCuotas
      * @return EComponentesSalariales
      */
     public function setNumeroCuotas($numeroCuotas)
     {
         $this->numeroCuotas = $numeroCuotas;
-    
+
         return $this;
     }
 
     /**
      * Get numeroCuotas
      *
-     * @return float 
+     * @return float
      */
     public function getNumeroCuotas()
     {
@@ -371,20 +370,20 @@ class EComponentesSalariales
     /**
      * Set montoRestante
      *
-     * @param float $montoRestante
+     * @param  float                  $montoRestante
      * @return EComponentesSalariales
      */
     public function setMontoRestante($montoRestante)
     {
         $this->montoRestante = $montoRestante;
-    
+
         return $this;
     }
 
     /**
      * Get montoRestante
      *
-     * @return float 
+     * @return float
      */
     public function getMontoRestante()
     {
@@ -394,20 +393,20 @@ class EComponentesSalariales
     /**
      * Set fechaInicio
      *
-     * @param \DateTime $fechaInicio
+     * @param  \DateTime              $fechaInicio
      * @return EComponentesSalariales
      */
     public function setFechaInicio($fechaInicio)
     {
         $this->fechaInicio = $fechaInicio;
-    
+
         return $this;
     }
 
     /**
      * Get fechaInicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaInicio()
     {
@@ -417,20 +416,20 @@ class EComponentesSalariales
     /**
      * Set pagado
      *
-     * @param boolean $pagado
+     * @param  boolean                $pagado
      * @return EComponentesSalariales
      */
     public function setPagado($pagado)
     {
         $this->pagado = $pagado;
-    
+
         return $this;
     }
 
     /**
      * Get pagado
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPagado()
     {
@@ -440,20 +439,20 @@ class EComponentesSalariales
     /**
      * Set tipoDeuda
      *
-     * @param string $tipoDeuda
+     * @param  string                 $tipoDeuda
      * @return EComponentesSalariales
      */
     public function setTipoDeuda($tipoDeuda)
     {
         $this->tipoDeuda = $tipoDeuda;
-    
+
         return $this;
     }
 
     /**
      * Get tipoDeuda
      *
-     * @return string 
+     * @return string
      */
     public function getTipoDeuda()
     {
@@ -463,20 +462,20 @@ class EComponentesSalariales
     /**
      * Set planilla
      *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
      * @return EComponentesSalariales
      */
     public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
     {
         $this->planilla = $planilla;
-    
+
         return $this;
     }
 
     /**
      * Get planilla
      *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     * @return \Planillas\CoreBundle\Entity\CPlanillas
      */
     public function getPlanilla()
     {
@@ -486,20 +485,20 @@ class EComponentesSalariales
     /**
      * Set permanente
      *
-     * @param boolean $permanente
+     * @param  boolean                $permanente
      * @return EComponentesSalariales
      */
     public function setPermanente($permanente)
     {
         $this->permanente = $permanente;
-    
+
         return $this;
     }
 
     /**
      * Get permanente
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPermanente()
     {
@@ -509,26 +508,27 @@ class EComponentesSalariales
     /**
      * Set deleted_at
      *
-     * @param \DateTime $deletedAt
+     * @param  \DateTime              $deletedAt
      * @return EComponentesSalariales
      */
     public function setDeletedAt($deletedAt)
     {
         $this->deleted_at = $deletedAt;
-    
+
         return $this;
     }
 
     /**
      * Get deleted_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDeletedAt()
     {
         return $this->deleted_at;
     }
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getPermanente();
         ;
     }

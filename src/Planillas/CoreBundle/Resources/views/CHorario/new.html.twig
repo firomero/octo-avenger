@@ -78,7 +78,7 @@ Definir horarios
    {% endfor %}
 
     <div class="row">
-        {% block content %} 
+        {% block content %}
             <div class="col-lg-9">
                 <div class="panel panel-default">
                     <div class="panel-heading"> <!-- Encabezado panel central -->
@@ -90,7 +90,7 @@ Definir horarios
                             <div data-prototype="{{ form_widget(form.horarioDias.vars.prototype)|e }}">
                                  {% for ruta in form.horarioDias %}
                                     <fieldset>
-                                        
+
 
                                      {{ form_errors(ruta)}}
                                         <div class="row-fluid">
@@ -137,7 +137,7 @@ Definir horarios
                                     </div>
 
 
-                            {{ form_end(form) }}    
+                            {{ form_end(form) }}
                                 </div>
                             </div>
                         </div>
@@ -145,8 +145,6 @@ Definir horarios
 		 {{ macros.empleado_foto(entity.empleado) }}
 	     {{ macros.menu_empleado('horario',entity.empleado) }}
                             </div>
-        {% endblock content %} 
-        </div>      
+        {% endblock content %}
+        </div>
 {% endblock %}
-
-

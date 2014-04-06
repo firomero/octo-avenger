@@ -37,11 +37,10 @@ class NTipoLicencia
      */
     private $codigo;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,20 +50,20 @@ class NTipoLicencia
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string        $nombre
      * @return NTipoLicencia
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -74,26 +73,26 @@ class NTipoLicencia
     /**
      * Set codigo
      *
-     * @param string $codigo
+     * @param  string        $codigo
      * @return NTipoLicencia
      */
     public function setCodigo($codigo)
     {
         $this->codigo = $codigo;
-    
+
         return $this;
     }
 
     /**
      * Get codigo
      *
-     * @return string 
+     * @return string
      */
     public function getCodigo()
     {
         return $this->codigo;
     }
-    
+
     public function __toString()
     {
         return $this->nombre;

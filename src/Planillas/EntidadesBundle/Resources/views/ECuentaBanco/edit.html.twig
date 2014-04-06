@@ -3,19 +3,19 @@
 {% block title %}
     Modificar Banco
 {% endblock %}
-    
+
 {% block content_content %}
    {% for mensaje in app.session.flashbag.get('success') %}
     mensajes_flash (success,{{mensaje}})
    {% endfor %}
-   
+
     <div class="row">
-        {% block content %}   
+        {% block content %}
             <div class="col-lg-9">
              <div class="panel panel-default"> <!-- Panel central -->
                     <div class="panel-heading"> <!-- Encabezado panel central -->
                      <h2 class="panel-title">Bancos</h2>
-                    </div>  
+                    </div>
                     <div class="panel-body">
                       {{ form_start(edit_form) }}
                             <fieldset>
@@ -37,13 +37,13 @@
                             </div>
                         </fieldset>
                         {{ form_end(edit_form) }}
-                    </div> 
+                    </div>
              </div>
-            </div> 
+            </div>
             <div class="col-sm-3"> <!-- Menu derecho de empleado -->
-			         {{ macros.empleado_foto(entity) }}         
+			         {{ macros.empleado_foto(entity) }}
 	                 {{ macros.menu_empleado('cuentasbancos',entity) }}
          </div>
-        {% endblock content %}          
-    </div>        
+        {% endblock content %}
+    </div>
 {% endblock %}

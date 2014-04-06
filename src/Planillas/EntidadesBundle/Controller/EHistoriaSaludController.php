@@ -8,8 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Planillas\EntidadesBundle\Entity\EHistoriaSalud;
 use Planillas\EntidadesBundle\Form\Type\EHistoriaSaludType;
 
-use Planillas\NomencladorBundle\Entity\NDeportes;
-
 /**
  * EHistoriaSalud controller.
  *
@@ -22,22 +20,23 @@ class EHistoriaSaludController extends Controller
      *
      */
     public function indexAction($id_empleado)
-    { 
+    {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
 
         $entities = $em->createQuery('Select f from PlanillasEntidadesBundle:EHistoriaSalud f where f.empleado='.$id_empleado);
         $entities=$entities->getResult();
         $aDeleteForm =  array();
-        foreach($entities as $entity){
-            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView(); 
+        foreach ($entities as $entity) {
+            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
+
         return $this->render('PlanillasEntidadesBundle:EHistoriaSalud:index.html.twig', array(
             'entities' => $entities,
             'eEmpleado'=>$eEmpleado,
             'aDeleteForm'=>$aDeleteForm,
         ));
-        
+
         $entities = $em->getRepository('PlanillasEntidadesBundle:EHistoriaSalud')->findAll();
 
         return $this->render('PlanillasEntidadesBundle:EHistoriaSalud:index.html.twig', array(
@@ -52,10 +51,10 @@ class EHistoriaSaludController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entity = new EHistoriaSalud();
         $entity->setEmpleado($eEmpleado);
-        
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -81,7 +80,7 @@ class EHistoriaSaludController extends Controller
     * @return \Symfony\Component\Form\Form The form
     */
     private function createCreateForm(EHistoriaSalud $entity)
-    { 
+    {
         $form = $this->createForm(new EHistoriaSaludType(true), $entity, array(
             'action' => $this->generateUrl('historiasalud_create', array('id_empleado'=>$entity->getEmpleado()->getId())),
             'method' => 'POST',
@@ -100,7 +99,7 @@ class EHistoriaSaludController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entity = new EHistoriaSalud();
         $entity->setEmpleado($eEmpleado);
         $form   = $this->createCreateForm($entity);
@@ -220,7 +219,7 @@ class EHistoriaSaludController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find EHistoriaSalud entity.');
             }
-            
+
             $iIdempleado = $entity->getEmpleado()->getId();
             $em->remove($entity);
             $em->flush();

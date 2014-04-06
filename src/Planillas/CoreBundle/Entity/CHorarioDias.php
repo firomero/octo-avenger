@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="c_horario_dias")
  * @ORM\Entity
  */
-class CHorarioDias {
-
+class CHorarioDias
+{
     /**
      * @var integer
      *
@@ -58,19 +58,21 @@ class CHorarioDias {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
     /**
      * Set dia
      *
-     * @param string $dia
+     * @param  string       $dia
      * @return CHorarioDias
      */
-    public function setDia($dia) {
+    public function setDia($dia)
+    {
         $this->dia = $dia;
 
         return $this;
@@ -79,19 +81,21 @@ class CHorarioDias {
     /**
      * Get dia
      *
-     * @return string 
+     * @return string
      */
-    public function getDia() {
+    public function getDia()
+    {
         return $this->dia;
     }
 
     /**
      * Set horaInicio
      *
-     * @param \DateTime $horaInicio
+     * @param  \DateTime    $horaInicio
      * @return CHorarioDias
      */
-    public function setHoraInicio($horaInicio) {
+    public function setHoraInicio($horaInicio)
+    {
         $this->horaInicio = $horaInicio;
 
         return $this;
@@ -100,21 +104,21 @@ class CHorarioDias {
     /**
      * Get horaInicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getHoraInicio() {
-
+    public function getHoraInicio()
+    {
         return $this->horaInicio;
     }
 
     /**
      * Set horaFin
      *
-     * @param \DateTime $horaFin
+     * @param  \DateTime    $horaFin
      * @return CHorarioDias
      */
-    public function setHoraFin($horaFin) {
-
+    public function setHoraFin($horaFin)
+    {
         $this->horaFin = $horaFin;
 
         return $this;
@@ -123,19 +127,21 @@ class CHorarioDias {
     /**
      * Get horaFin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getHoraFin() {
+    public function getHoraFin()
+    {
         return $this->horaFin;
     }
 
     /**
      * Set horario
      *
-     * @param \Planillas\CoreBundle\Entity\CHorario $horario
+     * @param  \Planillas\CoreBundle\Entity\CHorario $horario
      * @return CHorarioDias
      */
-    public function setHorario(\Planillas\CoreBundle\Entity\CHorario $horario = null) {
+    public function setHorario(\Planillas\CoreBundle\Entity\CHorario $horario = null)
+    {
         $this->horario = $horario;
 
         return $this;
@@ -144,34 +150,35 @@ class CHorarioDias {
     /**
      * Get horario
      *
-     * @return \Planillas\CoreBundle\Entity\CHorario 
+     * @return \Planillas\CoreBundle\Entity\CHorario
      */
-    public function getHorario() {
+    public function getHorario()
+    {
         return $this->horario;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->dia; //.// ' './/$this->horaInicio->format('Y-m-d');
     }
-
 
     /**
      * Set activo
      *
-     * @param boolean $activo
+     * @param  boolean      $activo
      * @return CHorarioDias
      */
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
     /**
      * Get activo
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActivo()
     {

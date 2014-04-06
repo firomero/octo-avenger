@@ -5,12 +5,12 @@
 {% endblock %}
 {% block content_content %}
 	{% for mensaje in app.session.flashbag.get('info') %}
-		
+
 	{% endfor %}
 		<div class="row">
                 {% block content %}
                     <div class="col-lg-9">
-                        
+
                      <div class="panel panel-default">
 						<div class="panel-heading">
 							<h2 class="panel-title">Datos Familiares</h2>
@@ -37,26 +37,26 @@
 								<td>
                                  <div style="float: left">
                                     <a class="btn btn-primary" href="{{ path('familia_edit', { 'id': entity.id }) }}"><i class="glyphicon glyphicon-pencil"></i>Editar</a>
-                                 </div>                                                                   
+                                 </div>
                                      <div style="float: left; padding-left: 10px">
                                             {{ form_start(aDeleteForm[entity.id]) }}
 
-                                        
+
                                              <div>
                                                 <button class="btn btn btn-primary" name="form[submit]" id="form_submit" type="submit">
                                                     <i class="glyphicon glyphicon-trash"></i>Eliminar
                                                 </button>
                                              </div>
                                               {{form_row(aDeleteForm[entity.id]._token)}}
-                                             
+
                                              </form>
-                                            </div>                             
-						         
+                                            </div>
+
 
 								</td>
 							</tr>
-                                               
-                                                
+
+
 						{% endfor %}
                                                 {%else%}
                                                         <tr>
@@ -71,7 +71,7 @@
 						<a href="{{ path('familia_new',{ 'id_empleado': eEmpleado.id }) }}" class="btn btn-primary">Adicionar</a>
 						</div>
 					</div>
-                       
+
                     </div>
                     <div class="col-sm-3">
 					{{ macros.empleado_foto(eEmpleado) }}
@@ -84,4 +84,3 @@
 
 
    {% endblock %}
-

@@ -16,17 +16,15 @@ class CDiasExtraRepository extends EntityRepository
 
     /**
      * funcion que filtra las incapacidades
-     * @param array $filtros
+     * @param  array $filtros
      * @return array
      */
     public function filterDiasextra($filtros = array())
     {
         try {
 
-
             $sql = "SELECT s  FROM PlanillasCoreBundle:CDiasExtra s INNER JOIN s.empleado e where e.activo=1";
             $case = true;
-
 
             if (isset($filtros['empleado']) && !empty($filtros['empleado'])) {
                 $sql .= ($case == true) ? " AND " : " WHERE ";
@@ -43,7 +41,6 @@ class CDiasExtraRepository extends EntityRepository
                 //$sql .= ' s.fecha = ' . $filtros['fecha']->format('Y-m-d');
                 $case = true;
             }
-
 
             $sql .= ' ORDER BY s.id DESC';
             $query = $this->_em->createQuery($sql);

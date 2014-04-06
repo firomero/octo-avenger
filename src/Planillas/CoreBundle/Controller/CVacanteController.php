@@ -83,7 +83,6 @@ class CVacanteController extends Controller
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Nuevo'));
-
         return $form;
     }
 
@@ -162,7 +161,6 @@ class CVacanteController extends Controller
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 
@@ -187,9 +185,11 @@ class CVacanteController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido actualizados correctamente');
+
             return $this->redirect($this->generateUrl('cvacante_edit', array('id' => $id)));
         }
         $this->get('session')->getFlashBag()->add('danger', 'No se puedieron actualizar los datos');
+
         return $this->render('PlanillasCoreBundle:CVacante:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
@@ -218,7 +218,6 @@ class CVacanteController extends Controller
         $em->flush();
         $this->get('session')->getFlashBag()->add('info', 'Los datos han sido eliminados correctamente');
         //  }
-
         return $this->redirect($this->generateUrl('cvacante'));
     }
 

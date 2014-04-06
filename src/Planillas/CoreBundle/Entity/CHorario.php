@@ -20,7 +20,7 @@ class CHorario
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-    
+
     /**
      * @var $empleado Doctrine/Common/Collections/ArrayCollection
      *
@@ -57,11 +57,11 @@ class CHorario
         $this->fechaexcepcional = new \Doctrine\Common\Collections\ArrayCollection();
         $this->horarioDias = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,20 +71,20 @@ class CHorario
     /**
      * Set titulo
      *
-     * @param string $titulo
+     * @param  string   $titulo
      * @return CHorario
      */
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-    
+
         return $this;
     }
 
     /**
      * Get titulo
      *
-     * @return string 
+     * @return string
      */
     public function getTitulo()
     {
@@ -94,7 +94,7 @@ class CHorario
     /**
      * Add empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CHorario
      */
     public function addEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado)
@@ -102,7 +102,7 @@ class CHorario
         $empleado->setHorario($this);
 
         $this->empleado[] = $empleado;
-    
+
         return $this;
     }
 
@@ -121,7 +121,7 @@ class CHorario
     /**
      * Get empleado
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEmpleado()
     {
@@ -131,7 +131,7 @@ class CHorario
     /**
      * Add fechaexcepcional
      *
-     * @param \Planillas\CoreBundle\Entity\CFechaExcepcional $fechaexcepcional
+     * @param  \Planillas\CoreBundle\Entity\CFechaExcepcional $fechaexcepcional
      * @return CHorario
      */
     public function addFechaexcepcional(\Planillas\CoreBundle\Entity\CFechaExcepcional $fechaexcepcional)
@@ -139,7 +139,7 @@ class CHorario
         $fechaexcepcional->setHorario($this);
 
         $this->fechaexcepcional[] = $fechaexcepcional;
-    
+
         return $this;
     }
 
@@ -158,7 +158,7 @@ class CHorario
     /**
      * Get fechaexcepcional
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFechaexcepcional()
     {
@@ -168,7 +168,7 @@ class CHorario
     /**
      * Add horarioDias
      *
-     * @param \Planillas\CoreBundle\Entity\CHorarioDias $horarioDias
+     * @param  \Planillas\CoreBundle\Entity\CHorarioDias $horarioDias
      * @return CHorario
      */
     public function addHorarioDia(\Planillas\CoreBundle\Entity\CHorarioDias $horarioDias)
@@ -176,7 +176,7 @@ class CHorario
         $horarioDias->setHorario($this);
 
         $this->horarioDias[] = $horarioDias;
-    
+
         return $this;
     }
 
@@ -195,7 +195,7 @@ class CHorario
     /**
      * Get horarioDias
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getHorarioDias()
     {

@@ -48,11 +48,10 @@ class ELicencia
      */
     private $tipoLicencia;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,20 +61,20 @@ class ELicencia
     /**
      * Set vence
      *
-     * @param \DateTime $vence
+     * @param  \DateTime $vence
      * @return ELicencia
      */
     public function setVence($vence)
     {
         $this->vence = $vence;
-    
+
         return $this;
     }
 
     /**
      * Get vence
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getVence()
     {
@@ -95,32 +94,33 @@ class ELicencia
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return this
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
+
         return $this;
     }
 
     /**
      * Set tipoLicencia
      *
-     * @param \Planillas\NomencladorBundle\Entity\NTipoLicencia $tipoLicencia
+     * @param  \Planillas\NomencladorBundle\Entity\NTipoLicencia $tipoLicencia
      * @return ELicencia
      */
     public function setTipoLicencia(\Planillas\NomencladorBundle\Entity\NTipoLicencia $tipoLicencia = null)
     {
         $this->tipoLicencia = $tipoLicencia;
-    
+
         return $this;
     }
 
     /**
      * Get tipoLicencia
      *
-     * @return \Planillas\NomencladorBundle\Entity\NTipoLicencia 
+     * @return \Planillas\NomencladorBundle\Entity\NTipoLicencia
      */
     public function getTipoLicencia()
     {

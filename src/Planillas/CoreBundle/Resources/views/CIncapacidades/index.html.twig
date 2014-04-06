@@ -49,7 +49,7 @@
 
         function buscar(id) {
             $('#progreso').css('display', 'block');
-        
+
             $.ajax({
                 url: '{{ path('ceditajaxincapacidades') }}',
                 data: {id: id},
@@ -138,7 +138,7 @@
                                     {{ form_rest(form) }}
                                     <hr>
                                     <fieldset>
-                                      
+
                                         <div class="btn-group">
                                             <button type="submit" id="btn_actualizar" name="btn_actualizar"
                                                     class="btn btn-primary">Crear
@@ -290,4 +290,3 @@
 
 
 {% endblock %}
-

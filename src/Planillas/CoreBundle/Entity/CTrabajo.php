@@ -40,12 +40,10 @@ class CTrabajo
      */
     private $empleado;
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -55,20 +53,20 @@ class CTrabajo
     /**
      * Set nombre
      *
-     * @param \Planillas\NomencladorBundle\Entity\NTrabajo $nombre
+     * @param  \Planillas\NomencladorBundle\Entity\NTrabajo $nombre
      * @return CTrabajo
      */
     public function setNombre(\Planillas\NomencladorBundle\Entity\NTrabajo $nombre = null)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return \Planillas\NomencladorBundle\Entity\NTrabajo 
+     * @return \Planillas\NomencladorBundle\Entity\NTrabajo
      */
     public function getNombre()
     {
@@ -78,13 +76,13 @@ class CTrabajo
     /**
      * Set fechaTrabajo
      *
-     * @param date $fechaTrabajo
+     * @param  date     $fechaTrabajo
      * @return CTrabajo
      */
     public function setFechaTrabajo($fechaTrabajo)
     {
         $this->fechaTrabajo = $fechaTrabajo;
-    
+
         return $this;
     }
 
@@ -101,20 +99,20 @@ class CTrabajo
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CTrabajo
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {

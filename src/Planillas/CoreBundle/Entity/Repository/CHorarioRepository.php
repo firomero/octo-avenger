@@ -14,23 +14,18 @@ use Doctrine\ORM\EntityRepository;
 class CHorarioRepository extends EntityRepository
 {
 
-
     public function filterHorario($filtros = array())
     {
         try {
 
-
             $sql = "SELECT s  FROM PlanillasCoreBundle:Chorario s";
-          
+
             if (isset($filtros['titulo'])) {
                 $sql .= ($case == true) ? " AND " : " WHERE ";
                 $sql .= ' s.titulo = '. $filtros['titulo'] ;
                 $case = true;
 
             }
-
-           
-
 
             $sql .= ' ORDER BY s.id DESC';
             $query = $this->_em->createQuery($sql);

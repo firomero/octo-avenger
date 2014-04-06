@@ -10,7 +10,6 @@
 namespace Planillas\TemplateBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class MenuBuilder
 {
@@ -26,7 +25,7 @@ class MenuBuilder
         ));
 
         //empleado
-	    $empleado = $menu->addChild('Empleados', array(
+        $empleado = $menu->addChild('Empleados', array(
             'dropdown' => true,
             'caret' => true,
         ));

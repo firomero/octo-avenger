@@ -9,14 +9,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SupervisorType extends AbstractType
 {
-    var $eEmpleado;
-    public function __construct($eEmpleado = 0) {
-        
+    public $eEmpleado;
+    public function __construct($eEmpleado = 0)
+    {
         $this->eEmpleado = $eEmpleado;
     }
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,10 +29,10 @@ class SupervisorType extends AbstractType
                                 ->where('e.id <> 0');
             })
         )
-            
+
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

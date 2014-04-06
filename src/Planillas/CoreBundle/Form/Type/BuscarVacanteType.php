@@ -10,7 +10,7 @@ class BuscarVacanteType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,7 +22,7 @@ class BuscarVacanteType extends AbstractType
             ->add('trabajo','entity',array('class'=>'PlanillasNomencladorBundle:NTrabajo','property'=>'nombre'))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

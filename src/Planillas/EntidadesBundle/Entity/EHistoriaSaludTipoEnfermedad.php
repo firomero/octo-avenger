@@ -36,25 +36,23 @@ class EHistoriaSaludTipoEnfermedad
      */
     private $fecha;
 
-
-
     /**
      * Set fecha
      *
-     * @param \DateTime $fecha
+     * @param  \DateTime                    $fecha
      * @return EHistoriaSaludTipoEnfermedad
      */
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
-    
+
         return $this;
     }
 
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -64,20 +62,20 @@ class EHistoriaSaludTipoEnfermedad
     /**
      * Set historiaSalud
      *
-     * @param \Planillas\EntidadesBundle\Entity\EHistoriaSalud $historiaSalud
+     * @param  \Planillas\EntidadesBundle\Entity\EHistoriaSalud $historiaSalud
      * @return EHistoriaSaludTipoEnfermedad
      */
     public function setHistoriaSalud(\Planillas\EntidadesBundle\Entity\EHistoriaSalud $historiaSalud)
     {
         $this->historiaSalud = $historiaSalud;
-    
+
         return $this;
     }
 
     /**
      * Get historiaSalud
      *
-     * @return \Planillas\EntidadesBundle\Entity\EHistoriaSalud 
+     * @return \Planillas\EntidadesBundle\Entity\EHistoriaSalud
      */
     public function getHistoriaSalud()
     {
@@ -87,20 +85,20 @@ class EHistoriaSaludTipoEnfermedad
     /**
      * Set tipoEnfermedad
      *
-     * @param \Planillas\NomencladorBundle\Entity\NTipoEnfermedad $tipoEnfermedad
+     * @param  \Planillas\NomencladorBundle\Entity\NTipoEnfermedad $tipoEnfermedad
      * @return EHistoriaSaludTipoEnfermedad
      */
     public function setTipoEnfermedad(\Planillas\NomencladorBundle\Entity\NTipoEnfermedad $tipoEnfermedad)
     {
         $this->tipoEnfermedad = $tipoEnfermedad;
-    
+
         return $this;
     }
 
     /**
      * Get tipoEnfermedad
      *
-     * @return \Planillas\NomencladorBundle\Entity\NTipoEnfermedad 
+     * @return \Planillas\NomencladorBundle\Entity\NTipoEnfermedad
      */
     public function getTipoEnfermedad()
     {

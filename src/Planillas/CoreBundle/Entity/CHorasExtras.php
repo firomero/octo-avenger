@@ -4,7 +4,6 @@ namespace Planillas\CoreBundle\Entity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * CHorasExtras
  *
@@ -65,7 +64,7 @@ class CHorasExtras
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -75,20 +74,20 @@ class CHorasExtras
     /**
      * Set cantidadHoras
      *
-     * @param string $cantidadHoras
+     * @param  string       $cantidadHoras
      * @return CHorasExtras
      */
     public function setCantidadHoras($cantidadHoras)
     {
         $this->cantidadHoras = $cantidadHoras;
-    
+
         return $this;
     }
 
     /**
      * Get cantidadHoras
      *
-     * @return string 
+     * @return string
      */
     public function getCantidadHoras()
     {
@@ -98,20 +97,20 @@ class CHorasExtras
     /**
      * Set motivo
      *
-     * @param string $motivo
+     * @param  string       $motivo
      * @return CHorasExtras
      */
     public function setMotivo($motivo)
     {
         $this->motivo = $motivo;
-    
+
         return $this;
     }
 
     /**
      * Get motivo
      *
-     * @return string 
+     * @return string
      */
     public function getMotivo()
     {
@@ -121,20 +120,20 @@ class CHorasExtras
     /**
      * Set fechaHorasExtras
      *
-     * @param \DateTime $fechaHorasExtras
+     * @param  \DateTime    $fechaHorasExtras
      * @return CHorasExtras
      */
     public function setFechaHorasExtras($fechaHorasExtras)
     {
         $this->fechaHorasExtras = $fechaHorasExtras;
-    
+
         return $this;
     }
 
     /**
      * Get fechaHorasExtras
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaHorasExtras()
     {
@@ -144,20 +143,20 @@ class CHorasExtras
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CHorasExtras
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -172,26 +171,27 @@ class CHorasExtras
         $obj->empleado=$this->empleado->getId();
         $obj->cantidadHoras=$this->cantidadHoras;
         $obj->motivo=$this->motivo;
+
         return $obj;
     }
 
     /**
      * Set planilla
      *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
      * @return CHorasExtras
      */
     public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
     {
         $this->planilla = $planilla;
-    
+
         return $this;
     }
 
     /**
      * Get planilla
      *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     * @return \Planillas\CoreBundle\Entity\CPlanillas
      */
     public function getPlanilla()
     {

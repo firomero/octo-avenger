@@ -25,12 +25,12 @@ class ELicenciaController extends Controller
 
         //$entities = $em->getRepository('PlanillasEntidadesBundle:ELicencia')->findAll();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entities = $em->createQuery('Select f from PlanillasEntidadesBundle:ELicencia f where f.empleado='.$id_empleado);
         $entities=$entities->getResult();
         $aDeleteForm =  array();
-        foreach($entities as $entity){
-            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView(); 
+        foreach ($entities as $entity) {
+            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
 
         return $this->render('PlanillasEntidadesBundle:ELicencia:index.html.twig', array(
@@ -38,16 +38,17 @@ class ELicenciaController extends Controller
             'eEmpleado'=>$eEmpleado,
             'aDeleteForm'=>$aDeleteForm,
         ));
-        
+
         /*$em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entities = $em->createQuery('Select f from PlanillasEntidadesBundle:ECursos f where f.empleado='.$id_empleado);
         $entities=$entities->getResult();
         $aDeleteForm =  array();
-        foreach($entities as $entity){
-            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView(); 
+        foreach ($entities as $entity) {
+            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
+
         return $this->render('PlanillasEntidadesBundle:ECursos:index.html.twig', array(
             'entities' => $entities,
             'eEmpleado'=>$eEmpleado,
@@ -63,10 +64,10 @@ class ELicenciaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entity = new ELicencia();
         $entity->setEmpleado($eEmpleado);
-        
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -100,7 +101,6 @@ class ELicenciaController extends Controller
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
-
         return $form;
     }
 
@@ -112,7 +112,7 @@ class ELicenciaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entity = new ELicencia();
         $entity->setEmpleado($eEmpleado);
         $form   = $this->createCreateForm($entity);

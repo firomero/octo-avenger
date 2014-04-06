@@ -7,7 +7,7 @@
   {{ parent() }}
     <script>
          $(function() {
-            
+
            $('#planillas_entidadesbundle_ecursos_vence').datepicker
 		   ({
            format: "yyyy-mm-dd"
@@ -16,13 +16,13 @@
     </script>
 {% endblock %}
 {% block content_content %}
-    
+
    {% for mensaje in app.session.flashbag.get('info') %}
     <div class="alert alert-info">{{ mensaje }}</div>
    {% endfor %}
-    
+
     <div class="row">
-     {% block content %} 
+     {% block content %}
          <div class="col-lg-9">
           <div class="panel panel-default">
             <div class="panel-heading"> <!-- Encabezado panel central -->
@@ -42,7 +42,7 @@
                                 <div class="col-lg-6">{{ form_row(form.vence) }}</div>
                             </div>
                         </fieldset>
-                      <hr>  
+                      <hr>
                     <fieldset>
                                 <div class="btn-group">
                                     <button type="submit" class="btn btn-primary">Actualizar</button>
@@ -51,14 +51,14 @@
                                     <a href="{{ path('cursos', {'id_empleado': entity.empleado.id }) }}" class="btn btn-default">Regresar</a>
                                 </div>
                     </fieldset>
-                    {{ form_end(form) }}    
+                    {{ form_end(form) }}
             </div>
-          </div>          
-         </div>  
+          </div>
+         </div>
          <div class="col-sm-3"> <!-- Menu derecho de empleado -->
 		 {{ macros.empleado_foto(eEmpleado) }}
 	     {{ macros.menu_empleado('cursos',entity.empleado) }}
          </div>
-     {% endblock content %} 
-    </div>     
+     {% endblock content %}
+    </div>
 {% endblock %}

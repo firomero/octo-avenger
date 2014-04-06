@@ -15,7 +15,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                             <h2 class="panel-title">Licencias</h2>
-                    </div>        
+                    </div>
                             <div class="panel-body">
                                 <hr>
                                 <table class="table table-bordered table-hover table-responsive">
@@ -37,11 +37,11 @@
                                             <td>
                                                 <div style="float: left">
                                                 <a class="btn btn-primary" href="{{ path('elicencia_edit', { 'id': entity.id }) }}">Editar</a>
-                                                </div>     
+                                                </div>
                                                 <div style="float: left; padding-left: 10px">
                                                 {{ form_start(aDeleteForm[entity.id]) }}
                                                 {{ form_errors(aDeleteForm[entity.id]) }}
-                                                {{ form_end(aDeleteForm[entity.id]) }} 
+                                                {{ form_end(aDeleteForm[entity.id]) }}
                                                 </div>
                                             </td>
                                         </tr>
@@ -60,13 +60,13 @@
                                         <a class="btn btn-primary" href="{{ path('elicencia_new', { 'id_empleado': eEmpleado.id }) }}">
                                             Nueva
                                         </a>
-                            </div>                    
+                            </div>
                 </div>
             </div>
             <div class="col-sm-3">
 			    {{ macros.empleado_foto(eEmpleado) }}
                 {{ macros.menu_empleado('licencia',eEmpleado) }}
             </div>
-        {% endblock content %}    
+        {% endblock content %}
     </div>
     {% endblock %}

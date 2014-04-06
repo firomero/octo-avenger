@@ -49,13 +49,10 @@ class EPersonaEmpresa
      */
     private $tipoRelacion;
 
-
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -65,20 +62,20 @@ class EPersonaEmpresa
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string          $nombre
      * @return EPersonaEmpresa
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -88,20 +85,20 @@ class EPersonaEmpresa
     /**
      * Set apellidos
      *
-     * @param string $apellidos
+     * @param  string          $apellidos
      * @return EPersonaEmpresa
      */
     public function setApellidos($apellidos)
     {
         $this->apellidos = $apellidos;
-    
+
         return $this;
     }
 
     /**
      * Get apellidos
      *
-     * @return string 
+     * @return string
      */
     public function getApellidos()
     {
@@ -111,20 +108,20 @@ class EPersonaEmpresa
     /**
      * Set tipoRelacion
      *
-     * @param string $tipoRelacion
+     * @param  string          $tipoRelacion
      * @return EPersonaEmpresa
      */
     public function setTipoRelacion($tipoRelacion)
     {
         $this->tipoRelacion = $tipoRelacion;
-    
+
         return $this;
     }
 
     /**
      * Get tipoRelacion
      *
-     * @return string 
+     * @return string
      */
     public function getTipoRelacion()
     {
@@ -134,20 +131,20 @@ class EPersonaEmpresa
     /**
      * Set otrosDatos
      *
-     * @param \Planillas\EntidadesBundle\Entity\EOtrosDatos $otrosDatos
+     * @param  \Planillas\EntidadesBundle\Entity\EOtrosDatos $otrosDatos
      * @return EPersonaEmpresa
      */
     public function setOtrosDatos(\Planillas\EntidadesBundle\Entity\EOtrosDatos $otrosDatos = null)
     {
         $this->otrosDatos = $otrosDatos;
-    
+
         return $this;
     }
 
     /**
      * Get otrosDatos
      *
-     * @return \Planillas\EntidadesBundle\Entity\EOtrosDatos 
+     * @return \Planillas\EntidadesBundle\Entity\EOtrosDatos
      */
     public function getOtrosDatos()
     {

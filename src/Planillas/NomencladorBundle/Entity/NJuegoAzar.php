@@ -33,7 +33,7 @@ class NJuegoAzar
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -43,20 +43,20 @@ class NJuegoAzar
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string     $nombre
      * @return NJuegoAzar
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -67,5 +67,5 @@ class NJuegoAzar
     {
         return $this->nombre;
     }
-    
+
 }

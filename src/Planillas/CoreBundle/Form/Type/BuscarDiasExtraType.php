@@ -10,7 +10,7 @@ class BuscarDiasExtraType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -19,7 +19,7 @@ class BuscarDiasExtraType extends AbstractType
             ->add('empleado','text',array('required'=>false))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

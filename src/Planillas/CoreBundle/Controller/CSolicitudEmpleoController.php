@@ -88,7 +88,6 @@ class CSolicitudEmpleoController extends Controller
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -167,7 +166,6 @@ class CSolicitudEmpleoController extends Controller
         ));
 
        // $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 
@@ -192,10 +190,12 @@ class CSolicitudEmpleoController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido actualizados correctamente');
+
             return $this->redirect($this->generateUrl('csolicitudempleo'));
             //return $this->redirect($this->generateUrl('csolicitudempleo_edit', array('id' => $id)));
         }
         $this->get('session')->getFlashBag()->add('danger', 'No se pudieron actualizar los datos');
+
         return $this->render('PlanillasCoreBundle:CSolicitudEmpleo:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
@@ -224,7 +224,6 @@ class CSolicitudEmpleoController extends Controller
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido eliminados correctamente');
         //}
-
         return $this->redirect($this->generateUrl('csolicitudempleo'));
     }
 

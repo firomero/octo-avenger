@@ -28,11 +28,10 @@ class Sucursal
      */
     private $nombre;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -42,20 +41,20 @@ class Sucursal
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string   $nombre
      * @return Sucursal
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {

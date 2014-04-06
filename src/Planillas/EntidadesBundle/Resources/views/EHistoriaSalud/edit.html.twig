@@ -3,19 +3,19 @@
 {% block title %}
     Modificar Historial de Salud
 {% endblock %}
-    
+
 {% block content_content %}
    {% for mensaje in app.session.flashbag.get('success') %}
     mensajes_flash (success,{{mensaje}})
-   {% endfor %} 
-    
+   {% endfor %}
+
    <div class="row">
         {% block content %}
            <div class="col-lg-9">
              <div class="panel panel-default"> <!-- Panel central -->
                     <div class="panel-heading"> <!-- Encabezado panel central -->
                      <h2 class="panel-title">Curso</h2>
-                    </div>  
+                    </div>
                     <div class="panel-body">
                       {{ form_start(edit_form) }}
                             <fieldset>
@@ -29,7 +29,7 @@
                             <fieldset>
                                 <legend></legend>
                                 <div class="row-fluid">
-                                    <div class="col-lg-4">{{ form_row(edit_form.fuma) }}</div>                                    
+                                    <div class="col-lg-4">{{ form_row(edit_form.fuma) }}</div>
                                     <div class="col-lg-4">{{ form_row(edit_form.fumaFrecuencia) }}</div>
                                 </div>
                             </fieldset>
@@ -60,14 +60,14 @@
                             </li>
                         <!-- <li>{# form(delete_form) #}</li> -->
                         </ul>
-                        {{ form_end(edit_form) }} 
-                    </div> 
+                        {{ form_end(edit_form) }}
+                    </div>
              </div>
-            </div> 
+            </div>
             <div class="col-sm-3"> <!-- Menu derecho de empleado -->
-			         {{ macros.empleado_foto(entity.empleado) }}         
+			         {{ macros.empleado_foto(entity.empleado) }}
 	                 {{ macros.menu_empleado('historiasalud',entity.empleado) }}
          </div>
-        {% endblock content %}          
-    </div>       
-{% endblock %} 
+        {% endblock content %}
+    </div>
+{% endblock %}

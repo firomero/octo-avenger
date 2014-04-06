@@ -15,8 +15,8 @@ namespace Planillas\EntidadesBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-class DateRange extends Constraint {
-
+class DateRange extends Constraint
+{
     /**
      * @var string
      */
@@ -30,7 +30,6 @@ class DateRange extends Constraint {
     {
         return  $this->fechaInicio;
     }
-    
 
     /**
      * @var string
@@ -41,10 +40,9 @@ class DateRange extends Constraint {
         return  $this->fechaFin;
     }
 
-    public function validatedBy() {
+    public function validatedBy()
+    {
         return get_class($this) . 'Validator';
     }
 
 }
-
-?>

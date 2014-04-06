@@ -2,23 +2,24 @@
 
 namespace Planillas\CoreBundle\Form\Type;
 
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CEmpleadoType extends AbstractType {
-
-    public function __construct($bDisplayOptionalfields = false, $eEmpleado = 0) {
+class CEmpleadoType extends AbstractType
+{
+    public function __construct($bDisplayOptionalfields = false, $eEmpleado = 0)
+    {
         $this->bDisplayOptionalfields = $bDisplayOptionalfields;
         $this->eEmpleado = $eEmpleado;
     }
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
         ->add('nombre')
         ->add('segundoApellido')
@@ -80,7 +81,8 @@ class CEmpleadoType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Planillas\CoreBundle\Entity\CEmpleado'
         ));
@@ -89,7 +91,8 @@ class CEmpleadoType extends AbstractType {
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return 'planillas_corebundle_cempleado';
     }
 

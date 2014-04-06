@@ -49,11 +49,10 @@ class EReferenciaPersonal
      */
     private $telefono;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,20 +62,20 @@ class EReferenciaPersonal
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string              $nombre
      * @return EReferenciaPersonal
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -86,20 +85,20 @@ class EReferenciaPersonal
     /**
      * Set direccionExacta
      *
-     * @param string $direccionExacta
+     * @param  string              $direccionExacta
      * @return EReferenciaPersonal
      */
     public function setDireccionExacta($direccionExacta)
     {
         $this->direccionExacta = $direccionExacta;
-    
+
         return $this;
     }
 
     /**
      * Get direccionExacta
      *
-     * @return string 
+     * @return string
      */
     public function getDireccionExacta()
     {
@@ -109,20 +108,20 @@ class EReferenciaPersonal
     /**
      * Set telefono
      *
-     * @param string $telefono
+     * @param  string              $telefono
      * @return EReferenciaPersonal
      */
     public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
-    
+
         return $this;
     }
 
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -132,20 +131,20 @@ class EReferenciaPersonal
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EReferenciaPersonal
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {

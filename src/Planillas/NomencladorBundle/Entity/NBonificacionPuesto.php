@@ -35,11 +35,10 @@ class NBonificacionPuesto
      */
     private $monto;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -49,20 +48,20 @@ class NBonificacionPuesto
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string              $nombre
      * @return NBonificacionPuesto
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -72,20 +71,20 @@ class NBonificacionPuesto
     /**
      * Set monto
      *
-     * @param float $monto
+     * @param  float               $monto
      * @return NBonificacionPuesto
      */
     public function setMonto($monto)
     {
         $this->monto = $monto;
-    
+
         return $this;
     }
 
     /**
      * Get monto
      *
-     * @return float 
+     * @return float
      */
     public function getMonto()
     {

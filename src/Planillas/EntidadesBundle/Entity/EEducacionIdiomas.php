@@ -43,7 +43,6 @@ class EEducacionIdiomas
      */
     private $idioma;
 
-
     /**
      * Get id
      *
@@ -57,7 +56,7 @@ class EEducacionIdiomas
     /**
      * Set porientoIdioma
      *
-     * @param float $porientoIdioma
+     * @param  float             $porientoIdioma
      * @return EEducacionIdiomas
      */
     public function setPorientoIdioma($porientoIdioma)
@@ -90,18 +89,19 @@ class EEducacionIdiomas
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EFamilia
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
+
         return $this;
     }
     /**
      * Set idioma
      *
-     * @param \Planillas\NomencladorBundle\Entity\NIdioma $idioma
+     * @param  \Planillas\NomencladorBundle\Entity\NIdioma $idioma
      * @return EEducacionIdiomas
      */
     public function setIdioma(\Planillas\NomencladorBundle\Entity\NIdioma $idioma = null)
@@ -120,5 +120,5 @@ class EEducacionIdiomas
     {
         return $this->idioma;
     }
-   
+
 }

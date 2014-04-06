@@ -10,7 +10,7 @@ class BuscarDeudasType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -22,7 +22,7 @@ class BuscarDeudasType extends AbstractType
             ->add('empleado',null,array('required'=>false))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

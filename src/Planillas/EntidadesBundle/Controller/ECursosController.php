@@ -23,20 +23,20 @@ class ECursosController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entities = $em->createQuery('Select f from PlanillasEntidadesBundle:ECursos f where f.empleado='.$id_empleado);
         $entities=$entities->getResult();
         $aDeleteForm =  array();
-        foreach($entities as $entity){
-            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView(); 
+        foreach ($entities as $entity) {
+            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
+
         return $this->render('PlanillasEntidadesBundle:ECursos:index.html.twig', array(
             'entities' => $entities,
             'eEmpleado'=>$eEmpleado,
             'aDeleteForm'=>$aDeleteForm,
         ));
-        
-        
+
     }
     /**
      * Creates a new ECursos entity.
@@ -46,10 +46,10 @@ class ECursosController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entity = new ECursos();
         $entity->setEmpleado($eEmpleado);
-        
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -57,6 +57,7 @@ class ECursosController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
             return $this->redirect($this->generateUrl('cursos', array('id_empleado' => $eEmpleado->getId())));
         }
 
@@ -81,7 +82,6 @@ class ECursosController extends Controller
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
-
         return $form;
     }
 
@@ -93,7 +93,7 @@ class ECursosController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entity = new ECursos();
         $entity->setEmpleado($eEmpleado);
         $form   = $this->createCreateForm($entity);
@@ -165,7 +165,6 @@ class ECursosController extends Controller
         ));
 
        // $form->add('submit', 'submit', array('label' => 'Actualizar', 'attr'=>array('class'=>'btn btn-success')));
-
         return $form;
     }
     /**
@@ -214,7 +213,7 @@ class ECursosController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find ECursos entity!!');
             }
-            
+
             $iIdempleado = $entity->getEmpleado()->getId();
             $em->remove($entity);
             $em->flush();

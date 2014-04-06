@@ -4,7 +4,6 @@ namespace Planillas\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * CPlanillasEmpleado
  *
@@ -21,7 +20,6 @@ class CPlanillasEmpleado
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
 
     /**
      * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
@@ -53,14 +51,11 @@ class CPlanillasEmpleado
      * @ORM\Column(name="salario_seguro", type="decimal", nullable=true)
      */
     private $salario_seguro;
-    
-
-
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -70,20 +65,20 @@ class CPlanillasEmpleado
     /**
      * Set salario_periodo
      *
-     * @param float $salarioPeriodo
+     * @param  float              $salarioPeriodo
      * @return CPlanillasEmpleado
      */
     public function setSalarioPeriodo($salarioPeriodo)
     {
         $this->salario_periodo = $salarioPeriodo;
-    
+
         return $this;
     }
 
     /**
      * Get salario_periodo
      *
-     * @return float 
+     * @return float
      */
     public function getSalarioPeriodo()
     {
@@ -93,20 +88,20 @@ class CPlanillasEmpleado
     /**
      * Set salario_total
      *
-     * @param float $salarioTotal
+     * @param  float              $salarioTotal
      * @return CPlanillasEmpleado
      */
     public function setSalarioTotal($salarioTotal)
     {
         $this->salario_total = $salarioTotal;
-    
+
         return $this;
     }
 
     /**
      * Get salario_total
      *
-     * @return float 
+     * @return float
      */
     public function getSalarioTotal()
     {
@@ -116,20 +111,20 @@ class CPlanillasEmpleado
     /**
      * Set salario_seguro
      *
-     * @param float $salarioSeguro
+     * @param  float              $salarioSeguro
      * @return CPlanillasEmpleado
      */
     public function setSalarioSeguro($salarioSeguro)
     {
         $this->salario_seguro = $salarioSeguro;
-    
+
         return $this;
     }
 
     /**
      * Get salario_seguro
      *
-     * @return float 
+     * @return float
      */
     public function getSalarioSeguro()
     {
@@ -139,20 +134,20 @@ class CPlanillasEmpleado
     /**
      * Set planilla
      *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
      * @return CPlanillasEmpleado
      */
     public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
     {
         $this->planilla = $planilla;
-    
+
         return $this;
     }
 
     /**
      * Get planilla
      *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     * @return \Planillas\CoreBundle\Entity\CPlanillas
      */
     public function getPlanilla()
     {
@@ -162,20 +157,20 @@ class CPlanillasEmpleado
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CPlanillasEmpleado
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {

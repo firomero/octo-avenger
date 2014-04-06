@@ -70,12 +70,10 @@ class CIncapacidades
      */
     private $planilla;
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -85,20 +83,20 @@ class CIncapacidades
     /**
      * Set tipoIncapacidad
      *
-     * @param string $tipoIncapacidad
+     * @param  string         $tipoIncapacidad
      * @return CIncapacidades
      */
     public function setTipoIncapacidad($tipoIncapacidad)
     {
         $this->tipoIncapacidad = $tipoIncapacidad;
-    
+
         return $this;
     }
 
     /**
      * Get tipoIncapacidad
      *
-     * @return string 
+     * @return string
      */
     public function getTipoIncapacidad()
     {
@@ -108,20 +106,20 @@ class CIncapacidades
     /**
      * Set motivo
      *
-     * @param string $motivo
+     * @param  string         $motivo
      * @return CIncapacidades
      */
     public function setMotivo($motivo)
     {
         $this->motivo = $motivo;
-    
+
         return $this;
     }
 
     /**
      * Get motivo
      *
-     * @return string 
+     * @return string
      */
     public function getMotivo()
     {
@@ -131,20 +129,20 @@ class CIncapacidades
     /**
      * Set fechaInicio
      *
-     * @param \DateTime $fechaInicio
+     * @param  \DateTime      $fechaInicio
      * @return CIncapacidades
      */
     public function setFechaInicio($fechaInicio)
     {
         $this->fechaInicio = $fechaInicio;
-    
+
         return $this;
     }
 
     /**
      * Get fechaInicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaInicio()
     {
@@ -154,20 +152,20 @@ class CIncapacidades
     /**
      * Set fechaFin
      *
-     * @param \DateTime $fechaFin
+     * @param  \DateTime      $fechaFin
      * @return CIncapacidades
      */
     public function setFechaFin($fechaFin)
     {
         $this->fechaFin = $fechaFin;
-    
+
         return $this;
     }
 
     /**
      * Get fechaFin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaFin()
     {
@@ -177,20 +175,20 @@ class CIncapacidades
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CIncapacidades
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -206,27 +204,26 @@ class CIncapacidades
         $obj->empleado=$this->empleado->getId();
         $obj->motivo=$this->motivo;
 
-
         return $obj;
     }
 
     /**
      * Set planilla
      *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
      * @return CIncapacidades
      */
     public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
     {
         $this->planilla = $planilla;
-    
+
         return $this;
     }
 
     /**
      * Get planilla
      *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     * @return \Planillas\CoreBundle\Entity\CPlanillas
      */
     public function getPlanilla()
     {

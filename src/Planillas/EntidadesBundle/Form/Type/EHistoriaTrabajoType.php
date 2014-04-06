@@ -6,19 +6,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EHistoriaTrabajoType extends AbstractType {
+class EHistoriaTrabajoType extends AbstractType
+{
+    public $bDestruyeEmpleado;
 
-    var $bDestruyeEmpleado;
-
-    public function __construct($bDestruyeEmpleado = false) {
+    public function __construct($bDestruyeEmpleado = false)
+    {
         $this->bDestruyeEmpleado = $bDestruyeEmpleado;
     }
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         //$idEmpleado=$options['idEmpleado'];
         $builder
                 ->add('momento')
@@ -46,7 +48,8 @@ class EHistoriaTrabajoType extends AbstractType {
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Planillas\EntidadesBundle\Entity\EHistoriaTrabajo'
         ));
@@ -58,7 +61,8 @@ class EHistoriaTrabajoType extends AbstractType {
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return 'planillas_entidadesbundle_ehistoriatrabajo';
     }
 

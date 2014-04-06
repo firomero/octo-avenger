@@ -41,7 +41,7 @@ class NDistrito
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,20 +51,20 @@ class NDistrito
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string    $nombre
      * @return NDistrito
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -74,20 +74,20 @@ class NDistrito
     /**
      * Set provincia
      *
-     * @param \Planillas\NomencladorBundle\Entity\NProvincia $provincia
+     * @param  \Planillas\NomencladorBundle\Entity\NProvincia $provincia
      * @return NDistrito
      */
     public function setProvincia(\Planillas\NomencladorBundle\Entity\NProvincia $provincia = null)
     {
         $this->provincia = $provincia;
-    
+
         return $this;
     }
 
     /**
      * Get provincia
      *
-     * @return \Planillas\NomencladorBundle\Entity\NProvincia 
+     * @return \Planillas\NomencladorBundle\Entity\NProvincia
      */
     public function getProvincia()
     {

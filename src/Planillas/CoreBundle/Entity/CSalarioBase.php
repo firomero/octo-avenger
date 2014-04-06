@@ -49,11 +49,10 @@ class CSalarioBase
      */
     private $periodoPago;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,20 +62,20 @@ class CSalarioBase
     /**
      * Set salarioBase
      *
-     * @param float $salarioBase
+     * @param  float        $salarioBase
      * @return CSalarioBase
      */
     public function setSalarioBase($salarioBase)
     {
         $this->salarioBase = $salarioBase;
-    
+
         return $this;
     }
 
     /**
      * Get salarioBase
      *
-     * @return float 
+     * @return float
      */
     public function getSalarioBase()
     {
@@ -86,20 +85,20 @@ class CSalarioBase
     /**
      * Set seguro
      *
-     * @param boolean $seguro
+     * @param  boolean      $seguro
      * @return CSalarioBase
      */
     public function setSeguro($seguro)
     {
         $this->seguro = $seguro;
-    
+
         return $this;
     }
 
     /**
      * Get seguro
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getSeguro()
     {
@@ -109,20 +108,20 @@ class CSalarioBase
     /**
      * Set periodoPago
      *
-     * @param integer $periodoPago
+     * @param  integer      $periodoPago
      * @return CSalarioBase
      */
     public function setPeriodoPago($periodoPago)
     {
         $this->periodoPago = $periodoPago;
-    
+
         return $this;
     }
 
     /**
      * Get periodoPago
      *
-     * @return integer 
+     * @return integer
      */
     public function getPeriodoPago()
     {
@@ -132,20 +131,20 @@ class CSalarioBase
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CSalarioBase
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {

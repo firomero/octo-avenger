@@ -58,11 +58,11 @@ class EEducacion
         $this->informacionEducacional = new \Doctrine\Common\Collections\ArrayCollection();
         $this->cursos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -72,20 +72,20 @@ class EEducacion
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EEducacion
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -95,13 +95,13 @@ class EEducacion
     /**
      * Add educacionIdiomas
      *
-     * @param \Planillas\EntidadesBundle\Entity\EEducacionIdiomas $educacionIdiomas
+     * @param  \Planillas\EntidadesBundle\Entity\EEducacionIdiomas $educacionIdiomas
      * @return EEducacion
      */
     public function addEducacionIdioma(\Planillas\EntidadesBundle\Entity\EEducacionIdiomas $educacionIdiomas)
     {
         $this->educacionIdiomas[] = $educacionIdiomas;
-    
+
         return $this;
     }
 
@@ -118,7 +118,7 @@ class EEducacion
     /**
      * Get educacionIdiomas
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEducacionIdiomas()
     {
@@ -128,13 +128,13 @@ class EEducacion
     /**
      * Add informacionEducacional
      *
-     * @param \Planillas\EntidadesBundle\Entity\EInformacionEducacional $informacionEducacional
+     * @param  \Planillas\EntidadesBundle\Entity\EInformacionEducacional $informacionEducacional
      * @return EEducacion
      */
     public function addInformacionEducacional(\Planillas\EntidadesBundle\Entity\EInformacionEducacional $informacionEducacional)
     {
         $this->informacionEducacional[] = $informacionEducacional;
-    
+
         return $this;
     }
 
@@ -151,7 +151,7 @@ class EEducacion
     /**
      * Get informacionEducacional
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getInformacionEducacional()
     {
@@ -161,13 +161,13 @@ class EEducacion
     /**
      * Add cursos
      *
-     * @param \Planillas\EntidadesBundle\Entity\ECursos $cursos
+     * @param  \Planillas\EntidadesBundle\Entity\ECursos $cursos
      * @return EEducacion
      */
     public function addCurso(\Planillas\EntidadesBundle\Entity\ECursos $cursos)
     {
         $this->cursos[] = $cursos;
-    
+
         return $this;
     }
 
@@ -184,13 +184,13 @@ class EEducacion
     /**
      * Get cursos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCursos()
     {
         return $this->cursos;
     }
-    
+
     public function __toString()
     {
         return $this->getEmpleado()->getNombre();

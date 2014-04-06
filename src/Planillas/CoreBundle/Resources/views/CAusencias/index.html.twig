@@ -69,14 +69,14 @@
 
     function buscar(id){
          $('#progreso').css('display', 'block');
-    
+
         $.ajax({
             url:'{{ path('cautocomplete') }}',
             data:{id:id},
             dataType:'json',
             success:function(data)
             {
-                
+
                 $('#progreso').css('display', 'none');
                 if (data.success){
                 $('#planillas_corebundle_causencias_empleado').val(data.data.empleado);
@@ -300,4 +300,3 @@
     {% endblock content %}
 
 {% endblock content_content %}
-

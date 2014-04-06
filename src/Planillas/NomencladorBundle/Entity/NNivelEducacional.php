@@ -30,11 +30,10 @@ class NNivelEducacional
      */
     private $nombre;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -44,20 +43,20 @@ class NNivelEducacional
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string            $nombre
      * @return NNivelEducacional
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {

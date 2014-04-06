@@ -56,12 +56,10 @@ class EDomicilio
      */
     private $empleado;
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,20 +69,20 @@ class EDomicilio
     /**
      * Set direccionExacta
      *
-     * @param string $direccionExacta
+     * @param  string     $direccionExacta
      * @return EDomicilio
      */
     public function setDireccionExacta($direccionExacta)
     {
         $this->direccionExacta = $direccionExacta;
-    
+
         return $this;
     }
 
     /**
      * Get direccionExacta
      *
-     * @return string 
+     * @return string
      */
     public function getDireccionExacta()
     {
@@ -94,20 +92,20 @@ class EDomicilio
     /**
      * Set canton
      *
-     * @param string $canton
+     * @param  string     $canton
      * @return EDomicilio
      */
     public function setCanton($canton)
     {
         $this->canton = $canton;
-    
+
         return $this;
     }
 
     /**
      * Get canton
      *
-     * @return string 
+     * @return string
      */
     public function getCanton()
     {
@@ -117,20 +115,20 @@ class EDomicilio
     /**
      * Set tiempoResidencia
      *
-     * @param integer $tiempoResidencia
+     * @param  integer    $tiempoResidencia
      * @return EDomicilio
      */
     public function setTiempoResidencia($tiempoResidencia)
     {
         $this->tiempoResidencia = $tiempoResidencia;
-    
+
         return $this;
     }
 
     /**
      * Get tiempoResidencia
      *
-     * @return integer 
+     * @return integer
      */
     public function getTiempoResidencia()
     {
@@ -140,20 +138,20 @@ class EDomicilio
     /**
      * Set distrito
      *
-     * @param \Planillas\NomencladorBundle\Entity\NDistrito $distrito
+     * @param  \Planillas\NomencladorBundle\Entity\NDistrito $distrito
      * @return EDomicilio
      */
     public function setDistrito(\Planillas\NomencladorBundle\Entity\NDistrito $distrito = null)
     {
         $this->distrito = $distrito;
-    
+
         return $this;
     }
 
     /**
      * Get distrito
      *
-     * @return \Planillas\NomencladorBundle\Entity\NDistrito 
+     * @return \Planillas\NomencladorBundle\Entity\NDistrito
      */
     public function getDistrito()
     {
@@ -163,20 +161,20 @@ class EDomicilio
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EDomicilio
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {

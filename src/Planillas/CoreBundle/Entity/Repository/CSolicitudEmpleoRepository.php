@@ -14,7 +14,6 @@ use Doctrine\ORM\EntityRepository;
 class CSolicitudEmpleoRepository extends EntityRepository
 {
 
-
     public function filterSolicitudEmpleo($filtros = array())
     {
         try {

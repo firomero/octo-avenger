@@ -49,12 +49,10 @@ class ECursos
      */
     private $empleado;
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -64,20 +62,20 @@ class ECursos
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string  $nombre
      * @return ECursos
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -87,20 +85,20 @@ class ECursos
     /**
      * Set descripcion
      *
-     * @param string $descripcion
+     * @param  string  $descripcion
      * @return ECursos
      */
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
+
         return $this;
     }
 
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return string
      */
     public function getDescripcion()
     {
@@ -110,20 +108,20 @@ class ECursos
     /**
      * Set vence
      *
-     * @param \DateTime $vence
+     * @param  \DateTime $vence
      * @return ECursos
      */
     public function setVence($vence)
     {
         $this->vence = $vence;
-    
+
         return $this;
     }
 
     /**
      * Get vence
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getVence()
     {
@@ -143,12 +141,13 @@ class ECursos
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EFamilia
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
+
         return $this;
     }
 }

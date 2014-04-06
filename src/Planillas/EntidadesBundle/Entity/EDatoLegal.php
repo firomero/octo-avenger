@@ -57,11 +57,11 @@ class EDatoLegal
         $this->antecedentesPenales = new \Doctrine\Common\Collections\ArrayCollection();
         $this->licencias = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -71,20 +71,20 @@ class EDatoLegal
     /**
      * Set fechaVisitaDomiciliaria
      *
-     * @param \DateTime $fechaVisitaDomiciliaria
+     * @param  \DateTime  $fechaVisitaDomiciliaria
      * @return EDatoLegal
      */
     public function setFechaVisitaDomiciliaria($fechaVisitaDomiciliaria)
     {
         $this->fechaVisitaDomiciliaria = $fechaVisitaDomiciliaria;
-    
+
         return $this;
     }
 
     /**
      * Get fechaVisitaDomiciliaria
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaVisitaDomiciliaria()
     {
@@ -94,20 +94,20 @@ class EDatoLegal
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EDatoLegal
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -117,13 +117,13 @@ class EDatoLegal
     /**
      * Add antecedentesPenales
      *
-     * @param \Planillas\EntidadesBundle\Entity\EAntecedentePenal $antecedentesPenales
+     * @param  \Planillas\EntidadesBundle\Entity\EAntecedentePenal $antecedentesPenales
      * @return EDatoLegal
      */
     public function addAntecedentesPenale(\Planillas\EntidadesBundle\Entity\EAntecedentePenal $antecedentesPenales)
     {
         $this->antecedentesPenales[] = $antecedentesPenales;
-    
+
         return $this;
     }
 
@@ -140,7 +140,7 @@ class EDatoLegal
     /**
      * Get antecedentesPenales
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAntecedentesPenales()
     {
@@ -150,13 +150,13 @@ class EDatoLegal
     /**
      * Add licencias
      *
-     * @param \Planillas\EntidadesBundle\Entity\ELicencia $licencias
+     * @param  \Planillas\EntidadesBundle\Entity\ELicencia $licencias
      * @return EDatoLegal
      */
     public function addLicencia(\Planillas\EntidadesBundle\Entity\ELicencia $licencias)
     {
         $this->licencias[] = $licencias;
-    
+
         return $this;
     }
 
@@ -173,14 +173,15 @@ class EDatoLegal
     /**
      * Get licencias
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLicencias()
     {
         return $this->licencias;
     }
-    
-    public function __toString(){
+
+    public function __toString()
+    {
         return $this->id.'---';
     }
 }

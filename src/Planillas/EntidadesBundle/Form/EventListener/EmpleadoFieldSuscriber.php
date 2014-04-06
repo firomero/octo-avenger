@@ -9,14 +9,13 @@
 
 namespace Planillas\EntidadesBundle\Form\EventListener;
 
-
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class EmpleadoFieldSubscriber implements EventSubscriberInterface {
-
+class EmpleadoFieldSuscriber implements EventSubscriberInterface
+{
     /**
      * Returns an array of event names this subscriber wants to listen to.
      *
@@ -62,7 +61,7 @@ class EmpleadoFieldSubscriber implements EventSubscriberInterface {
         /*if (!$data || !$data->getEmpleado()) {
             $form->add('boleta','entity',array(
                 'class' => 'BusBPMCoreBundle:Boleta',
-                'query_builder' => function(EntityRepository $er){
+                'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('b')
                         ->select(array('b','cc'))
                         ->leftJoin('b.casocajero','cc')
@@ -71,7 +70,7 @@ class EmpleadoFieldSubscriber implements EventSubscriberInterface {
                         ->setParameter('fecha',date_format(new \DateTime(),'Y-m-d'));
                 }
             ));
-        }else{
+        } else {
             $form->add('boleta','text',array(
                 'data_class' => 'BusBPM\CoreBundle\Entity\Boleta',
                 'attr' => array(

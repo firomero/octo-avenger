@@ -11,73 +11,66 @@ namespace Planillas\CoreBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
-class CEmpleadoRepository extends  EntityRepository {
-
-
-    public function filterEmpleado($filtros=array()){
-        try{
+class CEmpleadoRepository extends  EntityRepository
+{
+    public function filterEmpleado($filtros=array())
+    {
+        try {
 
             $sql = "SELECT emp FROM PlanillasCoreBundle:CEmpleado emp";
             $case=false;
-            if(isset($filtros['cedula'])&& !empty($filtros['cedula']))
-            {
+            if (isset($filtros['cedula'])&& !empty($filtros['cedula'])) {
                 $sql.=($case==true)?" AND ":" WHERE ";
                 $sql.=' emp.cedula LIKE \'%'.$filtros['cedula'].'%\'';
                 $case=true;
             }
-            if(isset($filtros['nombre'])&& !empty($filtros['nombre']))
-            {
+            if (isset($filtros['nombre'])&& !empty($filtros['nombre'])) {
               $sql.=($case==true)?" AND ":" WHERE ";
               $sql.=' emp.nombre LIKE \'%'.$filtros['nombre'].'%\'';
                $case=true;
 
             }
-            if(isset($filtros['primerApellido'])&& !empty($filtros['primerApellido']))
-            {
+            if (isset($filtros['primerApellido'])&& !empty($filtros['primerApellido'])) {
                 $sql.=($case==true)?" AND ":" WHERE ";
                 $sql.=' emp.primerApellido LIKE \'%'.$filtros['primerApellido'].'%\'';
                 $case=true;
             }
-            if(isset($filtros['segundoApellido'])&& !empty($filtros['segundoApellido']))
-            {
+            if (isset($filtros['segundoApellido'])&& !empty($filtros['segundoApellido'])) {
                 $sql.=($case==true)?" AND ":" WHERE ";
                 $sql.=' emp.segundoApellido LIKE \'%'.$filtros['segundoApellido'].'%\'';
 
             }
             ;
-            if(isset($filtros['inactivo']) && $filtros['inactivo']!=null)
-            {
+            if (isset($filtros['inactivo']) && $filtros['inactivo']!=null) {
                 $sql.=($case==true)?" AND ":" WHERE ";
                 $sql.=' emp.activo =0';
 
             }
 
-
             $sql .=' ORDER BY emp.id DESC';
             $query = $this->_em->createQuery($sql);
 
-
             return $query->getResult();
-        }catch (NoResultException $e){
+        } catch (NoResultException $e) {
             return array();
         }
     }
-     public function filterEmpleadoAjax($filtros=array()){
-       try{
+     public function filterEmpleadoAjax($filtros=array())
+     {
+       try {
 
             $sql = "SELECT emp FROM PlanillasCoreBundle:CEmpleado emp WHERE";
             $sql.=' emp.cedula LIKE \'%'.$filtros['data'].'%\' OR ';
             $sql.=' emp.nombre LIKE \'%'.$filtros['data'].'%\' OR';
             $sql.=' emp.primerApellido LIKE \'%'.$filtros['data'].'%\' OR ';
-            $sql.=' emp.segundoApellido LIKE \'%'.$filtros['data'].'%\'';   
+            $sql.=' emp.segundoApellido LIKE \'%'.$filtros['data'].'%\'';
             $sql .=' ORDER BY emp.id DESC';
             $query = $this->_em->createQuery($sql);
             //print_r($query->getDQL());exit;
-
             return $query->getResult();
-        }catch (NoResultException $e){
+        } catch (NoResultException $e) {
             return array();
-        }  
+        }
      }
 
 }

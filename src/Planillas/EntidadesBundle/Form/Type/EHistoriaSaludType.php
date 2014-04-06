@@ -6,17 +6,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-
 class EHistoriaSaludType extends AbstractType
 {
-    var $bDestruyeEmpleado;
-    
-    public function __construct($bDestruyeEmpleado=false){
-       $this->bDestruyeEmpleado = $bDestruyeEmpleado;    
+    public $bDestruyeEmpleado;
+
+    public function __construct($bDestruyeEmpleado=false)
+    {
+       $this->bDestruyeEmpleado = $bDestruyeEmpleado;
     }
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -30,11 +30,11 @@ class EHistoriaSaludType extends AbstractType
             ->add('empleado')
             ->add('juegosAzar', 'collection', array('type' => new NJuegoAzarType(),'label' => 'Juegos', 'allow_add'    => true, 'by_reference' => false, 'allow_delete' => true))
             ->add('deportes', 'collection', array('type' => new NDeportesType(),'label' => 'Deportes', 'allow_add'    => true, 'by_reference' => false, 'allow_delete' => true));
-        
+
         if($this->bDestruyeEmpleado)
            $builder->remove('empleado');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

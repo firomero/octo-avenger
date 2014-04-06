@@ -2,7 +2,6 @@
 
 namespace Planillas\CoreBundle\Helper;
 
-
 /**
  * Helper calss.
  *
@@ -22,11 +21,11 @@ class HelperDate
         try {
             $mktime = mktime(0, 0, 0, $mes, 1, $anno);
             $cant = date('t', $mktime);
+
             return $cant;
           } catch (Exception $e) {
             return $e->getMessage();
         }
-
 
     }
 

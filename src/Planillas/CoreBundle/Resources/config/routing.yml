@@ -8,31 +8,31 @@ planillas_core_empleados:
 planillas_core_domicilio:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/edomicilio.yml"
     prefix:   /empleado/domicilio
-    
+
 planillas_core_antecedente_penal:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/eantecedentepenal.yml"
-    prefix:   /empleado/antecedentepenal    
-    
+    prefix:   /empleado/antecedentepenal
+
 planillas_core_cursos:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/ecursos.yml"
     prefix:   /empleado/curso
 
 planillas_core_dato_legal:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/edatolegal.yml"
-    prefix:   /empleado/datolegal  
-    
+    prefix:   /empleado/datolegal
+
 planillas_core_educacion:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/eeducacion.yml"
     prefix:   /empleado/educacion
-    
+
 planillas_core_idiomas:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/eeducacionidiomas.yml"
-    prefix:   /empleado/idiomas 
-    
+    prefix:   /empleado/idiomas
+
 planillas_core_familia:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/efamilia.yml"
     prefix:   /empleado/familia
-    
+
 planillas_core_persona_depende:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/epersonadependen.yml"
     prefix:   /empleado/

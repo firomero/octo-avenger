@@ -55,6 +55,7 @@ class CTrabajoController extends Controller
 
             return $this->redirect($this->generateUrl('ctrabajo_new', array('id_empleado' => $entity->getEmpleado()->getId())));
         }
+
         return $this->render('PlanillasCoreBundle:CTrabajo:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
@@ -87,7 +88,7 @@ class CTrabajoController extends Controller
     public function newAction($id_empleado)
     {
         $em = $this->getDoctrine()->getManager();
-        $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find((int)$id_empleado);
+        $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find((int) $id_empleado);
         if (!$eEmpleado) {
             throw $this->createNotFoundException('Unable to find CEmpleado entity.');
         }
@@ -199,6 +200,7 @@ class CTrabajoController extends Controller
             return $this->redirect($this->generateUrl('ctrabajo_edit', array('id' => $id)));
         }
         $formSupervisor= $this->createForm(new SupervisorType($entity->getEmpleado()->getId()));
+
         return $this->render('PlanillasCoreBundle:CTrabajo:new.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
@@ -252,22 +254,21 @@ class CTrabajoController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        if(!$entity){
+        if (!$entity) {
             throw $this->createNotFoundException('Unable to find CEmpleado entity.');
         }
         $form= $this->createForm(new SupervisorType());
         $form->handleRequest($request);
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
              $supervisor=$form->getData();
              $data=$supervisor['supervisor'];
              //print_r($entity->getNombre());exit;
              $entity->setSupervisor($data);
              $em->persist($entity);
              $em->flush();
+
              return $this->redirect($this->generateUrl('ctrabajo_new', array('id_empleado' => $entity->getId())));
         }
-        
-        
+
     }
 }

@@ -10,7 +10,7 @@ class CHorasExtrasType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -21,7 +21,7 @@ class CHorasExtrasType extends AbstractType
             ->add('empleado',null,array('required'=>true))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

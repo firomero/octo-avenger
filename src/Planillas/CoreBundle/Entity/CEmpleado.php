@@ -10,8 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Planillas\CoreBundle\Entity\Repository\CEmpleadoRepository")
  * @ORM\Table(name="c_empleado")
  */
-class CEmpleado {
-
+class CEmpleado
+{
     /**
      * @var integer
      *
@@ -41,7 +41,7 @@ class CEmpleado {
     /**
      * @var string
      * @Assert\NotBlank()
-     * @Assert\Regex(pattern="/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/", message="El primer apellido no es correcto")     
+     * @Assert\Regex(pattern="/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/", message="El primer apellido no es correcto")
      * @ORM\Column(name="primer_apellido", type="string", length=32, nullable=true)
      */
     private $primerApellido;
@@ -271,7 +271,6 @@ class CEmpleado {
      */
     private $componentesSalariales;
 
-   
     /**
      * Constructor
      */
@@ -291,11 +290,11 @@ class CEmpleado {
         $this->familiares = new \Doctrine\Common\Collections\ArrayCollection();
         $this->componentesSalariales = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -305,20 +304,20 @@ class CEmpleado {
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string    $nombre
      * @return CEmpleado
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -328,20 +327,20 @@ class CEmpleado {
     /**
      * Set segundoApellido
      *
-     * @param string $segundoApellido
+     * @param  string    $segundoApellido
      * @return CEmpleado
      */
     public function setSegundoApellido($segundoApellido)
     {
         $this->segundoApellido = $segundoApellido;
-    
+
         return $this;
     }
 
     /**
      * Get segundoApellido
      *
-     * @return string 
+     * @return string
      */
     public function getSegundoApellido()
     {
@@ -351,20 +350,20 @@ class CEmpleado {
     /**
      * Set primerApellido
      *
-     * @param string $primerApellido
+     * @param  string    $primerApellido
      * @return CEmpleado
      */
     public function setPrimerApellido($primerApellido)
     {
         $this->primerApellido = $primerApellido;
-    
+
         return $this;
     }
 
     /**
      * Get primerApellido
      *
-     * @return string 
+     * @return string
      */
     public function getPrimerApellido()
     {
@@ -374,20 +373,20 @@ class CEmpleado {
     /**
      * Set cedula
      *
-     * @param string $cedula
+     * @param  string    $cedula
      * @return CEmpleado
      */
     public function setCedula($cedula)
     {
         $this->cedula = $cedula;
-    
+
         return $this;
     }
 
     /**
      * Get cedula
      *
-     * @return string 
+     * @return string
      */
     public function getCedula()
     {
@@ -397,20 +396,20 @@ class CEmpleado {
     /**
      * Set activo
      *
-     * @param boolean $activo
+     * @param  boolean   $activo
      * @return CEmpleado
      */
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
     /**
      * Get activo
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActivo()
     {
@@ -420,20 +419,20 @@ class CEmpleado {
     /**
      * Set foto
      *
-     * @param string $foto
+     * @param  string    $foto
      * @return CEmpleado
      */
     public function setFoto($foto)
     {
         $this->foto = $foto;
-    
+
         return $this;
     }
 
     /**
      * Get foto
      *
-     * @return string 
+     * @return string
      */
     public function getFoto()
     {
@@ -443,20 +442,20 @@ class CEmpleado {
     /**
      * Set salario
      *
-     * @param float $salario
+     * @param  float     $salario
      * @return CEmpleado
      */
     public function setSalario($salario)
     {
         $this->salario = $salario;
-    
+
         return $this;
     }
 
     /**
      * Get salario
      *
-     * @return float 
+     * @return float
      */
     public function getSalario()
     {
@@ -466,20 +465,20 @@ class CEmpleado {
     /**
      * Set tallaCalzado
      *
-     * @param string $tallaCalzado
+     * @param  string    $tallaCalzado
      * @return CEmpleado
      */
     public function setTallaCalzado($tallaCalzado)
     {
         $this->tallaCalzado = $tallaCalzado;
-    
+
         return $this;
     }
 
     /**
      * Get tallaCalzado
      *
-     * @return string 
+     * @return string
      */
     public function getTallaCalzado()
     {
@@ -489,20 +488,20 @@ class CEmpleado {
     /**
      * Set tallaPantalon
      *
-     * @param string $tallaPantalon
+     * @param  string    $tallaPantalon
      * @return CEmpleado
      */
     public function setTallaPantalon($tallaPantalon)
     {
         $this->tallaPantalon = $tallaPantalon;
-    
+
         return $this;
     }
 
     /**
      * Get tallaPantalon
      *
-     * @return string 
+     * @return string
      */
     public function getTallaPantalon()
     {
@@ -512,20 +511,20 @@ class CEmpleado {
     /**
      * Set tallaCamisa
      *
-     * @param string $tallaCamisa
+     * @param  string    $tallaCamisa
      * @return CEmpleado
      */
     public function setTallaCamisa($tallaCamisa)
     {
         $this->tallaCamisa = $tallaCamisa;
-    
+
         return $this;
     }
 
     /**
      * Get tallaCamisa
      *
-     * @return string 
+     * @return string
      */
     public function getTallaCamisa()
     {
@@ -535,20 +534,20 @@ class CEmpleado {
     /**
      * Set peso
      *
-     * @param integer $peso
+     * @param  integer   $peso
      * @return CEmpleado
      */
     public function setPeso($peso)
     {
         $this->peso = $peso;
-    
+
         return $this;
     }
 
     /**
      * Get peso
      *
-     * @return integer 
+     * @return integer
      */
     public function getPeso()
     {
@@ -558,20 +557,20 @@ class CEmpleado {
     /**
      * Set estatura
      *
-     * @param integer $estatura
+     * @param  integer   $estatura
      * @return CEmpleado
      */
     public function setEstatura($estatura)
     {
         $this->estatura = $estatura;
-    
+
         return $this;
     }
 
     /**
      * Get estatura
      *
-     * @return integer 
+     * @return integer
      */
     public function getEstatura()
     {
@@ -581,20 +580,20 @@ class CEmpleado {
     /**
      * Set email
      *
-     * @param string $email
+     * @param  string    $email
      * @return CEmpleado
      */
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -604,20 +603,20 @@ class CEmpleado {
     /**
      * Set cantidadDeuda
      *
-     * @param float $cantidadDeuda
+     * @param  float     $cantidadDeuda
      * @return CEmpleado
      */
     public function setCantidadDeuda($cantidadDeuda)
     {
         $this->cantidadDeuda = $cantidadDeuda;
-    
+
         return $this;
     }
 
     /**
      * Get cantidadDeuda
      *
-     * @return float 
+     * @return float
      */
     public function getCantidadDeuda()
     {
@@ -627,20 +626,20 @@ class CEmpleado {
     /**
      * Set otroIngreso
      *
-     * @param string $otroIngreso
+     * @param  string    $otroIngreso
      * @return CEmpleado
      */
     public function setOtroIngreso($otroIngreso)
     {
         $this->otroIngreso = $otroIngreso;
-    
+
         return $this;
     }
 
     /**
      * Get otroIngreso
      *
-     * @return string 
+     * @return string
      */
     public function getOtroIngreso()
     {
@@ -650,20 +649,20 @@ class CEmpleado {
     /**
      * Set sexo
      *
-     * @param \Planillas\NomencladorBundle\Entity\NSexo $sexo
+     * @param  \Planillas\NomencladorBundle\Entity\NSexo $sexo
      * @return CEmpleado
      */
     public function setSexo(\Planillas\NomencladorBundle\Entity\NSexo $sexo = null)
     {
         $this->sexo = $sexo;
-    
+
         return $this;
     }
 
     /**
      * Get sexo
      *
-     * @return \Planillas\NomencladorBundle\Entity\NSexo 
+     * @return \Planillas\NomencladorBundle\Entity\NSexo
      */
     public function getSexo()
     {
@@ -673,20 +672,20 @@ class CEmpleado {
     /**
      * Set supervisor
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $supervisor
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $supervisor
      * @return CEmpleado
      */
     public function setSupervisor(\Planillas\CoreBundle\Entity\CEmpleado $supervisor = null)
     {
         $this->supervisor = $supervisor;
-    
+
         return $this;
     }
 
     /**
      * Get supervisor
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getSupervisor()
     {
@@ -696,20 +695,20 @@ class CEmpleado {
     /**
      * Set trabajo
      *
-     * @param \Planillas\CoreBundle\Entity\CTrabajo $trabajo
+     * @param  \Planillas\CoreBundle\Entity\CTrabajo $trabajo
      * @return CEmpleado
      */
     public function setTrabajo(\Planillas\CoreBundle\Entity\CTrabajo $trabajo = null)
     {
         $this->trabajo = $trabajo;
-    
+
         return $this;
     }
 
     /**
      * Get trabajo
      *
-     * @return \Planillas\CoreBundle\Entity\CTrabajo 
+     * @return \Planillas\CoreBundle\Entity\CTrabajo
      */
     public function getTrabajo()
     {
@@ -719,20 +718,20 @@ class CEmpleado {
     /**
      * Set horario
      *
-     * @param \Planillas\CoreBundle\Entity\CHorario $horario
+     * @param  \Planillas\CoreBundle\Entity\CHorario $horario
      * @return CEmpleado
      */
     public function setHorario(\Planillas\CoreBundle\Entity\CHorario $horario = null)
     {
         $this->horario = $horario;
-    
+
         return $this;
     }
 
     /**
      * Get horario
      *
-     * @return \Planillas\CoreBundle\Entity\CHorario 
+     * @return \Planillas\CoreBundle\Entity\CHorario
      */
     public function getHorario()
     {
@@ -742,13 +741,13 @@ class CEmpleado {
     /**
      * Add fechaexcepcional
      *
-     * @param \Planillas\CoreBundle\Entity\CFechaExcepcional $fechaexcepcional
+     * @param  \Planillas\CoreBundle\Entity\CFechaExcepcional $fechaexcepcional
      * @return CEmpleado
      */
     public function addFechaexcepcional(\Planillas\CoreBundle\Entity\CFechaExcepcional $fechaexcepcional)
     {
         $this->fechaexcepcional[] = $fechaexcepcional;
-    
+
         return $this;
     }
 
@@ -765,7 +764,7 @@ class CEmpleado {
     /**
      * Get fechaexcepcional
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFechaexcepcional()
     {
@@ -775,20 +774,20 @@ class CEmpleado {
     /**
      * Set tipoPagoCasa
      *
-     * @param \Planillas\NomencladorBundle\Entity\NTipoPagoCasa $tipoPagoCasa
+     * @param  \Planillas\NomencladorBundle\Entity\NTipoPagoCasa $tipoPagoCasa
      * @return CEmpleado
      */
     public function setTipoPagoCasa(\Planillas\NomencladorBundle\Entity\NTipoPagoCasa $tipoPagoCasa = null)
     {
         $this->tipoPagoCasa = $tipoPagoCasa;
-    
+
         return $this;
     }
 
     /**
      * Get tipoPagoCasa
      *
-     * @return \Planillas\NomencladorBundle\Entity\NTipoPagoCasa 
+     * @return \Planillas\NomencladorBundle\Entity\NTipoPagoCasa
      */
     public function getTipoPagoCasa()
     {
@@ -798,13 +797,13 @@ class CEmpleado {
     /**
      * Add domicilios
      *
-     * @param \Planillas\EntidadesBundle\Entity\EDomicilio $domicilios
+     * @param  \Planillas\EntidadesBundle\Entity\EDomicilio $domicilios
      * @return CEmpleado
      */
     public function addDomicilio(\Planillas\EntidadesBundle\Entity\EDomicilio $domicilios)
     {
         $this->domicilios[] = $domicilios;
-    
+
         return $this;
     }
 
@@ -821,7 +820,7 @@ class CEmpleado {
     /**
      * Get domicilios
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDomicilios()
     {
@@ -831,13 +830,13 @@ class CEmpleado {
     /**
      * Add ausencias
      *
-     * @param \Planillas\CoreBundle\Entity\CAusencias $ausencias
+     * @param  \Planillas\CoreBundle\Entity\CAusencias $ausencias
      * @return CEmpleado
      */
     public function addAusencia(\Planillas\CoreBundle\Entity\CAusencias $ausencias)
     {
         $this->ausencias[] = $ausencias;
-    
+
         return $this;
     }
 
@@ -854,7 +853,7 @@ class CEmpleado {
     /**
      * Get ausencias
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAusencias()
     {
@@ -864,13 +863,13 @@ class CEmpleado {
     /**
      * Add incapacidades
      *
-     * @param \Planillas\CoreBundle\Entity\CIncapacidades $incapacidades
+     * @param  \Planillas\CoreBundle\Entity\CIncapacidades $incapacidades
      * @return CEmpleado
      */
     public function addIncapacidade(\Planillas\CoreBundle\Entity\CIncapacidades $incapacidades)
     {
         $this->incapacidades[] = $incapacidades;
-    
+
         return $this;
     }
 
@@ -887,7 +886,7 @@ class CEmpleado {
     /**
      * Get incapacidades
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getIncapacidades()
     {
@@ -897,13 +896,13 @@ class CEmpleado {
     /**
      * Add diasextra
      *
-     * @param \Planillas\CoreBundle\Entity\CDiasExtra $diasextra
+     * @param  \Planillas\CoreBundle\Entity\CDiasExtra $diasextra
      * @return CEmpleado
      */
     public function addDiasextra(\Planillas\CoreBundle\Entity\CDiasExtra $diasextra)
     {
         $this->diasextra[] = $diasextra;
-    
+
         return $this;
     }
 
@@ -920,7 +919,7 @@ class CEmpleado {
     /**
      * Get diasextra
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDiasextra()
     {
@@ -930,13 +929,13 @@ class CEmpleado {
     /**
      * Add horasextras
      *
-     * @param \Planillas\CoreBundle\Entity\CHorasExtras $horasextras
+     * @param  \Planillas\CoreBundle\Entity\CHorasExtras $horasextras
      * @return CEmpleado
      */
     public function addHorasextra(\Planillas\CoreBundle\Entity\CHorasExtras $horasextras)
     {
         $this->horasextras[] = $horasextras;
-    
+
         return $this;
     }
 
@@ -953,7 +952,7 @@ class CEmpleado {
     /**
      * Get horasextras
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getHorasextras()
     {
@@ -963,13 +962,13 @@ class CEmpleado {
     /**
      * Add deudas
      *
-     * @param \Planillas\CoreBundle\Entity\CDeudas $deudas
+     * @param  \Planillas\CoreBundle\Entity\CDeudas $deudas
      * @return CEmpleado
      */
     public function addDeuda(\Planillas\CoreBundle\Entity\CDeudas $deudas)
     {
         $this->deudas[] = $deudas;
-    
+
         return $this;
     }
 
@@ -986,7 +985,7 @@ class CEmpleado {
     /**
      * Get deudas
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDeudas()
     {
@@ -996,13 +995,13 @@ class CEmpleado {
     /**
      * Add cuentasBancos
      *
-     * @param \Planillas\NomencladorBundle\Entity\NBanco $cuentasBancos
+     * @param  \Planillas\NomencladorBundle\Entity\NBanco $cuentasBancos
      * @return CEmpleado
      */
     public function addCuentasBanco(\Planillas\NomencladorBundle\Entity\NBanco $cuentasBancos)
     {
         $this->cuentasBancos[] = $cuentasBancos;
-    
+
         return $this;
     }
 
@@ -1019,7 +1018,7 @@ class CEmpleado {
     /**
      * Get cuentasBancos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCuentasBancos()
     {
@@ -1029,20 +1028,20 @@ class CEmpleado {
     /**
      * Set estadoCivil
      *
-     * @param \Planillas\NomencladorBundle\Entity\NEstadoCivil $estadoCivil
+     * @param  \Planillas\NomencladorBundle\Entity\NEstadoCivil $estadoCivil
      * @return CEmpleado
      */
     public function setEstadoCivil(\Planillas\NomencladorBundle\Entity\NEstadoCivil $estadoCivil = null)
     {
         $this->estadoCivil = $estadoCivil;
-    
+
         return $this;
     }
 
     /**
      * Get estadoCivil
      *
-     * @return \Planillas\NomencladorBundle\Entity\NEstadoCivil 
+     * @return \Planillas\NomencladorBundle\Entity\NEstadoCivil
      */
     public function getEstadoCivil()
     {
@@ -1052,13 +1051,13 @@ class CEmpleado {
     /**
      * Add gastosPrincipales
      *
-     * @param \Planillas\EntidadesBundle\Entity\EGastoPrincipal $gastosPrincipales
+     * @param  \Planillas\EntidadesBundle\Entity\EGastoPrincipal $gastosPrincipales
      * @return CEmpleado
      */
     public function addGastosPrincipale(\Planillas\EntidadesBundle\Entity\EGastoPrincipal $gastosPrincipales)
     {
         $this->gastosPrincipales[] = $gastosPrincipales;
-    
+
         return $this;
     }
 
@@ -1075,7 +1074,7 @@ class CEmpleado {
     /**
      * Get gastosPrincipales
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getGastosPrincipales()
     {
@@ -1085,13 +1084,13 @@ class CEmpleado {
     /**
      * Add historiasTrabajos
      *
-     * @param \Planillas\EntidadesBundle\Entity\EHistoriaTrabajo $historiasTrabajos
+     * @param  \Planillas\EntidadesBundle\Entity\EHistoriaTrabajo $historiasTrabajos
      * @return CEmpleado
      */
     public function addHistoriasTrabajo(\Planillas\EntidadesBundle\Entity\EHistoriaTrabajo $historiasTrabajos)
     {
         $this->historiasTrabajos[] = $historiasTrabajos;
-    
+
         return $this;
     }
 
@@ -1108,7 +1107,7 @@ class CEmpleado {
     /**
      * Get historiasTrabajos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getHistoriasTrabajos()
     {
@@ -1118,13 +1117,13 @@ class CEmpleado {
     /**
      * Add personasDependen
      *
-     * @param \Planillas\EntidadesBundle\Entity\EPersonaDependen $personasDependen
+     * @param  \Planillas\EntidadesBundle\Entity\EPersonaDependen $personasDependen
      * @return CEmpleado
      */
     public function addPersonasDependen(\Planillas\EntidadesBundle\Entity\EPersonaDependen $personasDependen)
     {
         $this->personasDependen[] = $personasDependen;
-    
+
         return $this;
     }
 
@@ -1141,7 +1140,7 @@ class CEmpleado {
     /**
      * Get personasDependen
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPersonasDependen()
     {
@@ -1151,13 +1150,13 @@ class CEmpleado {
     /**
      * Add familiares
      *
-     * @param \Planillas\EntidadesBundle\Entity\EFamilia $familiares
+     * @param  \Planillas\EntidadesBundle\Entity\EFamilia $familiares
      * @return CEmpleado
      */
     public function addFamiliare(\Planillas\EntidadesBundle\Entity\EFamilia $familiares)
     {
         $this->familiares[] = $familiares;
-    
+
         return $this;
     }
 
@@ -1174,7 +1173,7 @@ class CEmpleado {
     /**
      * Get familiares
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFamiliares()
     {
@@ -1184,20 +1183,20 @@ class CEmpleado {
     /**
      * Set salarioBase
      *
-     * @param \Planillas\CoreBundle\Entity\CSalarioBase $salarioBase
+     * @param  \Planillas\CoreBundle\Entity\CSalarioBase $salarioBase
      * @return CEmpleado
      */
     public function setSalarioBase(\Planillas\CoreBundle\Entity\CSalarioBase $salarioBase = null)
     {
         $this->salarioBase = $salarioBase;
-    
+
         return $this;
     }
 
     /**
      * Get salarioBase
      *
-     * @return \Planillas\CoreBundle\Entity\CSalarioBase 
+     * @return \Planillas\CoreBundle\Entity\CSalarioBase
      */
     public function getSalarioBase()
     {
@@ -1207,13 +1206,13 @@ class CEmpleado {
     /**
      * Add componentesSalariales
      *
-     * @param \Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales
+     * @param  \Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales
      * @return CEmpleado
      */
     public function addComponentesSalariale(\Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales)
     {
         $this->componentesSalariales[] = $componentesSalariales;
-    
+
         return $this;
     }
 
@@ -1230,13 +1229,14 @@ class CEmpleado {
     /**
      * Get componentesSalariales
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getComponentesSalariales()
     {
         return $this->componentesSalariales;
     }
-     public function __toString() {
+     public function __toString()
+     {
         return $this->nombre . ' ' . $this->primerApellido;
     }
 

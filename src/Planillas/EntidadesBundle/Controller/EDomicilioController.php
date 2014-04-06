@@ -167,14 +167,14 @@ class EDomicilioController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         $deleteForm = $this->createDeleteForm($id);
-        
+
         if ($editForm->isValid()) {
 
             $manager->flush();
             //$this->get('core.domicilio.manager')->save($entity);
 
-
             $this->get('session')->getFlashBag()->add('info','Se han actualizado los datos correctamente');
+
             return $this->redirect($this->generateUrl('domicilio_edit', array('id' => $id)));
         }
 

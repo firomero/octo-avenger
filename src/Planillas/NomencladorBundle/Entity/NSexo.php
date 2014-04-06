@@ -30,11 +30,10 @@ class NSexo
      */
     private $nombre;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -44,28 +43,28 @@ class NSexo
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string $nombre
      * @return NSexo
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
         return $this->nombre;
     }
 
-    public function __toString(){
-
+    public function __toString()
+    {
         return  $this->nombre;
     }
 }

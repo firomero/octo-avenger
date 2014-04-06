@@ -30,7 +30,6 @@ class CIncapacidadesController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
 
-
             $aDatos = $form->getData(); //filter data
             $this->get('session')->set('incapacidades.filtros', $aDatos);
         }
@@ -42,7 +41,7 @@ class CIncapacidadesController extends Controller
         }
         $filtros = $this->get('session')->get('incapacidades.filtros');
         $this->get('session')->set('incapacidades.page', $this->get('request')->query->get('page', 1));
-        $page = (int)$this->get('session')->get('incapacidades.page', $this->get('request')->query->get('page', 1));
+        $page = (int) $this->get('session')->get('incapacidades.page', $this->get('request')->query->get('page', 1));
         $result = $em->getRepository('PlanillasCoreBundle:CIncapacidades')->filterIncapacidades($filtros);
 
         $pagination = $paginator->paginate(
@@ -51,6 +50,7 @@ class CIncapacidadesController extends Controller
 
         $entity = new CIncapacidades();
         $form_new = $this->createCreateForm($entity);
+
         return $this->render('PlanillasCoreBundle:CIncapacidades:index.html.twig', array(
             'pagination' => $pagination,
             'form_buscar' => $form->createView(),
@@ -72,14 +72,12 @@ class CIncapacidadesController extends Controller
 
         $data = $request->get('planillas_id'); //solo valido para la forma de tab
 
-
         if (isset($data['id']) && !empty($data['id'])) {
             $entity = $em->getRepository('PlanillasCoreBundle:CIncapacidades')->find($data['id']);
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find CIncapacidades entity.');
 
             } else {
-
 
                 $form = $this->createEditForm($entity);
             }
@@ -90,15 +88,16 @@ class CIncapacidadesController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
 
-
             $em->persist($entity);
             $em->flush();
             //poner un mensaje flash
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido guardados correctamente');
+
             return $this->redirect($this->generateUrl('cincapacidades'));
         }
 
         $this->get('session')->getFlashBag()->add('danger', 'No se pudieron guardados los datos');
+
         return $this->redirect($this->generateUrl('cincapacidades'));
     }
 
@@ -117,7 +116,6 @@ class CIncapacidadesController extends Controller
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -196,7 +194,6 @@ class CIncapacidadesController extends Controller
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 
@@ -246,6 +243,7 @@ class CIncapacidadesController extends Controller
             }
             if ($entity->getPlanilla()!=null) {
                 $this->get('session')->getFlashBag()->add('danger', 'No puede eliminar la entidad porque ya que está asociada a una planilla de efectivo');
+
                 return $this->redirect($this->generateUrl('cincapacidades'));
             }
             $em->remove($entity);
@@ -255,6 +253,7 @@ class CIncapacidadesController extends Controller
         } catch (Exception $e) {
             $this->get('session')->getFlashBag()->add('danger', 'No se pudieron eliminar los datos');
         }
+
         return $this->redirect($this->generateUrl('cincapacidades'));
     }
 
@@ -283,22 +282,23 @@ class CIncapacidadesController extends Controller
         if (!$entity) {
             $response['success'] = false;
             $response['mensaje']='No existe la entidad.';
+
             return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
         }
-        if($entity->getPlanilla()!=null)
-        {
+        if ($entity->getPlanilla()!=null) {
             $response['success'] = false;
             $response['mensaje']='No puede editar la entidad ya que está asociada a una planilla de efectivo.';
-            return new \Symfony\Component\HttpFoundation\Response(json_encode($response)); 
+
+            return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
         }
-        
+
         $response['data'] = $entity->getJson();
+
         return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
     }
 
-
     /*Filtros*/
-    protected function  getFiltros()
+    protected function getFiltros()
     {
         return $this->get('session')->get('incapacidades.filtros', array());
 

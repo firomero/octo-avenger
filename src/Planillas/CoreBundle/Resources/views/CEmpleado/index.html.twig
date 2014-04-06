@@ -37,22 +37,22 @@
                     <div class="col-lg-4">{{ form_widget(form.inactivo) }}</div>
                     {{ form_rest(form) }}
                 </div>
-                
+
             </fieldset>
 			    <fieldset>
                     <legend></legend>
 				 <div class="btn-group">
 				   <button type="submit" name="btn_buscar" class="btn btn-primary">Buscar</button>
-				   
+
 				  </div>
 				  <div class="btn-group">
-				  
+
 				   <a href="{{ path('empleado_index') }}?query=reset"  id="reiniciar" name="btn_reiniciar" class="btn btn-default">Reiniciar</a>				  </div>
-				</fieldset>  
-			
+				</fieldset>
+
                  </form>
-                </div>   
-            
+                </div>
+
     </div>
 
 
@@ -104,9 +104,9 @@
                         </td>
                         <td>
                             <a class="btn btn-primary" href="{{ path('empleado_edit', { 'id': entity.id }) }}"><i class="glyphicon glyphicon-trash"></i>Eliminar</a>
-                            
 
-                            
+
+
                         </td>
                     </tr>
                 {% endfor %}

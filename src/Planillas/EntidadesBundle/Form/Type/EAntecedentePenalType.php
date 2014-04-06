@@ -8,15 +8,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EAntecedentePenalType extends AbstractType
 {
-    var $bDestruyeEmpleado;
-    
-    public function __construct($bDestruyeEmpleado=false){
-       $this->bDestruyeEmpleado = $bDestruyeEmpleado;    
+    public $bDestruyeEmpleado;
+
+    public function __construct($bDestruyeEmpleado=false)
+    {
+       $this->bDestruyeEmpleado = $bDestruyeEmpleado;
     }
-    
+
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -25,11 +26,11 @@ class EAntecedentePenalType extends AbstractType
             ->add('descripcion','textarea',array('label'=>'Descripción'))
             ->add('empleado')
         ;
-        
+
         if($this->bDestruyeEmpleado)
            $builder->remove('empleado');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -74,7 +74,7 @@ class CAusencias
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -84,20 +84,20 @@ class CAusencias
     /**
      * Set tipoAusencia
      *
-     * @param string $tipoAusencia
+     * @param  string     $tipoAusencia
      * @return CAusencias
      */
     public function setTipoAusencia($tipoAusencia)
     {
         $this->tipoAusencia = $tipoAusencia;
-    
+
         return $this;
     }
 
     /**
      * Get tipoAusencia
      *
-     * @return string 
+     * @return string
      */
     public function getTipoAusencia()
     {
@@ -107,20 +107,20 @@ class CAusencias
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string     $nombre
      * @return CAusencias
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -130,20 +130,20 @@ class CAusencias
     /**
      * Set motivo
      *
-     * @param string $motivo
+     * @param  string     $motivo
      * @return CAusencias
      */
     public function setMotivo($motivo)
     {
         $this->motivo = $motivo;
-    
+
         return $this;
     }
 
     /**
      * Get motivo
      *
-     * @return string 
+     * @return string
      */
     public function getMotivo()
     {
@@ -153,20 +153,20 @@ class CAusencias
     /**
      * Set fechaInicio
      *
-     * @param \DateTime $fechaInicio
+     * @param  \DateTime  $fechaInicio
      * @return CAusencias
      */
     public function setFechaInicio($fechaInicio)
     {
         $this->fechaInicio = $fechaInicio;
-    
+
         return $this;
     }
 
     /**
      * Get fechaInicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaInicio()
     {
@@ -176,20 +176,20 @@ class CAusencias
     /**
      * Set fechaFin
      *
-     * @param \DateTime $fechaFin
+     * @param  \DateTime  $fechaFin
      * @return CAusencias
      */
     public function setFechaFin($fechaFin)
     {
         $this->fechaFin = $fechaFin;
-    
+
         return $this;
     }
 
     /**
      * Get fechaFin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaFin()
     {
@@ -199,20 +199,20 @@ class CAusencias
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CAusencias
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -227,26 +227,27 @@ class CAusencias
         $obj->empleado=$this->empleado->getId();
         $obj->tipoAusencia=$this->tipoAusencia;
         $obj->motivo=$this->motivo;
+
         return $obj;
     }
 
     /**
      * Set planilla
      *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
      * @return CAusencias
      */
     public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
     {
         $this->planilla = $planilla;
-    
+
         return $this;
     }
 
     /**
      * Get planilla
      *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     * @return \Planillas\CoreBundle\Entity\CPlanillas
      */
     public function getPlanilla()
     {

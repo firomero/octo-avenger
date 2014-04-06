@@ -12,13 +12,14 @@ use Planillas\CoreBundle\Form\Type\CDeudasType;
  * CDeudas controller.
  *
  */
-class CDeudasController extends Controller {
-
+class CDeudasController extends Controller
+{
     /**
      * Lists all CDeudas entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         $aDatos = array();
@@ -37,6 +38,7 @@ class CDeudasController extends Controller {
         );
         $entity = new CDeudas();
         $form_new = $this->createCreateForm($entity);
+
         return $this->render('PlanillasCoreBundle:CDeudas:index.html.twig', array(
                     'pagination' => $pagination,
                     'form_buscar' => $form->createView(),
@@ -48,20 +50,19 @@ class CDeudasController extends Controller {
      * Creates a new CDeudas entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new CDeudas();
         $em = $this->getDoctrine()->getManager();
         $form = new CDeudasType();
 
         $data = $request->get('planillas_id');
 
-
         if (isset($data['id']) && !empty($data['id'])) {
             $entity = $em->getRepository('PlanillasCoreBundle:CDeudas')->find($data['id']);
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find CDeudas entity.');
             } else {
-
 
                 $form = $this->createEditForm($entity);
             }
@@ -79,10 +80,12 @@ class CDeudasController extends Controller {
             $em->flush();
             //poner un mensaje flash
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido guardados correctamente');
+
             return $this->redirect($this->generateUrl('cdeudas'));
         }
 
         $this->get('session')->getFlashBag()->add('danger', 'No se pudieron guardar los datos');
+
         return $this->redirect($this->generateUrl('cdeudas'));
     }
 
@@ -93,14 +96,14 @@ class CDeudasController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(CDeudas $entity) {
+    private function createCreateForm(CDeudas $entity)
+    {
         $form = $this->createForm(new CDeudasType(), $entity, array(
             'action' => $this->generateUrl('cdeudas_create'),
             'method' => 'POST',
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -108,7 +111,8 @@ class CDeudasController extends Controller {
      * Displays a form to create a new CDeudas entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new CDeudas();
         $form = $this->createCreateForm($entity);
 
@@ -122,7 +126,8 @@ class CDeudasController extends Controller {
      * Finds and displays a CDeudas entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CDeudas')->find($id);
@@ -142,7 +147,8 @@ class CDeudasController extends Controller {
      * Displays a form to edit an existing CDeudas entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CDeudas')->find($id);
@@ -168,14 +174,14 @@ class CDeudasController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(CDeudas $entity) {
+    private function createEditForm(CDeudas $entity)
+    {
         $form = $this->createForm(new CDeudasType(), $entity, array(
             'action' => $this->generateUrl('cdeudas_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 
@@ -183,7 +189,8 @@ class CDeudasController extends Controller {
      * Edits an existing CDeudas entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CDeudas')->find($id);
@@ -213,8 +220,8 @@ class CDeudasController extends Controller {
      * Deletes a CDeudas entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
-
+    public function deleteAction(Request $request, $id)
+    {
         try {
 
             $em = $this->getDoctrine()->getManager();
@@ -225,6 +232,7 @@ class CDeudasController extends Controller {
             }
             if ($entity->getPlanilla() != null) {
                 $this->get('session')->getFlashBag()->add('danger', 'No puede eliminar la entidad porque ya que está asociada a una planilla de efectivo');
+
                 return $this->redirect($this->generateUrl('cdeudas'));
             }
             $em->remove($entity);
@@ -233,6 +241,7 @@ class CDeudasController extends Controller {
         } catch (Exception $e) {
             $this->get('session')->getFlashBag()->add('info', 'No se pudieron eliminar los datos');
         }
+
         return $this->redirect($this->generateUrl('cdeudas'));
     }
 
@@ -243,7 +252,8 @@ class CDeudasController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('cdeudas_delete', array('id' => $id)))
                         ->setMethod('DELETE')
@@ -251,22 +261,26 @@ class CDeudasController extends Controller {
                         ->getForm();
     }
 
-    public function editajaxAction(Request $request) {
+    public function editajaxAction(Request $request)
+    {
         $id = $request->get('id');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasCoreBundle:CDeudas')->find($id);
         $response = array("success" => true);
         if (!$entity) {
             $response['success'] = false;
+
             return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
         }
         if ($entity->getPlanilla() != null) {
             $response['success'] = false;
             $response['mensaje'] = 'No puede editar la entidad ya que está asociada a una planilla de efectivo.';
+
             return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
         }
 
         $response['data'] = $entity->getJson();
+
         return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
     }
 

@@ -63,8 +63,6 @@ class EOtrosDatos
      */
     private $personasEmpresa;
 
-
-
     /**
      * Constructor
      */
@@ -72,11 +70,11 @@ class EOtrosDatos
     {
         $this->personasEmpresa = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -86,20 +84,20 @@ class EOtrosDatos
     /**
      * Set viaConocimiento
      *
-     * @param string $viaConocimiento
+     * @param  string      $viaConocimiento
      * @return EOtrosDatos
      */
     public function setViaConocimiento($viaConocimiento)
     {
         $this->viaConocimiento = $viaConocimiento;
-    
+
         return $this;
     }
 
     /**
      * Get viaConocimiento
      *
-     * @return string 
+     * @return string
      */
     public function getViaConocimiento()
     {
@@ -109,20 +107,20 @@ class EOtrosDatos
     /**
      * Set comentario
      *
-     * @param string $comentario
+     * @param  string      $comentario
      * @return EOtrosDatos
      */
     public function setComentario($comentario)
     {
         $this->comentario = $comentario;
-    
+
         return $this;
     }
 
     /**
      * Get comentario
      *
-     * @return string 
+     * @return string
      */
     public function getComentario()
     {
@@ -132,20 +130,20 @@ class EOtrosDatos
     /**
      * Set trabajarPorTurnos
      *
-     * @param boolean $trabajarPorTurnos
+     * @param  boolean     $trabajarPorTurnos
      * @return EOtrosDatos
      */
     public function setTrabajarPorTurnos($trabajarPorTurnos)
     {
         $this->trabajarPorTurnos = $trabajarPorTurnos;
-    
+
         return $this;
     }
 
     /**
      * Get trabajarPorTurnos
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getTrabajarPorTurnos()
     {
@@ -155,20 +153,20 @@ class EOtrosDatos
     /**
      * Set trabajarHorasExtras
      *
-     * @param boolean $trabajarHorasExtras
+     * @param  boolean     $trabajarHorasExtras
      * @return EOtrosDatos
      */
     public function setTrabajarHorasExtras($trabajarHorasExtras)
     {
         $this->trabajarHorasExtras = $trabajarHorasExtras;
-    
+
         return $this;
     }
 
     /**
      * Get trabajarHorasExtras
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getTrabajarHorasExtras()
     {
@@ -178,20 +176,20 @@ class EOtrosDatos
     /**
      * Set aceptaTrabajoTemporal
      *
-     * @param boolean $aceptaTrabajoTemporal
+     * @param  boolean     $aceptaTrabajoTemporal
      * @return EOtrosDatos
      */
     public function setAceptaTrabajoTemporal($aceptaTrabajoTemporal)
     {
         $this->aceptaTrabajoTemporal = $aceptaTrabajoTemporal;
-    
+
         return $this;
     }
 
     /**
      * Get aceptaTrabajoTemporal
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getAceptaTrabajoTemporal()
     {
@@ -201,13 +199,13 @@ class EOtrosDatos
     /**
      * Add personasEmpresa
      *
-     * @param \Planillas\EntidadesBundle\Entity\EPersonaEmpresa $personasEmpresa
+     * @param  \Planillas\EntidadesBundle\Entity\EPersonaEmpresa $personasEmpresa
      * @return EOtrosDatos
      */
     public function addPersonasEmpresa(\Planillas\EntidadesBundle\Entity\EPersonaEmpresa $personasEmpresa)
     {
         $this->personasEmpresa[] = $personasEmpresa;
-    
+
         return $this;
     }
 
@@ -224,7 +222,7 @@ class EOtrosDatos
     /**
      * Get personasEmpresa
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPersonasEmpresa()
     {

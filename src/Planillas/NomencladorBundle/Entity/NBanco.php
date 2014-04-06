@@ -3,7 +3,6 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NBanco
@@ -28,7 +27,7 @@ class NBanco
      * @ORM\Column(name="nombre", type="string", length=64, nullable=true)
      */
     private $nombre;
- 
+
     /**
      * @ORM\ManyToMany(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", mappedBy="cuentasBancos")
      **/
@@ -37,7 +36,7 @@ class NBanco
     /**
      * Get bancoId
      *
-     * @return integer 
+     * @return integer
      */
     public function getBancoId()
     {
@@ -47,26 +46,26 @@ class NBanco
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string $nombre
      * @return NBanco
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
         return $this->nombre;
     }
-    
+
     /**
      * Set empleado
      *
@@ -76,20 +75,22 @@ class NBanco
     {
         $empleado->addCuentasBanco($this);
         $this->empleados->add($empleado);
+
         return $this;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-    
-    function __construct(){
+
+    public function __construct()
+    {
         $this->empleados = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

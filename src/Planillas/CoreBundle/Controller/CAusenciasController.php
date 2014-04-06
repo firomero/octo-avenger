@@ -8,14 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Planillas\CoreBundle\Entity\CAusencias;
 use Planillas\CoreBundle\Form\Type\CAusenciasType;
-use Symfony\Component\Validator\Constraints\GreaterThan;
 
 /**
  * CAusencias controller.
  *
  */
-class CAusenciasController extends Controller {
-
+class CAusenciasController extends Controller
+{
     /**
      * Lists all CAusencias entities.
      *
@@ -60,13 +59,12 @@ class CAusenciasController extends Controller {
         $form->handleRequest($request);
         if ($form->isValid()) {
             //validacion manual por lo que veo esta basura no valida bien
-            if (!self::isValidaDataRange($entity))
-            {
+            if (!self::isValidaDataRange($entity)) {
                 $this->get('session')->getFlashBag()->add('danger', 'No se pudieron salvar los datos ya que existen errores en las fechas.');
 
                 return $this->redirect($this->generateUrl('causencias'));
             }
-            
+
             if ($entity->getPlanilla() != null || $entity->getPlanilla() != 0) {
                 $this->get('session')->getFlashBag()->add('danger', 'No se puede modificar ya que está asociada a un planilla de pago');
 
@@ -125,12 +123,12 @@ class CAusenciasController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(CAusencias $entity) {
+    private function createCreateForm(CAusencias $entity)
+    {
         $form = $this->createForm(new CAusenciasType(), $entity, array(
             'action' => $this->generateUrl('causencias_create'),
             'method' => 'POST',
         ));
-
 
         return $form;
     }
@@ -139,11 +137,13 @@ class CAusenciasController extends Controller {
      * Displays a form to create a new CAusencias entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = new CAusencias();
         $form = $this->createCreateForm($entity);
         $empleados = $em->getRepository('PlanillasCoreBundle:CEmpleado')->findAll();
+
         return $this->render('PlanillasCoreBundle:CAusencias:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -155,7 +155,8 @@ class CAusenciasController extends Controller {
      * Finds and displays a CAusencias entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CAusencias')->find($id);
@@ -175,7 +176,8 @@ class CAusenciasController extends Controller {
      * Displays a form to edit an existing CAusencias entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CAusencias')->find($id);
@@ -201,14 +203,14 @@ class CAusenciasController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(CAusencias $entity) {
+    private function createEditForm(CAusencias $entity)
+    {
         $form = $this->createForm(new CAusenciasType(), $entity /* array(
                   'action' => $this->generateUrl('causencias_update', array('id' => $entity->getId())),
                   'method' => 'post',
                   ) */);
 
         // $form->add('submit', 'submit', array('label' => 'Update'));
-
         return $form;
     }
 
@@ -216,7 +218,8 @@ class CAusenciasController extends Controller {
      * Edits an existing CAusencias entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('PlanillasCoreBundle:CAusencias')->find($id);
@@ -246,8 +249,8 @@ class CAusenciasController extends Controller {
      * Deletes a CAusencias entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
-       
+    public function deleteAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasCoreBundle:CAusencias')->find($id);
 
@@ -256,11 +259,11 @@ class CAusenciasController extends Controller {
         }
         if ($entity->getPlanilla() != null || $entity->getPlanilla() != 0) {
             $this->get('session')->getFlashBag()->add('danger', 'No se puede eliminar ya que está asociada a un planilla de pago');
+
             return $this->redirect($this->generateUrl('causencias'));
         }
         $em->remove($entity);
         $em->flush();
-        
 
         return $this->redirect($this->generateUrl('causencias'));
     }
@@ -272,7 +275,8 @@ class CAusenciasController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('causencias_delete', array('id' => $id)))
                         ->setMethod('DELETE')
@@ -282,27 +286,29 @@ class CAusenciasController extends Controller {
 
     /* Helper Functions */
 
-    public function autocompletarAction(Request $request) {
-
+    public function autocompletarAction(Request $request)
+    {
         $id = $request->get('id');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('PlanillasCoreBundle:CAusencias')->find($id);
         $response = array("success" => true);
         if (!$entity) {
             $response['success'] = false;
+
             return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
         }
         $response['data'] = $entity->getJson();
+
         return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
     }
     /*Helper functions*/
     public static function isValidaDataRange(CAusencias $entity)
     {
-        if($entity->getFechaInicio()==null || $entity->getFechaFin()==null)
-        {
+        if ($entity->getFechaInicio()==null || $entity->getFechaFin()==null) {
             return false;
         }
         if($entity->getFechaFin()<$entity->getFechaInicio())
+
            return false;
         return true;
     }

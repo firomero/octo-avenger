@@ -33,7 +33,7 @@
 
         function buscar(id) {
              $('#progreso').css('display', 'block');
-        
+
             $.ajax({
                 url: '{{ path('ceditajaxdiasextra') }}',
                 data: {id: id},
@@ -48,7 +48,7 @@
                         $('#myTab a:first').tab('show')
                     }
                     else {
-                        
+
                         alert(data.mensaje)
 
                     }
@@ -102,7 +102,7 @@
 
                                     <hr>
                                     <fieldset>
-                                        
+
                                         <div class="btn-group">
                                             <button type="submit" id="btn_actualizar" name="btn_actualizar"
                                                     class="btn btn-primary">Crear
@@ -146,8 +146,8 @@
                                 </div>
 
                             </fieldset>
- 
-                            
+
+
                             <fieldset>
                                  {{ form_rest(form_buscar) }}
                             </fieldset>

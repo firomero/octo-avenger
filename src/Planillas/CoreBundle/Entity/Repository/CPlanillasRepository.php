@@ -14,11 +14,9 @@ use Doctrine\ORM\EntityRepository;
 class CPlanillasRepository extends EntityRepository
 {
 
-
     public function filterAusencias($filtros = array())
     {
         try {
-
 
             $sql = "SELECT s  FROM PlanillasCoreBundle:CAusencias s INNER Join s.empleado e WHERE e.activo=1";
             $case = true;
@@ -28,8 +26,7 @@ class CPlanillasRepository extends EntityRepository
                 $sql .= ' s.fechaInicio >= '. $filtros['fechaInicio'] ;
                 $case = true;
             }
-            if(isset($filtros['empleado'])&& !empty($filtros['empleado']))
-            {
+            if (isset($filtros['empleado'])&& !empty($filtros['empleado'])) {
                 $sql.=($case==true)?" AND ":" WHERE ";
                 //print_r($filtros['empleado']);exit;
                 $sql.=' e.nombre LIKE \'%'.$filtros['empleado'].'%\'';

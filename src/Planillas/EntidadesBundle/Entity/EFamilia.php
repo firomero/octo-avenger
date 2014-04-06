@@ -62,8 +62,6 @@ class EFamilia
      */
     private $nombre;
 
-
-    
     public function getEmpleadoId()
     {
         return  $this->empleado->id;
@@ -72,7 +70,7 @@ class EFamilia
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -82,20 +80,20 @@ class EFamilia
     /**
      * Set edad
      *
-     * @param integer $edad
+     * @param  integer  $edad
      * @return EFamilia
      */
     public function setEdad($edad)
     {
         $this->edad = $edad;
-    
+
         return $this;
     }
 
     /**
      * Get edad
      *
-     * @return integer 
+     * @return integer
      */
     public function getEdad()
     {
@@ -105,20 +103,20 @@ class EFamilia
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string   $nombre
      * @return EFamilia
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -128,44 +126,43 @@ class EFamilia
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EFamilia
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
         return $this->empleado;
     }
 
-
     /**
      * Set parentesco
      *
-     * @param \Planillas\NomencladorBundle\Entity\NParentesco $parentesco
+     * @param  \Planillas\NomencladorBundle\Entity\NParentesco $parentesco
      * @return EFamilia
      */
     public function setParentesco(\Planillas\NomencladorBundle\Entity\NParentesco $parentesco)
     {
         $this->parentesco = $parentesco;
-    
+
         return $this;
     }
 
     /**
      * Get parentesco
      *
-     * @return \Planillas\NomencladorBundle\Entity\NParentesco 
+     * @return \Planillas\NomencladorBundle\Entity\NParentesco
      */
     public function getParentesco()
     {
@@ -175,20 +172,20 @@ class EFamilia
     /**
      * Set ocupacion
      *
-     * @param \Planillas\NomencladorBundle\Entity\NOcupacion $ocupacion
+     * @param  \Planillas\NomencladorBundle\Entity\NOcupacion $ocupacion
      * @return EFamilia
      */
     public function setOcupacion(\Planillas\NomencladorBundle\Entity\NOcupacion $ocupacion)
     {
         $this->ocupacion = $ocupacion;
-    
+
         return $this;
     }
 
     /**
      * Get ocupacion
      *
-     * @return \Planillas\NomencladorBundle\Entity\NOcupacion 
+     * @return \Planillas\NomencladorBundle\Entity\NOcupacion
      */
     public function getOcupacion()
     {

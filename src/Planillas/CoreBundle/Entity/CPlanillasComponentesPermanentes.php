@@ -4,7 +4,6 @@ namespace Planillas\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * CPlanillasEmpleado
  *
@@ -21,7 +20,6 @@ class CPlanillasComponentesPermanentes
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
 
     /**
      * @var $componentePermanente Planillas/EntidadesBundle/Entity/EComponentesSalariales
@@ -43,12 +41,11 @@ class CPlanillasComponentesPermanentes
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
      */
    private $empleado;
-    
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -58,20 +55,20 @@ class CPlanillasComponentesPermanentes
     /**
      * Set componentePermanente
      *
-     * @param \Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentePermanente
+     * @param  \Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentePermanente
      * @return CPlanillasComponentesPermanentes
      */
     public function setComponentePermanente(\Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentePermanente = null)
     {
         $this->componentePermanente = $componentePermanente;
-    
+
         return $this;
     }
 
     /**
      * Get componentePermanente
      *
-     * @return \Planillas\EntidadesBundle\Entity\EComponentesSalariales 
+     * @return \Planillas\EntidadesBundle\Entity\EComponentesSalariales
      */
     public function getComponentePermanente()
     {
@@ -81,20 +78,20 @@ class CPlanillasComponentesPermanentes
     /**
      * Set planilla
      *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
      * @return CPlanillasComponentesPermanentes
      */
     public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
     {
         $this->planilla = $planilla;
-    
+
         return $this;
     }
 
     /**
      * Get planilla
      *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     * @return \Planillas\CoreBundle\Entity\CPlanillas
      */
     public function getPlanilla()
     {
@@ -104,20 +101,20 @@ class CPlanillasComponentesPermanentes
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CPlanillasComponentesPermanentes
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {

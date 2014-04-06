@@ -21,22 +21,22 @@
                 dataType: 'json',
                 success: function (data) {
                  //var p=$.parseJSON(data.data);
-                
+
                     if (data.success) {
                       var ol=$('#lista');
                       jQuery('#lista >').remove('.remove');
                       if(data.data.length>0)
                         {
-                           
-                           
+
+
                            for(var i=0;i<data.data.length;i++)
                                {
-                                   
-                                   ol.append('<li class="remove" id="li'+data.data[i].id+'"><label class="checkbox"><input type="checkbox" name="empleados['+data.data[i].id+']" value="'+data.data[i].id+'">'+data.data[i].nombre+" "+data.data[i].primerApellido+" "+data.data[i].segundoApellido+'</label></li>');  
+
+                                   ol.append('<li class="remove" id="li'+data.data[i].id+'"><label class="checkbox"><input type="checkbox" name="empleados['+data.data[i].id+']" value="'+data.data[i].id+'">'+data.data[i].nombre+" "+data.data[i].primerApellido+" "+data.data[i].segundoApellido+'</label></li>');
                                }
-                          
+
                         }
-                      
+
                     }
                     else {
                         alert("Ocurrió un error al obtener los datos")
@@ -83,16 +83,16 @@
                                 <div class="row-fluid">
                                     <div class="col-lg-4">
                                         <div class="control-group">
-                                           
+
                                         <label for="filter" class="control-label col-lg-3 optional">Filtrar</label>
                                         <input type="text" onkeyup="Buscar(this)" class="form-control" name="filter" id="filter">
                                        </div>
                                     </div>
-                                    
+
 
 
                                 </div>
-                               
+
 
                             </fieldset>
                             <br/>
@@ -103,9 +103,9 @@
                                  <div class="row-fluid">
                                    <div class="col-lg-8">
                                        <ol id="lista" class="unstyled">
-                                       
+
                                        </ol>
-                                       
+
                                    </div>
                                 </div>
                             </fieldset>
@@ -124,7 +124,7 @@
 
         <div class="tab-pane fade active in" id="historial">
             <br/>
-            
+
             <div class="panel panel-default ">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -137,7 +137,7 @@
                             <thead>
                             <tr>
                                 <th>Nombre y Apellidos</th>
-                                
+
 
                                 <th>Acciones</th>
                             </tr>
@@ -148,7 +148,7 @@
                                 <tr>
                                     <td>{{ entity.nombre }} {{ entity.primerApellido }} {{ entity.segundoApellido }} </td>
 
-                                    
+
 
                                     <td>
                                         <a class="btn btn-primary"
@@ -164,12 +164,12 @@
 
                             </tbody>
                         </table>
-                    
-                   
+
+
 
                 </div>
             </div>
-        
+
 
 
 

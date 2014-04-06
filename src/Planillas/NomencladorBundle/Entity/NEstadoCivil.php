@@ -3,7 +3,6 @@
 namespace Planillas\NomencladorBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * NEstadoCivil
@@ -29,12 +28,10 @@ class NEstadoCivil
      */
     private $nombre;
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -44,20 +41,20 @@ class NEstadoCivil
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string       $nombre
      * @return NEstadoCivil
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {

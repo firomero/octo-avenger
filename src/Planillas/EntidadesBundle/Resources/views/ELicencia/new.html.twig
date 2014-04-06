@@ -12,21 +12,21 @@
             ({
                 format: "yyyy-mm-dd"
             });
-           
-           
+
+
 
         })
-       
+
     </script>
 {% endblock %}
 {% block content_content %}
-    
+
    {% for mensaje in app.session.flashbag.get('info') %}
     <div class="alert alert-info">{{ mensaje }}</div>
    {% endfor %}
-    
+
     <div class="row">
-     {% block content %} 
+     {% block content %}
          <div class="col-lg-9">
           <div class="panel panel-default">
             <div class="panel-heading"> <!-- Encabezado panel central -->
@@ -55,14 +55,14 @@
                     </div>
                 </fieldset>
 
-                    {{ form_end(form) }}    
+                    {{ form_end(form) }}
             </div>
-          </div>          
-         </div>  
+          </div>
+         </div>
          <div class="col-sm-3"> <!-- Menu derecho de empleado -->
 		 {{ macros.empleado_foto(entity.empleado) }}
 	     {{ macros.menu_empleado('licencia',entity.empleado) }}
          </div>
-     {% endblock content %} 
-    </div>     
+     {% endblock content %}
+    </div>
 {% endblock %}

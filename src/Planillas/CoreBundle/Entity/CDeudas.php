@@ -81,12 +81,10 @@ class CDeudas
      */
     private $planilla;
 
-
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -96,20 +94,20 @@ class CDeudas
     /**
      * Set montoTotal
      *
-     * @param float $montoTotal
+     * @param  float   $montoTotal
      * @return CDeudas
      */
     public function setMontoTotal($montoTotal)
     {
         $this->montoTotal = $montoTotal;
-    
+
         return $this;
     }
 
     /**
      * Get montoTotal
      *
-     * @return float 
+     * @return float
      */
     public function getMontoTotal()
     {
@@ -119,20 +117,20 @@ class CDeudas
     /**
      * Set montoReducir
      *
-     * @param float $montoReducir
+     * @param  float   $montoReducir
      * @return CDeudas
      */
     public function setMontoReducir($montoReducir)
     {
         $this->montoReducir = $montoReducir;
-    
+
         return $this;
     }
 
     /**
      * Get montoReducir
      *
-     * @return float 
+     * @return float
      */
     public function getMontoReducir()
     {
@@ -142,20 +140,20 @@ class CDeudas
     /**
      * Set numeroCuotas
      *
-     * @param float $numeroCuotas
+     * @param  float   $numeroCuotas
      * @return CDeudas
      */
     public function setNumeroCuotas($numeroCuotas)
     {
         $this->numeroCuotas = $numeroCuotas;
-    
+
         return $this;
     }
 
     /**
      * Get numeroCuotas
      *
-     * @return float 
+     * @return float
      */
     public function getNumeroCuotas()
     {
@@ -165,21 +163,21 @@ class CDeudas
     /**
      * Set montoRestante
      *
-     * @param float $montoRestante
+     * @param  float   $montoRestante
      * @return CDeudas
      */
     public function setMontoRestante($montoRestante)
     {
 
         $this->montoRestante = $montoRestante;
-    
+
         return $this;
     }
 
     /**
      * Get montoRestante
      *
-     * @return float 
+     * @return float
      */
     public function getMontoRestante()
     {
@@ -189,20 +187,20 @@ class CDeudas
     /**
      * Set fechaInicio
      *
-     * @param \DateTime $fechaInicio
+     * @param  \DateTime $fechaInicio
      * @return CDeudas
      */
     public function setFechaInicio($fechaInicio)
     {
         $this->fechaInicio = $fechaInicio;
-    
+
         return $this;
     }
 
     /**
      * Get fechaInicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaInicio()
     {
@@ -212,20 +210,20 @@ class CDeudas
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CDeudas
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -236,30 +234,28 @@ class CDeudas
      */
     public function setMontoRestanteManual()
     {
-      if(null==$this->montoRestante)
-      {
+      if (null==$this->montoRestante) {
           $this->setMontoRestante($this->montoTotal);
       }
     }
 
-
     /**
      * Set pagado
      *
-     * @param boolean $pagado
+     * @param  boolean $pagado
      * @return CDeudas
      */
     public function setPagado($pagado)
     {
         $this->pagado = $pagado;
-    
+
         return $this;
     }
 
     /**
      * Get pagado
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPagado()
     {
@@ -269,20 +265,20 @@ class CDeudas
     /**
      * Set tipoDeuda
      *
-     * @param string $tipoDeuda
+     * @param  string  $tipoDeuda
      * @return CDeudas
      */
     public function setTipoDeuda($tipoDeuda)
     {
         $this->tipoDeuda = $tipoDeuda;
-    
+
         return $this;
     }
 
     /**
      * Get tipoDeuda
      *
-     * @return string 
+     * @return string
      */
     public function getTipoDeuda()
     {
@@ -306,20 +302,20 @@ class CDeudas
     /**
      * Set planilla
      *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
      * @return CDeudas
      */
     public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
     {
         $this->planilla = $planilla;
-    
+
         return $this;
     }
 
     /**
      * Get planilla
      *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     * @return \Planillas\CoreBundle\Entity\CPlanillas
      */
     public function getPlanilla()
     {

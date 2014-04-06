@@ -10,7 +10,7 @@ class CHorarioDiasType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -33,7 +33,7 @@ class CHorarioDiasType extends AbstractType
                 'widget'=>'single_text'))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

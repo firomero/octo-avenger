@@ -63,11 +63,10 @@ class EInformacionEducacional
      */
     private $nivelEducacional;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -77,20 +76,20 @@ class EInformacionEducacional
     /**
      * Set annoInicio
      *
-     * @param integer $annoInicio
+     * @param  integer                 $annoInicio
      * @return EInformacionEducacional
      */
     public function setAnnoInicio($annoInicio)
     {
         $this->annoInicio = $annoInicio;
-    
+
         return $this;
     }
 
     /**
      * Get annoInicio
      *
-     * @return integer 
+     * @return integer
      */
     public function getAnnoInicio()
     {
@@ -100,20 +99,20 @@ class EInformacionEducacional
     /**
      * Set annoFin
      *
-     * @param integer $annoFin
+     * @param  integer                 $annoFin
      * @return EInformacionEducacional
      */
     public function setAnnoFin($annoFin)
     {
         $this->annoFin = $annoFin;
-    
+
         return $this;
     }
 
     /**
      * Get annoFin
      *
-     * @return integer 
+     * @return integer
      */
     public function getAnnoFin()
     {
@@ -123,20 +122,20 @@ class EInformacionEducacional
     /**
      * Set centroEstudios
      *
-     * @param string $centroEstudios
+     * @param  string                  $centroEstudios
      * @return EInformacionEducacional
      */
     public function setCentroEstudios($centroEstudios)
     {
         $this->centroEstudios = $centroEstudios;
-    
+
         return $this;
     }
 
     /**
      * Get centroEstudios
      *
-     * @return string 
+     * @return string
      */
     public function getCentroEstudios()
     {
@@ -146,20 +145,20 @@ class EInformacionEducacional
     /**
      * Set titulo
      *
-     * @param string $titulo
+     * @param  string                  $titulo
      * @return EInformacionEducacional
      */
     public function setTitulo($titulo)
     {
         $this->titulo = $titulo;
-    
+
         return $this;
     }
 
     /**
      * Get titulo
      *
-     * @return string 
+     * @return string
      */
     public function getTitulo()
     {
@@ -169,20 +168,20 @@ class EInformacionEducacional
     /**
      * Set educacion
      *
-     * @param \Planillas\EntidadesBundle\Entity\EEducacion $educacion
+     * @param  \Planillas\EntidadesBundle\Entity\EEducacion $educacion
      * @return EInformacionEducacional
      */
     public function setEducacion(\Planillas\EntidadesBundle\Entity\EEducacion $educacion = null)
     {
         $this->educacion = $educacion;
-    
+
         return $this;
     }
 
     /**
      * Get educacion
      *
-     * @return \Planillas\EntidadesBundle\Entity\EEducacion 
+     * @return \Planillas\EntidadesBundle\Entity\EEducacion
      */
     public function getEducacion()
     {
@@ -192,20 +191,20 @@ class EInformacionEducacional
     /**
      * Set nivelEducacional
      *
-     * @param \Planillas\NomencladorBundle\Entity\NNivelEducacional $nivelEducacional
+     * @param  \Planillas\NomencladorBundle\Entity\NNivelEducacional $nivelEducacional
      * @return EInformacionEducacional
      */
     public function setNivelEducacional(\Planillas\NomencladorBundle\Entity\NNivelEducacional $nivelEducacional = null)
     {
         $this->nivelEducacional = $nivelEducacional;
-    
+
         return $this;
     }
 
     /**
      * Get nivelEducacional
      *
-     * @return \Planillas\NomencladorBundle\Entity\NNivelEducacional 
+     * @return \Planillas\NomencladorBundle\Entity\NNivelEducacional
      */
     public function getNivelEducacional()
     {

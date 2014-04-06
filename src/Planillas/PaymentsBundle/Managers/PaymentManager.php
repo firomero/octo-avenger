@@ -8,7 +8,6 @@
 
 namespace Planillas\PaymentsBundle\Managers;
 
-
 use Doctrine\ORM\EntityManager;
 use Planillas\CoreBundle\Entity\CSalarioBase;
 use Symfony\Component\DependencyInjection\Container;
@@ -30,7 +29,7 @@ class PaymentManager
      */
     private $insurance;
 
-    function __construct(Container $container)
+    public function __construct(Container $container)
     {
         $this->em = $container->get('doctrine.orm.entity_manager');
         $this->daysInMonth = $container->getParameter('payments.days_in_month');
@@ -49,15 +48,17 @@ class PaymentManager
             ->getSalarioBaseByEmpleado($empleadoId);
 
         if($salarioBase == null)
+
             return 0;
 
         $salario = $salarioBase->getSalarioBase();
         if ($salarioBase->getSeguro()) {
             $salarioRebajo = $salario * $this->insurance;
+
             return $salario - $salarioRebajo;
         } else {
             return $salario;
         }
     }
 
-} 
+}

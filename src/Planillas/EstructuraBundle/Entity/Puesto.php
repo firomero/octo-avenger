@@ -49,11 +49,10 @@ class Puesto
      */
     private $bonificacion;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,20 +62,20 @@ class Puesto
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string $nombre
      * @return Puesto
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -86,20 +85,20 @@ class Puesto
     /**
      * Set rol
      *
-     * @param string $rol
+     * @param  string $rol
      * @return Puesto
      */
     public function setRol($rol)
     {
         $this->rol = $rol;
-    
+
         return $this;
     }
 
     /**
      * Get rol
      *
-     * @return string 
+     * @return string
      */
     public function getRol()
     {
@@ -109,20 +108,20 @@ class Puesto
     /**
      * Set salario
      *
-     * @param float $salario
+     * @param  float  $salario
      * @return Puesto
      */
     public function setSalario($salario)
     {
         $this->salario = $salario;
-    
+
         return $this;
     }
 
     /**
      * Get salario
      *
-     * @return float 
+     * @return float
      */
     public function getSalario()
     {
@@ -132,20 +131,20 @@ class Puesto
     /**
      * Set bonificacion
      *
-     * @param string $bonificacion
+     * @param  string $bonificacion
      * @return Puesto
      */
     public function setBonificacion($bonificacion)
     {
         $this->bonificacion = $bonificacion;
-    
+
         return $this;
     }
 
     /**
      * Get bonificacion
      *
-     * @return string 
+     * @return string
      */
     public function getBonificacion()
     {

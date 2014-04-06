@@ -7,9 +7,9 @@
    {% for mensaje in app.session.flashbag.get('info') %}
     <div class="alert alert-info">{{ mensaje }}</div>
    {% endfor %}
-   
+
     <div class="row">
-        {% block content %}   
+        {% block content %}
             <div class="col-lg-9">
              <div class="panel panel-default"> <!-- Panel central -->
                     <div class="panel-heading"> <!-- Encabezado panel central -->
@@ -34,16 +34,16 @@
                                   <a href="{{ path('educacionidiomas', { 'id_empleado': entity.empleado.id } ) }}" class="btn btn-default">Regresar</a>
                                 </div>
                             </fieldset>
-                          
-                        {{ form_end(edit_form) }} 
-                    </div> 
-					
+
+                        {{ form_end(edit_form) }}
+                    </div>
+
              </div>
             </div>
             <div class="col-sm-3"> <!-- Menu derecho de empleado -->
 	      {{ macros.empleado_foto(entity.empleado) }}
 	     {{ macros.menu_empleado('educacionidiomas',entity.empleado) }}
             </div>
-        {% endblock content %}  
+        {% endblock content %}
     </div>
 {% endblock %}

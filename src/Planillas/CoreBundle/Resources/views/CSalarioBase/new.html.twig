@@ -11,13 +11,13 @@ Gestionar Salario
 
     {% block content %}
 {% set tipodeuda=['Uniformes','Sanciones','Préstamos'] %}
-<div class="row-fluid">    
+<div class="row-fluid">
     <div class="col-lg-9"><!--Div de apertura de la columna-->
         <ul id="myTab" class="nav nav-tabs">
             <li  class="active"><a href="#sueldo" data-toggle="tab">Sueldo</a></li>
             <li><a href="#historial" data-toggle="tab">Historial de deudas pagadas</a></li>
 
-        </ul>  
+        </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade active in" id="sueldo">
                 <div class="panel panel-default">
@@ -32,7 +32,7 @@ Gestionar Salario
                             <div class="row-fluid">
                                 <div class="col-lg-6">{{ form_row(form.salarioBase) }}</div>
                                 <div class="col-lg-6">{{ form_widget(form.seguro) }}</div>
-                                
+
 
                             </div>
                         </fieldset>
@@ -84,8 +84,8 @@ Gestionar Salario
                     </thead>
                     <tbody>
                 {% for entitys in entities %}
-                            
-                
+
+
                             <tr>
                                 <td>{%if entitys.componente==0%}Rebajo{% else %}Bonificación{%endif%}</td>{#esto hay que cambiarlo#}
                                 <td>
@@ -99,7 +99,7 @@ Gestionar Salario
                                 </td>
                                 <td>
                                    {{entitys.planilla.fechaInicio|date('d-m-Y')}} al {{entitys.planilla.fechaFin|date('d-m-Y')}}
-                                 
+
                                 </td>
                                 <td>{% if entitys.moneda==0%}Colón{% else %}USD{%endif%}</td>
                                 <td>
@@ -107,16 +107,16 @@ Gestionar Salario
                                       ¢{{ entitys.montoTotal }}
                                     {% else %}
                                         ¢{{ entitys.cantidad }}
-                                        
+
                                      {% endif %}
-                                        
+
                                     </td>
                                     <td>
-                                     
+
                                         <i class="glyphicon glyphicon-ok" title="Pagado"></i>
 
 
-                                      
+
                                     </td>
                                     <!--
                                     <td>
@@ -124,7 +124,7 @@ Gestionar Salario
 
                                     </td>-->
                                 </tr>
-                
+
                 {% endfor %}
 
                             </tbody>
@@ -143,4 +143,3 @@ Gestionar Salario
 
 
 {% endblock %}
-

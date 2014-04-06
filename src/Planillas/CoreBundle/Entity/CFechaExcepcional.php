@@ -51,7 +51,7 @@ class CFechaExcepcional
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -61,20 +61,20 @@ class CFechaExcepcional
     /**
      * Set fecha
      *
-     * @param \DateTime $fecha
+     * @param  \DateTime         $fecha
      * @return CFechaExcepcional
      */
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
-    
+
         return $this;
     }
 
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -84,20 +84,20 @@ class CFechaExcepcional
     /**
      * Set horario
      *
-     * @param \Planillas\CoreBundle\Entity\CHorario $horario
+     * @param  \Planillas\CoreBundle\Entity\CHorario $horario
      * @return CFechaExcepcional
      */
     public function setHorario(\Planillas\CoreBundle\Entity\CHorario $horario = null)
     {
         $this->horario = $horario;
-    
+
         return $this;
     }
 
     /**
      * Get horario
      *
-     * @return \Planillas\CoreBundle\Entity\CHorario 
+     * @return \Planillas\CoreBundle\Entity\CHorario
      */
     public function getHorario()
     {
@@ -107,20 +107,20 @@ class CFechaExcepcional
     /**
      * Set observacion
      *
-     * @param string $observacion
+     * @param  string            $observacion
      * @return CFechaExcepcional
      */
     public function setObservacion($observacion)
     {
         $this->observacion = $observacion;
-    
+
         return $this;
     }
 
     /**
      * Get observacion
      *
-     * @return string 
+     * @return string
      */
     public function getObservacion()
     {
@@ -130,20 +130,20 @@ class CFechaExcepcional
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CFechaExcepcional
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {

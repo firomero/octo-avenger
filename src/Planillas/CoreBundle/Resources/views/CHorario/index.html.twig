@@ -27,57 +27,57 @@ Sistema de Planillas:{{ headline }}
         showMeridian: false
     }
     jQuery(document).ready(function() {
-        
+
        /*$('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
              if(this.checked){
                 $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});
                 $('#planillas_corebundle_chorario_horarioDias_0_horaFin').attr({disabled:'disabled'});
-             }  
-              
+             }
+
               else{
                 $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled');
-                $('#planillas_corebundle_chorario_horarioDias_0_horaFin').removeAttr('disabled'); 
+                $('#planillas_corebundle_chorario_horarioDias_0_horaFin').removeAttr('disabled');
               }
        })
        $('#planillas_corebundle_chorario_horarioDias_1_activo').on('change',function(){
              if(this.checked){
-                $('#planillas_corebundle_chorario_horarioDias_1_horaInicio').attr({disabled:'disabled'}); 
-                $('#planillas_corebundle_chorario_horarioDias_1_horaFin').attr({disabled:'disabled'}); 
-             } 
+                $('#planillas_corebundle_chorario_horarioDias_1_horaInicio').attr({disabled:'disabled'});
+                $('#planillas_corebundle_chorario_horarioDias_1_horaFin').attr({disabled:'disabled'});
+             }
              else
-               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled');
        })
        $('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
              if(this.checked){
-                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});  
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});
               }
               else
-               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled');
        })
        $('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
              if(this.checked){
-                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});  
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});
               }
               else
-               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled');
        })
        $('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
              if(this.checked){
-                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});  
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});
               }
               else
-               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled');
        })
        $('#planillas_corebundle_chorario_horarioDias_0_activo').on('change',function(){
              if(this.checked){
-                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});  
+                $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').attr({disabled:'disabled'});
               }
               else
-               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled'); 
+               $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').removeAttr('disabled');
        })*/
-        
-        
-    
+
+
+
         $('#planillas_corebundle_chorario_horarioDias_0_horaInicio').timepicker(config);
         $('#planillas_corebundle_chorario_horarioDias_1_horaInicio').timepicker(config);
         $('#planillas_corebundle_chorario_horarioDias_2_horaInicio').timepicker(config);
@@ -179,36 +179,36 @@ Sistema de Planillas:{{ headline }}
                     $('#planillas_corebundle_chorario_id').val(data.data.id);
                     $('#planillas_corebundle_chorario_titulo').val(data.data.titulo);
                     /*Active days*/
-                    
-                     if (data.dias.Lunes.activo) 
+
+                     if (data.dias.Lunes.activo)
                         $('#planillas_corebundle_chorario_horarioDias_0_activo').attr({checked: 'checked'});
                     else
                         $('#planillas_corebundle_chorario_horarioDias_0_activo').removeAttr('checked');
-                     if (data.dias.Martes.activo) 
+                     if (data.dias.Martes.activo)
                         $('#planillas_corebundle_chorario_horarioDias_1_activo').attr({checked: 'checked'});
                     else
                         $('#planillas_corebundle_chorario_horarioDias_1_activo').removeAttr('checked');
-                     if (data.dias.Mi\u00e9rcoles.activo) 
+                     if (data.dias.Mi\u00e9rcoles.activo)
                         $('#planillas_corebundle_chorario_horarioDias_2_activo').attr({checked: 'checked'});
                     else
                         $('#planillas_corebundle_chorario_horarioDias_2_activo').removeAttr('checked');
-                     if (data.dias.Jueves.activo) 
+                     if (data.dias.Jueves.activo)
                         $('#planillas_corebundle_chorario_horarioDias_3_activo').attr({checked: 'checked'});
                     else
                         $('#planillas_corebundle_chorario_horarioDias_3_activo').removeAttr('checked');
-                     if (data.dias.Viernes.activo) 
+                     if (data.dias.Viernes.activo)
                         $('#planillas_corebundle_chorario_horarioDias_4_activo').attr({checked: 'checked'});
                     else
                         $('#planillas_corebundle_chorario_horarioDias_4_activo').removeAttr('checked');
-                     if (data.dias.S\u00e1bado.activo) 
+                     if (data.dias.S\u00e1bado.activo)
                         $('#planillas_corebundle_chorario_horarioDias_5_activo').attr({checked: 'checked'});
                     else
                         $('#planillas_corebundle_chorario_horarioDias_5_activo').removeAttr('checked');
-                    if (data.dias.Domingo.activo) 
+                    if (data.dias.Domingo.activo)
                         $('#planillas_corebundle_chorario_horarioDias_6_activo').attr({checked: 'checked'});
                     else
                         $('#planillas_corebundle_chorario_horarioDias_6_activo').removeAttr('checked');
-                    
+
                     $('#planillas_corebundle_chorario_submit').html('Actualizar');
                     $('#myTab a:first').tab('show')
                     $('#progreso').css('display', 'none');

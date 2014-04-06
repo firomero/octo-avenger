@@ -11,7 +11,6 @@ namespace Planillas\CoreBundle\Form\Managers;
 
 use Planillas\CoreBundle\Entity\CEmpleado;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -28,22 +27,23 @@ class EmpleadoManager
         $this->em = $em;
     }
 
-    public function  getManager()
+    public function getManager()
     {
         return $this->em;
     }
 
     /**
      * Metodo que salva un empleado en la base de datos
-     * @param CEmpleado $entity
+     * @param  CEmpleado $entity
      * @return CEmpleado
      */
-    public function  save(CEmpleado $entity)
+    public function save(CEmpleado $entity)
     {
-	   
+
         if ($entity instanceof CEmpleado) {
             $this->getManager()->persist($entity);
             $this->getManager()->flush();
+
             return $entity;
         }
 
@@ -60,6 +60,7 @@ class EmpleadoManager
             $entity->setFoto($file->getClientOriginalName());
             $this->getManager()->persist($entity);
             $this->getManager()->flush($entity);
+
             return $entity;
         } catch (Exception $e) {
             return false ;//$e->getMessage();

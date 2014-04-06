@@ -73,11 +73,10 @@ class CSolicitudEmpleo
      */
     private $vacante;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -87,20 +86,20 @@ class CSolicitudEmpleo
     /**
      * Set salario
      *
-     * @param float $salario
+     * @param  float            $salario
      * @return CSolicitudEmpleo
      */
     public function setSalario($salario)
     {
         $this->salario = $salario;
-    
+
         return $this;
     }
 
     /**
      * Get salario
      *
-     * @return float 
+     * @return float
      */
     public function getSalario()
     {
@@ -110,20 +109,20 @@ class CSolicitudEmpleo
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string           $nombre
      * @return CSolicitudEmpleo
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -133,20 +132,20 @@ class CSolicitudEmpleo
     /**
      * Set apellidos
      *
-     * @param string $apellidos
+     * @param  string           $apellidos
      * @return CSolicitudEmpleo
      */
     public function setApellidos($apellidos)
     {
         $this->apellidos = $apellidos;
-    
+
         return $this;
     }
 
     /**
      * Get apellidos
      *
-     * @return string 
+     * @return string
      */
     public function getApellidos()
     {
@@ -156,20 +155,20 @@ class CSolicitudEmpleo
     /**
      * Set telefono
      *
-     * @param string $telefono
+     * @param  string           $telefono
      * @return CSolicitudEmpleo
      */
     public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
-    
+
         return $this;
     }
 
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -179,20 +178,20 @@ class CSolicitudEmpleo
     /**
      * Set correo
      *
-     * @param string $correo
+     * @param  string           $correo
      * @return CSolicitudEmpleo
      */
     public function setCorreo($correo)
     {
         $this->correo = $correo;
-    
+
         return $this;
     }
 
     /**
      * Get correo
      *
-     * @return string 
+     * @return string
      */
     public function getCorreo()
     {
@@ -202,20 +201,20 @@ class CSolicitudEmpleo
     /**
      * Set fecha
      *
-     * @param \DateTime $fecha
+     * @param  \DateTime        $fecha
      * @return CSolicitudEmpleo
      */
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
-    
+
         return $this;
     }
 
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -225,20 +224,20 @@ class CSolicitudEmpleo
     /**
      * Set vacante
      *
-     * @param \Planillas\CoreBundle\Entity\CVacante $vacante
+     * @param  \Planillas\CoreBundle\Entity\CVacante $vacante
      * @return CSolicitudEmpleo
      */
     public function setVacante(\Planillas\CoreBundle\Entity\CVacante $vacante = null)
     {
         $this->vacante = $vacante;
-    
+
         return $this;
     }
 
     /**
      * Get vacante
      *
-     * @return \Planillas\CoreBundle\Entity\CVacante 
+     * @return \Planillas\CoreBundle\Entity\CVacante
      */
     public function getVacante()
     {

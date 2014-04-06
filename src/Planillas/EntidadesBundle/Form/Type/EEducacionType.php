@@ -10,7 +10,7 @@ class EEducacionType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -23,13 +23,13 @@ class EEducacionType extends AbstractType
                     'expanded' => false,
                         'required' => true,
                         'label' => 'mail.add.theme'
-                
+
             )*/)
             ->add('informacionEducacional')
-            ->add('cursos')    
+            ->add('cursos')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

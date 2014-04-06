@@ -9,13 +9,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class EComponentesSalarialesType extends AbstractType
 {
      var $bDestruyeEmpleado;
-    
-    public function __construct($bDestruyeEmpleado=false){
-       $this->bDestruyeEmpleado = $bDestruyeEmpleado;    
+
+    public function __construct($bDestruyeEmpleado=false)
+    {
+       $this->bDestruyeEmpleado = $bDestruyeEmpleado;
     }
      /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -25,7 +26,7 @@ class EComponentesSalarialesType extends AbstractType
             ->add('tipoDeuda','choice',array('choices'=>array('Uniformes','Sanciones','Préstamos')))
             ->add('cantidad',null,array('required'=>true,'pattern'=>"\d+([,.]\d+)?"))
             ->add('montoTotal',null,array('required'=>true,'pattern'=>"\d+([,.]\d+)?"))
-            
+
             ->add('numeroCuotas',null,array('label'=>'Número de cuotas','required'=>true,'pattern'=>"\d+"))
             ->add('permanente','checkbox',array('required'=>false))
             #->add('pagado','choice',array('choices'=>array('No pagado','Pagado')))
@@ -34,14 +35,14 @@ class EComponentesSalarialesType extends AbstractType
             ->add('fechaVencimiento','date',array('required'=>true,'attr'=>array('id'=>'datetimepickerfechavencimiento'),'widget'=>'single_text','label'=>'Vencimiento'))
             ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))
         ;
-	    if($this->bDestruyeEmpleado)
+        if($this->bDestruyeEmpleado)
            $builder->remove('empleado');
     }
     public static function monedaChoices()
     {
         return array('Colón costarricence','Dolar americano');
     }
-	public static function componentesChoices()
+    public static function componentesChoices()
     {
         return array('Rebajo','Bonificación');
     }

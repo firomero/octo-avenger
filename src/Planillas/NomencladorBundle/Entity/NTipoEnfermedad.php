@@ -37,11 +37,10 @@ class NTipoEnfermedad
      */
     private $codigo;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,20 +50,20 @@ class NTipoEnfermedad
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string          $nombre
      * @return NTipoEnfermedad
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -74,20 +73,20 @@ class NTipoEnfermedad
     /**
      * Set codigo
      *
-     * @param string $codigo
+     * @param  string          $codigo
      * @return NTipoEnfermedad
      */
     public function setCodigo($codigo)
     {
         $this->codigo = $codigo;
-    
+
         return $this;
     }
 
     /**
      * Get codigo
      *
-     * @return string 
+     * @return string
      */
     public function getCodigo()
     {

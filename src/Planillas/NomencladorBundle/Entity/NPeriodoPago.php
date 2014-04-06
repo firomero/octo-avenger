@@ -35,7 +35,7 @@ class NPeriodoPago
      * @ORM\Column(name="activo", type="boolean", nullable=true)
      */
     private $activo;
-    
+
     /**
      * @var integer
      * @ORM\Column(name="cantdias", type="integer")
@@ -43,11 +43,10 @@ class NPeriodoPago
      */
     private $cantdias;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -57,20 +56,20 @@ class NPeriodoPago
     /**
      * Set periodo
      *
-     * @param string $periodo
+     * @param  string       $periodo
      * @return NPeriodoPago
      */
     public function setPeriodo($periodo)
     {
         $this->periodo = $periodo;
-    
+
         return $this;
     }
 
     /**
      * Get periodo
      *
-     * @return string 
+     * @return string
      */
     public function getPeriodo()
     {
@@ -80,20 +79,20 @@ class NPeriodoPago
     /**
      * Set activo
      *
-     * @param boolean $activo
+     * @param  boolean      $activo
      * @return NPeriodoPago
      */
     public function setActivo($activo)
     {
         $this->activo = $activo;
-    
+
         return $this;
     }
 
     /**
      * Get activo
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActivo()
     {
@@ -108,20 +107,20 @@ class NPeriodoPago
     /**
      * Set cantdias
      *
-     * @param integer $cantdias
+     * @param  integer      $cantdias
      * @return NPeriodoPago
      */
     public function setCantdias($cantdias)
     {
         $this->cantdias = $cantdias;
-    
+
         return $this;
     }
 
     /**
      * Get cantdias
      *
-     * @return integer 
+     * @return integer
      */
     public function getCantdias()
     {

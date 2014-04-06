@@ -33,20 +33,20 @@ class NDeportes
     /**
      * Set nombre
      *
-     * @param string $nombre
+     * @param  string    $nombre
      * @return NDeportes
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-    
+
         return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -56,13 +56,13 @@ class NDeportes
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-    
+
     /**
      * Constructor
      */

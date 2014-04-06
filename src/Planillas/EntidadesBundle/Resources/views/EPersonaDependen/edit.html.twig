@@ -16,7 +16,7 @@ Gestionar Dependencias
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ path('personadepende_update',{ 'id': entity.id }) }}"
-                          method="post" {{ form_enctype(edit_form) }}>  
+                          method="post" {{ form_enctype(edit_form) }}>
                         <fieldset>
                             <legend>Persona que depende</legend>
                             {{ form_errors(edit_form) }}

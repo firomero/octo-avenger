@@ -14,11 +14,9 @@ use Doctrine\ORM\EntityRepository;
 class CDeudasRepository extends EntityRepository
 {
 
-
     public function filterDeudas($filtros = array())
     {
         try {
-
 
             $sql = "SELECT s  FROM PlanillasCoreBundle:CDeudas s";
             $case = false;
@@ -36,8 +34,7 @@ class CDeudasRepository extends EntityRepository
                 $sql .= ' s.pagado = '.$filtros['pagado'];//->format('Y-m-d');
                 $case = true;
             }
-           if(isset($filtros['empleado'])&& !empty($filtros['empleado']))
-            {
+           if (isset($filtros['empleado'])&& !empty($filtros['empleado'])) {
                 $sql.=($case==true)?" AND ":" WHERE ";
                 //print_r($filtros['empleado']);exit;
                 $sql .= ' s.empleado= '.$filtros['empleado'];//
@@ -45,7 +42,6 @@ class CDeudasRepository extends EntityRepository
                 $case=true;
 
             }
-
 
             $sql .= ' ORDER BY s.id DESC';
             $query = $this->_em->createQuery($sql);

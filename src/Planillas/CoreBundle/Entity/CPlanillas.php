@@ -4,7 +4,6 @@ namespace Planillas\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * CAusencias
  *
@@ -22,7 +21,6 @@ class CPlanillas
      */
     private $id;
 
-
     /**
      * @var \DateTime
      *
@@ -36,27 +34,25 @@ class CPlanillas
      * @ORM\Column(name="fecha_fin", type="date", nullable=false)
      */
     private $fechaFin;
-    
+
    /**
      * @var $periodo Planillas/NomencladorBundle/Entity/NPeriodoPago
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NPeriodoPago")
      */
     private $periodo;
-    
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="date", nullable=true)
      */
     private $created_at;
-    
-
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -66,20 +62,20 @@ class CPlanillas
     /**
      * Set fechaInicio
      *
-     * @param \DateTime $fechaInicio
+     * @param  \DateTime  $fechaInicio
      * @return CPlanillas
      */
     public function setFechaInicio($fechaInicio)
     {
         $this->fechaInicio = $fechaInicio;
-    
+
         return $this;
     }
 
     /**
      * Get fechaInicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaInicio()
     {
@@ -89,20 +85,20 @@ class CPlanillas
     /**
      * Set fechaFin
      *
-     * @param \DateTime $fechaFin
+     * @param  \DateTime  $fechaFin
      * @return CPlanillas
      */
     public function setFechaFin($fechaFin)
     {
         $this->fechaFin = $fechaFin;
-    
+
         return $this;
     }
 
     /**
      * Get fechaFin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaFin()
     {
@@ -112,20 +108,20 @@ class CPlanillas
     /**
      * Set created_at
      *
-     * @param \DateTime $createdAt
+     * @param  \DateTime  $createdAt
      * @return CPlanillas
      */
     public function setCreatedAt($createdAt)
     {
         $this->created_at = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -135,20 +131,20 @@ class CPlanillas
     /**
      * Set periodo
      *
-     * @param \Planillas\NomencladorBundle\Entity\NPeriodoPago $periodo
+     * @param  \Planillas\NomencladorBundle\Entity\NPeriodoPago $periodo
      * @return CPlanillas
      */
     public function setPeriodo(\Planillas\NomencladorBundle\Entity\NPeriodoPago $periodo = null)
     {
         $this->periodo = $periodo;
-    
+
         return $this;
     }
 
     /**
      * Get periodo
      *
-     * @return \Planillas\NomencladorBundle\Entity\NPeriodoPago 
+     * @return \Planillas\NomencladorBundle\Entity\NPeriodoPago
      */
     public function getPeriodo()
     {

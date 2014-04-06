@@ -25,9 +25,9 @@
                  $('#planillas_entidadesbundle_ecomponentessalariales_fechaInicio').removeAttr('disabled');
                  $('#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas').removeAttr('disabled');
                  $('#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento').removeAttr('disabled');
-                 
+
                }
-               
+
            })
 
 
@@ -48,27 +48,27 @@
                     $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").removeAttr('required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").removeAttr('required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").removeAttr('required');
-                    
+
                     //adicionando atributos de la bonificacion
-                    
+
                     $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").attr('required','required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").attr('required','required');
-                    
-                    
-                
-                
+
+
+
+
             }
             else {
                  $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").attr('required','required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").attr('required','required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").attr('required','required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").attr('required','required');
-                    
+
                     //adicionando atributos de la bonificacion
-                    
+
                     $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").removeAttr('required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").removeAttr('required');
-                    
+
                 $("#collapseTwo").collapse('show')
             }
             $('#planillas_entidadesbundle_ecomponentessalariales_componente').change(function (value) {
@@ -79,31 +79,31 @@
                     $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").removeAttr('required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").removeAttr('required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").removeAttr('required');
-                    
+
                     //adicionando atributos de la bonificacion
-                    
+
                     $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").attr('required','required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").attr('required','required');
-                    
-                    
-                    
+
+
+
                     $("#collapseOne").collapse('show');
                     $("#collapseTwo").collapse('hide')
 
 
                 }
                 else {
-                    
+
                     $("#planillas_entidadesbundle_ecomponentessalariales_tipoDeuda").attr('required','required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_fechaInicio").attr('required','required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_montoTotal").attr('required','required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_numeroCuotas").attr('required','required');
-                    
+
                     //adicionando atributos de la bonificacion
-                    
+
                     $("#planillas_entidadesbundle_ecomponentessalariales_cantidad").removeAttr('required');
                     $("#planillas_entidadesbundle_ecomponentessalariales_fechaVencimiento").removeAttr('required');
-                    
+
                     $("#collapseOne").collapse('hide');
                     $("#collapseTwo").collapse('show');
 
@@ -150,7 +150,7 @@
                             <div class="row-fluid">
                                 <div class="col-lg-6">{{ form_row(form.componente) }}</div>
                                 <div class="col-lg-6">{{form_widget(form.permanente)}}</div>
-                                
+
 
                             </div>
                         </fieldset>
@@ -203,7 +203,7 @@
                                             <div class="row-fluid">
                                                 <div class="col-lg-4">{{ form_row(form.tipoDeuda) }}</div>
                                                 <div class="col-lg-6"><div class="noclass" id="divfechainicio">{{ form_row(form.fechaInicio) }}</div></div>
-                                                
+
 
                                             </div>
                                         </fieldset>
@@ -245,7 +245,7 @@
 
                             </div>
                         </fieldset>
-                            
+
 
                         {{ form_end(form) }}
                     </div>
@@ -258,10 +258,3 @@
         {% endblock content %}
     </div>
 {% endblock %}
-
-
-
-
-
-
-

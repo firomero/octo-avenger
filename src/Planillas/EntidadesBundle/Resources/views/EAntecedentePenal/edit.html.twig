@@ -3,19 +3,19 @@
 {% block title %}
     Modificar Antecedente Penal
 {% endblock %}
-    
+
 {% block content_content %}
    {% for mensaje in app.session.flashbag.get('info') %}
     <div class="alert alert-info">{{ mensaje }}</div>
  {% endfor %}
- 
+
   <div class="row">
-        {% block content %}   
+        {% block content %}
             <div class="col-lg-9">
              <div class="panel panel-default"> <!-- Panel central -->
                     <div class="panel-heading"> <!-- Encabezado panel central -->
                      <h2 class="panel-title">Modificar Antecedente Penal</h2>
-                    </div>  
+                    </div>
                     <div class="panel-body">
                       {{ form_start(edit_form) }}
                             <fieldset>
@@ -36,14 +36,14 @@
                             </div>
                         </fieldset>
 
-                        {{ form_end(edit_form) }} 
-                    </div> 
+                        {{ form_end(edit_form) }}
+                    </div>
              </div>
-            </div> 
+            </div>
             <div class="col-sm-3"> <!-- Menu derecho de empleado -->
-			         {{ macros.empleado_foto(entity.empleado) }}         
+			         {{ macros.empleado_foto(entity.empleado) }}
 	                 {{ macros.menu_empleado('antecedentepenal',entity.empleado) }}
          </div>
-        {% endblock content %}          
-    </div>    
+        {% endblock content %}
+    </div>
 {% endblock %}

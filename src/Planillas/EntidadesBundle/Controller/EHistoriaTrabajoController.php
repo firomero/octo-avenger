@@ -23,17 +23,16 @@ class EHistoriaTrabajoController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id);
-        if(!$eEmpleado){
-		  throw $this->createNotFoundException('Unable to find EHistoriaTrabajo entity.');
-		}
+        if (!$eEmpleado) {
+          throw $this->createNotFoundException('Unable to find EHistoriaTrabajo entity.');
+        }
 
         $entities = $em->createQuery('Select t from PlanillasEntidadesBundle:EHistoriaTrabajo t where t.empleado='.$id);
         $entities=$entities->getResult();
         //$entities = $em->getRepository('PlanillasEntidadesBundle:EHistoriaTrabajo')->findAll();
-
         return $this->render('PlanillasEntidadesBundle:EHistoriaTrabajo:index.html.twig', array(
             'entities' => $entities,
-			'eEmpleado'=>$eEmpleado,
+            'eEmpleado'=>$eEmpleado,
             'id_empleado'=>$id,
         ));
     }
@@ -43,18 +42,18 @@ class EHistoriaTrabajoController extends Controller
      */
     public function createAction(Request $request,$id_empleado)
     {
-	    //echo $idempleado;exit;
+        //echo $idempleado;exit;
         $entity = new EHistoriaTrabajo();
-		/*Obtener el empleado en cuestion*/
-		$em = $this->getDoctrine()->getManager();
-		//$formrequest=$request->request->get('planillas_entidadesbundle_ehistoriatrabajo');
+        /*Obtener el empleado en cuestion*/
+        $em = $this->getDoctrine()->getManager();
+        //$formrequest=$request->request->get('planillas_entidadesbundle_ehistoriatrabajo');
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-		
-		$entity->setEmpleado($eEmpleado);
-		
-		//creando y validando el formulario
+
+        $entity->setEmpleado($eEmpleado);
+
+        //creando y validando el formulario
         $form = $this->createCreateForm($entity);
-		
+
         $form->handleRequest($request);
         if ($form->isValid()) {
 
@@ -65,11 +64,10 @@ class EHistoriaTrabajoController extends Controller
             return $this->redirect($this->generateUrl('ctrabajo_new', array('id_empleado' => $eEmpleado->getId())));
         }
 
-
         return $this->render('PlanillasEntidadesBundle:EHistoriaTrabajo:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-			'eEmpleado'=>$eEmpleado
+            'eEmpleado'=>$eEmpleado
         ));
     }
 
@@ -82,11 +80,11 @@ class EHistoriaTrabajoController extends Controller
     */
     private function createCreateForm(EHistoriaTrabajo $entity)
     {
-	    
+
         $form = $this->createForm(new EHistoriaTrabajoType(), $entity, array(
             'action' => $this->generateUrl('historiatrabajo_create',array('id_empleado'=>$entity->getEmpleado()->getId())),
             'method' => 'POST',
-			//'idEmpleado'=>($entity->getEmpleado()!=null)?$entity->getEmpleado():null
+            //'idEmpleado'=>($entity->getEmpleado()!=null)?$entity->getEmpleado():null
         ));
         //$form->add('submit', 'submit', array('label' => 'Adicionar','attr'=>array('class'=>'btn btn-success')));
         //$form->add('link', 'submit', array('label' => 'Adicionar','attr'=>array('class'=>'btn btn-success')));
@@ -99,19 +97,19 @@ class EHistoriaTrabajoController extends Controller
      */
     public function newAction($id_empleado)
     {
-	    $em = $this->getDoctrine()->getManager();
-	    $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
+        $em = $this->getDoctrine()->getManager();
+        $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
         $entity = new EHistoriaTrabajo();
-		if(!$eEmpleado){
-		  throw $this->createNotFoundException('Unable to find CEmpleado entity.');
-		}
-		$entity->setEmpleado($eEmpleado);
+        if (!$eEmpleado) {
+          throw $this->createNotFoundException('Unable to find CEmpleado entity.');
+        }
+        $entity->setEmpleado($eEmpleado);
         $form   = $this->createCreateForm($entity);
 
         return $this->render('PlanillasEntidadesBundle:EHistoriaTrabajo:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-			'eEmpleado'=>$eEmpleado
+            'eEmpleado'=>$eEmpleado
         ));
     }
 
@@ -157,7 +155,7 @@ class EHistoriaTrabajoController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-			'eEmpleado'   => $entity->getEmpleado()
+            'eEmpleado'   => $entity->getEmpleado()
         ));
     }
 
@@ -173,11 +171,10 @@ class EHistoriaTrabajoController extends Controller
         $form = $this->createForm(new EHistoriaTrabajoType(true), $entity, array(
             'action' => $this->generateUrl('historiatrabajo_update', array('id' => $entity->getId())),
             'method' => 'POST',
-			
+
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Actualizar','attr'=>array('class'=>'btn btn-primary')));
-
         return $form;
     }
     /**
@@ -200,7 +197,7 @@ class EHistoriaTrabajoController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-            
+
             return $this->redirect($this->generateUrl('historiatrabajo_edit', array('id' => $id)));
         }
 
@@ -208,7 +205,7 @@ class EHistoriaTrabajoController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-			'eEmpleado'   => $entity->getEmpleado()
+            'eEmpleado'   => $entity->getEmpleado()
         ));
     }
     /**
@@ -231,7 +228,6 @@ class EHistoriaTrabajoController extends Controller
             $em->remove($entity);
             $em->flush();
       //  }
-
         return $this->redirect($this->generateUrl('ctrabajo_new',array('id_empleado'=>$eEmpleado->getId())));
     }
 
@@ -251,7 +247,7 @@ class EHistoriaTrabajoController extends Controller
             ->getForm()
         ;
     }
-    public  function createFormTrabajo()
+    public function createFormTrabajo()
     {
         $form = $this->createForm(new EHistoriaTrabajoType(true), $entity, array(
             'action' => $this->generateUrl('historiatrabajo_update', array('id' => $entity->getId())),

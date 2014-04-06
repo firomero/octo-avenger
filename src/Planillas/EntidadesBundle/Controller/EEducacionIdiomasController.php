@@ -17,21 +17,21 @@ class EEducacionIdiomasController extends Controller
 
     /**
      * Lists all EEducacionIdiomas entities.
-	 
+
      *
      */
     public function indexAction($id_empleado)
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entities = $em->createQuery('Select f from PlanillasEntidadesBundle:EEducacionIdiomas f where f.empleado='.$id_empleado);
         $entities=$entities->getResult();
         $aDeleteForm =  array();
-        foreach($entities as $entity){
-            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView(); 
+        foreach ($entities as $entity) {
+            $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
-        
+
         return $this->render('PlanillasEntidadesBundle:EEducacionIdiomas:index.html.twig', array(
             'entities' => $entities,
             'eEmpleado'=>$eEmpleado,
@@ -46,10 +46,10 @@ class EEducacionIdiomasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entity = new EEducacionIdiomas();
         $entity->setEmpleado($eEmpleado);
-        
+
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -83,7 +83,6 @@ class EEducacionIdiomasController extends Controller
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
-
         return $form;
     }
 
@@ -95,9 +94,9 @@ class EEducacionIdiomasController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        
+
         $entity = new EEducacionIdiomas();
-        $entity->setEmpleado($eEmpleado);        
+        $entity->setEmpleado($eEmpleado);
         $form   = $this->createCreateForm($entity);
 
         return $this->render('PlanillasEntidadesBundle:EEducacionIdiomas:new.html.twig', array(
@@ -166,12 +165,11 @@ class EEducacionIdiomasController extends Controller
         ));
 
         //$form->add('submit', 'submit', array('label' => 'Actualizar', 'attr'=>array('class'=>'btn btn-success')));
-
         return $form;
     }
     /**
      * Edits an existing EEducacionIdiomas entity.
-	 *
+     *
      */
     public function updateAction(Request $request, $id)
     {

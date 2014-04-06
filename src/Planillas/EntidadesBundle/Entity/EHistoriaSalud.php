@@ -102,11 +102,11 @@ class EHistoriaSalud
         $this->juegosAzar = new \Doctrine\Common\Collections\ArrayCollection();
         $this->deportes = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -116,20 +116,20 @@ class EHistoriaSalud
     /**
      * Set ultimaEnfermedad
      *
-     * @param string $ultimaEnfermedad
+     * @param  string         $ultimaEnfermedad
      * @return EHistoriaSalud
      */
     public function setUltimaEnfermedad($ultimaEnfermedad)
     {
         $this->ultimaEnfermedad = $ultimaEnfermedad;
-    
+
         return $this;
     }
 
     /**
      * Get ultimaEnfermedad
      *
-     * @return string 
+     * @return string
      */
     public function getUltimaEnfermedad()
     {
@@ -139,20 +139,20 @@ class EHistoriaSalud
     /**
      * Set fechaUltimaEnfermedad
      *
-     * @param \DateTime $fechaUltimaEnfermedad
+     * @param  \DateTime      $fechaUltimaEnfermedad
      * @return EHistoriaSalud
      */
     public function setFechaUltimaEnfermedad($fechaUltimaEnfermedad)
     {
         $this->fechaUltimaEnfermedad = $fechaUltimaEnfermedad;
-    
+
         return $this;
     }
 
     /**
      * Get fechaUltimaEnfermedad
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaUltimaEnfermedad()
     {
@@ -162,20 +162,20 @@ class EHistoriaSalud
     /**
      * Set fuma
      *
-     * @param boolean $fuma
+     * @param  boolean        $fuma
      * @return EHistoriaSalud
      */
     public function setFuma($fuma)
     {
         $this->fuma = $fuma;
-    
+
         return $this;
     }
 
     /**
      * Get fuma
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getFuma()
     {
@@ -185,20 +185,20 @@ class EHistoriaSalud
     /**
      * Set fumaFrecuencia
      *
-     * @param string $fumaFrecuencia
+     * @param  string         $fumaFrecuencia
      * @return EHistoriaSalud
      */
     public function setFumaFrecuencia($fumaFrecuencia)
     {
         $this->fumaFrecuencia = $fumaFrecuencia;
-    
+
         return $this;
     }
 
     /**
      * Get fumaFrecuencia
      *
-     * @return string 
+     * @return string
      */
     public function getFumaFrecuencia()
     {
@@ -208,20 +208,20 @@ class EHistoriaSalud
     /**
      * Set bebe
      *
-     * @param boolean $bebe
+     * @param  boolean        $bebe
      * @return EHistoriaSalud
      */
     public function setBebe($bebe)
     {
         $this->bebe = $bebe;
-    
+
         return $this;
     }
 
     /**
      * Get bebe
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getBebe()
     {
@@ -231,20 +231,20 @@ class EHistoriaSalud
     /**
      * Set bebeFrecuencia
      *
-     * @param string $bebeFrecuencia
+     * @param  string         $bebeFrecuencia
      * @return EHistoriaSalud
      */
     public function setBebeFrecuencia($bebeFrecuencia)
     {
         $this->bebeFrecuencia = $bebeFrecuencia;
-    
+
         return $this;
     }
 
     /**
      * Get bebeFrecuencia
      *
-     * @return string 
+     * @return string
      */
     public function getBebeFrecuencia()
     {
@@ -254,13 +254,13 @@ class EHistoriaSalud
     /**
      * Add tipoEnfermedad
      *
-     * @param \Planillas\EntidadesBundle\Entity\EHistoriaSaludTipoEnfermedad $tipoEnfermedad
+     * @param  \Planillas\EntidadesBundle\Entity\EHistoriaSaludTipoEnfermedad $tipoEnfermedad
      * @return EHistoriaSalud
      */
     public function addTipoEnfermedad(\Planillas\EntidadesBundle\Entity\EHistoriaSaludTipoEnfermedad $tipoEnfermedad)
     {
         $this->tipoEnfermedad[] = $tipoEnfermedad;
-    
+
         return $this;
     }
 
@@ -277,7 +277,7 @@ class EHistoriaSalud
     /**
      * Get tipoEnfermedad
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTipoEnfermedad()
     {
@@ -287,20 +287,20 @@ class EHistoriaSalud
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EHistoriaSalud
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -310,13 +310,13 @@ class EHistoriaSalud
     /**
      * Add juegosAzar
      *
-     * @param \Planillas\NomencladorBundle\Entity\NJuegoAzar $juegosAzar
+     * @param  \Planillas\NomencladorBundle\Entity\NJuegoAzar $juegosAzar
      * @return EHistoriaSalud
      */
     public function addJuegosAzar(\Planillas\NomencladorBundle\Entity\NJuegoAzar $juegosAzar)
     {
         $this->juegosAzar->add($juegosAzar);
-    
+
         return $this;
     }
 
@@ -333,7 +333,7 @@ class EHistoriaSalud
     /**
      * Get juegosAzar
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getJuegosAzar()
     {
@@ -343,14 +343,14 @@ class EHistoriaSalud
     /**
      * Add deportes
      *
-     * @param \Planillas\NomencladorBundle\Entity\NDeportes $deporte
+     * @param  \Planillas\NomencladorBundle\Entity\NDeportes $deporte
      * @return EHistoriaSalud
      */
     public function addDeporte(\Planillas\NomencladorBundle\Entity\NDeportes $deporte)
     {
         //$deporte->setHistoriasSalud($this);
         $this->deportes->add($deporte);
-    
+
         return $this;
     }
 
@@ -367,7 +367,7 @@ class EHistoriaSalud
     /**
      * Get deportes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getDeportes()
     {

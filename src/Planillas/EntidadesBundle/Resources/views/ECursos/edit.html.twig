@@ -7,26 +7,26 @@
   {{ parent() }}
     <script>
          $(function() {
-            
+
            $('#planillas_entidadesbundle_ecursos_vence').datepicker
 		   ({
            format: "yyyy-mm-dd"
           });
         });
     </script>
-{% endblock %}    
+{% endblock %}
 {% block content_content %}
    {% for mensaje in app.session.flashbag.get('success') %}
     mensajes_flash (success,{{mensaje}})
    {% endfor %}
-   
+
     <div class="row">
-        {% block content %}   
+        {% block content %}
             <div class="col-lg-9">
              <div class="panel panel-default"> <!-- Panel central -->
                     <div class="panel-heading"> <!-- Encabezado panel central -->
                      <h2 class="panel-title">Modificar Curso</h2>
-                    </div>  
+                    </div>
                     <div class="panel-body">
                       {{ form_start(edit_form) }}
                             <fieldset>
@@ -38,9 +38,9 @@
                                     <div class="col-lg-6">{{ form_row(edit_form.vence) }}</div>
                                 </div>
                             </fieldset>
-                        <hr>    
+                        <hr>
                         <fieldset>
-                        
+
                         <div class="btn-group">
                             <button type="submit" name="btn_actualizar" class="btn btn-primary">Actualizar</button>
 
@@ -50,15 +50,15 @@
 
                         </div>
                         </fieldset>
-                        {{ form_end(edit_form) }} 
-                            
-                    </div> 
+                        {{ form_end(edit_form) }}
+
+                    </div>
              </div>
-            </div> 
+            </div>
             <div class="col-sm-3"> <!-- Menu derecho de empleado -->
-			 {{ macros.empleado_foto(entity.empleado) }}         
+			 {{ macros.empleado_foto(entity.empleado) }}
 	                 {{ macros.menu_empleado('cursos',entity.empleado) }}
          </div>
-        {% endblock content %}          
-    </div>        
+        {% endblock content %}
+    </div>
 {% endblock %}

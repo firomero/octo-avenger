@@ -22,7 +22,6 @@ class CDiasExtra
      */
     private $id;
 
-
     /**
      * @var \DateTime
      * @Assert\Date(),
@@ -45,8 +44,6 @@ class CDiasExtra
      */
     private $planilla;
 
-
-
     public function getJson()
     {
         $obj= new \stdClass();
@@ -55,15 +52,13 @@ class CDiasExtra
 
         $obj->empleado=$this->empleado->getId();
 
-
-
         return $obj;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -73,20 +68,20 @@ class CDiasExtra
    /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CDiasExtra
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -96,20 +91,20 @@ class CDiasExtra
     /**
      * Set fecha
      *
-     * @param \DateTime $fecha
+     * @param  \DateTime  $fecha
      * @return CDiasExtra
      */
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
-    
+
         return $this;
     }
 
     /**
      * Get fecha
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -119,20 +114,20 @@ class CDiasExtra
     /**
      * Set planilla
      *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
+     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
      * @return CDiasExtra
      */
     public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
     {
         $this->planilla = $planilla;
-    
+
         return $this;
     }
 
     /**
      * Get planilla
      *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     * @return \Planillas\CoreBundle\Entity\CPlanillas
      */
     public function getPlanilla()
     {
@@ -143,6 +138,6 @@ class CDiasExtra
     */
     public function isFechaValid()
     {
-       return $this->fecha->getTimestamp() <  time();        
+       return $this->fecha->getTimestamp() <  time();
     }
 }

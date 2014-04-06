@@ -105,11 +105,10 @@ class EHistoriaTrabajo
      */
     private $empleado;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -119,20 +118,20 @@ class EHistoriaTrabajo
     /**
      * Set momento
      *
-     * @param string $momento
+     * @param  string           $momento
      * @return EHistoriaTrabajo
      */
     public function setMomento($momento)
     {
         $this->momento = $momento;
-    
+
         return $this;
     }
 
     /**
      * Get momento
      *
-     * @return string 
+     * @return string
      */
     public function getMomento()
     {
@@ -142,20 +141,20 @@ class EHistoriaTrabajo
     /**
      * Set empresaPatrono
      *
-     * @param string $empresaPatrono
+     * @param  string           $empresaPatrono
      * @return EHistoriaTrabajo
      */
     public function setEmpresaPatrono($empresaPatrono)
     {
         $this->empresaPatrono = $empresaPatrono;
-    
+
         return $this;
     }
 
     /**
      * Get empresaPatrono
      *
-     * @return string 
+     * @return string
      */
     public function getEmpresaPatrono()
     {
@@ -165,20 +164,20 @@ class EHistoriaTrabajo
     /**
      * Set direccion
      *
-     * @param string $direccion
+     * @param  string           $direccion
      * @return EHistoriaTrabajo
      */
     public function setDireccion($direccion)
     {
         $this->direccion = $direccion;
-    
+
         return $this;
     }
 
     /**
      * Get direccion
      *
-     * @return string 
+     * @return string
      */
     public function getDireccion()
     {
@@ -188,20 +187,20 @@ class EHistoriaTrabajo
     /**
      * Set telefono
      *
-     * @param string $telefono
+     * @param  string           $telefono
      * @return EHistoriaTrabajo
      */
     public function setTelefono($telefono)
     {
         $this->telefono = $telefono;
-    
+
         return $this;
     }
 
     /**
      * Get telefono
      *
-     * @return string 
+     * @return string
      */
     public function getTelefono()
     {
@@ -211,20 +210,20 @@ class EHistoriaTrabajo
     /**
      * Set salario
      *
-     * @param float $salario
+     * @param  float            $salario
      * @return EHistoriaTrabajo
      */
     public function setSalario($salario)
     {
         $this->salario = $salario;
-    
+
         return $this;
     }
 
     /**
      * Get salario
      *
-     * @return float 
+     * @return float
      */
     public function getSalario()
     {
@@ -234,20 +233,20 @@ class EHistoriaTrabajo
     /**
      * Set nombreJefe
      *
-     * @param string $nombreJefe
+     * @param  string           $nombreJefe
      * @return EHistoriaTrabajo
      */
     public function setNombreJefe($nombreJefe)
     {
         $this->nombreJefe = $nombreJefe;
-    
+
         return $this;
     }
 
     /**
      * Get nombreJefe
      *
-     * @return string 
+     * @return string
      */
     public function getNombreJefe()
     {
@@ -257,20 +256,20 @@ class EHistoriaTrabajo
     /**
      * Set puesto
      *
-     * @param string $puesto
+     * @param  string           $puesto
      * @return EHistoriaTrabajo
      */
     public function setPuesto($puesto)
     {
         $this->puesto = $puesto;
-    
+
         return $this;
     }
 
     /**
      * Get puesto
      *
-     * @return string 
+     * @return string
      */
     public function getPuesto()
     {
@@ -280,20 +279,20 @@ class EHistoriaTrabajo
     /**
      * Set fechaInicio
      *
-     * @param \DateTime $fechaInicio
+     * @param  \DateTime        $fechaInicio
      * @return EHistoriaTrabajo
      */
     public function setFechaInicio($fechaInicio)
     {
         $this->fechaInicio = $fechaInicio;
-    
+
         return $this;
     }
 
     /**
      * Get fechaInicio
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaInicio()
     {
@@ -303,20 +302,20 @@ class EHistoriaTrabajo
     /**
      * Set fechaFin
      *
-     * @param \DateTime $fechaFin
+     * @param  \DateTime        $fechaFin
      * @return EHistoriaTrabajo
      */
     public function setFechaFin($fechaFin)
     {
         $this->fechaFin = $fechaFin;
-    
+
         return $this;
     }
 
     /**
      * Get fechaFin
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFechaFin()
     {
@@ -326,20 +325,20 @@ class EHistoriaTrabajo
     /**
      * Set tiempo
      *
-     * @param integer $tiempo
+     * @param  integer          $tiempo
      * @return EHistoriaTrabajo
      */
     public function setTiempo($tiempo)
     {
         $this->tiempo = $tiempo;
-    
+
         return $this;
     }
 
     /**
      * Get tiempo
      *
-     * @return integer 
+     * @return integer
      */
     public function getTiempo()
     {
@@ -349,20 +348,20 @@ class EHistoriaTrabajo
     /**
      * Set motivoSalida
      *
-     * @param string $motivoSalida
+     * @param  string           $motivoSalida
      * @return EHistoriaTrabajo
      */
     public function setMotivoSalida($motivoSalida)
     {
         $this->motivoSalida = $motivoSalida;
-    
+
         return $this;
     }
 
     /**
      * Get motivoSalida
      *
-     * @return string 
+     * @return string
      */
     public function getMotivoSalida()
     {
@@ -372,20 +371,20 @@ class EHistoriaTrabajo
     /**
      * Set empleado
      *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return EHistoriaTrabajo
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-    
+
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     * @return \Planillas\CoreBundle\Entity\CEmpleado
      */
     public function getEmpleado()
     {
@@ -396,15 +395,14 @@ class EHistoriaTrabajo
     */
     public function isFechaInicioValid()
     {
-       return $this->fechaInicio->getTimestamp()<=$this->fechaFin->getTimestamp();        
+       return $this->fechaInicio->getTimestamp()<=$this->fechaFin->getTimestamp();
     }
     /**
     * @Assert\True(message = "La fecha final no puede ser mayor que la fecha actual")
     */
     public function isFechaFinValid()
     {
-       return $this->fechaFin->getTimestamp() <  time();        
+       return $this->fechaFin->getTimestamp() <  time();
     }
-   
 
 }

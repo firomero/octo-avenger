@@ -8,14 +8,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EEducacionIdiomasType extends AbstractType
 {
-    var $bDestruyeEmpleado;
-    
-    public function __construct($bDestruyeEmpleado=false){
-       $this->bDestruyeEmpleado = $bDestruyeEmpleado;    
+    public $bDestruyeEmpleado;
+
+    public function __construct($bDestruyeEmpleado=false)
+    {
+       $this->bDestruyeEmpleado = $bDestruyeEmpleado;
     }
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -24,11 +25,11 @@ class EEducacionIdiomasType extends AbstractType
             ->add('empleado', 'hidden', array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado', 'property_path'=>'id'))
             ->add('idioma')
         ;
-        
+
         if($this->bDestruyeEmpleado)
            $builder->remove('empleado');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
