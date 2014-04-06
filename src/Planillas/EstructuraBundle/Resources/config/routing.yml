@@ -1,3 +1,23 @@
 planillas_estructura_homepage:
-    pattern:  /hello/{name}
+    pattern:  /
     defaults: { _controller: PlanillasEstructuraBundle:Default:index }
+
+planillas_estructura_empresa:
+    resource: '@PlanillasEstructuraBundle/Resources/config/routing/empresa.yml'
+    prefix: /empresa
+
+planillas_estructura_cliente:
+    resource: '@PlanillasEstructuraBundle/Resources/config/routing/cliente.yml'
+    prefix: /cliente
+
+planillas_estructura_sucursal:
+    resource: '@PlanillasEstructuraBundle/Resources/config/routing/sucursal.yml'
+    prefix: /sucursal
+
+planillas_estructura_turno:
+    resource: '@PlanillasEstructuraBundle/Resources/config/routing/turno.yml'
+    prefix: /turno
+
+planillas_estructura_puesto:
+    resource: '@PlanillasEstructuraBundle/Resources/config/routing/puesto.yml'
+    prefix: /puesto

@@ -6,93 +6,100 @@ services:
         class: Planillas\NomencladorBundle\Admin\NBancoAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NBanco, PlanillasNomencladorBundle:NBancoAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NBanco}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Bancos"}
 
     planillas_nomenclador.admin.n_deportes:
         class: Planillas\NomencladorBundle\Admin\NDeportesAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NDeportes, PlanillasNomencladorBundle:NDeportesAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NDeportes}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Deportes"}
 
     planillas_nomenclador.admin.n_estado_civil:
         class: Planillas\NomencladorBundle\Admin\NEstadoCivilAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NEstadoCivil, PlanillasNomencladorBundle:NEstadoCivilAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NEstadoCivil}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Estado Civil"}
 
     planillas_nomenclador.admin.n_idioma:
         class: Planillas\NomencladorBundle\Admin\NIdiomaAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NIdioma, PlanillasNomencladorBundle:NIdiomaAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NIdioma}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Idiomas"}
 
     planillas_nomenclador.admin.n_juego_azar:
         class: Planillas\NomencladorBundle\Admin\NJuegoAzarAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NJuegoAzar, PlanillasNomencladorBundle:NJuegoAzarAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NJuegoAzar}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Juegos de Azar"}
 
     planillas_nomenclador.admin.n_nivel_educacional:
         class: Planillas\NomencladorBundle\Admin\NNivelEducacionalAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NNivelEducacional, PlanillasNomencladorBundle:NNivelEducacionalAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NNivelEducacional}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Nivel Educacional"}
 
     planillas_nomenclador.admin.n_ocupacion:
         class: Planillas\NomencladorBundle\Admin\NOcupacionAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NOcupacion, PlanillasNomencladorBundle:NOcupacionAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NOcupacion}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Ocupaciones"}
 
     planillas_nomenclador.admin.n_parentesco:
         class: Planillas\NomencladorBundle\Admin\NParentescoAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NParentesco, PlanillasNomencladorBundle:NParentescoAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NParentesco}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Parentesco"}
 
     planillas_nomenclador.admin.n_sexo:
         class: Planillas\NomencladorBundle\Admin\NSexoAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NSexo, PlanillasNomencladorBundle:NSexoAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NSexo}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Sexos"}
 
     planillas_nomenclador.admin.n_tipo_enfermedad:
         class: Planillas\NomencladorBundle\Admin\NTipoEnfermedadAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NTipoEnfermedad, PlanillasNomencladorBundle:NTipoEnfermedadAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NTipoEnfermedad}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Tipos de Enfermedad"}
 
     planillas_nomenclador.admin.n_tipo_licencia:
         class: Planillas\NomencladorBundle\Admin\NTipoLicenciaAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NTipoLicencia, PlanillasNomencladorBundle:NTipoLicenciaAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NTipoLicencia}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Tipo de Licencias"}
 
     planillas_nomenclador.admin.n_tipo_pago_casa:
         class: Planillas\NomencladorBundle\Admin\NTipoPagoCasaAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NTipoPagoCasa, PlanillasNomencladorBundle:NTipoPagoCasaAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NTipoPagoCasa}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Tipo de Casa"}
 
     planillas_nomenclador.admin.n_provincia:
         class: Planillas\NomencladorBundle\Admin\NProvinciaAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NProvincia, PlanillasNomencladorBundle:NProvinciaAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NProvincia}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Provincia"}
 
     planillas_nomenclador.admin.n_distrito:
         class: Planillas\NomencladorBundle\Admin\NDistritoAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NDistrito, PlanillasNomencladorBundle:NDistritoAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NDistrito}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Distrito"}
 
     planillas_nomenclador.admin.n_trabajo:
         class: Planillas\NomencladorBundle\Admin\NTrabajoAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NTrabajo, PlanillasNomencladorBundle:NTrabajoAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NTrabajo}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Trabajos"}
+
     planillas_nomenclador.admin.n_periodopago:
         class: Planillas\NomencladorBundle\Admin\NPeriodoPagoAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NPeriodoPago, PlanillasNomencladorBundle:NPeriodoPagoAdmin]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: admin, label: NPeriodoPago}
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Periodo de Pago"}
+
+    planilllas_nomenclador.admin.n_bonificacionpuesto:
+        class: Planillas\NomencladorBundle\Admin\NBonificacionPuestoAdmin
+        arguments: [~, Planillas\NomencladorBundle\Entity\NBonificacionPuesto, PlanillasNomencladorBundle:NBonificacionPuestoAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Bonificación de Puesto"}

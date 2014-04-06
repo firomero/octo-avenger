@@ -1,0 +1,10 @@
+{% include '@PlanillasEstructura/Empresa/form.html.twig' %}
+
+<div class="panel panel-default" data-content="empresa">
+    <div class="panel-heading">
+        <h3 class="panel-title">Listado de Empresas</h3>
+    </div>
+    <div class="panel-body" id="empresa-body">
+        {% render path('estructura_empresa_list') %}
+    </div>
+</div>

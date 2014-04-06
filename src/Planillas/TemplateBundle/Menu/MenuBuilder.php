@@ -56,6 +56,9 @@ class MenuBuilder
         $config->addChild('Definir horarios',array(
             'route'=>'chorario'
         ));
+        $config->addChild('Estructura Gerárquica', array(
+            'route' => 'planillas_estructura_homepage'
+        ));
 
         $menu->addChild('Vacantes', array(
             'route' => 'cvacante'

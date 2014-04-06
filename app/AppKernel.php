@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new Planillas\NomencladorBundle\PlanillasNomencladorBundle(),
             new Planillas\EntidadesBundle\PlanillasEntidadesBundle(),
             new Planillas\TemplateBundle\PlanillasTemplateBundle(),
+            new Planillas\PaymentsBundle\PlanillasPaymentsBundle(),
+            new Planillas\EstructuraBundle\PlanillasEstructuraBundle(),
 
             //Extra Bundles
             new Sonata\BlockBundle\SonataBlockBundle(),
@@ -32,8 +34,7 @@ class AppKernel extends Kernel
 			new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
-            new Planillas\PaymentsBundle\PlanillasPaymentsBundle(),
-            new Planillas\EstructuraBundle\PlanillasEstructuraBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,0 +1,16 @@
+estructura_cliente_index:
+  path: /
+  defaults: { _controller: "PlanillasEstructuraBundle:Cliente:index" }
+
+estructura_cliente_list:
+  path: /list
+  defaults: { _controller: "PlanillasEstructuraBundle:Cliente:list" }
+  options:
+    expose: true
+
+estructura_cliente_create:
+  path: /create
+  defaults: { _controller: "PlanillasEstructuraBundle:Cliente:create" }
+  requirements: { _method: post }
+  options:
+    expose: true

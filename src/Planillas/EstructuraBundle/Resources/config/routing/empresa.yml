@@ -1,0 +1,16 @@
+estructura_empresa_index:
+  path: /
+  defaults: { _controller: "PlanillasEstructuraBundle:Empresa:index" }
+
+estructura_empresa_list:
+  path: /list
+  defaults: { _controller: "PlanillasEstructuraBundle:Empresa:list" }
+  options:
+    expose: true
+
+estructura_empresa_create:
+  path: /create
+  defaults: { _controller: "PlanillasEstructuraBundle:Empresa:create" }
+  requirements: { _method: post }
+  options:
+    expose: true

@@ -1,14 +1,14 @@
 planillas_estructura:
     resource: "@PlanillasEstructuraBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /estructura
 
 planillas_payments:
     resource: "@PlanillasPaymentsBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /payments
 
-planillas_template:
-    resource: "@PlanillasTemplateBundle/Resources/config/routing.yml"
-    prefix:   /
+#planillas_template:
+#    resource: "@PlanillasTemplateBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 planillas_entidades:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing.yml"
@@ -22,3 +22,6 @@ planillas_core:
     resource: "@PlanillasCoreBundle/Resources/config/routing.yml"
     prefix:   /
 
+# friendofsymfony js routing bundle
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

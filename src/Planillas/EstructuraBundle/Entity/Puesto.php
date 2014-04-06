@@ -3,14 +3,16 @@
 namespace Planillas\EstructuraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Planillas\CoreBundle\Entity\CHorario;
+use Planillas\NomencladorBundle\Entity\NBonificacionPuesto;
 
 /**
  * Puesto
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Table(name="e_estructura_puesto")
+ * @ORM\Entity(repositoryClass="Planillas\EstructuraBundle\Entity\Repository\PuestoRepository")
  */
-class Puesto
+class Puesto implements EntityEstructuraInterface
 {
     /**
      * @var integer
@@ -29,9 +31,9 @@ class Puesto
     private $nombre;
 
     /**
-     * @var string
+     * @var \Planillas\CoreBundle\Entity\CHorario
      *
-     * @ORM\Column(name="rol", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CHorario")
      */
     private $rol;
 
@@ -43,11 +45,39 @@ class Puesto
     private $salario;
 
     /**
-     * @var string
+     * @var \Planillas\NomencladorBundle\Entity\NBonificacionPuesto
      *
-     * @ORM\Column(name="bonificacion", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NBonificacionPuesto")
      */
     private $bonificacion;
+
+    /**
+     * @var Turno
+     *
+     * @ORM\ManyToOne(targetEntity="Turno", inversedBy="puestos")
+     */
+    private $turno;
+
+    /**
+     * @var Sucursal
+     *
+     * @ORM\ManyToOne(targetEntity="Sucursal")
+     */
+    private $sucursal;
+
+    /**
+     * @var Cliente
+     *
+     * @ORM\ManyToOne(targetEntity="Cliente")
+     */
+    private $cliente;
+
+    /**
+     * @var Empresa
+     *
+     * @ORM\ManyToOne(targetEntity="Empresa")
+     */
+    private $empresa;
 
     /**
      * Get id
@@ -83,29 +113,6 @@ class Puesto
     }
 
     /**
-     * Set rol
-     *
-     * @param  string $rol
-     * @return Puesto
-     */
-    public function setRol($rol)
-    {
-        $this->rol = $rol;
-
-        return $this;
-    }
-
-    /**
-     * Get rol
-     *
-     * @return string
-     */
-    public function getRol()
-    {
-        return $this->rol;
-    }
-
-    /**
      * Set salario
      *
      * @param  float  $salario
@@ -129,25 +136,150 @@ class Puesto
     }
 
     /**
-     * Set bonificacion
+     * Set turno
      *
-     * @param  string $bonificacion
+     * @param \Planillas\EstructuraBundle\Entity\Turno $turno
      * @return Puesto
      */
-    public function setBonificacion($bonificacion)
+    public function setTurno(\Planillas\EstructuraBundle\Entity\Turno $turno = null)
+    {
+        $this->turno = $turno;
+    
+        return $this;
+    }
+
+    /**
+     * Get turno
+     *
+     * @return \Planillas\EstructuraBundle\Entity\Turno 
+     */
+    public function getTurno()
+    {
+        return $this->turno;
+    }
+
+    /**
+     * Set sucursal
+     *
+     * @param \Planillas\EstructuraBundle\Entity\Sucursal $sucursal
+     * @return Puesto
+     */
+    public function setSucursal(\Planillas\EstructuraBundle\Entity\Sucursal $sucursal = null)
+    {
+        $this->sucursal = $sucursal;
+    
+        return $this;
+    }
+
+    /**
+     * Get sucursal
+     *
+     * @return \Planillas\EstructuraBundle\Entity\Sucursal 
+     */
+    public function getSucursal()
+    {
+        return $this->sucursal;
+    }
+
+    /**
+     * Set cliente
+     *
+     * @param \Planillas\EstructuraBundle\Entity\Cliente $cliente
+     * @return Puesto
+     */
+    public function setCliente(\Planillas\EstructuraBundle\Entity\Cliente $cliente = null)
+    {
+        $this->cliente = $cliente;
+    
+        return $this;
+    }
+
+    /**
+     * Get cliente
+     *
+     * @return \Planillas\EstructuraBundle\Entity\Cliente 
+     */
+    public function getCliente()
+    {
+        return $this->cliente;
+    }
+
+    /**
+     * Set empresa
+     *
+     * @param \Planillas\EstructuraBundle\Entity\Empresa $empresa
+     * @return Puesto
+     */
+    public function setEmpresa(\Planillas\EstructuraBundle\Entity\Empresa $empresa = null)
+    {
+        $this->empresa = $empresa;
+    
+        return $this;
+    }
+
+    /**
+     * Get empresa
+     *
+     * @return \Planillas\EstructuraBundle\Entity\Empresa 
+     */
+    public function getEmpresa()
+    {
+        return $this->empresa;
+    }
+
+
+
+    /**
+     * Set rol
+     *
+     * @param \Planillas\CoreBundle\Entity\CHorario $rol
+     * @return Puesto
+     */
+    public function setRol(\Planillas\CoreBundle\Entity\CHorario $rol = null)
+    {
+        $this->rol = $rol;
+    
+        return $this;
+    }
+
+    /**
+     * Get rol
+     *
+     * @return \Planillas\CoreBundle\Entity\CHorario 
+     */
+    public function getRol()
+    {
+        return $this->rol;
+    }
+
+    /**
+     * Set bonificacion
+     *
+     * @param \Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion
+     * @return Puesto
+     */
+    public function setBonificacion(\Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion = null)
     {
         $this->bonificacion = $bonificacion;
-
+    
         return $this;
     }
 
     /**
      * Get bonificacion
      *
-     * @return string
+     * @return \Planillas\NomencladorBundle\Entity\NBonificacionPuesto 
      */
     public function getBonificacion()
     {
         return $this->bonificacion;
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->nombre;
     }
 }

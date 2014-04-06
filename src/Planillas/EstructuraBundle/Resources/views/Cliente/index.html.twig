@@ -1,0 +1,10 @@
+{% include '@PlanillasEstructura/Cliente/form.html.twig' %}
+
+<div class="panel panel-default" data-content="cliente">
+    <div class="panel-heading">
+        <h3 class="panel-title">Listado de Clientes</h3>
+    </div>
+    <div class="panel-body" id="cliente-body">
+        {% render path('estructura_cliente_list') %}
+    </div>
+</div>
