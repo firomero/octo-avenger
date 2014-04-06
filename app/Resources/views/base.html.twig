@@ -3,9 +3,14 @@
 {% extends 'MopaBootstrapBundle::base.html.twig' %}
 
     {% block head_style %}
-      <link href="{{ asset('bundles/planillascore/css/jquery.ui.css') }}" type="text/css" rel="stylesheet" media="screen" />
-      <link href="{{ asset('bundles/planillastemplate/css/bootstrap-timepicker.min.css') }}" type="text/css" rel="stylesheet" media="screen" />
-      <link href="{{ asset('bundles/planillastemplate/less/template.less') }}" type="text/less" rel="stylesheet" media="screen" />
+        {% stylesheets filter="yui_css"
+        '@PlanillasCoreBundle/Resources/public/css/jquery.ui.css'
+        '@PlanillasTemplateBundle/Resources/public/css/bootstrap-timepicker.min.css'
+        %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+        {% endstylesheets %}
+
+        <link href="{{ asset('bundles/planillastemplate/less/template.less') }}" type="text/less" rel="stylesheet" media="screen" />
     {% endblock head_style %}
 
     {% block head_script %}
@@ -32,6 +37,7 @@
 
             {% block menu %}
                 {{ mopa_bootstrap_menu('PlanillasTemplateBundle:MenuBuilder:mainMenu') }}
+                {{ mopa_bootstrap_menu('PlanillasTemplateBundle:MenuBuilder:userMenu') }}
             {% endblock %}
         {% endembed %}
     {% endblock navbar %}
@@ -87,6 +93,19 @@
     {% endblock container %}
 
     {% block foot_script %}
+        {% javascripts
+        '@PlanillasTemplateBundle/Resources/public/js/jquery-1.10.2.min.js'
+        '@PlanillasTemplateBundle/Resources/public/js/jquery.validate.js'
+        '@PlanillasTemplateBundle/Resources/public/js/bootstrap-timepicker.js'
+        '@MopaBootstrapBundle/Resources/public/bootstrap/dist/js/bootstrap.min.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
+        '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
+        '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.es.js'
+        filter='yui_js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {#
         <script type="text/javascript" src="{{ asset('bundles/planillastemplate/js/jquery-1.10.2.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/tooltip.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/affix.js') }}"></script>
@@ -103,4 +122,5 @@
         <script type="text/javascript" src="{{ asset('bundles/mopabootstrap/js/mopabootstrap-collection.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/mopabootstrap/js/mopabootstrap-subnav.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/mopabootstrap/js/eyecon-bootstrap-datepicker.js') }}"></script>
+        #}
     {% endblock foot_script %}

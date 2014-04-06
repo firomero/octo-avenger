@@ -1,1 +1,3 @@
 NC#1 - La acción eliminar en el listado de empleados no elimina, lo que hace es redireccionar a la página de editar.
+NC#2 - El PDF para la planilla de pago es generado en la raiz del proyecto (web/). Cambiarlo a una ruta específica generado por un identificador a modo de cache
+NC#3 - Hay rebajos de un mismo tipo generándose para un mismo período de pago
