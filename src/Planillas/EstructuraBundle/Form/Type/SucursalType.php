@@ -27,7 +27,8 @@ class SucursalType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Planillas\EstructuraBundle\Entity\Sucursal'
+            'data_class' => 'Planillas\EstructuraBundle\Entity\Sucursal',
+            'csrf_protection' => false,
         ));
     }
 

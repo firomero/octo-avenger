@@ -1,0 +1,10 @@
+{% include '@PlanillasEstructura/Sucursal/form.html.twig' %}
+
+<div class="panel panel-default" data-content="sucursal">
+    <div class="panel-heading">
+        <h3 class="panel-title">Listado de Sucursales</h3>
+    </div>
+    <div class="panel-body" id="sucursal-body">
+        {% render path('estructura_sucursal_list') %}
+    </div>
+</div>

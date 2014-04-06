@@ -3,6 +3,7 @@
 namespace Planillas\EstructuraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Sucursal
@@ -25,6 +26,7 @@ class Sucursal implements EntityEstructuraInterface
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -32,6 +34,7 @@ class Sucursal implements EntityEstructuraInterface
      * @var Cliente
      *
      * @ORM\ManyToOne(targetEntity="Cliente", inversedBy="sucursales")
+     * @Assert\NotBlank()
      */
     private $cliente;
 
@@ -39,11 +42,12 @@ class Sucursal implements EntityEstructuraInterface
      * @var Empresa
      *
      * @ORM\ManyToOne(targetEntity="Empresa")
+     * @Assert\NotBlank()
      */
     private $empresa;
 
     /**
-     * @var Turno
+     * @var Turno Doctrine\Common\Collections\ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Turno", mappedBy="sucursal", cascade={"persist","remove"})
      */

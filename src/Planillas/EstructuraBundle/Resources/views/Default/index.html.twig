@@ -18,7 +18,7 @@
     <div id="hierarchical-content" class="tab-content">
         <div id="empresa" class="tab-pane fade in active">{% render path('estructura_empresa_index') %}</div>
         <div id="cliente" class="tab-pane fade">{% render path('estructura_cliente_index') %}</div>
-        <div id="sucursal" class="tab-pane fade">{% include '@PlanillasEstructura/Sucursal/index.html.twig' %}</div>
+        <div id="sucursal" class="tab-pane fade">{% render path('estructura_sucursal_index') %}</div>
         <div id="turno" class="tab-pane fade">{% include '@PlanillasEstructura/Turno/index.html.twig' %}</div>
         <div id="puesto" class="tab-pane fade">{% include '@PlanillasEstructura/Puesto/index.html.twig' %}</div>
     </div>
@@ -39,6 +39,8 @@
                 e.preventDefault();
                 var type = $(this).data('content');
 
+                _submit();
+                /*
                 switch (type) {
                     case 'empresa':
                         submit_empresa();
@@ -46,7 +48,10 @@
                     case 'cliente':
                         submit_cliente();
                         break;
-                }
+                    case 'sucursal':
+                        sumbit_sucursal();
+                        break;
+                }*/
             });
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -56,7 +61,38 @@
                 $actual_process = value;
             });
 
+            function _submit() {
+                var data = $('form#' + $actual_process + '-form').serialize();
+                $.ajax({
+                    'url': Routing.generate('estructura_' + $actual_process + '_create'),
+                    'data': data,
+                    'type': "POST",
+                    'dataType': "HTML"
+                })
+                        .done(function (response) {
+                            var message = response;
+                            var alert = transform2JQueryObject(message, alert_success);
+                            appendAlertMessage(alert);
+                            cleanFormErrors('planillas_estructurabundle_' + $actual_process + '_');
 
+                            $.ajax({
+                                'url': Routing.generate('estructura_' + $actual_process + '_list'),
+                                'type': 'GET'
+                            })
+                                    .done(function (htmltable) {
+                                        $('div#' + $actual_process + '-body').html(htmltable);
+                                    });
+                        })
+                        .fail(function (error) {
+                            var errors = JSON.parse(error.responseText);
+                            //var entidad = $actual_process.toUpperCase();
+                            //var alert = transform2JQueryObject('Ha ocurrido un error creando ' + entidad + '.',alert_error);
+                            //appendAlertMessage(alert);
+                            proccessErrors(errors, '#planillas_estructurabundle_' + $actual_process + '_');
+
+                        })
+                        .always();
+            }
 
             function submit_empresa () {
                 var data = $('form#empresa-form').serialize();
@@ -140,11 +176,16 @@
                                 appendAlertMessage(alert);
                             });
                         } else {
-                            var input = $(inputId + key);
-                            input.parent().parent().addClass('has-error');
+                            var input = $("input" + inputId + key);
+                            var select = $("select" + inputId + key);
+                            if(input.size()!=0)
+                                var element = input;
+                            else
+                                var element = select;
+                            element.parent().parent().addClass('has-error');
 
                             $.each(errors, function (k, value) {
-                                input.parent().append(transform2JQueryObject(value, help_block));
+                                element.parent().append(transform2JQueryObject(value, help_block));
                             });
                         }
                     } else {

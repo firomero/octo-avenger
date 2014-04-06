@@ -32,7 +32,8 @@ class PuestoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Planillas\EstructuraBundle\Entity\Puesto'
+            'data_class' => 'Planillas\EstructuraBundle\Entity\Puesto',
+            'csrf_protection' => false,
         ));
     }
 

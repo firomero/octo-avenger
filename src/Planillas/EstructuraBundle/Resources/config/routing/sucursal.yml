@@ -1,0 +1,16 @@
+estructura_sucursal_index:
+  path: /
+  defaults: { _controller: "PlanillasEstructuraBundle:Sucursal:index" }
+
+estructura_sucursal_list:
+  path: /list
+  defaults: { _controller: "PlanillasEstructuraBundle:Sucursal:list" }
+  options:
+    expose: true
+
+estructura_sucursal_create:
+  path: /create
+  defaults: { _controller: "PlanillasEstructuraBundle:Sucursal:create" }
+  requirements: { _method: post }
+  options:
+    expose: true

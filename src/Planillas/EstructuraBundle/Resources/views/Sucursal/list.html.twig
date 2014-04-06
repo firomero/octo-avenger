@@ -1,0 +1,24 @@
+<table class="table table-striped table-bordered table-condensed table-responsive">
+    <thead>
+    <tr>
+        <th>Nombre Sucursal</th>
+        <th>Empresa</th>
+        <th>Cliente</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for e in entities %}
+        <tr>
+            <td>{{ e.nombre }}</td>
+            <td>{{ e.empresa }}</td>
+            <td>{{ e.cliente }}</td>
+            <td></td>
+        </tr>
+    {% else %}
+        <tr><td colspan="3">No se encontraron elementos.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div style="text-align: center;"><div>{{ knp_pagination_render(entities) }}</div>

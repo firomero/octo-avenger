@@ -56,7 +56,7 @@ class MenuBuilder
         $config->addChild('Definir horarios',array(
             'route'=>'chorario'
         ));
-        $config->addChild('Estructura Gerárquica', array(
+        $config->addChild('Estructura Jerárquica', array(
             'route' => 'planillas_estructura_homepage'
         ));
 
