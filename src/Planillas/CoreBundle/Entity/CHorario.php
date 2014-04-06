@@ -201,4 +201,13 @@ class CHorario
     {
         return $this->horarioDias;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->titulo;
+    }
+
 }

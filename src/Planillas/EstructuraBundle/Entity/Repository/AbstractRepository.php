@@ -36,4 +36,4 @@ class AbstractRepository extends EntityRepository
 
         return $query;
     }
-} 
+}

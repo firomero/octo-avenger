@@ -92,24 +92,24 @@ class Sucursal implements EntityEstructuraInterface
     {
         $this->turnos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Set cliente
      *
-     * @param \Planillas\EstructuraBundle\Entity\Cliente $cliente
+     * @param  \Planillas\EstructuraBundle\Entity\Cliente $cliente
      * @return Sucursal
      */
     public function setCliente(\Planillas\EstructuraBundle\Entity\Cliente $cliente = null)
     {
         $this->cliente = $cliente;
-    
+
         return $this;
     }
 
     /**
      * Get cliente
      *
-     * @return \Planillas\EstructuraBundle\Entity\Cliente 
+     * @return \Planillas\EstructuraBundle\Entity\Cliente
      */
     public function getCliente()
     {
@@ -119,20 +119,20 @@ class Sucursal implements EntityEstructuraInterface
     /**
      * Set empresa
      *
-     * @param \Planillas\EstructuraBundle\Entity\Empresa $empresa
+     * @param  \Planillas\EstructuraBundle\Entity\Empresa $empresa
      * @return Sucursal
      */
     public function setEmpresa(\Planillas\EstructuraBundle\Entity\Empresa $empresa = null)
     {
         $this->empresa = $empresa;
-    
+
         return $this;
     }
 
     /**
      * Get empresa
      *
-     * @return \Planillas\EstructuraBundle\Entity\Empresa 
+     * @return \Planillas\EstructuraBundle\Entity\Empresa
      */
     public function getEmpresa()
     {
@@ -142,13 +142,13 @@ class Sucursal implements EntityEstructuraInterface
     /**
      * Add turnos
      *
-     * @param \Planillas\EstructuraBundle\Entity\Turno $turnos
+     * @param  \Planillas\EstructuraBundle\Entity\Turno $turnos
      * @return Sucursal
      */
     public function addTurno(\Planillas\EstructuraBundle\Entity\Turno $turnos)
     {
         $this->turnos[] = $turnos;
-    
+
         return $this;
     }
 
@@ -165,7 +165,7 @@ class Sucursal implements EntityEstructuraInterface
     /**
      * Get turnos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTurnos()
     {

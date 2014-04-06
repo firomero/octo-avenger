@@ -7,4 +7,4 @@ use Sonata\AdminBundle\Controller\CRUDController;
 class NBonificacionPuestoAdminController extends CRUDController
 {
 
-} 
+}

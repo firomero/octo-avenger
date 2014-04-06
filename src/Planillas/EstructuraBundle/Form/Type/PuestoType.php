@@ -10,7 +10,7 @@ class PuestoType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,14 +18,16 @@ class PuestoType extends AbstractType
             ->add('nombre')
             ->add('salario')
             ->add('rol')
-            ->add('bonificacion')
+            ->add('bonificacion', null, array(
+                'label' => 'Bonificación',
+            ))
             ->add('turno')
             ->add('sucursal')
             ->add('cliente')
             ->add('empresa')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

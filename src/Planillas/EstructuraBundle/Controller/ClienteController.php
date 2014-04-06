@@ -28,7 +28,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request $request
      * @return array
      *
      * @Template()
@@ -52,7 +52,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function createAction(Request $request)
@@ -80,7 +80,7 @@ class ClienteController extends Controller
         }
         foreach ($form->getIterator() as $value) {
             /** @var $value FormInterface */
-            if(count($value->getErrors())) {
+            if (count($value->getErrors())) {
                 foreach ($value->getErrors() as $error) {
                     $errors[$value->getName()][] = $error->getMessage();
                 }
@@ -89,4 +89,4 @@ class ClienteController extends Controller
 
         return new Response(json_encode($errors), 500);
     }
-} 
+}

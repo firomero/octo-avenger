@@ -90,4 +90,13 @@ class NBonificacionPuesto
     {
         return $this->monto;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->nombre;
+    }
+
 }

@@ -5,6 +5,7 @@ namespace Planillas\EstructuraBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Planillas\CoreBundle\Entity\CHorario;
 use Planillas\NomencladorBundle\Entity\NBonificacionPuesto;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Puesto
@@ -27,6 +28,7 @@ class Puesto implements EntityEstructuraInterface
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -34,6 +36,7 @@ class Puesto implements EntityEstructuraInterface
      * @var \Planillas\CoreBundle\Entity\CHorario
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CHorario")
+     * @Assert\NotBlank()
      */
     private $rol;
 
@@ -41,6 +44,7 @@ class Puesto implements EntityEstructuraInterface
      * @var float
      *
      * @ORM\Column(name="salario", type="float")
+     * @Assert\NotBlank()
      */
     private $salario;
 
@@ -48,6 +52,7 @@ class Puesto implements EntityEstructuraInterface
      * @var \Planillas\NomencladorBundle\Entity\NBonificacionPuesto
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NBonificacionPuesto")
+     * @Assert\NotBlank()
      */
     private $bonificacion;
 
@@ -55,6 +60,7 @@ class Puesto implements EntityEstructuraInterface
      * @var Turno
      *
      * @ORM\ManyToOne(targetEntity="Turno", inversedBy="puestos")
+     * @Assert\NotBlank()
      */
     private $turno;
 
@@ -62,6 +68,7 @@ class Puesto implements EntityEstructuraInterface
      * @var Sucursal
      *
      * @ORM\ManyToOne(targetEntity="Sucursal")
+     * @Assert\NotBlank()
      */
     private $sucursal;
 
@@ -69,6 +76,7 @@ class Puesto implements EntityEstructuraInterface
      * @var Cliente
      *
      * @ORM\ManyToOne(targetEntity="Cliente")
+     * @Assert\NotBlank()
      */
     private $cliente;
 
@@ -76,6 +84,7 @@ class Puesto implements EntityEstructuraInterface
      * @var Empresa
      *
      * @ORM\ManyToOne(targetEntity="Empresa")
+     * @Assert\NotBlank()
      */
     private $empresa;
 
@@ -138,20 +147,20 @@ class Puesto implements EntityEstructuraInterface
     /**
      * Set turno
      *
-     * @param \Planillas\EstructuraBundle\Entity\Turno $turno
+     * @param  \Planillas\EstructuraBundle\Entity\Turno $turno
      * @return Puesto
      */
     public function setTurno(\Planillas\EstructuraBundle\Entity\Turno $turno = null)
     {
         $this->turno = $turno;
-    
+
         return $this;
     }
 
     /**
      * Get turno
      *
-     * @return \Planillas\EstructuraBundle\Entity\Turno 
+     * @return \Planillas\EstructuraBundle\Entity\Turno
      */
     public function getTurno()
     {
@@ -161,20 +170,20 @@ class Puesto implements EntityEstructuraInterface
     /**
      * Set sucursal
      *
-     * @param \Planillas\EstructuraBundle\Entity\Sucursal $sucursal
+     * @param  \Planillas\EstructuraBundle\Entity\Sucursal $sucursal
      * @return Puesto
      */
     public function setSucursal(\Planillas\EstructuraBundle\Entity\Sucursal $sucursal = null)
     {
         $this->sucursal = $sucursal;
-    
+
         return $this;
     }
 
     /**
      * Get sucursal
      *
-     * @return \Planillas\EstructuraBundle\Entity\Sucursal 
+     * @return \Planillas\EstructuraBundle\Entity\Sucursal
      */
     public function getSucursal()
     {
@@ -184,20 +193,20 @@ class Puesto implements EntityEstructuraInterface
     /**
      * Set cliente
      *
-     * @param \Planillas\EstructuraBundle\Entity\Cliente $cliente
+     * @param  \Planillas\EstructuraBundle\Entity\Cliente $cliente
      * @return Puesto
      */
     public function setCliente(\Planillas\EstructuraBundle\Entity\Cliente $cliente = null)
     {
         $this->cliente = $cliente;
-    
+
         return $this;
     }
 
     /**
      * Get cliente
      *
-     * @return \Planillas\EstructuraBundle\Entity\Cliente 
+     * @return \Planillas\EstructuraBundle\Entity\Cliente
      */
     public function getCliente()
     {
@@ -207,45 +216,43 @@ class Puesto implements EntityEstructuraInterface
     /**
      * Set empresa
      *
-     * @param \Planillas\EstructuraBundle\Entity\Empresa $empresa
+     * @param  \Planillas\EstructuraBundle\Entity\Empresa $empresa
      * @return Puesto
      */
     public function setEmpresa(\Planillas\EstructuraBundle\Entity\Empresa $empresa = null)
     {
         $this->empresa = $empresa;
-    
+
         return $this;
     }
 
     /**
      * Get empresa
      *
-     * @return \Planillas\EstructuraBundle\Entity\Empresa 
+     * @return \Planillas\EstructuraBundle\Entity\Empresa
      */
     public function getEmpresa()
     {
         return $this->empresa;
     }
 
-
-
     /**
      * Set rol
      *
-     * @param \Planillas\CoreBundle\Entity\CHorario $rol
+     * @param  \Planillas\CoreBundle\Entity\CHorario $rol
      * @return Puesto
      */
     public function setRol(\Planillas\CoreBundle\Entity\CHorario $rol = null)
     {
         $this->rol = $rol;
-    
+
         return $this;
     }
 
     /**
      * Get rol
      *
-     * @return \Planillas\CoreBundle\Entity\CHorario 
+     * @return \Planillas\CoreBundle\Entity\CHorario
      */
     public function getRol()
     {
@@ -255,20 +262,20 @@ class Puesto implements EntityEstructuraInterface
     /**
      * Set bonificacion
      *
-     * @param \Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion
+     * @param  \Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion
      * @return Puesto
      */
     public function setBonificacion(\Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion = null)
     {
         $this->bonificacion = $bonificacion;
-    
+
         return $this;
     }
 
     /**
      * Get bonificacion
      *
-     * @return \Planillas\NomencladorBundle\Entity\NBonificacionPuesto 
+     * @return \Planillas\NomencladorBundle\Entity\NBonificacionPuesto
      */
     public function getBonificacion()
     {

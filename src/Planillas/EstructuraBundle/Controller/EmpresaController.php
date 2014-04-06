@@ -10,7 +10,6 @@ namespace Planillas\EstructuraBundle\Controller;
 
 use Planillas\EstructuraBundle\Entity\Empresa;
 use Planillas\EstructuraBundle\Form\Type\EmpresaType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +32,7 @@ class EmpresaController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request $request
      * @return array
      *
      * @Template()
@@ -57,7 +56,7 @@ class EmpresaController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return Response
      */
     public function createAction(Request $request)
@@ -85,7 +84,7 @@ class EmpresaController extends Controller
         }
         foreach ($form->getIterator() as $value) {
             /** @var $value FormInterface */
-            if(count($value->getErrors())) {
+            if (count($value->getErrors())) {
                 foreach ($value->getErrors() as $error) {
                     $errors[$value->getName()][] = $error->getMessage();
                 }

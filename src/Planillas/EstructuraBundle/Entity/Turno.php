@@ -4,6 +4,7 @@ namespace Planillas\EstructuraBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Turno
@@ -26,6 +27,7 @@ class Turno implements EntityEstructuraInterface
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -33,6 +35,7 @@ class Turno implements EntityEstructuraInterface
      * @var Sucursal
      *
      * @ORM\ManyToOne(targetEntity="Sucursal", inversedBy="turnos")
+     * @Assert\NotBlank()
      */
     private $sucursal;
 
@@ -40,6 +43,7 @@ class Turno implements EntityEstructuraInterface
      * @var Cliente
      *
      * @ORM\ManyToOne(targetEntity="Cliente")
+     * @Assert\NotBlank()
      */
     private $cliente;
 
@@ -47,6 +51,7 @@ class Turno implements EntityEstructuraInterface
      * @var Empresa
      *
      * @ORM\ManyToOne(targetEntity="Empresa")
+     * @Assert\NotBlank()
      */
     private $empresa;
 
@@ -96,24 +101,24 @@ class Turno implements EntityEstructuraInterface
     {
         $this->puestos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Set sucursal
      *
-     * @param \Planillas\EstructuraBundle\Entity\Sucursal $sucursal
+     * @param  \Planillas\EstructuraBundle\Entity\Sucursal $sucursal
      * @return Turno
      */
     public function setSucursal(\Planillas\EstructuraBundle\Entity\Sucursal $sucursal = null)
     {
         $this->sucursal = $sucursal;
-    
+
         return $this;
     }
 
     /**
      * Get sucursal
      *
-     * @return \Planillas\EstructuraBundle\Entity\Sucursal 
+     * @return \Planillas\EstructuraBundle\Entity\Sucursal
      */
     public function getSucursal()
     {
@@ -123,20 +128,20 @@ class Turno implements EntityEstructuraInterface
     /**
      * Set cliente
      *
-     * @param \Planillas\EstructuraBundle\Entity\Cliente $cliente
+     * @param  \Planillas\EstructuraBundle\Entity\Cliente $cliente
      * @return Turno
      */
     public function setCliente(\Planillas\EstructuraBundle\Entity\Cliente $cliente = null)
     {
         $this->cliente = $cliente;
-    
+
         return $this;
     }
 
     /**
      * Get cliente
      *
-     * @return \Planillas\EstructuraBundle\Entity\Cliente 
+     * @return \Planillas\EstructuraBundle\Entity\Cliente
      */
     public function getCliente()
     {
@@ -146,20 +151,20 @@ class Turno implements EntityEstructuraInterface
     /**
      * Set empresa
      *
-     * @param \Planillas\EstructuraBundle\Entity\Empresa $empresa
+     * @param  \Planillas\EstructuraBundle\Entity\Empresa $empresa
      * @return Turno
      */
     public function setEmpresa(\Planillas\EstructuraBundle\Entity\Empresa $empresa = null)
     {
         $this->empresa = $empresa;
-    
+
         return $this;
     }
 
     /**
      * Get empresa
      *
-     * @return \Planillas\EstructuraBundle\Entity\Empresa 
+     * @return \Planillas\EstructuraBundle\Entity\Empresa
      */
     public function getEmpresa()
     {
@@ -169,13 +174,13 @@ class Turno implements EntityEstructuraInterface
     /**
      * Add puestos
      *
-     * @param \Planillas\EstructuraBundle\Entity\Puesto $puestos
+     * @param  \Planillas\EstructuraBundle\Entity\Puesto $puestos
      * @return Turno
      */
     public function addPuesto(\Planillas\EstructuraBundle\Entity\Puesto $puestos)
     {
         $this->puestos[] = $puestos;
-    
+
         return $this;
     }
 
@@ -192,7 +197,7 @@ class Turno implements EntityEstructuraInterface
     /**
      * Get puestos
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPuestos()
     {

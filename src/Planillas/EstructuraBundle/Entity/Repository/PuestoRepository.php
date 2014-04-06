@@ -8,7 +8,6 @@
 
 namespace Planillas\EstructuraBundle\Entity\Repository;
 
-
 class PuestoRepository extends AbstractRepository
 {
     public function findAllNotDeleted ($filters = array())
@@ -24,4 +23,4 @@ class PuestoRepository extends AbstractRepository
 
         return $query;
     }
-} 
+}

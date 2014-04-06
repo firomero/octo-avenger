@@ -77,17 +77,17 @@ class Empresa implements EntityEstructuraInterface
     {
         $this->clientes = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add clientes
      *
-     * @param \Planillas\EstructuraBundle\Entity\Cliente $clientes
+     * @param  \Planillas\EstructuraBundle\Entity\Cliente $clientes
      * @return Empresa
      */
     public function addCliente(\Planillas\EstructuraBundle\Entity\Cliente $clientes)
     {
         $this->clientes[] = $clientes;
-    
+
         return $this;
     }
 
@@ -104,7 +104,7 @@ class Empresa implements EntityEstructuraInterface
     /**
      * Get clientes
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getClientes()
     {

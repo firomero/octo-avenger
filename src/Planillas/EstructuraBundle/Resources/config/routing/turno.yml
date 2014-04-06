@@ -1,0 +1,16 @@
+estructura_turno_index:
+  path: /
+  defaults: { _controller: "PlanillasEstructuraBundle:Turno:index" }
+
+estructura_turno_list:
+  path: /list
+  defaults: { _controller: "PlanillasEstructuraBundle:Turno:list" }
+  options:
+    expose: true
+
+estructura_turno_create:
+  path: /create
+  defaults: { _controller: "PlanillasEstructuraBundle:Turno:create" }
+  requirements: { _method: post }
+  options:
+    expose: true

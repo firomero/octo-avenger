@@ -1,0 +1,10 @@
+{% include '@PlanillasEstructura/Puesto/form.html.twig' %}
+
+<div class="panel panel-default" data-content="puesto">
+    <div class="panel-heading">
+        <h3 class="panel-title">Listado de Puestos</h3>
+    </div>
+    <div class="panel-body" id="puesto-body">
+        {% render path('estructura_puesto_list') %}
+    </div>
+</div>

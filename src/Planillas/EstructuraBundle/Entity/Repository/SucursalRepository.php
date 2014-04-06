@@ -17,4 +17,4 @@ class SucursalRepository extends AbstractRepository
 
         return $query;
     }
-} 
+}

@@ -17,4 +17,4 @@ class ClienteRepository extends AbstractRepository
 
         return $query;
     }
-} 
+}

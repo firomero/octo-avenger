@@ -85,24 +85,24 @@ class Cliente implements EntityEstructuraInterface
     {
         $this->sucursales = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Set empresa
      *
-     * @param \Planillas\EstructuraBundle\Entity\Empresa $empresa
+     * @param  \Planillas\EstructuraBundle\Entity\Empresa $empresa
      * @return Cliente
      */
     public function setEmpresa(\Planillas\EstructuraBundle\Entity\Empresa $empresa = null)
     {
         $this->empresa = $empresa;
-    
+
         return $this;
     }
 
     /**
      * Get empresa
      *
-     * @return \Planillas\EstructuraBundle\Entity\Empresa 
+     * @return \Planillas\EstructuraBundle\Entity\Empresa
      */
     public function getEmpresa()
     {
@@ -112,13 +112,13 @@ class Cliente implements EntityEstructuraInterface
     /**
      * Add sucursales
      *
-     * @param \Planillas\EstructuraBundle\Entity\Sucursal $sucursales
+     * @param  \Planillas\EstructuraBundle\Entity\Sucursal $sucursales
      * @return Cliente
      */
     public function addSucursale(\Planillas\EstructuraBundle\Entity\Sucursal $sucursales)
     {
         $this->sucursales[] = $sucursales;
-    
+
         return $this;
     }
 
@@ -135,7 +135,7 @@ class Cliente implements EntityEstructuraInterface
     /**
      * Get sucursales
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getSucursales()
     {

@@ -19,8 +19,8 @@
         <div id="empresa" class="tab-pane fade in active">{% render path('estructura_empresa_index') %}</div>
         <div id="cliente" class="tab-pane fade">{% render path('estructura_cliente_index') %}</div>
         <div id="sucursal" class="tab-pane fade">{% render path('estructura_sucursal_index') %}</div>
-        <div id="turno" class="tab-pane fade">{% include '@PlanillasEstructura/Turno/index.html.twig' %}</div>
-        <div id="puesto" class="tab-pane fade">{% include '@PlanillasEstructura/Puesto/index.html.twig' %}</div>
+        <div id="turno" class="tab-pane fade">{% render path('estructura_turno_index') %}</div>
+        <div id="puesto" class="tab-pane fade">{% render path('estructura_puesto_index') %}</div>
     </div>
 {% endblock content_content %}
 
@@ -57,7 +57,7 @@
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                 var value = $(e.target).attr('href');
                 value = value.substring(1,value.length);
-                //console.log(value);
+                console.log(value);
                 $actual_process = value;
             });
 

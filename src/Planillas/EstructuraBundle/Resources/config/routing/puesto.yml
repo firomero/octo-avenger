@@ -1,0 +1,16 @@
+estructura_puesto_index:
+  path: /
+  defaults: { _controller: "PlanillasEstructuraBundle:Puesto:index" }
+
+estructura_puesto_list:
+  path: /list
+  defaults: { _controller: "PlanillasEstructuraBundle:Puesto:list" }
+  options:
+    expose: true
+
+estructura_puesto_create:
+  path: /create
+  defaults: { _controller: "PlanillasEstructuraBundle:Puesto:create" }
+  requirements: { _method: post }
+  options:
+    expose: true
