@@ -89,9 +89,9 @@
                 {% endif %}
                 {% if active == 'sueldo' %}
                     <li class="active"><a
-                                href="{{ path('salariobase_new',{ 'id_empleado': eEmpleado.id }) }}">Sueldo</a></li>
+                                href="{{ path('csalariobase_new',{ 'id': eEmpleado.id }) }}">Sueldo</a></li>
                 {% else %}
-                    <li><a href="{{ path('salariobase_new',{ 'id_empleado': eEmpleado.id }) }}">Sueldo</a></li>
+                    <li><a href="{{ path('csalariobase_new',{ 'id': eEmpleado.id }) }}">Sueldo</a></li>
                 {% endif %}
                 {% if(active=='antecedentepenal') %}
                     <li class="active"><a href="{{ path('antecedentepenal',{ 'id_empleado': eEmpleado.id }) }}">Antecedentes

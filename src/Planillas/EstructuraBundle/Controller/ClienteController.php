@@ -4,7 +4,6 @@ namespace Planillas\EstructuraBundle\Controller;
 
 use Planillas\EstructuraBundle\Entity\Cliente;
 use Planillas\EstructuraBundle\Form\Type\ClienteType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;

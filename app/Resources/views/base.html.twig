@@ -3,10 +3,10 @@
 {% extends 'MopaBootstrapBundle::base.html.twig' %}
 
     {% block head_style %}
-        {% stylesheets filter="yui_css"
+        {% stylesheets filter="yui_css" output='css/main.css'
         '@PlanillasCoreBundle/Resources/public/css/jquery.ui.css'
         '@PlanillasTemplateBundle/Resources/public/css/*'
-        %}
+         %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
         {% endstylesheets %}
 
@@ -96,14 +96,15 @@
         '@PlanillasTemplateBundle/Resources/public/js/jquery-1.10.2.min.js'
         '@PlanillasTemplateBundle/Resources/public/js/jquery.validate.js'
         '@PlanillasTemplateBundle/Resources/public/js/bootstrap-timepicker.js'
+        '@PlanillasTemplateBundle/Resources/public/js/bootstrap-datepicker.js'
         '@MopaBootstrapBundle/Resources/public/bootstrap/dist/js/bootstrap.min.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'
-        '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
-        '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.es.js'
-        filter='yui_js' %}
+        filter='yui_js' output='js/main.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
+        {#'@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.js'
+        '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.es.js'#}
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}" type="text/javascript"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}" type="text/javascript"></script>
         {#

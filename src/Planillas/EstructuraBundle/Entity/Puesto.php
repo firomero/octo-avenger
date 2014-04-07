@@ -51,7 +51,8 @@ class Puesto implements EntityEstructuraInterface
     /**
      * @var \Planillas\NomencladorBundle\Entity\NBonificacionPuesto
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NBonificacionPuesto")
+     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NBonificacionPuesto")
+     * @ORM\JoinTable(name="e_nbonificaciones_puesto")
      * @Assert\NotBlank()
      */
     private $bonificacion;
@@ -260,33 +261,50 @@ class Puesto implements EntityEstructuraInterface
     }
 
     /**
-     * Set bonificacion
-     *
-     * @param  \Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion
-     * @return Puesto
-     */
-    public function setBonificacion(\Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion = null)
-    {
-        $this->bonificacion = $bonificacion;
-
-        return $this;
-    }
-
-    /**
-     * Get bonificacion
-     *
-     * @return \Planillas\NomencladorBundle\Entity\NBonificacionPuesto
-     */
-    public function getBonificacion()
-    {
-        return $this->bonificacion;
-    }
-
-    /**
      * @return string
      */
     public function __toString()
     {
         return $this->nombre;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->bonificacion = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add bonificacion
+     *
+     * @param  \Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion
+     * @return Puesto
+     */
+    public function addBonificacion(\Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion)
+    {
+        $this->bonificacion[] = $bonificacion;
+
+        return $this;
+    }
+
+    /**
+     * Remove bonificacion
+     *
+     * @param \Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion
+     */
+    public function removeBonificacion(\Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion)
+    {
+        $this->bonificacion->removeElement($bonificacion);
+    }
+
+    /**
+     * Get bonificacion
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBonificacion()
+    {
+        return $this->bonificacion;
     }
 }

@@ -16,7 +16,7 @@ estructura_sucursal_create:
     expose: true
 
 estructura_sucursales:
-  path: /{id}/cliente
+  path: /{id}/sucursales
   defaults: { _controller: "PlanillasEstructuraBundle:Sucursal:sucursalesCombo" }
   options:
     expose: true

@@ -14,34 +14,14 @@ Gestionar Salario
 <div class="row-fluid">
     <div class="col-lg-9"><!--Div de apertura de la columna-->
         <ul id="myTab" class="nav nav-tabs">
-            <li  class="active"><a href="#sueldo" data-toggle="tab">Sueldo</a></li>
+            <li  class="active"><a href="#sueldo" data-toggle="tab">Salario</a></li>
             <li><a href="#historial" data-toggle="tab">Historial de deudas pagadas</a></li>
-
         </ul>
         <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade active in" id="sueldo">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="panel-title">Salario</h2>
-                    </div>
                     <div class="panel-body">
-
-                    {{ form_errors(form) }}
-                    {{form_start(form)}}
-                        <fieldset>
-                            <div class="row-fluid">
-                                <div class="col-lg-6">{{ form_row(form.salarioBase) }}</div>
-                                <div class="col-lg-6">{{ form_widget(form.seguro) }}</div>
-
-
-                            </div>
-                        </fieldset>
-                        <hr>
-                    {{ form_rest(form) }}
-
-                    {{form_end(form)}}
-
-                        <form>
+                        {% include '@PlanillasCore/CSalarioBase/_form.html.twig' %}
                     </div>
                 </div>
 
@@ -143,3 +123,114 @@ Gestionar Salario
 
 
 {% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $empresa = $('#planillas_corebundle_salariobasepuesto_empresa');
+            var $cliente = $('#planillas_corebundle_salariobasepuesto_cliente');
+            var $sucursal = $('#planillas_corebundle_salariobasepuesto_sucursal');
+            var $turno = $('#planillas_corebundle_salariobasepuesto_turno');
+            var $puesto = $('#planillas_corebundle_salariobasepuesto_puesto');
+            var $progress_bar = '<div class="progress progress-striped active"><div class="progress-bar" style="width: 100%;"></div></div>';
+            loadSelectedPuestoDetalles ();
+
+            $empresa.on('change', function (e) {
+                        reloadClienteSelect($(this).val());
+                    })
+                    .on('blur', function (e) {
+                        reloadClienteSelect($(this).val());
+                    });
+
+            $cliente.on('change', function (e) {
+                        reloadSucursalSelect($(this).val());
+                    })
+                    .on('blur', function (e) {
+                        reloadSucursalSelect($(this).val());
+                    });
+
+            $sucursal.on('change', function (e) {
+                        reloadTurnoSelect($(this).val());
+                    })
+                    .on('blur', function (e) {
+                        reloadTurnoSelect($(this).val());
+                    });
+
+            $turno.on('change', function (e) {
+                        reloadPuestoSelect($(this).val());
+                    })
+                    .on('blur', function (e) {
+                        reloadPuestoSelect($(this).val());
+                    });
+            $puesto.on('change', function (e) {
+                        loadSelectedPuestoDetalles();
+                    })
+                    .on('blur', function (e) {
+                        loadSelectedPuestoDetalles();
+                    });
+
+            function reloadClienteSelect (empresa) {
+                if(empresa != "") {
+                    $.get(Routing.generate('estructura_clientes',{'id':empresa}), function (data) {
+                        $cliente.removeAttr('disabled');
+                        $cliente.html(data);
+                        //reloadSucursalSelect($(select).find('option:first').val(), findSelectType('sucursal'));
+                    });
+                } else {
+                    $cliente.attr('disabled','disabled');
+                    reloadSucursalSelect("");
+                }
+            }
+
+            function reloadSucursalSelect (cliente) {
+                if(cliente != "") {
+                    $.get(Routing.generate('estructura_sucursales',{'id':cliente}), function (data) {
+                        $sucursal.removeAttr('disabled');
+                        $sucursal.html(data);
+                        //reloadTurnoSelect($(select).find('option:first').val(), findSelectType('turno'));
+                    });
+                } else {
+                    $sucursal.attr('disabled','disabled');
+                    reloadTurnoSelect("");
+                }
+            }
+
+            function reloadTurnoSelect (sucursal) {
+                if(sucursal != "") {
+                    $.get(Routing.generate('estructura_turnos',{'id':sucursal}), function (data) {
+                        $turno.removeAttr('disabled');
+                        $turno.html(data);
+                    });
+                } else {
+                    $turno.attr('disabled','disabled');
+                    reloadPuestoSelect("");
+                }
+            }
+
+            function reloadPuestoSelect (turno) {
+                if(turno != "") {
+                    $.get(Routing.generate('estructura_puestos',{'id':turno}), function (data) {
+                        $puesto.removeAttr('disabled');
+                        $puesto.html(data);
+                    });
+                } else {
+                    $puesto.attr('disabled','disabled');
+                }
+            }
+
+            function loadSelectedPuestoDetalles () {
+                $('div#puesto-detalles').html($progress_bar);
+                var puestoId = $puesto.val();
+                if (puestoId != "") {
+                    $.get(Routing.generate('estructura_puesto_detalles',{'id':puestoId}), function (data) {
+                        $('div#puesto-detalles').html(data).show();
+                    });
+                } else {
+                    $('div#puesto-detalles').html("").hide();
+                }
+            }
+        });
+    </script>
+
+{% endblock foot_script %}

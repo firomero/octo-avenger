@@ -22,7 +22,13 @@
             <td>{{ e.turno }}</td>
             <td>{{ e.salario }}</td>
             <td>{{ e.rol }}</td>
-            <td>{{ e.bonificacion }}</td>
+            <td>
+                <ul>
+                {% for b in e.bonificacion %}
+                    <li>{{ b }}</li>
+                {% endfor %}
+                </ul>
+            </td>
             <td></td>
         </tr>
     {% else %}

@@ -2,7 +2,7 @@
 
 namespace Planillas\CoreBundle\Controller;
 
-use Planillas\CoreBundle\Form\Type\BuscarSolicitudEmpleoType;
+use Planillas\CoreBundle\Form\Type\Filters\BuscarSolicitudEmpleoType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

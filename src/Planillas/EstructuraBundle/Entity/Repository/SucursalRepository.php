@@ -20,7 +20,7 @@ class SucursalRepository extends AbstractRepository
         return $query;
     }
 
-    public function findAllByClienteId ($id)
+    public function findAllByClienteId($id)
     {
         $query = $this->findAllNotDeleted(array(
             'cliente' => $id,

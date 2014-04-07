@@ -16,7 +16,7 @@ estructura_cliente_create:
     expose: true
 
 estructura_clientes:
-  path: /{id}/empresa
+  path: /{id}/clientes
   defaults: { _controller: "PlanillasEstructuraBundle:Cliente:clientesCombo" }
   options:
     expose: true

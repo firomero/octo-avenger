@@ -16,17 +16,17 @@ class PuestoRepository extends AbstractRepository
     {
         $dql = "SELECT p FROM PlanillasEstructuraBundle:Puesto p";
 
-        $this->addParamsToDql($dql, 'p', $filters);
+        $dql = $this->addParamsToDql($dql, 'p', $filters);
 
         $dql.=" ORDER BY p.id DESC";
 
         $query = $this->_em->createQuery($dql);
-        $this->addParamsToQuery($query, $filters);
+        $query = $this->addParamsToQuery($query, $filters);
 
         return $query;
     }
 
-    public function findAllByTurnoId ($id)
+    public function findAllByTurnoId($id)
     {
         $query = $this->findAllNotDeleted(array(
             'turno' => $id,

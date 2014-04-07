@@ -2,7 +2,7 @@
 
 namespace Planillas\CoreBundle\Controller;
 
-use Planillas\CoreBundle\Form\Type\BuscarVacanteType;
+use Planillas\CoreBundle\Form\Type\Filters\BuscarVacanteType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

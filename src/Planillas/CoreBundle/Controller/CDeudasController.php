@@ -2,7 +2,7 @@
 
 namespace Planillas\CoreBundle\Controller;
 
-use Planillas\CoreBundle\Form\Type\BuscarDeudasType;
+use Planillas\CoreBundle\Form\Type\Filters\BuscarDeudasType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Planillas\CoreBundle\Entity\CDeudas;

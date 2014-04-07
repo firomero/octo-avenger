@@ -1,12 +1,12 @@
 <?php
 
-namespace Planillas\CoreBundle\Form\Type;
+namespace Planillas\CoreBundle\Form\Type\Filters;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class BuscarDiasExtraType extends AbstractType
+class BuscarAusenciaType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,10 @@ class BuscarDiasExtraType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fecha','date',array('required'=>false,'attr'=>array('id'=>'datetimepickerfecha'),'widget'=>'single_text','label'=>'Día'))
-            ->add('empleado','text',array('required'=>false))
+            ->add('empleado',null,array('required'=>false)/*,'entity',array('class'=>'PlanillasCoreBundle:CEmpleado')*/)
+            ->add('fechaInicio','date',array('attr'=>array('id'=>'datetimepickercomienzo'),'widget'=>'single_text','label'=>'Desde','required'=>false))
+            ->add('fechaFin','date',array('attr'=>array('id'=>'datetimepickerfin'),'widget'=>'single_text','label'=>'Hasta','required'=>false))
+
         ;
     }
 
@@ -25,9 +27,6 @@ class BuscarDiasExtraType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-
-        ));
     }
 
     /**
@@ -35,6 +34,6 @@ class BuscarDiasExtraType extends AbstractType
      */
     public function getName()
     {
-        return 'planillas_corebundle_buscar_diasextra';
+        return 'planillas_corebundle_buscar_ausencia';
     }
 }

@@ -19,7 +19,8 @@ class PuestoType extends AbstractType
             ->add('salario')
             ->add('rol')
             ->add('bonificacion', null, array(
-                'label' => 'Bonificación',
+                'label'     => 'Bonificación',
+                'multiple'  => true,
             ))
             ->add('turno')
             ->add('sucursal')

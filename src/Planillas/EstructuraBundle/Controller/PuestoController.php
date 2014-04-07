@@ -88,4 +88,41 @@ class PuestoController extends Controller
 
         return new Response(json_encode($errors), 500);
     }
+
+    /**
+     * @param $id
+     * @return array
+     *
+     * @Template()
+     */
+    public function puestosComboAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $puestos = $em->getRepository('PlanillasEstructuraBundle:Puesto')
+            ->findAllByTurnoId($id);
+
+        return array(
+            'puestos' => $puestos,
+        );
+    }
+
+    /**
+     * @param $id
+     * @return array
+     *
+     * @Template()
+     */
+    public function puestoDetallesAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $entity = $em->find('PlanillasEstructuraBundle:Puesto', (int) $id);
+        if(!$entity)
+            $this->createNotFoundException('No se encuentra el Puesto con id: '.$id);
+
+        return array(
+            'puesto' => $entity,
+        );
+    }
+
 }

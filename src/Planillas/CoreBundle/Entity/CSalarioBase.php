@@ -3,6 +3,7 @@
 namespace Planillas\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * CSalarioBase
@@ -32,6 +33,7 @@ class CSalarioBase
      * @var string
      *
      * @ORM\Column(name="salario_base", type="decimal", nullable=false)
+     * @Assert\NotBlank()
      */
     private $salarioBase;
 

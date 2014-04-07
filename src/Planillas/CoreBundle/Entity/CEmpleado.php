@@ -3,6 +3,7 @@
 namespace Planillas\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Planillas\EstructuraBundle\Entity\Puesto;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -263,6 +264,13 @@ class CEmpleado
      * @ORM\OneToOne(targetEntity="Planillas\CoreBundle\Entity\CSalarioBase", mappedBy="empleado")
      */
     private $salarioBase;
+
+    /**
+     * @var CPuestoEmpleado
+     *
+     * @ORM\OneToOne(targetEntity="Planillas\CoreBundle\Entity\CPuestoEmpleado", mappedBy="empleado")
+     */
+    private $puesto;
 
     /**
      * @var $componentesSalariales Doctrine/Common/Collections/ArrayCollection
@@ -1240,4 +1248,26 @@ class CEmpleado
         return $this->nombre . ' ' . $this->primerApellido;
     }
 
+    /**
+     * Set puesto
+     *
+     * @param  \Planillas\CoreBundle\Entity\CPuestoEmpleado $puesto
+     * @return CEmpleado
+     */
+    public function setPuesto(\Planillas\CoreBundle\Entity\CPuestoEmpleado $puesto = null)
+    {
+        $this->puesto = $puesto;
+
+        return $this;
+    }
+
+    /**
+     * Get puesto
+     *
+     * @return \Planillas\CoreBundle\Entity\CPuestoEmpleado
+     */
+    public function getPuesto()
+    {
+        return $this->puesto;
+    }
 }

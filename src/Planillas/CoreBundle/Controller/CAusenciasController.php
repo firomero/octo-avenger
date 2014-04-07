@@ -3,7 +3,7 @@
 namespace Planillas\CoreBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Planillas\CoreBundle\Form\Type\BuscarAusenciaType;
+use Planillas\CoreBundle\Form\Type\Filters\BuscarAusenciaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Planillas\CoreBundle\Entity\CAusencias;

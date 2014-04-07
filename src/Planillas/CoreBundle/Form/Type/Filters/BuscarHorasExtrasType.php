@@ -1,6 +1,6 @@
 <?php
 
-namespace Planillas\CoreBundle\Form\Type;
+namespace Planillas\CoreBundle\Form\Type\Filters;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -6,8 +6,8 @@ csalariobase_show:
     pattern:  /{id}/show
     defaults: { _controller: "PlanillasCoreBundle:CSalarioBase:show" }
 
-salariobase_new:
-    pattern:  /{id_empleado}/sueldo
+csalariobase_new:
+    pattern:  /{id}/sueldo
     defaults: { _controller: "PlanillasCoreBundle:CSalarioBase:new" }
 
 csalariobase_create:

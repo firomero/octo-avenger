@@ -2,7 +2,7 @@
 
 namespace Planillas\CoreBundle\Controller;
 
-use Planillas\CoreBundle\Form\Type\BuscarCEmpleadoType;
+use Planillas\CoreBundle\Form\Type\Filters\BuscarCEmpleadoType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Planillas\CoreBundle\Entity\CEmpleado;

@@ -22,8 +22,14 @@ class CSalarioBaseType extends AbstractType
     {
         $builder
             ->add('salarioBase')
-            ->add('seguro','checkbox',array('label'=>null,'required'=>false))
-            ->add('empleado','hidden',array('data_class'=>'Planillas\CoreBundle\Entity\CEmpleado','property_path'=>'id'))
+            ->add('seguro','checkbox',array(
+                'label'=>null,
+                'required'=>false
+            ))
+            ->add('empleado','hidden',array(
+                'data_class'=>'Planillas\CoreBundle\Entity\CEmpleado',
+                'property_path'=>'id'
+            ))
         ;
         if ($this->bDestruyeEmpleado) {
           $builder->remove('empleado');

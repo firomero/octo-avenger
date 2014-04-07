@@ -20,7 +20,7 @@ class TurnoRepository extends AbstractRepository
         return $query;
     }
 
-    public function findAllBySucursalId ($id)
+    public function findAllBySucursalId($id)
     {
         $query = $this->findAllNotDeleted(array(
             'sucursal' => $id,

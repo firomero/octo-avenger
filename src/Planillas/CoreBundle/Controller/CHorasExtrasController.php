@@ -2,7 +2,7 @@
 
 namespace Planillas\CoreBundle\Controller;
 
-use Planillas\CoreBundle\Form\Type\BuscarHorasExtrasType;
+use Planillas\CoreBundle\Form\Type\Filters\BuscarHorasExtrasType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Planillas\CoreBundle\Entity\CHorasExtras;

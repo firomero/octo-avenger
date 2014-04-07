@@ -14,3 +14,15 @@ estructura_puesto_create:
   requirements: { _method: post }
   options:
     expose: true
+
+estructura_puestos:
+  path: /{id}/puestos
+  defaults: { _controller: "PlanillasEstructuraBundle:Puesto:puestosCombo" }
+  options:
+    expose: true
+
+estructura_puesto_detalles:
+  path: /{id}/detalles
+  defaults: { _controller: "PlanillasEstructuraBundle:Puesto:puestoDetalles" }
+  options:
+    expose: true

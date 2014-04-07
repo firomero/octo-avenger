@@ -6,3 +6,11 @@ services:
         class: %planillas.core.empleado.manager%
         arguments:
             - @doctrine.orm.entity_manager
+
+    core.salario_base_puesto.handler:
+        class: Planillas\CoreBundle\Form\Handlers\SalarioBasePuestoHandler
+        arguments:
+            - @doctrine.orm.entity_manager
+            - @form.factory
+            - @router
+            - @logger

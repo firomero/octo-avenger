@@ -1,0 +1,16 @@
+<div class="row" >
+    <div class="col-lg-2"><strong>Salario:</strong> </div>
+    <div id="salario-data" class="col-lg-3">{{ puesto.salario }}</div>
+    <div class="col-lg-2"><strong>Bonificaciones:</strong> </div>
+    <div id="bonificaciones-data" class="col-lg-3">
+        <ul>
+        {% for b in puesto.bonificacion %}
+            <li>{{ b }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-2"><strong>Rol:</strong> </div>
+    <div id="rol-data" class="col-lg-3">{{ puesto.rol }}</div>
+</div>

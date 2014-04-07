@@ -1,0 +1,28 @@
+{{ form_errors(form) }}
+{{form_start(form)}}
+
+<div class="row">
+    <div class="col-lg-6">{{ form_row(form.salarioBase) }}</div>
+    <div class="col-lg-6">{{ form_widget(form.seguro) }}</div>
+</div>
+
+<fieldset>
+    <legend>Datos de Puesto</legend>
+    <div class="row" style="padding-bottom: 8px;">
+        <div class="col-lg-4">{{ form_row(form.empresa) }}</div>
+        <div class="col-lg-4">{{ form_row(form.cliente) }}</div>
+        <div class="col-lg-4">{{ form_row(form.sucursal) }}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">{{ form_row(form.turno) }}</div>
+        <div class="col-lg-4">{{ form_row(form.puesto) }}</div>
+    </div>
+</fieldset>
+
+<div id="puesto-detalles" class="well well-small" style="margin-top: 8px;">
+</div>
+
+<hr/>
+
+{{ form_rest(form) }}
+{{ form_end(form) }}

@@ -16,7 +16,7 @@ estructura_turno_create:
     expose: true
 
 estructura_turnos:
-  path: /{id}/cliente
+  path: /{id}/turnos
   defaults: { _controller: "PlanillasEstructuraBundle:Turno:turnosCombo" }
   options:
     expose: true

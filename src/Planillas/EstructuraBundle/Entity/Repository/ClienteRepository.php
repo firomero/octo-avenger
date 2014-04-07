@@ -20,7 +20,7 @@ class ClienteRepository extends AbstractRepository
         return $query;
     }
 
-    public function findAllByEmpresaId ($id)
+    public function findAllByEmpresaId($id)
     {
         $query = $this->findAllNotDeleted(array(
             'empresa' => $id,
