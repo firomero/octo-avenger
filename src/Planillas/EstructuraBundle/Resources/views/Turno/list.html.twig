@@ -23,6 +23,5 @@
     </tbody>
 </table>
 
-{% if entities | length > 10 %}
-    <div style="text-align: center;"><div>{{ knp_pagination_render(entities) }}</div>
-{% endif %}
+<div style="text-align: center;">{{ knp_pagination_render(entities) }}</div>
+
