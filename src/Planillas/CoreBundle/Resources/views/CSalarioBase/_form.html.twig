@@ -1,5 +1,5 @@
 {{ form_errors(form) }}
-{{form_start(form)}}
+{{ form_start(form, { 'attr': {'class':'form-horizontal'} }) }}
 
 <div class="row">
     <div class="col-lg-6">{{ form_row(form.salarioBase) }}</div>
@@ -16,6 +16,9 @@
     <div class="row">
         <div class="col-lg-4">{{ form_row(form.turno) }}</div>
         <div class="col-lg-4">{{ form_row(form.puesto) }}</div>
+        <div class="col-lg-4">
+            <a class="btn btn-info" id="asignar-salario" title="Asignar salario del puesto al empleado"><span class="glyphicon glyphicon-ok"></span> Asignar</a>
+        </div>
     </div>
 </fieldset>
 

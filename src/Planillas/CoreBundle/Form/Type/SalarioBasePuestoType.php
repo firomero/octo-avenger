@@ -23,7 +23,15 @@ class SalarioBasePuestoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('salarioBase')
+            ->add('salarioBase', 'text', array(
+                'widget_addon_prepend' => array(
+                    'text' => '₡',
+                ),
+                'attr' => array(
+                    'class' => 'col-lg-1',
+                    'placeholder' => 'col-lg-1',
+                )
+            ))
             ->add('seguro','checkbox',array(
                 'label'     => null,
                 'required'  => false

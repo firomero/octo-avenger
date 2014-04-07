@@ -104,6 +104,11 @@ class SalarioBasePuestoHandler
         return false;
     }
 
+    public function handle_create(Request $request, $id)
+    {
+
+    }
+
     /**
      * @param $id_empleado
      * @return \Symfony\Component\Form\FormInterface

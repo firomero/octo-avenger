@@ -170,6 +170,14 @@ Gestionar Salario
                         loadSelectedPuestoDetalles();
                     });
 
+            $('a#asignar-salario').on('click', function(e) {
+                e.preventDefault();
+                var input = $('input#planillas_corebundle_salariobasepuesto_salarioBase');
+                var salario_puesto = $('div#puesto-detalles div#salario-data');
+                input.val(salario_puesto.text());
+                checkSalarioAndPuesto();
+            });
+
             function reloadClienteSelect (empresa) {
                 if(empresa != "") {
                     $.get(Routing.generate('estructura_clientes',{'id':empresa}), function (data) {
@@ -221,13 +229,26 @@ Gestionar Salario
 
             function loadSelectedPuestoDetalles () {
                 $('div#puesto-detalles').html($progress_bar);
+                $('a#asignar-salario').addClass('disabled');
+
                 var puestoId = $puesto.val();
                 if (puestoId != "") {
                     $.get(Routing.generate('estructura_puesto_detalles',{'id':puestoId}), function (data) {
                         $('div#puesto-detalles').html(data).show();
+                        checkSalarioAndPuesto();
                     });
                 } else {
                     $('div#puesto-detalles').html("").hide();
+                }
+            }
+
+            function checkSalarioAndPuesto() {
+                var input = $('input#planillas_corebundle_salariobasepuesto_salarioBase');
+                var salario_puesto = $('div#puesto-detalles div#salario-data');
+                if(input.val() == salario_puesto.html()) {
+                    $('a#asignar-salario').addClass('disabled');
+                } else {
+                    $('a#asignar-salario').removeClass('disabled');
                 }
             }
         });
