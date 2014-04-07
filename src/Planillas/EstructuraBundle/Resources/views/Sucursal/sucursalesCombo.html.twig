@@ -1,0 +1,5 @@
+{% for sucursal in sucursales %}
+<option value="{{ sucursal.id }}" {{ (loop.index == 1) ? 'selected=""' }}>{{ sucursal.nombre }}</option>
+{% else %}
+    <option value="">No existen sucursales</option>
+{% endfor %}

@@ -88,4 +88,21 @@ class TurnoController extends Controller
 
         return new Response(json_encode($errors), 500);
     }
+
+    /**
+     * @param $id
+     * @return array
+     *
+     * @Template()
+     */
+    public function turnosComboAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $turnos = $em->getRepository('PlanillasEstructuraBundle:Turno')
+            ->findAllBySucursalId($id);
+
+        return array(
+            'turnos' => $turnos,
+        );
+    }
 }

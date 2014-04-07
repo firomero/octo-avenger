@@ -4,6 +4,7 @@ namespace Planillas\EstructuraBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Planillas\EstructuraBundle\Entity\EntityEstructuraInterface;
 
 class AbstractRepository extends EntityRepository
 {
@@ -12,8 +13,9 @@ class AbstractRepository extends EntityRepository
         if (count($filters)) {
             $flag = false;
             foreach ($filters as $key => $value) {
-                $dql.= ($flag) ? ' WHERE' : ' AND';
+                $dql.= ($flag) ? ' AND' : ' WHERE';
                 $dql.= sprintf(' %s.%s=:%s',$alias,$key,$key);
+                $flag = true;
             }
         }
 
@@ -24,7 +26,7 @@ class AbstractRepository extends EntityRepository
     {
         $ready_filters = array();
         foreach ($filters as $key => $value) {
-            if (is_object($value) && $value instanceof EntityEstructuraInstance) {
+            if (is_object($value) && $value instanceof EntityEstructuraInterface) {
                 $ready_filters[$key] = $value->getId();
             } else {
                 $ready_filters[$key] = $value;

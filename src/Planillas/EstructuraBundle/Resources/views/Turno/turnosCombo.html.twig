@@ -1,0 +1,5 @@
+{% for turno in turnos %}
+    <option value="{{ turno.id }}" {{ (loop.index == 1) ? 'selected=""' }}>{{ turno.nombre }}</option>
+{% else %}
+    <option value="">No existen turnos</option>
+{% endfor %}

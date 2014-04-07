@@ -14,3 +14,9 @@ estructura_sucursal_create:
   requirements: { _method: post }
   options:
     expose: true
+
+estructura_sucursales:
+  path: /{id}/cliente
+  defaults: { _controller: "PlanillasEstructuraBundle:Sucursal:sucursalesCombo" }
+  options:
+    expose: true

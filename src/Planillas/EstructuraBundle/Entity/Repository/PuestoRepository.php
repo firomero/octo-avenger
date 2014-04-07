@@ -8,6 +8,8 @@
 
 namespace Planillas\EstructuraBundle\Entity\Repository;
 
+use Doctrine\ORM\NoResultException;
+
 class PuestoRepository extends AbstractRepository
 {
     public function findAllNotDeleted ($filters = array())
@@ -22,5 +24,18 @@ class PuestoRepository extends AbstractRepository
         $this->addParamsToQuery($query, $filters);
 
         return $query;
+    }
+
+    public function findAllByTurnoId ($id)
+    {
+        $query = $this->findAllNotDeleted(array(
+            'turno' => $id,
+        ));
+
+        try {
+            return $query->getResult();
+        } catch (NoResultException $e) {
+            return array();
+        }
     }
 }

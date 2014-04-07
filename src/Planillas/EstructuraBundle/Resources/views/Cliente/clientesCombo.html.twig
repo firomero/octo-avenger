@@ -1,0 +1,5 @@
+{% for cliente in clientes %}
+    <option value="{{ cliente.id }}" {{ (loop.index == 1) ? 'selected=""' }}>{{ cliente.nombre }}</option>
+{% else %}
+    <option value="">No existen clientes</option>
+{% endfor %}

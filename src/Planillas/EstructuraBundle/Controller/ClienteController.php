@@ -4,6 +4,7 @@ namespace Planillas\EstructuraBundle\Controller;
 
 use Planillas\EstructuraBundle\Entity\Cliente;
 use Planillas\EstructuraBundle\Form\Type\ClienteType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
@@ -88,5 +89,22 @@ class ClienteController extends Controller
         }
 
         return new Response(json_encode($errors), 500);
+    }
+
+    /**
+     * @param $id
+     * @return array
+     *
+     * @Template()
+     */
+    public function clientesComboAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $clientes = $em->getRepository('PlanillasEstructuraBundle:Cliente')
+            ->findAllByEmpresaId($id);
+
+        return array(
+            'clientes' => $clientes,
+        );
     }
 }

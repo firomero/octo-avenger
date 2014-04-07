@@ -38,20 +38,7 @@
             $('a.btn.btn-primary.submit-button').on('click', function (e) {
                 e.preventDefault();
                 var type = $(this).data('content');
-
                 _submit();
-                /*
-                switch (type) {
-                    case 'empresa':
-                        submit_empresa();
-                        break;
-                    case 'cliente':
-                        submit_cliente();
-                        break;
-                    case 'sucursal':
-                        sumbit_sucursal();
-                        break;
-                }*/
             });
 
             $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
@@ -61,6 +48,62 @@
                 $actual_process = value;
             });
 
+            $('select[id$=_empresa]').on('change', function (e) {
+                reloadClienteSelect($(this).val(), findSelectType('cliente'));
+            });
+
+            $('select[id$=_cliente]').on('change', function (e) {
+                reloadSucursalSelect($(this).val(), findSelectType('sucursal'));
+            });
+
+            $('select[id$=_sucursal]').on('change', function (e) {
+                reloadTurnoSelect($(this).val(), findSelectType('turno'));
+            });
+
+            function reloadClienteSelect (empresa_id, select) {
+                if(empresa_id != "") {
+                    $.get(Routing.generate('estructura_clientes',{'id':empresa_id}), function (data) {
+                        $(select).removeAttr('disabled');
+                        $(select).html(data);
+                        reloadSucursalSelect($(select).find('option:first').val(), findSelectType('sucursal'));
+                    });
+                } else {
+                    $(select).attr('disabled','disabled');
+                    reloadSucursalSelect("", findSelectType('sucursal'));
+                }
+            }
+
+            function reloadSucursalSelect (cliente_id, select) {
+                if(cliente_id != "") {
+                    $.get(Routing.generate('estructura_sucursales',{'id':cliente_id}), function (data) {
+                        $(select).removeAttr('disabled');
+                        $(select).html(data);
+                        reloadTurnoSelect($(select).find('option:first').val(), findSelectType('turno'));
+                    });
+                } else {
+                    $(select).attr('disabled','disabled');
+                    reloadTurnoSelect("", findSelectType('turno'));
+                }
+            }
+
+            function reloadTurnoSelect (sucursal_id, select) {
+                if(sucursal_id != "") {
+                    $.get(Routing.generate('estructura_turnos',{'id':sucursal_id}), function (data) {
+                        $(select).removeAttr('disabled');
+                        $(select).html(data);
+                    });
+                } else {
+                    $(select).attr('disabled','disabled');
+                }
+            }
+
+            function findSelectType (type) {
+                var _form = $('form#' + $actual_process + '-form');
+                var _select = _form.find('select[id$=' + $actual_process + '_' + type + ']');
+                return _select;
+            }
+
+
             function _submit() {
                 var data = $('form#' + $actual_process + '-form').serialize();
                 $.ajax({
@@ -69,97 +112,29 @@
                     'type': "POST",
                     'dataType': "HTML"
                 })
-                        .done(function (response) {
-                            var message = response;
-                            var alert = transform2JQueryObject(message, alert_success);
-                            appendAlertMessage(alert);
-                            cleanFormErrors('planillas_estructurabundle_' + $actual_process + '_');
-
-                            $.ajax({
-                                'url': Routing.generate('estructura_' + $actual_process + '_list'),
-                                'type': 'GET'
-                            })
-                                    .done(function (htmltable) {
-                                        $('div#' + $actual_process + '-body').html(htmltable);
-                                    });
-                        })
-                        .fail(function (error) {
-                            var errors = JSON.parse(error.responseText);
-                            //var entidad = $actual_process.toUpperCase();
-                            //var alert = transform2JQueryObject('Ha ocurrido un error creando ' + entidad + '.',alert_error);
-                            //appendAlertMessage(alert);
-                            proccessErrors(errors, '#planillas_estructurabundle_' + $actual_process + '_');
-
-                        })
-                        .always();
-            }
-
-            function submit_empresa () {
-                var data = $('form#empresa-form').serialize();
-                $.ajax({
-                    'url': Routing.generate('estructura_empresa_create'),
-                    'data': data,
-                    'type': "POST",
-                    'dataType': "HTML"
-                })
                 .done(function (response) {
                     var message = response;
                     var alert = transform2JQueryObject(message, alert_success);
                     appendAlertMessage(alert);
-                    cleanFormErrors('planillas_estructurabundle_empresa_');
+                    cleanFormErrors('planillas_estructurabundle_' + $actual_process + '_');
 
                     $.ajax({
-                        'url': Routing.generate('estructura_empresa_list'),
+                        'url': Routing.generate('estructura_' + $actual_process + '_list'),
                         'type': 'GET'
                     })
-                    .done(function (htmltable) {
-                        $('div#empresa-body').html(htmltable);
-                    });
+                            .done(function (htmltable) {
+                                $('div#' + $actual_process + '-body').html(htmltable);
+                            });
                 })
                 .fail(function (error) {
                     var errors = JSON.parse(error.responseText);
-
-                    var alert = transform2JQueryObject("Ha ocurrido un error creando la Empresa.",alert_error);
-                    appendAlertMessage(alert);
-
-                    proccessErrors(errors, 'input#planillas_estructurabundle_empresa_');
+                    //var entidad = $actual_process.toUpperCase();
+                    //var alert = transform2JQueryObject('Ha ocurrido un error creando ' + entidad + '.',alert_error);
+                    //appendAlertMessage(alert);
+                    proccessErrors(errors, '#planillas_estructurabundle_' + $actual_process + '_');
 
                 })
                 .always();
-            }
-
-            function submit_cliente () {
-                var data = $('form#cliente-form').serialize();
-                $.ajax({
-                    'url': Routing.generate('estructura_cliente_create'),
-                    'data': data,
-                    'type': "POST",
-                    'dataType': "HTML"
-                })
-                        .done(function (response) {
-                            var message = response;
-                            var alert = transform2JQueryObject(message, alert_success);
-                            appendAlertMessage(alert);
-                            cleanFormErrors('planillas_estructurabundle_cliente_');
-
-                            $.ajax({
-                                'url': Routing.generate('estructura_cliente_list'),
-                                'type': 'GET'
-                            })
-                                    .done(function (htmltable) {
-                                        $('div#cliente-body').html(htmltable);
-                                    });
-                        })
-                        .fail(function (error) {
-                            var errors = JSON.parse(error.responseText);
-
-                            var alert = transform2JQueryObject("Ha ocurrido un error creando el Cliente.", alert_error);
-                            appendAlertMessage(alert);
-
-                            proccessErrors(errors, 'input#planillas_estructurabundle_cliente_');
-
-                        })
-                        .always();
             }
 
             function transform2JQueryObject (message,template) {

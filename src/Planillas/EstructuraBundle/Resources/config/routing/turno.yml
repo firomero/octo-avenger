@@ -14,3 +14,9 @@ estructura_turno_create:
   requirements: { _method: post }
   options:
     expose: true
+
+estructura_turnos:
+  path: /{id}/cliente
+  defaults: { _controller: "PlanillasEstructuraBundle:Turno:turnosCombo" }
+  options:
+    expose: true
