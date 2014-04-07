@@ -52,8 +52,6 @@ class SalarioBasePuestoHandler
             throw new NotFoundHttpException('Unable to find CEmpleado entity');
         }
 
-        $model = new SalarioBasePuesto();
-
         $form = $this->createEditForm($entity);
 
         $form->handleRequest($request);
@@ -79,10 +77,13 @@ class SalarioBasePuestoHandler
                         $puesto->setSucursal($model->getSucursal());
                         $puesto->setTurno($model->getTurno());
                         $puesto->setPuesto($model->getPuesto());
+                        // asignando el horario establecido para el puesto al empleado
+                        $entity->setHorario($model->getPuesto()->getRol());
                     }
 
                     $this->em->persist($puesto);
                 } else {
+                    // se elimina la asociación del puesto con el trabajador
                     $puesto = $entity->getPuesto();
                     if($puesto !== null)
                         $this->em->remove($puesto);
