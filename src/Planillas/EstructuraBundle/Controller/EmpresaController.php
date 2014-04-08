@@ -93,4 +93,21 @@ class EmpresaController extends Controller
 
         return new Response(json_encode($errors), 500);
     }
+
+    /**
+     * @param $id
+     * @return array
+     *
+     * @Template()
+     */
+    public function empresasComboAction()
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $empresas = $em->getRepository('PlanillasEstructuraBundle:Empresa')
+            ->findAll();
+
+        return array(
+            'empresas' => $empresas,
+        );
+    }
 }

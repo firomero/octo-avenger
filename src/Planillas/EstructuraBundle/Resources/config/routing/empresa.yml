@@ -14,3 +14,9 @@ estructura_empresa_create:
   requirements: { _method: post }
   options:
     expose: true
+
+estructura_empresas:
+  path: /empresas
+  defaults: { _controller: "PlanillasEstructuraBundle:Empresa:empresasCombo" }
+  options:
+    expose: true

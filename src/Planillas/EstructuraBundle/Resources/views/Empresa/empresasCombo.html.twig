@@ -1,0 +1,5 @@
+{% for empresa in empresas %}
+    <option value="{{ empresa.id }}" {{ (loop.index == 1) ? 'selected=""' }}>{{ empresa.nombre }}</option>
+{% else %}
+    <option value="">No existen empresas</option>
+{% endfor %}
