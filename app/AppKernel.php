@@ -35,6 +35,7 @@ class AppKernel extends Kernel
 
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
