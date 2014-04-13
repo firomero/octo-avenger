@@ -7,29 +7,7 @@ Planilla de pago
 Sistema de planillas: Planillas de pago
 {%endblock%}
 {% block content_content %}
-{% block foot_script %}
-    {{ parent() }}
-<script>
 
-    /*window.addEvent('domready', function() {
-     //jQuery.noConflict();
-     
-     
-     });*/
-
-    $(document).ready(function() {
-        $('#planillas_fechaInicio').datepicker
-                ({
-                    format: "yyyy-mm-dd"
-                });
-        $('#planillas_fechaFin').datepicker
-                ({
-                    format: "yyyy-mm-dd"
-                });
-
-    })
-    </script>
- {% endblock%}
     <form class="form-horizontal" action="{{ path('cplanillas_listar') }}"
           method="post" enctype="multipart/form-data" name="planillasForm" id="planillasForm">
     <div class="panel panel-default">
@@ -150,3 +128,27 @@ Sistema de planillas: Planillas de pago
         </div>
     </form>
 {% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <script>
+
+        /*window.addEvent('domready', function() {
+         //jQuery.noConflict();
+
+
+         });*/
+
+        $(document).ready(function() {
+            $('#planillas_fechaInicio').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+            $('#planillas_fechaFin').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+
+        })
+    </script>
+{% endblock%}

@@ -16,10 +16,12 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
+
             new Planillas\CoreBundle\PlanillasCoreBundle(),
             new Planillas\NomencladorBundle\PlanillasNomencladorBundle(),
             new Planillas\EntidadesBundle\PlanillasEntidadesBundle(),
             new Planillas\TemplateBundle\PlanillasTemplateBundle(),
+            new Planillas\PaymentsBundle\PlanillasPaymentsBundle(),
 
             //Extra Bundles
             new Sonata\BlockBundle\SonataBlockBundle(),
@@ -27,15 +29,14 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\CoreBundle\SonataCoreBundle(),
-
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 			new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
-            new Planillas\PaymentsBundle\PlanillasPaymentsBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+            $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle();
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();

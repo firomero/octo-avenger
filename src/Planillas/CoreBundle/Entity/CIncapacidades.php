@@ -64,13 +64,19 @@ class CIncapacidades
     private $empleado;
 
     /**
-     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     * @var  Planillas/CoreBundle/Entity/CPlanillasEmpleado $planillaEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", inversedBy="incapacidades")
      */
-    private $planilla;
+    private $planillaEmpleado;
 
-
+    /**
+     * @Assert\True(message = "Los valores entrados para las fechas no son correctos")
+     */
+    public function isFechasValid()
+    {
+        return $this->fechaInicio->getTimestamp() <= $this->fechaFin->getTimestamp() && $this->fechaFin->getTimestamp() <  time();
+    }
 
     /**
      * Get id
@@ -196,6 +202,23 @@ class CIncapacidades
     {
         return $this->empleado;
     }
+
+    /**
+     * @param \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
+     */
+    public function setPlanillaEmpleado(CPlanillasEmpleado $planillaEmpleado)
+    {
+        $this->planillaEmpleado = $planillaEmpleado;
+    }
+
+    /**
+     * @return \Planillas\CoreBundle\Entity\CPlanillasEmpleado
+     */
+    public function getPlanillaEmpleado()
+    {
+        return $this->planillaEmpleado;
+    }
+
     public function getJson()
     {
         $obj= new \stdClass();
@@ -210,34 +233,4 @@ class CIncapacidades
         return $obj;
     }
 
-    /**
-     * Set planilla
-     *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
-     * @return CIncapacidades
-     */
-    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
-    {
-        $this->planilla = $planilla;
-    
-        return $this;
-    }
-
-    /**
-     * Get planilla
-     *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
-     */
-    public function getPlanilla()
-    {
-        return $this->planilla;
-    }
-
-    /**
-     * @Assert\True(message = "Los valores entrados para las fechas no son correctos")
-     */
-    public function isFechasValid()
-    {
-        return $this->fechaInicio->getTimestamp() <= $this->fechaFin->getTimestamp() && $this->fechaFin->getTimestamp() <  time();
-    }
 }

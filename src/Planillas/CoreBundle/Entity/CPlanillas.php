@@ -2,6 +2,7 @@
 
 namespace Planillas\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -22,7 +23,6 @@ class CPlanillas
      */
     private $id;
 
-
     /**
      * @var \DateTime
      *
@@ -40,9 +40,16 @@ class CPlanillas
    /**
      * @var $periodo Planillas/NomencladorBundle/Entity/NPeriodoPago
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NPeriodoPago")
+     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NPeriodoPago", cascade={"persist","remove"})
      */
     private $periodo;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection $planillasEmpleados
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", mappedBy="planilla", cascade={"persist","remove"})
+     */
+    private $planillasEmpleados;
     
     /**
      * @var \DateTime
@@ -50,8 +57,11 @@ class CPlanillas
      * @ORM\Column(name="created_at", type="date", nullable=true)
      */
     private $created_at;
-    
 
+    public function __constructor()
+    {
+        $this->planillasEmpleados = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -154,4 +164,37 @@ class CPlanillas
     {
         return $this->periodo;
     }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $planillasEmpleados
+     */
+    public function setPlanillasEmpleados($planillasEmpleados)
+    {
+        $this->planillasEmpleados = $planillasEmpleados;
+    }
+
+    /**
+     * Adiciona una nueva planilla de empleado a la planilla actual
+     *
+     * @param CPlanillasEmpleado $planillasEmpleado
+     * @return $this
+     */
+    public function addPlanillasEmpleado(CPlanillasEmpleado $planillasEmpleado)
+    {
+        $planillasEmpleado->setPlanilla($this);
+
+        $this->planillasEmpleados[] = $planillasEmpleado;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getPlanillasEmpleados()
+    {
+        return $this->planillasEmpleados;
+    }
+
+
 }

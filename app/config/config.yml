@@ -106,10 +106,17 @@ knp_paginator:
         sort_direction_name: direction # sort direction query parameter name
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
     template:
-        pagination: PlanillasCoreBundle:Pagination:twitter_bootstrap_pagination.html.twig     # sliding pagination controls template
+        #pagination: PlanillasCoreBundle:Pagination:twitter_bootstrap_pagination.html.twig     # sliding pagination controls template
+        pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
         #sortable: GficrCoreBundle:Pagination:sortable_link.html.twig # sort link template
 
 #configuraciones para bundle de pagos
 planillas_payments:
-    days_in_month: 30
-    insurance: 0.09
+    # dias contables en el mes
+    dias_por_mes: 30
+    # porciento del seguro
+    factor_seguro: 0.09
+    # horas por turno diurno
+    horas_diurno: 8
+    # factor horas extras
+    indice_horas_extras: 1.5
