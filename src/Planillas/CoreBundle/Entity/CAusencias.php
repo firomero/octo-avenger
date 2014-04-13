@@ -65,11 +65,19 @@ class CAusencias
     private $empleado;
 
     /**
-     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     * @var  Planillas/CoreBundle/Entity/CPlanillasEmpleado $planillaEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", inversedBy="ausencias")
      */
-    private $planilla;
+    private $planillaEmpleado;
+
+    /**
+     * @Assert\True(message = "Los valores entrados para las fechas no son correctos")
+     */
+    public function isFechasValid()
+    {
+        return $this->fechaInicio->getTimestamp() <= $this->fechaFin->getTimestamp() && $this->fechaFin->getTimestamp() <  time();
+    }
 
     /**
      * Get id
@@ -218,6 +226,7 @@ class CAusencias
     {
         return $this->empleado;
     }
+
     public function getJson()
     {
         $obj= new \stdClass();
@@ -231,34 +240,18 @@ class CAusencias
     }
 
     /**
-     * Set planilla
-     *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
-     * @return CAusencias
+     * @param \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
      */
-    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
+    public function setPlanillaEmpleado(CPlanillasEmpleado $planillaEmpleado)
     {
-        $this->planilla = $planilla;
-    
-        return $this;
+        $this->planillaEmpleado = $planillaEmpleado;
     }
 
     /**
-     * Get planilla
-     *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
+     * @return \Planillas\CoreBundle\Entity\CPlanillasEmpleado
      */
-    public function getPlanilla()
+    public function getPlanillaEmpleado()
     {
-        return $this->planilla;
+        return $this->planillaEmpleado;
     }
-
-    /**
-    * @Assert\True(message = "Los valores entrados para las fechas no son correctos")
-    */
-    public function isFechasValid()
-    {
-        return $this->fechaInicio->getTimestamp() <= $this->fechaFin->getTimestamp() && $this->fechaFin->getTimestamp() <  time();
-    }
-
 }

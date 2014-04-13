@@ -26,8 +26,10 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->scalarNode('days_in_month')->defaultValue(30)->end()
-            ->scalarNode('insurance')->defaultValue(0.09)->end()
+            ->scalarNode('dias_por_mes')->defaultValue(30)->end()
+            ->scalarNode('factor_seguro')->defaultValue(0.09)->end()
+            ->scalarNode('horas_diurno')->defaultValue(8)->end()
+            ->scalarNode('indice_horas_extras')->defaultValue(1.5)->end()
             ->end();
 
         return $treeBuilder;
