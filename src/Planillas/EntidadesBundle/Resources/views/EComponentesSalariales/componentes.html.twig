@@ -17,7 +17,7 @@
     {% for entitys in entities %}
         <tr>
             <td>
-                {% if  entitys.planilla is null%}
+                {% if  entitys.planillaEmpleado is null%}
                     {% if entitys.permanente ==0%}
                 <a href="{{ path('ecomponentessalariales_edit', { 'id': entitys.id }) }}">
                      {%if entitys.componente==0%}Rebajo({{tipodeuda[entitys.tipoDeuda]}}){% else %}Bonificación
@@ -60,7 +60,7 @@
                 {% endif %}
             </td>
             <td>
-                {% if entitys.planilla ==0 or entitys.planilla==null %}
+                {% if entitys.planillaEmpleado is null %}
                     <i class="glyphicon glyphicon-remove" title="No pagado"></i>
                 {% else %}
 
