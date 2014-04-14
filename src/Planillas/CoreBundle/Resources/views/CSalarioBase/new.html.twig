@@ -59,7 +59,7 @@ Gestionar Salario
                         <hr/>
                         <fieldset>
 
-                        {{ render(controller('PlanillasEntidadesBundle:EComponentesSalariales:componentesByIdEmpleado',{'id_empleado':eEmpleado.id}))}}
+                        {%  render(controller('PlanillasEntidadesBundle:EComponentesSalariales:componentesByIdEmpleado',{'id_empleado':eEmpleado.id})) %}
 
                         </fieldset>
 
@@ -91,15 +91,18 @@ Gestionar Salario
                                 <td>
                                     {% if entitys.componente ==0 %}
                                         {{tipodeuda[entitys.tipoDeuda]}}
-
-
                                     {%else%}
                                         ----
                                     {% endif%}
                                 </td>
                                 <td>
-                                   {{entitys.planilla.fechaInicio|date('d-m-Y')}} al {{entitys.planilla.fechaFin|date('d-m-Y')}}
-                                 
+                                    {% if entitys.planillaEmpleado is not null %}
+                                        {{ entitys.planillaEmpleado.planilla.fechaInicio | date('d-m-Y') ~ ' al ' ~
+                                        entitys.planillaEmpleado.planilla.fechaFin | date('d-m-Y')}}
+                                    {% else %}
+
+                                    {% endif %}
+
                                 </td>
                                 <td>{% if entitys.moneda==0%}Colón{% else %}USD{%endif%}</td>
                                 <td>
@@ -109,20 +112,12 @@ Gestionar Salario
                                         ¢{{ entitys.cantidad }}
                                         
                                      {% endif %}
-                                        
                                     </td>
                                     <td>
                                      
                                         <i class="glyphicon glyphicon-ok" title="Pagado"></i>
-
-
-                                      
                                     </td>
-                                    <!--
-                                    <td>
-                                        <a href="{# path('ecomponentessalariales_delete',{'id':entitys.id})#}" class="btn btn-primary"><i class="glyphicon glyphicon-trash"></i> Eliminar</a>
 
-                                    </td>-->
                                 </tr>
                 
                 {% endfor %}

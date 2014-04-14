@@ -32,10 +32,11 @@ class EComponentesSalarialesController extends Controller {
     public function componentesByIdEmpleadoAction($id_empleado) {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')->findBy(array('empleado' => $id_empleado,  'planilla' => null, 'deleted_at' => null));
+        $entities = $em->getRepository('PlanillasEntidadesBundle:EComponentesSalariales')
+            ->findBy(array('empleado' => $id_empleado,  'planillaEmpleado' => null, 'deleted_at' => null));
+
         $aDeleteForm = array();
         foreach ($entities as $entity) {
-
             $aDeleteForm[$entity->getId()] = $this->createDeleteForm($entity->getId())->createView();
         }
         return $this->render('PlanillasEntidadesBundle:EComponentesSalariales:componentes.html.twig', array(
