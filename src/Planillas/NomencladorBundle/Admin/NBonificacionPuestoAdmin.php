@@ -16,7 +16,6 @@ class NBonificacionPuestoAdmin extends Admin
     {
         $datagridMapper
             ->add('nombre')
-            ->add('monto')
         ;
     }
 
@@ -27,7 +26,6 @@ class NBonificacionPuestoAdmin extends Admin
     {
         $listMapper
             ->add('nombre')
-            ->add('monto')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -45,7 +43,6 @@ class NBonificacionPuestoAdmin extends Admin
     {
         $formMapper
             ->add('nombre')
-            ->add('monto')
         ;
     }
 
@@ -56,7 +53,6 @@ class NBonificacionPuestoAdmin extends Admin
     {
         $showMapper
             ->add('nombre')
-            ->add('monto')
         ;
     }
 }

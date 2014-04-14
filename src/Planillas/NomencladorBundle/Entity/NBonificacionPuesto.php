@@ -29,13 +29,6 @@ class NBonificacionPuesto
     private $nombre;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="monto", type="float")
-     */
-    private $monto;
-
-    /**
      * Get id
      *
      * @return integer
@@ -66,29 +59,6 @@ class NBonificacionPuesto
     public function getNombre()
     {
         return $this->nombre;
-    }
-
-    /**
-     * Set monto
-     *
-     * @param  float               $monto
-     * @return NBonificacionPuesto
-     */
-    public function setMonto($monto)
-    {
-        $this->monto = $monto;
-
-        return $this;
-    }
-
-    /**
-     * Get monto
-     *
-     * @return float
-     */
-    public function getMonto()
-    {
-        return $this->monto;
     }
 
     /**

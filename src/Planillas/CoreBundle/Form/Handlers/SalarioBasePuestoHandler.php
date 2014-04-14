@@ -5,7 +5,7 @@ namespace Planillas\CoreBundle\Form\Handlers;
 use Doctrine\ORM\EntityManager;
 use Planillas\CoreBundle\Entity\CEmpleado;
 use Planillas\CoreBundle\Entity\CPuestoEmpleado;
-use Planillas\CoreBundle\Form\Model\SalarioBasePuesto;
+use Planillas\CoreBundle\Form\Models\SalarioBasePuesto;
 use Planillas\CoreBundle\Form\Type\SalarioBasePuestoType;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Form\FormFactoryInterface;

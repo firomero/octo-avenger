@@ -3,7 +3,7 @@
 namespace Planillas\CoreBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
-use Planillas\CoreBundle\Form\Model\SalarioBasePuesto;
+use Planillas\CoreBundle\Form\Models\SalarioBasePuesto;
 use Planillas\CoreBundle\Form\Type\SalarioBasePuestoType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

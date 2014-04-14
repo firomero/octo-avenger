@@ -1,6 +1,6 @@
 <?php
 
-namespace Planillas\CoreBundle\Form\Model;
+namespace Planillas\CoreBundle\Form\Models;
 
 use Planillas\CoreBundle\Entity\CEmpleado;
 use Symfony\Component\Validator\Constraints as Assert;

@@ -72,7 +72,7 @@ class SalarioBasePuestoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Planillas\CoreBundle\Form\Model\SalarioBasePuesto'
+            'data_class' => 'Planillas\CoreBundle\Form\Models\SalarioBasePuesto'
         ));
     }
 
