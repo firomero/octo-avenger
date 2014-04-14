@@ -175,8 +175,7 @@ class CEmpleado
     /**
      * @var $cuentasBancos Doctrine/Common/Collections/ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="Planillas\NomencladorBundle\Entity\NBanco", inversedBy="empleados")
-     * @ORM\JoinTable(name="c_empleado_cuenta_banco")
+     * @ORM\OneToMany(targetEntity="Planillas\EntidadesBundle\Entity\ECuentaBanco", mappedBy="empleado", cascade={"persist","remove"})
      */
     private $cuentasBancos;
 
@@ -796,39 +795,6 @@ class CEmpleado
     }
 
     /**
-     * Add cuentasBancos
-     *
-     * @param  \Planillas\NomencladorBundle\Entity\NBanco $cuentasBancos
-     * @return CEmpleado
-     */
-    public function addCuentasBanco(\Planillas\NomencladorBundle\Entity\NBanco $cuentasBancos)
-    {
-        $this->cuentasBancos[] = $cuentasBancos;
-
-        return $this;
-    }
-
-    /**
-     * Remove cuentasBancos
-     *
-     * @param \Planillas\NomencladorBundle\Entity\NBanco $cuentasBancos
-     */
-    public function removeCuentasBanco(\Planillas\NomencladorBundle\Entity\NBanco $cuentasBancos)
-    {
-        $this->cuentasBancos->removeElement($cuentasBancos);
-    }
-
-    /**
-     * Get cuentasBancos
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCuentasBancos()
-    {
-        return $this->cuentasBancos;
-    }
-
-    /**
      * Set estadoCivil
      *
      * @param  \Planillas\NomencladorBundle\Entity\NEstadoCivil $estadoCivil
@@ -1063,5 +1029,40 @@ class CEmpleado
     public function getPuesto()
     {
         return $this->puesto;
+    }
+
+    /**
+     * Add cuentasBancos
+     *
+     * @param \Planillas\EntidadesBundle\Entity\ECuentaBanco $cuentasBancos
+     * @return CEmpleado
+     */
+    public function addCuentasBanco(\Planillas\EntidadesBundle\Entity\ECuentaBanco $cuentasBancos)
+    {
+        $this->cuentasBancos[] = $cuentasBancos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove cuentasBancos
+     *
+     * @param \Planillas\EntidadesBundle\Entity\ECuentaBanco $cuentasBancos
+     */
+    public function removeCuentasBanco(\Planillas\EntidadesBundle\Entity\ECuentaBanco $cuentasBancos)
+    {
+        $cuentasBancos->setEmpleado(null);
+
+        $this->cuentasBancos->removeElement($cuentasBancos);
+    }
+
+    /**
+     * Get cuentasBancos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCuentasBancos()
+    {
+        return $this->cuentasBancos;
     }
 }

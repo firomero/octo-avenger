@@ -25,6 +25,6 @@ cuentasbancos_update:
     requirements: { _method: post|put }
 
 cuentasbancos_delete:
-    pattern:  /{id_empleado}/cuentasbancos/{id_banco}/delete
+    pattern:  /{id_empleado}/cuentasbancos/{id_cuenta_banco}/delete
     defaults: { _controller: "PlanillasEntidadesBundle:ECuentaBanco:delete" }
     requirements: { _method: post|delete }
