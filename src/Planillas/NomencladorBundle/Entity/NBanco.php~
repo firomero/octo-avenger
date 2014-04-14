@@ -105,47 +105,4 @@ class NBanco
     {
         return $this->nombre;
     }
-
-    /**
-     * Set tamannoNumeroCuenta
-     *
-     * @param integer $tamannoNumeroCuenta
-     * @return NBanco
-     */
-    public function setTamannoNumeroCuenta($tamannoNumeroCuenta)
-    {
-        $this->tamannoNumeroCuenta = $tamannoNumeroCuenta;
-    
-        return $this;
-    }
-
-    /**
-     * Get tamannoNumeroCuenta
-     *
-     * @return integer 
-     */
-    public function getTamannoNumeroCuenta()
-    {
-        return $this->tamannoNumeroCuenta;
-    }
-
-    /**
-     * Remove empleados
-     *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleados
-     */
-    public function removeEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleados)
-    {
-        $this->empleados->removeElement($empleados);
-    }
-
-    /**
-     * Get empleados
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEmpleados()
-    {
-        return $this->empleados;
-    }
 }
