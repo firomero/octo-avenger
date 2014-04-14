@@ -32,7 +32,7 @@ class CDiasExtra
     /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="diasextra")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
      * @ORM\JoinColumn(nullable=false)
      */
     private $empleado;
