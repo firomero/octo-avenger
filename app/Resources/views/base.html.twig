@@ -108,6 +108,15 @@
         '@MopaBootstrapBundle/Resources/public/components/smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.es.js'#}
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}" type="text/javascript"></script>
         <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(function(){
+                $('div.desplegable-menu .panel-heading').on('click', function(event) {
+                    event.preventDefault();
+
+                    $(this).parent().find('div.panel-body').fadeToggle(300);
+                });
+            })
+        </script>
         {#
         <script type="text/javascript" src="{{ asset('bundles/planillastemplate/js/jquery-1.10.2.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/planillastemplate/vendors/bootstrap/js/tooltip.js') }}"></script>

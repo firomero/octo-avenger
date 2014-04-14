@@ -43,18 +43,14 @@
 {% macro menu_empleado(active='personales',eEmpleado) %}
 
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h2 class="panel-title">{{ eEmpleado.nombre }} {{ eEmpleado.primerApellido }}</h2>
+    <div class="panel panel-default desplegable-menu">
+        <div class="panel-heading" style="cursor: pointer;">
+            <h2 class="panel-title">Información Personal</h2>
         </div>
-        <div class="panel-body">
-
-
+        <div class="panel-body" style="display: none;">
             <ul class="nav nav-pills nav-stacked">
                 {% if(active=='personales') %}
-
-                    <li class="active"><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a>
-                    </li>
+                    <li class="active"><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a></li>
                 {% else %}
                     <li class><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a></li>
                 {% endif %}
@@ -64,35 +60,32 @@
                 {% else %}
                     <li><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos Familiares</a></li>
                 {% endif %}
+
                 {% if(active=='personadepende') %}
                     <li class="active"><a href="{{ path('personadepende',{ 'id_empleado': eEmpleado.id }) }}">Dependientes</a>
                     </li>
                 {% else %}
                     <li><a href="{{ path('personadepende',{ 'id_empleado': eEmpleado.id }) }}">Dependientes</a></li>
                 {% endif %}
+
                 {% if(active=='historiatrabajo') %}
-                    <li class="active"><a href="{{ path('ctrabajo_new',{ 'id_empleado': eEmpleado.id }) }}">Trabajo</a>
-                    </li>
+                    <li class="active"><a href="{{ path('ctrabajo_new',{ 'id_empleado': eEmpleado.id }) }}">Trabajo</a></li>
                 {% else %}
                     <li><a href="{{ path('ctrabajo_new',{ 'id_empleado': eEmpleado.id }) }}">Trabajo</a></li>
                 {% endif %}
+
                 {% if(active=='cursos') %}
                     <li class="active"><a href="{{ path('cursos',{ 'id_empleado': eEmpleado.id }) }}">Cursos</a></li>
                 {% else %}
                     <li><a href="{{ path('cursos',{ 'id_empleado': eEmpleado.id }) }}">Cursos</a></li>
                 {% endif %}
+
                 {% if(active=='educacionidiomas') %}
-                    <li class="active"><a
-                                href="{{ path('educacionidiomas',{ 'id_empleado': eEmpleado.id }) }}">Idiomas</a></li>
+                    <li class="active"><a href="{{ path('educacionidiomas',{ 'id_empleado': eEmpleado.id }) }}">Idiomas</a></li>
                 {% else %}
                     <li><a href="{{ path('educacionidiomas',{ 'id_empleado': eEmpleado.id }) }}">Idiomas</a></li>
                 {% endif %}
-                {% if active == 'sueldo' %}
-                    <li class="active"><a
-                                href="{{ path('csalariobase_new',{ 'id': eEmpleado.id }) }}">Sueldo</a></li>
-                {% else %}
-                    <li><a href="{{ path('csalariobase_new',{ 'id': eEmpleado.id }) }}">Sueldo</a></li>
-                {% endif %}
+
                 {% if(active=='antecedentepenal') %}
                     <li class="active"><a href="{{ path('antecedentepenal',{ 'id_empleado': eEmpleado.id }) }}">Antecedentes
                             penales</a></li>
@@ -100,6 +93,7 @@
                     <li><a href="{{ path('antecedentepenal',{ 'id_empleado': eEmpleado.id }) }}">Antecedentes
                             penales</a></li>
                 {% endif %}
+
                 <!-- Licencia -->
                 {% if(active=='licencia') %}
                     <li class="active"><a href="{{ path('elicencia',{ 'id_empleado': eEmpleado.id }) }}">Licencias</a>
@@ -107,6 +101,23 @@
                 {% else %}
                     <li><a href="{{ path('elicencia',{ 'id_empleado': eEmpleado.id }) }}">Licencias</a></li>
                 {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default desplegable-menu">
+        <div class="panel-heading" style="cursor: pointer;">
+            <h2 class="panel-title">Información de Puesto</h2>
+        </div>
+        <div class="panel-body" style="display: none;">
+            <ul class="nav nav-pills nav-stacked">
+                {% if active == 'sueldo' %}
+                    <li class="active"><a
+                                href="{{ path('csalariobase_new',{ 'id': eEmpleado.id }) }}">Sueldo</a></li>
+                {% else %}
+                    <li><a href="{{ path('csalariobase_new',{ 'id': eEmpleado.id }) }}">Sueldo</a></li>
+                {% endif %}
+
                 <!-- horario-->
                 {% if(active=='horario') %}
                     <li class="active"><a href="{{ path('chorario_empleado',{ 'id_empleado': eEmpleado.id }) }}">Horario</a>
