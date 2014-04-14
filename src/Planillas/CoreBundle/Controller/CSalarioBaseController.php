@@ -285,7 +285,8 @@ class CSalarioBaseController extends Controller
           }exit; */
         $salida = array();
         foreach ($results as $r) {
-            if ($r->getPlanilla() != null) {
+            /** @var  \Planillas\EntidadesBundle\Entity\EcomponentesSalariales $r */
+            if ($r->getPlanillaEmpleado() != null) {
                 if ($r->getComponente() == 0 && $r->getPermanente() == false) {
 
                     $salida[] = array(
@@ -293,11 +294,17 @@ class CSalarioBaseController extends Controller
                         'tipoDeuda' => $r->getTipoDeuda(),
                         'montoTotal' => $r->getMontoTotal(),
                         'moneda' => $r->getMoneda(),
-                        'planilla' => array('fechaInicio' => $r->getPlanilla()->getFechaInicio(), 'fechaFin' => $r->getPlanilla()->getFechaFin()),
+                        'planilla' => array(
+                            'fechaInicio' => $r->getPlanillaEmpleado()->getPlanilla()->getFechaInicio(),
+                            'fechaFin' => $r->getPlanillaEmpleado()->getPlanilla()->getFechaFin()),
                     );
                 }
             } else {
-                $componentes = $oBonificaciones = $em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findBy(array('componentePermanente' => $r->getId(), 'empleado' => $iIdEmpleado));
+                $componentes = $oBonificaciones = $em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')
+                    ->findBy(array(
+                        'componentePermanente' => $r->getId(),
+                        'empleado' => $iIdEmpleado
+                    ));
                 if (count($componentes) > 0) {
                     foreach ($componentes as $comp) {
                         if ($r->getComponente() == 1) {
