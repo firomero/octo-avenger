@@ -50,7 +50,7 @@ class CHorasExtras
     /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="horasextras")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
      * @Assert\NotBlank()
      */
     private $empleado;

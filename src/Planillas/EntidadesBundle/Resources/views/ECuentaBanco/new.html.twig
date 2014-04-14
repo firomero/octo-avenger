@@ -1,0 +1,71 @@
+{% extends '::base.html.twig' %}
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+{% block title %}
+    Modificar Banco
+{% endblock %}
+
+{% block content_content %}
+    {% for mensaje in app.session.flashbag.get('success') %}
+        mensajes_flash (success,{{mensaje}})
+    {% endfor %}
+
+    <div class="row">
+        {% block content %}
+            <div class="col-lg-9">
+                <div class="panel panel-default"> <!-- Panel central -->
+                    <div class="panel-heading"> <!-- Encabezado panel central -->
+                        <h2 class="panel-title">Crear Cuenta</h2>
+                    </div>
+                    <div class="panel-body">
+                        {{ form_start(form) }}
+                        <fieldset>
+                            <legend></legend>
+                            {{ form_errors(form) }}
+                            <div class="row">
+                                <div class="col-lg-6">{{ form_row(form.tipo) }}</div>
+                                <div class="col-lg-6">{{ form_row(form.banco) }}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">{{ form_row(form.nrocuenta) }}</div>
+                            </div>
+                            {{ form_widget(form._token) }}
+                        </fieldset>
+
+                        {{ form_widget(form.submit) }}
+                        {{ form_widget(form.cancel) }}
+
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3"> <!-- Menu derecho de empleado -->
+                {{ macros.empleado_foto(entity) }}
+                {{ macros.menu_empleado('cuentasbancos',entity) }}
+            </div>
+        {% endblock content %}
+    </div>
+{% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function(){
+            checkSelectTypeValues();
+
+            $('#form_tipo').on('change',function(event) {
+                checkSelectTypeValues();
+            });
+
+            function checkSelectTypeValues(){
+                if ($('#form_tipo').val() == 'efectivo') {
+                    $('#form_banco').addClass('disabled').attr('disabled','disabled');
+                    $('#form_nrocuenta').addClass('disabled').attr('disabled','disabled');
+                } else {
+                    $('#form_banco').removeClass('disabled').removeAttr('disabled');
+                    $('#form_nrocuenta').removeClass('disabled').removeAttr('disabled');
+                }
+            }
+        });
+    </script>
+{% endblock foot_script %}

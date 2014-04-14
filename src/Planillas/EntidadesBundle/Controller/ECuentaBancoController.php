@@ -2,6 +2,7 @@
 
 namespace Planillas\EntidadesBundle\Controller;
 
+use Planillas\EntidadesBundle\Entity\ECuentaBanco;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Planillas\CoreBundle\Entity\CEmpleado;
@@ -9,18 +10,19 @@ use Planillas\NomencladorBundle\Entity\NBanco;
 use Planillas\EntidadesBundle\Form\Type\NBancoType;
 
 /**
- * ECursos controller.
+ * ECuentaBanco controller.
  *
  */
 class ECuentaBancoController extends Controller
 {
     /**
-     * Lists all ECursos entities.
+     * Lists all ECuentaBanco entities.
      *
      */
     public function indexAction($id_empleado)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var \Planillas\CoreBundle\Entity\CEmpleado $eEmpleado */
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
 
         $entities = $eEmpleado->getCuentasBancos();
@@ -40,7 +42,7 @@ class ECuentaBancoController extends Controller
     }
 
     /**
-     * Creates a new ECursos entity.
+     * Creates a new ECuentaBanco entity.
      *
      */
     public function createAction(Request $request, $id_empleado)
@@ -52,22 +54,26 @@ class ECuentaBancoController extends Controller
             throw $this->createNotFoundException('Unable to find CEmpleado entity.');
         }
 
-        $entity = new NBanco();
-        $entity->addEmpleado($eEmpleado);
+        $entity = new ECuentaBanco();
+        $entity->setEmpleado($eEmpleado);
 
-        $form = $this->createCreateForm($entity, $eEmpleado);
+        $form = $this->createNewForm($entity);
         $form->handleRequest($request);
 
+        if($form->get('cancel')->isClicked())
+            return $this->redirect($this->generateUrl('cuentasbancos', array('id_empleado' => $eEmpleado->getId())));
+
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'Se han creado los datos para la cuenta del empleado de forma satisfactoria.');
 
             return $this->redirect($this->generateUrl('cuentasbancos', array('id_empleado' => $eEmpleado->getId())));
         }
 
-        return $this->render('PlanillasEntidadesBundle:ECursos:new.html.twig', array(
-                    'entity' => $entity,
+        return $this->render('PlanillasEntidadesBundle:ECuentaBanco:new.html.twig', array(
+                    'entity' => $eEmpleado,
                     'form' => $form->createView(),
                 ));
     }
@@ -79,19 +85,53 @@ class ECuentaBancoController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(NBanco $entity, CEmpleado $oEmpleado)
+    private function createNewForm(ECuentaBanco $entity)
     {
-        $form = $this->createForm(new NBancoType(), $entity, array(
-            'action' => $this->generateUrl('cuentasbancos_create', array('id_empleado' => $oEmpleado->getId())),
-            'method' => 'POST',
-                ));
+        //$form = $this->createForm(new NBancoType(), $entity, array(
+        //    'action' => $this->generateUrl('cuentasbancos_create', array('id_empleado' => $oEmpleado->getId())),
+        //    'method' => 'POST',
+        //        ));
 
-        //$form->add('submit', 'submit', array('label' => 'Crear', 'attr'=>array('class'=>'btn btn-success')));
+        $form = $this->createFormBuilder($entity, array(
+            'action' => $this->generateUrl('cuentasbancos_create', array('id_empleado' => $entity->getEmpleado()->getId())),
+            'method' => 'POST',
+        ))
+            ->add('tipo','choice', array(
+                'choices' => array(
+                    'efectivo'  => 'Efectivo',
+                    'banco'     => 'Banco',
+                )
+            ))
+            ->add('banco', null, array(
+                'required' => false,
+            ))
+            ->add('nrocuenta', 'text', array(
+                'required' => false,
+            ))
+
+            ->getForm();
+
+        $form->add('submit', 'submit', array(
+            'label' => 'Crear',
+            'icon' => 'save',
+            'attr'=>array(
+                'class'=>'btn btn-primary'
+            )))
+            ->add('cancel', 'submit', array(
+                'label' => 'Cancelar',
+                'icon' => 'remove',
+                'validation_groups' => false,
+                'attr'=>array(
+                    'class'=>'btn btn-default'
+                )
+            ))
+        ;
+
         return $form;
     }
 
     /**
-     * Displays a form to create a new ECursos entity.
+     * Displays a form to create a new ECuentaBanco entity.
      *
      */
     public function newAction($id_empleado)
@@ -99,36 +139,14 @@ class ECuentaBancoController extends Controller
         $em = $this->getDoctrine()->getManager();
         $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
 
-        $entity = new NBanco();
-        $entity->addEmpleado($eEmpleado);
-        $form = $this->createCreateForm($eEmpleado);
+        $entity = new ECuentaBanco();
+        $entity->setEmpleado($eEmpleado);
+        $form = $this->createNewForm($entity);
 
         return $this->render('PlanillasEntidadesBundle:ECuentaBanco:new.html.twig', array(
-                    'entity' => $entity,
+                    'entity' => $eEmpleado,
                     'form' => $form->createView(),
-                    'empleado' => $eEmpleado
                 ));
-    }
-
-    /**
-     * Finds and displays a ECursos entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('PlanillasEntidadesBundle:ECursos')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ECursos entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('PlanillasEntidadesBundle:ECursos:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
@@ -203,21 +221,24 @@ class ECuentaBancoController extends Controller
      * Deletes a ECursos entity.
      *
      */
-    public function deleteAction(Request $request, $id_banco, $id_empleado)
+    public function deleteAction(Request $request, $id_cuenta_banco, $id_empleado)
     {
-        $form = $this->createDeleteForm($id_banco, $id_empleado);
+        $form = $this->createDeleteForm($id_cuenta_banco, $id_empleado);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $eBanco = $em->getRepository('PlanillasNomencladorBundle:NBanco')->find($id_banco);
+            $eCuentaBanco = $em->getRepository('PlanillasEntidadesBundle:ECuentaBanco')->find($id_cuenta_banco);
+            /** @var  \Planillas\CoreBundle\Entity\CEmpleado $eEmpleado */
             $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
 
-            if (!$eBanco || !$eEmpleado) {
-                throw $this->createNotFoundException('Unable to find CEmpleado or NBanco entity!!');
+            if (!$eCuentaBanco || !$eEmpleado) {
+                throw $this->createNotFoundException('Unable to find CEmpleado or ECuentaBanco entity!!');
             }
-            $eEmpleado->removeCuentasBanco($eBanco);
-            //$em->remove($entity);
+
+            $eEmpleado->removeCuentasBanco($eCuentaBanco);
+            $em->remove($eCuentaBanco);
+            //$em->persist($eEmpleado);
             $em->flush();
         }
 
@@ -231,13 +252,21 @@ class ECuentaBancoController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id_banco, $id_empleado)
+    private function createDeleteForm($id_cuenta_banco, $id_empleado)
     {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('cuentasbancos_delete', array('id_banco' => $id_banco, 'id_empleado' => $id_empleado)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Eliminar', 'attr' => array('class' => 'btn btn-default')))
-                        ->getForm()
+            ->setAction($this->generateUrl('cuentasbancos_delete', array(
+                'id_cuenta_banco' => $id_cuenta_banco,
+                'id_empleado' => $id_empleado
+            )))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array(
+                'label' => 'Eliminar',
+                'icon' => 'trash',
+                'attr' => array(
+                    'class' => 'btn btn-default'
+                )))
+            ->getForm()
         ;
     }
 

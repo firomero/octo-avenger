@@ -77,7 +77,7 @@ class CDeudas
     /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="deudas")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
      */
     private $empleado;
 

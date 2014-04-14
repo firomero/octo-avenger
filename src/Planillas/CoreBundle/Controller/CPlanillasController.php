@@ -79,7 +79,163 @@ class CPlanillasController extends Controller
     }
 
     /**
-     * funcion  que lista las planillas existentes
+     * Crea el formulario para guardar o exportar la planilla con las fechas registradas
+     *
+     * @param \DateTime $fecha_inicio
+     * @param \DateTime $fecha_fin
+     * @return \Symfony\Component\Form\Form
+     */
+    public function createPlanillaForm(\DateTime $fecha_inicio = null, \DateTime $fecha_fin  = null)
+    {
+        $data = array();
+        if($fecha_inicio && $fecha_fin) {
+            $data = array(
+                'fecha_inicio'  => $fecha_inicio->format('Y-m-d'),
+                'fecha_fin'     => $fecha_fin->format('Y-m-d'),
+            );
+        }
+
+        $form = $this->createFormBuilder($data);
+        $form
+            ->add('fecha_inicio','hidden', array())
+            ->add('fecha_fin','hidden',array())
+            ->add('guardar', 'submit', array(
+                'label' => 'Guardar',
+                'icon' => 'save',
+                'attr' => array(
+                    'class' => 'btn btn-primary'
+                )
+            ))
+            ->add('exportar', 'submit', array(
+                'label' => 'Exportar',
+                'attr' => array(
+                    'class' => 'btn btn-default'
+                )
+            ))
+            ->setAction($this->generateUrl('cplanillas_create'))
+            ->setMethod('POST');
+
+        return $form->getForm();
+    }
+
+    /**
+     * Crea una nueva planilla
+     *
+     * @param Request $request
+     * @return Response | RedirectResponse
+     */
+    public function createPlanillaAction(Request $request)
+    {
+        $form = $this->createPlanillaForm();
+        $form->handleRequest($request);
+
+        $data = $form->getData();
+        $fecha_inicio = date_create_from_format('Y-m-d', $data['fecha_inicio']);
+        $fecha_fin = date_create_from_format('Y-m-d', $data['fecha_fin']);
+
+        if ($form->isValid()) {
+            if ($form->get('guardar')->isClicked()) { // guardar planilla
+                $em = $this->getDoctrine()->getManager();
+                $salarioManager = $this->get('payments.salario.manager');
+
+                $manager = new CPlanillasManagers($em, $request, $salarioManager);
+                $manager->setFechaInicio($fecha_inicio);
+                $manager->setFechaFin($fecha_fin);
+
+                if ($manager->savePlanilla()) {
+                    $this->get('session')->getFlashBag()->add('info', 'La planilla de efectivo ha sido creada correctamente.');
+
+                    return $this->redirect($this->generateUrl('cplanillas_listar'));
+                } else {
+                    $this->get('session')->getFlashBag()->add('danger', 'Error al guardar la planilla de efectivo.');
+                }
+            } else { // exportar planilla
+
+            }
+        }
+
+        $this->get('session')->getFlashBag()->add('danger', 'Ha ocurrido un error en la validación del formulario. Por favor vuelva a intentarlo.');
+
+        return $this->redirect($this->generateUrl('cplanillas_listar'));
+    }
+
+    private function managePlanillaResult(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $salarioManager = $this->get('payments.salario.manager');
+        $planillaManager = $this->get('payments.planillas.manager');
+
+        $periodoPlanillaModel = new PeriodoPlanillaModel();
+        $search_form = $this->createForm(new PeriodoPlanillaType(), $periodoPlanillaModel);
+
+        //Obtener el ultimo periodo de pago hecho como datos para mostrar
+        $ultimoPeriodoPago = $planillaManager->getUltimoPeriodoPagado();
+
+        $empleados = array();
+        $params = array();
+
+        $manager = new CPlanillasManagers($em, $request, $salarioManager);
+        $manager->setFechaInicio($periodoPlanillaModel->getFechaInicio());
+        $manager->setFechaFin($periodoPlanillaModel->getFechaFin());
+
+        // validar las fechas del período entrado
+        $isValidPeriodoPago = $planillaManager
+            ->validarPeriodoPago($periodoPlanillaModel->getFechaInicio(), $periodoPlanillaModel->getFechaFin()); //valida intervalo de dias
+
+        if ($isValidPeriodoPago === true) {
+            //valida existencia de la planilla en base de datos
+            $existePeriodo = $planillaManager
+                ->existePlanillaInPeriodo($periodoPlanillaModel->getFechaInicio(), $periodoPlanillaModel->getFechaFin());
+
+            if ($existePeriodo === false) {
+                $htmlData = $manager->resultHtmlPlanillas();
+                $empleados = $htmlData['empleados'];
+            } else {
+                $this->get('session')->getFlashBag()->add('danger', $existePeriodo);
+            }
+        } else {
+            $this->get('session')->getFlashBag()->add('danger', 'El periodo seleccionado es no es válido.');
+        }
+
+        if(count($empleados)) {
+            $form = $this->createPlanillaForm($periodoPlanillaModel->getFechaInicio(),
+                $periodoPlanillaModel->getFechaFin());
+            $params['form'] = $form->createView();
+        }
+
+        $params['empleados'] = $empleados;
+        $params['ultimoPeriodoPago'] = $ultimoPeriodoPago;
+        $params['search_form'] = $search_form->createView();
+    }
+
+    /**
+     * Acción de buscar planilla
+     *
+     * @param Request $request
+     */
+    public function searchPlanillaAction(Request $request)
+    {
+        if ($bExistePeriodo == false /*|| is_array($bExistePeriodo)*/) {
+
+            $this->get('session')->getFlashBag()->add('danger', 'Existen coincidencias en las fechas con la planilla del período ' . $bExistePeriodo[1]);
+            $entities = array('id_planilla' => 0);
+            $entities['periodo']['inicio'] = "";
+            $entities['periodo']['fin'] = "";
+            $entities['empleados'] = array();
+        } else {
+            $entities = $manager->resultHtmlPlanillas();
+        }
+
+        return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
+            'entities' => $entities,
+            'ultimoPeriodoPago'=>$ultimoPeriodoPago,//CPlanilla
+            'periodo' => $oPeriodoPagoActivo
+        ));
+    }
+
+    /**
+     * Lista las planillas generadas en el sistema
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */

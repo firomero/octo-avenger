@@ -16,33 +16,38 @@
                             <h2 class="panel-title">Bancos</h2>
                     </div>
                             <div class="panel-body">
+                                <a class="btn btn-primary" href="{{ path('cuentasbancos_new', { 'id_empleado': eEmpleado.id }) }}" style="margin-bottom: 8px;">
+                                    Adicionar
+                                </a>
                                 <table class="table table-bordered table-hover table-responsive">
                                     <thead>
                                         <tr>
+                                            <th>Tipo Cuenta</th>
                                             <th>Banco</th>
+                                            <th>No Cuenta</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     {% for entity in entities %}
                                         <tr>
-                                            <td><a href="{{ path('cuentasbancos_edit', { 'id': entity.id }) }}">{{ entity.nombre }}</a></td>
+                                            <td>{{ entity.tipo == 'efectivo' ? 'Efectivo' : 'Banco' }}</td>
+                                            <td>{{ entity.banco|default('-') }}</td>
+                                            <td>{{ entity.nrocuenta|default('-') }}</td>
                                             <td>
                                                 <div style="float: left; padding-left: 10px">
                                                 {{ form_start(aDeleteForm[entity.id]) }}
+                                                    <input type="hidden" name="_method" value="DELETE"/>
                                                 {{ form_errors(aDeleteForm[entity.id]) }}
                                                 {{ form_end(aDeleteForm[entity.id]) }}
                                                 </div>
                                             </td>
                                         </tr>
+                                    {% else %}
+                                        <tr><td colspan="4">No existen elementos que mostrar.</td></tr>
                                     {% endfor %}
                                     </tbody>
                                 </table>
-
-
-                                        <a class="btn btn-primary" href="{{ path('cuentasbancos_edit', { 'id': eEmpleado.id }) }}">
-                                            Adicionar
-                                        </a>
                             </div>
                 </div>
             </div>

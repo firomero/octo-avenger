@@ -17,6 +17,9 @@ class NBancoAdmin extends Admin
     {
         $datagridMapper
             ->add('nombre')
+            ->add('tamannoNumeroCuenta', null, array(
+                'label' => 'Tamaño número cuenta'
+            ))
         ;
     }
 
@@ -27,6 +30,9 @@ class NBancoAdmin extends Admin
     {
         $listMapper
             ->add('nombre')
+            ->add('tamannoNumeroCuenta', null, array(
+                'label' => 'Tamaño número cuenta'
+            ))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -44,6 +50,9 @@ class NBancoAdmin extends Admin
     {
         $formMapper
             ->add('nombre')
+            ->add('tamannoNumeroCuenta', null, array(
+                'label' => 'Tamaño número cuenta'
+            ))
         ;
     }
 
@@ -54,6 +63,9 @@ class NBancoAdmin extends Admin
     {
         $showMapper
             ->add('nombre')
+            ->add('tamannoNumeroCuenta', null, array(
+                'label' => 'Tamaño número cuenta'
+            ))
         ;
     }
 }

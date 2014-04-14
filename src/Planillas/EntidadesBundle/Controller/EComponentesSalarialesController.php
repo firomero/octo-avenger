@@ -98,7 +98,7 @@ class EComponentesSalarialesController extends Controller
             if ($result === true && self::persistEntity($entity, $em, true)) { //the form contains errors
                 $this->get('session')->getFlashBag()->add('info', 'Los datos han sido adicionados correctamente.');
 
-                return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
+                return $this->redirect($this->generateUrl('csalariobase_new', array('id' => $entity->getEmpleado()->getId())));
             }
         }
 
@@ -235,13 +235,13 @@ class EComponentesSalarialesController extends Controller
         if ($entity->getPlanilla() != null || $entity->getPlanilla() != "") {
             $this->get('session')->getFlashBag()->add('danger', 'No se pueden actualizar datos asociados a una planilla de pago.');
 
-            return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
+            return $this->redirect($this->generateUrl('csalariobase_new', array('id' => $entity->getEmpleado()->getId())));
         }
         $planillaComponente = $em->getRepository('PlanillasCoreBundle:CPlanillasComponentesPermanentes')->findOneBy(array('componentePermanente' => $entity->getId()));
         if ($planillaComponente) {
             $this->get('session')->getFlashBag()->add('danger', 'No se pueden actualizar datos asociados a una planilla de pago.');
 
-            return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
+            return $this->redirect($this->generateUrl('csalariobase_new', array('id' => $entity->getEmpleado()->getId())));
         }
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
@@ -257,7 +257,7 @@ class EComponentesSalarialesController extends Controller
 
                 $this->get('session')->getFlashBag()->add('info', 'Los datos han sido modificados correctamente.');
 
-                return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $entity->getEmpleado()->getId())));
+                return $this->redirect($this->generateUrl('csalariobase_new', array('id' => $entity->getEmpleado()->getId())));
             }
         }
         $this->get('session')->getFlashBag()->add('danger', 'Se detectaron errores al guardar los datos.');
@@ -298,7 +298,7 @@ class EComponentesSalarialesController extends Controller
                 $this->get('session')->getFlashBag()->add('info', 'No se puede eliminar una componente asociada a un planilla de pago.');
             }*/
         //}
-        return $this->redirect($this->generateUrl('salariobase_new', array('id_empleado' => $eEmpleado->getId())));
+        return $this->redirect($this->generateUrl('csalariobase_new', array('id' => $eEmpleado->getId())));
     }
 
     /**
