@@ -2,7 +2,8 @@
 
 namespace Planillas\CoreBundle\Controller;
 
-use Planillas\CoreBundle\Form\Type\Filters\BuscarIncapacidadesType;
+use Planillas\CoreBundle\Form\Models\IncapacidadesModel;
+use Planillas\CoreBundle\Form\Type\BuscarIncapacidadesType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -29,7 +30,6 @@ class CIncapacidadesController extends Controller
         $form = $this->createForm(new BuscarIncapacidadesType());
         $form->handleRequest($request);
         if ($form->isValid()) {
-
             $aDatos = $form->getData(); //filter data
             $this->get('session')->set('incapacidades.filtros', $aDatos);
         }
@@ -39,6 +39,7 @@ class CIncapacidadesController extends Controller
             $filtros = array();
             $this->get('session')->set('incapacidades.filtros', $filtros);
         }
+
         $filtros = $this->get('session')->get('incapacidades.filtros');
         $this->get('session')->set('incapacidades.page', $this->get('request')->query->get('page', 1));
         $page = (int) $this->get('session')->get('incapacidades.page', $this->get('request')->query->get('page', 1));
@@ -48,8 +49,8 @@ class CIncapacidadesController extends Controller
             $result, $page, 10
         );
 
-        $entity = new CIncapacidades();
-        $form_new = $this->createCreateForm($entity);
+        $entity = new IncapacidadesModel();
+        $form_new = $this->createFormNew($entity);
 
         return $this->render('PlanillasCoreBundle:CIncapacidades:index.html.twig', array(
             'pagination' => $pagination,
@@ -65,10 +66,8 @@ class CIncapacidadesController extends Controller
      */
     public function createAction(Request $request)
     {
-
-        $entity = new CIncapacidades();
+        $entity = new IncapacidadesModel();
         $em = $this->getDoctrine()->getManager();
-        $form = new CIncapacidadesType();
 
         $data = $request->get('planillas_id'); //solo valido para la forma de tab
 
@@ -76,24 +75,25 @@ class CIncapacidadesController extends Controller
             $entity = $em->getRepository('PlanillasCoreBundle:CIncapacidades')->find($data['id']);
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find CIncapacidades entity.');
-
             } else {
-
                 $form = $this->createEditForm($entity);
             }
-
         } else {
-            $form = $this->createCreateForm($entity);
+            $form = $this->createFormNew($entity);
         }
+
         $form->handleRequest($request);
         if ($form->isValid()) {
+            $incapacidadesManager = $this->get('payments.incapacidades.manager');
 
-            $em->persist($entity);
-            $em->flush();
-            //poner un mensaje flash
-            $this->get('session')->getFlashBag()->add('info', 'Los datos han sido guardados correctamente');
+            /** @var \Planillas\CoreBundle\Form\Models\IncapacidadesModel $model */
+            $model = $form->getData();
+            if ($incapacidadesManager->createIncapacidad($model)) {
+                //poner un mensaje flash
+                $this->get('session')->getFlashBag()->add('info', 'Los datos se han guardado correctamente');
 
-            return $this->redirect($this->generateUrl('cincapacidades'));
+                return $this->redirect($this->generateUrl('cincapacidades'));
+            }
         }
 
         $this->get('session')->getFlashBag()->add('danger', 'No se pudieron guardados los datos');
@@ -108,7 +108,7 @@ class CIncapacidadesController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(CIncapacidades $entity)
+    private function createFormNew(IncapacidadesModel $entity)
     {
         $form = $this->createForm(new CIncapacidadesType(), $entity, array(
             'action' => $this->generateUrl('cincapacidades_create'),
@@ -125,8 +125,8 @@ class CIncapacidadesController extends Controller
      */
     public function newAction()
     {
-        $entity = new CIncapacidades();
-        $form = $this->createCreateForm($entity);
+        $entity = new IncapacidadesModel();
+        $form = $this->createFormNew($entity);
 
         return $this->render('PlanillasCoreBundle:CIncapacidades:new.html.twig', array(
             'entity' => $entity,
@@ -241,7 +241,7 @@ class CIncapacidadesController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find CIncapacidades entity.');
             }
-            if ($entity->getPlanilla()!=null) {
+            if ($entity->getPlanillaEmpleado()!=null) {
                 $this->get('session')->getFlashBag()->add('danger', 'No puede eliminar la entidad porque ya que está asociada a una planilla de efectivo');
 
                 return $this->redirect($this->generateUrl('cincapacidades'));
@@ -250,7 +250,7 @@ class CIncapacidadesController extends Controller
             $em->flush();
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido eliminados correctamente');
 
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->get('session')->getFlashBag()->add('danger', 'No se pudieron eliminar los datos');
         }
 
@@ -285,7 +285,8 @@ class CIncapacidadesController extends Controller
 
             return new \Symfony\Component\HttpFoundation\Response(json_encode($response));
         }
-        if ($entity->getPlanilla()!=null) {
+        if($entity->getPlanillaEmpleado()!=null)
+        {
             $response['success'] = false;
             $response['mensaje']='No puede editar la entidad ya que está asociada a una planilla de efectivo.';
 

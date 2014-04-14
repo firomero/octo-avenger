@@ -29,7 +29,7 @@ class EComponentesSalariales
     private $componente;
 
     /**
-     * @var decimal
+     * @var float
      * @Assert\Regex(pattern="/^([1-9])?.([0-9])+$/", message="La cantidad no es correcta")
      * @ORM\Column(name="cantidad", type="decimal", nullable=true)
      */
@@ -50,83 +50,95 @@ class EComponentesSalariales
     private $descripcion;
 
     /**
-     * @var date
+     * @var \DateTime
      *
      * @ORM\Column(name="fecha_vencimiento", type="date", nullable=true)
      */
     private $fechaVencimiento;
-    /**
-     * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
-     *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="componentesSalariales")
-     */
-    private $empleado;
+
     /**
      * @var float
      *
      * @ORM\Column(name="monto_total", type="decimal", scale=2, nullable=true)
      */
     private $montoTotal;
+
     /**
      * @var float
      *
      * @ORM\Column(name="monto_reducir", type="decimal", scale=2, nullable=true)
      */
     private $montoReducir;
+
     /**
      * @var integer
      *
      * @ORM\Column(name="periodo_pago", type="integer", nullable=true)
      */
     private $periodoPagoDeuda;
+
     /**
      * @var float
      *
      * @ORM\Column(name="numero_cuotas", type="decimal", scale=2, nullable=true)
      */
     private $numeroCuotas;
+
     /**
      * @var float
      *
      * @ORM\Column(name="monto_restante", type="decimal", scale=2, nullable=true)
      */
     private $montoRestante;
+
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_inicio", type="date", nullable=true)
      */
     private $fechaInicio;
+
     /**
-     * @var \Boolean
+     * @var boolean
      *
      * @ORM\Column(name="pagado", type="boolean", nullable=true)
      */
     private $pagado;
+
     /**
      * @var string
      *
      * @ORM\Column(name="tipo_deuda", type="string", nullable=true)
      */
     private $tipoDeuda;
+
     /**
-     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
-     *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
-     */
-    private $planilla;
-    /**
-     * @var \Boolean
+     * @var boolean
      *
      * @ORM\Column(name="permanente", type="boolean", nullable=true)
      */
     private $permanente;
+
      /**
-     * @var \date
+     * @var \DateTime
      *
      * @ORM\Column(name="deleted_at", type="date", nullable=true)
      */
     private $deleted_at;
+
+    /**
+     * @var  \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="componentesSalariales")
+     */
+    private $empleado;
+
+    /**
+     * @var  \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", inversedBy="componentesSalariales")
+     */
+    private $planillaEmpleado;
 
     /**
      * Get id
@@ -210,7 +222,7 @@ class EComponentesSalariales
     /**
      * Set periodoPagoDeuda
      *
-     * @param integer periodoPagoDeuda
+     * @param integer $periodoPagoDeuda
      * @return EComponentesSalariales
      */
     public function setPeriodoPagoDeuda($periodoPagoDeuda)
@@ -460,26 +472,19 @@ class EComponentesSalariales
     }
 
     /**
-     * Set planilla
-     *
-     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
-     * @return EComponentesSalariales
+     * @param \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
      */
-    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
+    public function setPlanillaEmpleado($planillaEmpleado)
     {
-        $this->planilla = $planilla;
-
-        return $this;
+        $this->planillaEmpleado = $planillaEmpleado;
     }
 
     /**
-     * Get planilla
-     *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas
+     * @return \Planillas\CoreBundle\Entity\CPlanillasEmpleado
      */
-    public function getPlanilla()
+    public function getPlanillaEmpleado()
     {
-        return $this->planilla;
+        return $this->planillaEmpleado;
     }
 
     /**
@@ -527,9 +532,9 @@ class EComponentesSalariales
     {
         return $this->deleted_at;
     }
+
     public function __toString()
     {
         return $this->getPermanente();
-        ;
     }
 }

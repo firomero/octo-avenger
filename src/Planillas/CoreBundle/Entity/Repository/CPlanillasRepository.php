@@ -10,10 +10,18 @@
 namespace Planillas\CoreBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 class CPlanillasRepository extends EntityRepository
 {
 
+    /**
+     * Obtiene las Ausencias dado el filtro especificado
+     *
+     * @param array $filtros
+     * @return array
+     */
     public function filterAusencias($filtros = array())
     {
         try {
@@ -48,4 +56,52 @@ class CPlanillasRepository extends EntityRepository
         }
     }
 
+    /**
+     * Comprueba si existe al menos una planilla generada con los períodos entrados, o que al menos la de inicio
+     * se encuentre incluida dentro de una planilla generada
+     *
+     * @param  \DateTime $fechaInicio
+     * @param  \DateTime $fechaFin
+     */
+    public function isPeriodClean(\DateTime $fechaInicio, \DateTime $fechaFin)
+    {
+        $query = $this->_em->createQueryBuilder('p')
+            ->select('p.id')
+            ->from('PlanillasCoreBundle:CPlanillas', 'p')
+            ->where('(p.fechaInicio = :fechaInicio AND p.fechaFin = :fechaFin) OR p.fechaFin >= :fechaInicio')
+            ->setParameters(array(
+                'fechaInicio' => $fechaInicio,
+                'fechaFin' => $fechaFin,
+            ))
+            ->getQuery();
+
+        try {
+            return $query->getSingleResult();
+        } catch (NoResultException $e) {
+            return true;
+        } catch (NonUniqueResultException $e) {
+            return $query->getResult();
+        }
+
+    }
+
+    /**
+     * Obtiene la última planilla registrada en el sistema, falso en caso de no existir ninguna
+     *
+     * @return bool|mixed
+     */
+    public function getLastPlanilla()
+    {
+        $query = $this->_em->createQueryBuilder()
+            ->select('p')
+            ->from('PlanillasCoreBundle:CPlanillas','p')
+            ->orderBy('p.fechaFin','DESC')
+            ->setMaxResults('1')
+            ->getQuery();
+        try {
+            return $query->getSingleResult();
+        } catch (NoResultException $e) {
+            return false;
+        }
+    }
 }

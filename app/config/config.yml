@@ -61,6 +61,9 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        dql:
+            datetime_functions:
+                date_format: Planillas\CoreBundle\DQL\DateFormat
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -112,5 +115,11 @@ knp_paginator:
 
 #configuraciones para bundle de pagos
 planillas_payments:
-    days_in_month: 30
-    insurance: 0.09
+    # dias contables en el mes
+    dias_por_mes: 30
+    # porciento del seguro
+    factor_seguro: 0.09
+    # horas por turno diurno
+    horas_diurno: 8
+    # factor horas extras
+    indice_horas_extras: 1.5

@@ -2,7 +2,9 @@
 
 namespace Planillas\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Planillas\EntidadesBundle\Entity\EComponentesSalariales;
 
 /**
  * CPlanillasEmpleado
@@ -22,35 +24,104 @@ class CPlanillasEmpleado
     private $id;
 
     /**
-     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     * @var $planilla \Planillas\CoreBundle\Entity\CPlanillas
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas", inversedBy="planillasEmpleados")
      */
     private $planilla;
+
     /**
-     * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
+     * @var $empleado \Planillas\CoreBundle\Entity\CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
      */
     private $empleado;
+
      /**
-     * @var decimal
+     * @var float
      *
      * @ORM\Column(name="salario_periodo", type="decimal", nullable=false)
      */
     private $salario_periodo;
+
      /**
-     * @var decimal
+     * @var float
      *
      * @ORM\Column(name="salario_total", type="decimal", nullable=false)
      */
     private $salario_total;
+
      /**
-     * @var decimal
+     * @var float
      *
      * @ORM\Column(name="salario_seguro", type="decimal", nullable=true)
      */
     private $salario_seguro;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection $horasExtras
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CHorasExtras", mappedBy="planillaEmpleado", cascade={"persist","remove"})
+     */
+    private $horasExtras;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection $diasExtras
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CDiasExtra", mappedBy="planillaEmpleado", cascade={"persist","remove"})
+     */
+    private $diasExtras;
+
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection $ausencias
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CAusencias", mappedBy="planillaEmpleado", cascade={"persist","remove"})
+     */
+    private $ausencias;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection $incapacidades
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CIncapacidades", mappedBy="planillaEmpleado", cascade={"persist","remove"})
+     */
+    private $incapacidades;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection $deudas
+
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CDeudas", mappedBy="planillaEmpleado", cascade={"persist","remove"})
+     */
+    private $deudas;
+
+    /**
+     * @var  \Doctrine\Common\Collections\ArrayCollection $componentesPermanentes
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CPlanillasComponentesPermanentes", mappedBy="planillaEmpleado", cascade={"persist","remove"})
+     */
+    private $componentesPermanentes;
+
+    /**
+     * @var  \Doctrine\Common\Collections\ArrayCollection $componentesSalariales
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\EntidadesBundle\Entity\EComponentesSalariales", mappedBy="planillaEmpleado", cascade={"persist","remove"})
+     */
+    private $componentesSalariales;
+
+
+    /**
+     * Constructor
+     */
+    public function __constructor()
+    {
+        $this->horasExtras              = new ArrayCollection();
+        $this->diasExtras               = new ArrayCollection();
+        $this->ausencias                = new ArrayCollection();
+        $this->incapacidades            = new ArrayCollection();
+        $this->deudas                   = new ArrayCollection();
+        $this->componentesPermanentes   = new ArrayCollection();
+        $this->componentesSalariales    = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -176,4 +247,211 @@ class CPlanillasEmpleado
     {
         return $this->empleado;
     }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $horasExtras
+     */
+    public function setHorasExtras($horasExtras)
+    {
+        $this->horasExtras = $horasExtras;
+    }
+
+    /**
+     * Adiciona una nueva hora extra en la planilla
+     *
+     * @param CHorasExtras $horasExtra
+     * @return $this
+     */
+    public function addHorasExtra(CHorasExtras $horasExtra)
+    {
+        $horasExtra->setPlanillaEmpleado($this);
+
+        $this->horasExtras[] = $horasExtra;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getHorasExtras()
+    {
+        return $this->horasExtras;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $diasExtras
+     */
+    public function setDiasExtras($diasExtras)
+    {
+        $this->diasExtras = $diasExtras;
+    }
+
+    /**
+     * @param CDiasExtra $diasExtra
+     * @return $this
+     */
+    public function addDiasExtra(CDiasExtra $diasExtra)
+    {
+        $diasExtra->setPlanillaEmpleado($this);
+
+        $this->diasExtras[] = $diasExtra;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getDiasExtras()
+    {
+        return $this->diasExtras;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $ausencias
+     */
+    public function setAusencias($ausencias)
+    {
+        $this->ausencias = $ausencias;
+    }
+
+    /**
+     * @param CAusencias $ausencias
+     * @return $this
+     */
+    public function addAusencia(CAusencias $ausencias)
+    {
+        $ausencias->setPlanillaEmpleado($this);
+
+        $this->ausencias[] = $ausencias;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getAusencias()
+    {
+        return $this->ausencias;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $incapacidades
+     */
+    public function setIncapacidades($incapacidades)
+    {
+        $this->incapacidades = $incapacidades;
+    }
+
+    /**
+     * @param CIncapacidades $incapacidades
+     * @return $this
+     */
+    public function addIncapacidad(CIncapacidades $incapacidades)
+    {
+        $incapacidades->setPlanillaEmpleado($this);
+
+        $this->incapacidades[] = $incapacidades;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getIncapacidades()
+    {
+        return $this->incapacidades;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $deudas
+     */
+    public function setDeudas($deudas)
+    {
+        $this->deudas = $deudas;
+    }
+
+    /**
+     * @param CDeudas $deudas
+     * @return $this
+     */
+    public function addDeuda(CDeudas $deudas)
+    {
+        $deudas->setPlanillaEmpleado($this);
+
+        $this->deudas[] = $deudas;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getDeudas()
+    {
+        return $this->deudas;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $componentesPermanentes
+     */
+    public function setComponentesPermanentes($componentesPermanentes)
+    {
+        $this->componentesPermanentes = $componentesPermanentes;
+    }
+
+    /**
+     * @param CPlanillasComponentesPermanentes $componentesPermanentes
+     * @return $this
+     */
+    public function addComponentePermanente(CPlanillasComponentesPermanentes $componentesPermanentes)
+    {
+        $componentesPermanentes->setPlanillaEmpleado($this);
+
+        $this->componentesPermanentes[] = $componentesPermanentes;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getComponentesPermanentes()
+    {
+        return $this->componentesPermanentes;
+    }
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $componentesSalariales
+     */
+    public function setComponentesSalariales($componentesSalariales)
+    {
+        $this->componentesSalariales = $componentesSalariales;
+    }
+
+    /**
+     * @param EComponentesSalariales $componentesSalariales
+     * @return $this
+     */
+    public function addComponentesSalarial(EComponentesSalariales $componentesSalariales)
+    {
+        $componentesSalariales->setPlanillaEmpleado($this);
+
+        $this->componentesSalariales[] = $componentesSalariales;
+
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getComponentesSalariales()
+    {
+        return $this->componentesSalariales;
+    }
+
+
 }

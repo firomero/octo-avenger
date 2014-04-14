@@ -29,11 +29,11 @@ class CPlanillasComponentesPermanentes
     private $componentePermanente;
 
     /**
-     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     * @var $planilla \Planillas\CoreBundle\Entity\CPlanillasEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", inversedBy="componentesPermanentes")
      */
-   private $planilla;
+   private $planillaEmpleado;
 
    /**
      * @var $empleado Planillas/CoreBundle/Entity/CPlanillas
@@ -76,48 +76,41 @@ class CPlanillasComponentesPermanentes
     }
 
     /**
-     * Set planilla
-     *
-     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
-     * @return CPlanillasComponentesPermanentes
-     */
-    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
-    {
-        $this->planilla = $planilla;
-
-        return $this;
-    }
-
-    /**
-     * Get planilla
-     *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas
-     */
-    public function getPlanilla()
-    {
-        return $this->planilla;
-    }
-
-    /**
      * Set empleado
      *
-     * @param  \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
      * @return CPlanillasComponentesPermanentes
      */
     public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
     {
         $this->empleado = $empleado;
-
+    
         return $this;
     }
 
     /**
      * Get empleado
      *
-     * @return \Planillas\CoreBundle\Entity\CEmpleado
+     * @return \Planillas\CoreBundle\Entity\CEmpleado 
      */
     public function getEmpleado()
     {
         return $this->empleado;
+    }
+
+    /**
+     * @param \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
+     */
+    public function setPlanillaEmpleado(CPlanillasEmpleado $planillaEmpleado)
+    {
+        $this->planillaEmpleado = $planillaEmpleado;
+    }
+
+    /**
+     * @return \Planillas\CoreBundle\Entity\CPlanillasEmpleado
+     */
+    public function getPlanillaEmpleado()
+    {
+        return $this->planillaEmpleado;
     }
 }

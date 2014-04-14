@@ -41,7 +41,7 @@ class CIncapacidades
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
+     * @ORM\Column(name="fecha_inicio", type="date", nullable=true)
      * @Assert\NotBlank()
      */
     private $fechaInicio;
@@ -49,26 +49,41 @@ class CIncapacidades
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_fin", type="date", nullable=false)
+     * @ORM\Column(name="fecha_fin", type="date", nullable=true)
      * @Assert\NotBlank()
      */
     private $fechaFin;
 
     /**
+     * @var  \DateTime $fecha
+     *
+     * @ORM\Column(name="fecha", type="date", nullable=false)
+     */
+    private $fecha;
+
+    /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="incapacidades")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
      */
     private $empleado;
 
     /**
-     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     * @var  Planillas/CoreBundle/Entity/CPlanillasEmpleado $planillaEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", inversedBy="incapacidades")
      */
-    private $planilla;
+    private $planillaEmpleado;
+
+    /**
+     * @Assert\True(message = "Los valores entrados para las fechas no son correctos")
+     */
+    public function isFechasValid()
+    {
+        return $this->fechaInicio->getTimestamp() <= $this->fechaFin->getTimestamp() && $this->fechaFin->getTimestamp() <  time();
+    }
 
     /**
      * Get id
@@ -194,47 +209,50 @@ class CIncapacidades
     {
         return $this->empleado;
     }
+
+    /**
+     * @param \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
+     */
+    public function setPlanillaEmpleado(CPlanillasEmpleado $planillaEmpleado)
+    {
+        $this->planillaEmpleado = $planillaEmpleado;
+    }
+
+    /**
+     * @return \Planillas\CoreBundle\Entity\CPlanillasEmpleado
+     */
+    public function getPlanillaEmpleado()
+    {
+        return $this->planillaEmpleado;
+    }
+
+    /**
+     * @param \DateTime $fecha
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
     public function getJson()
     {
         $obj= new \stdClass();
         $obj->id=$this->id;
-        $obj->fechaInicio=$this->fechaInicio->format('Y-m-d');
-        $obj->fechaFin=$this->fechaFin->format('Y-m-d');
+        $obj->fechaInicio=$this->fecha->format('Y-m-d');
+        $obj->fechaFin=null;//$this->fechaFin->format('Y-m-d');
         $obj->tipoIncapacidad=$this->tipoIncapacidad;
         $obj->empleado=$this->empleado->getId();
         $obj->motivo=$this->motivo;
 
+
         return $obj;
-    }
-
-    /**
-     * Set planilla
-     *
-     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
-     * @return CIncapacidades
-     */
-    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
-    {
-        $this->planilla = $planilla;
-
-        return $this;
-    }
-
-    /**
-     * Get planilla
-     *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas
-     */
-    public function getPlanilla()
-    {
-        return $this->planilla;
-    }
-
-    /**
-     * @Assert\True(message = "Los valores entrados para las fechas no son correctos")
-     */
-    public function isFechasValid()
-    {
-        return $this->fechaInicio->getTimestamp() <= $this->fechaFin->getTimestamp() && $this->fechaFin->getTimestamp() <  time();
     }
 }

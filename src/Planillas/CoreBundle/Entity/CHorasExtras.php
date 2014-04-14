@@ -1,6 +1,7 @@
 <?php
 
 namespace Planillas\CoreBundle\Entity;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -55,11 +56,11 @@ class CHorasExtras
     private $empleado;
 
     /**
-     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     * @var \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", inversedBy="horasExtras")
      */
-    private $planilla;
+    private $planillaEmpleado;
 
     /**
      * Get id
@@ -162,6 +163,28 @@ class CHorasExtras
     {
         return $this->empleado;
     }
+
+    /**
+     * @param \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
+     */
+    public function setPlanillaEmpleado(CPlanillasEmpleado $planillaEmpleado)
+    {
+        $this->planillaEmpleado = $planillaEmpleado;
+    }
+
+    /**
+     * @return \Planillas\CoreBundle\Entity\CPlanillasEmpleado
+     */
+    public function getPlanillaEmpleado()
+    {
+        return $this->planillaEmpleado;
+    }
+
+    /**
+     * Obtiene los datos de  la clase en json
+     *
+     * @return \stdClass
+     */
     public function getJson()
     {
         $obj= new \stdClass();
@@ -171,30 +194,6 @@ class CHorasExtras
         $obj->empleado=$this->empleado->getId();
         $obj->cantidadHoras=$this->cantidadHoras;
         $obj->motivo=$this->motivo;
-
         return $obj;
-    }
-
-    /**
-     * Set planilla
-     *
-     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
-     * @return CHorasExtras
-     */
-    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
-    {
-        $this->planilla = $planilla;
-
-        return $this;
-    }
-
-    /**
-     * Get planilla
-     *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas
-     */
-    public function getPlanilla()
-    {
-        return $this->planilla;
     }
 }

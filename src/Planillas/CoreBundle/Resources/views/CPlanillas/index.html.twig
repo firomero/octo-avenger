@@ -4,445 +4,121 @@
     Planilla de pago
 {% endblock headline %}
 {% block content_content %}
-    {% block foot_script %}
-        {{ parent() }}
-        <script>
-            $(document).ready(function () {
-                $('#planillas_fechaInicio').datepicker
-                ({
-                    format: "yyyy-mm-dd"
-                });
-                $('#planillas_fechaFin').datepicker
-                ({
-                    format: "yyyy-mm-dd"
-                });
+    {% if search_form is defined %}
+        {% include '@PlanillasCore/CPlanillas/_form_periodo_planilla.html.twig' with {'search_form': search_form} %}
+    {% endif %}
 
-            })
-
-            function details(element) {
-                var id = element.id;
-                var data = id.split('_');
-
-                var bEsta=$("#salario_" + data[1]).css('display');
-                if (bEsta == "none") {
-                    $("#salario_" + data[1]).css('display', 'block');
-                }
-                else {
-                    $("#salario_" + data[1]).css('display', 'none');
-                }
-
-            }
-
-
-        </script>
-    {% endblock %}
-    <form class="form-horizontal" action="{{ path('cplanillas_buscar') }}"
-          method="post" enctype="multipart/form-data" name="planillasForm" id="planillasForm">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-
-            <h3 class="panel-title">
-                Periodo de pago
-            </h3>
-
-        </div>
-        <div class="panel-body">
-
-           <fieldset>
-               <legend><h5>Último pago generado : {{ ultimoPeriodoPago }}</h5></legend>
-
-           </fieldset>
-            <fieldset>
-                <div class="row-fluid">
-                    <div class="col-lg-4">
-                        <div class=" form-group" id="planillas_dev_fecha_inicio_control_group">
-                            <label class=" control-label col-lg-3 required"
-                                   for="planillas_corebundle_csalariobase_salarioBase">
-                                Fecha Inicio
-                            </label>
-
-                            <div class="col-lg-9">
-                                <input type="date"
-                                       value="{% if entities|length >0 %}{{ entities.periodo.inicio }}{% endif %}"
-                                       class="not-removable form-control" name="planillas[fechaInicio]"
-                                       id="planillas_fechaInicio">
-                                <!--<input type="text" value="3000" class=" not-removable form-control" required="required" name="planillas_corebundle_csalariobase[salarioBase]" id="planillas_corebundle_csalariobase_salarioBase">-->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class=" form-group" id="planillas_dev_fecha_fin_control_group">
-                            <label class=" control-label col-lg-3 required"
-                                   for="planillas_corebundle_csalariobase_salarioBase">
-                                Fecha Fin
-                            </label>
-
-                            <div class="col-lg-9">
-                                <input type="date"
-                                       value="{% if entities|length >0 %}{{ entities.periodo.fin }}{% endif %}"
-                                       class="not-removable form-control" name="planillas[fechaFin]"
-                                       id="planillas_fechaFin">
-                                <!--<input type="text" value="3000" class=" not-removable form-control" required="required" name="planillas_corebundle_csalariobase[salarioBase]" id="planillas_corebundle_csalariobase_salarioBase">-->
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </fieldset>
-            <hr>
-            <fieldset>
-                <legend></legend>
-                <div class="btn-group">
-                    <button type="submit" name="btn_actualizar" class="btn btn-primary">Buscar</button>
-
-                </div>
-                <div class="btn-group">
-                    <a href="{{ path('cplanillas_listar') }}" class="btn btn-default">Cancelar</a>
-
-                </div>
-            </fieldset>
-
-        </div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Planilla de efectivo</h3>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">
-                <div class="btn-group">
+    <div class="panel-body">
 
-                    Planilla de efectivo
+        <fieldset>
+            {% if form is defined %}
+            {{ form_start(form) }}
+                {{ form_widget(form.fecha_inicio) }}
+                {{ form_widget(form.fecha_fin) }}
+                {{ form_widget(form._token) }}
+                <div class="form-actions">
+                    {{ form_widget(form.guardar) }}
+                    {{ form_widget(form.exportar) }}
                 </div>
-            </h3>
-        </div>
-        <div class="panel-body">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
+            {{ form_end(form) }}
+            {% endif %}
+            {#
+            <input type="hidden" name="id" value="{% if entities.id_planilla >0%} {{ entities.id_planilla }}{% endif%}">
+            <legend></legend>
+            {% if entities.id_planilla < 1 %}
+            <div class="btn-group">
 
+                <button type="submit" class="btn btn-primary" name="btn-save" value="guardar">Guardar</button>
+
+            </div>
+            {% endif %}
+            <div class="btn-group">
+                <button type="submit" class="btn btn-default" name="btn-exportar" value="generar">Exportar Planilla</button>
+            </div>
+            #}
+        </fieldset>
+
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
                     <th>Cédula</th>
                     <th>Empleado</th>
-
-
                     <th>Bruto</th>
                     <th>Bonificaciones</th>
-
                     <th>Días Extras</th>
                     <th>Días Menos</th>
                     <th>Incapacidades</th>
                     <th>Horas Extras</th>
                     <th>Rebajos</th>
-
                     <th>Total</th>
                     <th>Detalles</th>
                 </tr>
-                </thead>
-                <tbody>
-                {% if entities|length >0 %}
+            </thead>
+            <tbody>
+            {% if empleados | length > 0 %}
                 {% set tipodeuda=['Uniformes','Sanciones','Préstamos'] %}
-                {% set empleados =entities.empleados %}
                 {% for entity in empleados %}
-                {% set datos_personales=entity.datos_personales %}
-                {% set datos_economicos=entity.datos_economicos %}
-                <tr>
-                    <td align="left">{{ datos_personales.cedula }}</td>
-                    <td>{{ datos_personales.nombre }}  {{ datos_personales.apellidos }}</td>
-                    <td>¢{{ datos_economicos.salario_base }}</td>
-                    <td>¢{{ datos_economicos.bonificaciones.total }}</td>
-                    <td>¢{{ datos_economicos.dias_extra.total }}</td>
-                    <td>¢{{ datos_economicos.dias_menos.total }}</td>
-                    <td>¢{{ datos_economicos.incapacidades.total }}</td>
-                    <td>¢{{ datos_economicos.horas_extras.total }}</td>
-                    <td>¢{{ datos_economicos.deudas.total }}</td>
-                    <td>¢{{ datos_economicos.salario_total_empleado }} </td>
-                    <td>
-                        <a href="#" onclick="details(this)" id="details_{{ datos_personales.id }}"
-                           class="btn btn-primary"> <i class="glyphicon glyphicon-eye-open"
-                                                       title="Detalles de la planilla"></i>Detalles</a>
-                    </td>
-
-
-                </tr>
-                <tr>
-                    <td colspan="11">
-                        <div id="salario_{{ datos_personales.id }}" style="display: none">
-
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-
-                                    <th>Bonificaciones</th>
-                                    <th style="text-align: right">Monto</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.bonificaciones|length >0 %}
-
-                                    {% for bonificaciones in datos_economicos.bonificaciones %}
-                                        {% for bonificacion in bonificaciones %}
-
-
-                                            <tr>
-                                                <td>
-                                                    {% if  bonificacion.descripcion == null %}
-
-                                                        Fecha Vencimiento: {{ bonificacion.fecha_inicio}}
-                                                    {% else %}
-                                                    {{ bonificacion.descripcion }}
-                                                    {% endif %}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    ¢{{ bonificacion.monto_total }}
-                                                </td>
-
-                                            </tr>
-
-                                        {% endfor %}
-
-
-                                    {% endfor %}
-                                    <tr>
-                                        <td></td>
-                                        <td style="text-align: right">
-                                            <em><strong>Total: ¢{{ datos_economicos.bonificaciones.total }}</strong></em>
-                                        </td>
-                                    </tr>
-                                {% endif %}
-                                </tbody>
-
-                            </table>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-
-                                    <th>Rebajos</th>
-                                    <th>Periodo de pago</th>
-                                    <th style="text-align: right">Monto</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.deudas|length >0 %}
-                                    {% for deudas in datos_economicos.deudas %}
-                                        {% for deuda in deudas %}
-                                            <tr>
-                                                <td>
-                                                    {% for key, deudatext in tipodeuda %}
-                                                        {% if key==deuda.componente %}
-                                                            {{ deudatext }}
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </td>
-                                                <td>
-                                                    {% if deuda.permanente %}
-                                                        {{ 'Permanente' }}
-                                                    {% else %}
-                                                        {{ deuda.fecha_inicio }}
-                                                    {% endif %}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    ¢{{ deuda.monto_total }}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    {% endfor %}
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td style="text-align: right">
-                                            <em><strong>Total: ¢{{ datos_economicos.deudas.total }}</strong></em></td>
-                                    </tr>
-                                {% endif %}
-                                </tbody>
-
-                            </table>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-
-                                    <th>Días extras</th>
-
-                                    <th style="text-align: right">Monto</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.dias_extra|length >0 %}
-
-                                    {% for dias_extra in datos_economicos.dias_extra %}
-                                        {% for dia in dias_extra %}
-
-
-                                            <tr>
-
-                                                <td>
-                                                    {{ dia.fecha }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    ¢{{ dia.monto_total }}
-                                                </td>
-
-                                            </tr>
-
-                                        {% endfor %}
-
-
-                                    {% endfor %}
-                                    <tr>
-                                        <td></td>
-
-                                        <td style="text-align: right">
-                                            <em><strong>Total: ¢{{ datos_economicos.dias_extra.total }}</strong></em></td>
-                                    </tr>
-                                {% endif %}
-                                </tbody>
-
-                            </table>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-
-                                        <th>Horas extras</th>
-
-                                        <th style="text-align: right">Monto</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.horas_extras|length >0 %}
-
-                                    {% for horas_extras in datos_economicos.horas_extras %}
-                                        {% for hora in horas_extras %}
-                                        <tr>
-                                            <td>
-                                                    {{ hora.fecha }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    ¢{{ hora.monto_total }}
-                                                </td>
-                                        </tr>
-                                        {% endfor %}
-                                    {% endfor %}
-                                                <tr>
-                                                    <td></td>
-
-                                                    <td style="text-align: right">
-                                                        <em><strong>Total: ¢{{ datos_economicos.horas_extras.total }}</strong></em></td>
-                                                </tr>
-                                {% endif %}
-                                 </tbody>
-
-                            </table>
-                            <!--dias menos--->
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-
-                                        <th>Días menos</th>
-
-                                        <th style="text-align: right">Monto</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {% if datos_economicos.dias_menos|length >0 %}
-
-                                    {% for dias_menos in datos_economicos.dias_menos %}
-                                        {% for menos in dias_menos %}
-                                        <tr>
-                                            <td>
-                                                    {{ menos.fecha }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    ¢{{ menos.monto_total }}
-                                                </td>
-                                        </tr>
-                                        {% endfor %}
-                                    {% endfor %}
-                                                <tr>
-                                                    <td></td>
-
-                                                    <td style="text-align: right">
-                                                        <em><strong>Total: ¢{{ datos_economicos.dias_menos.total }}</strong></em></td>
-                                                </tr>
-                                {% endif %}
-                                 </tbody>
-
-                            </table>
-                            <!--Incapacidades--->
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-
-                                        <th>Incapacidades</th>
-                                        <th>Descripción</th>
-                                        <th style="text-align: right">Monto</th>
-
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                 {% set incapacidadesArray=['Incapacidades CCSS','Incapacidades INS']%}
-                                {% if datos_economicos.incapacidades|length >0 %}
-
-                                    {% for incapacidades in datos_economicos.incapacidades %}
-                                        {% for incapacidad in incapacidades %}
-                                        <tr>
-                                                <td>
-                                                    {{ incapacidad.fecha }}
-                                                </td>
-                                                <td>
-                                                    {{ incapacidadesArray[incapacidad.incapacidad] }}
-                                                </td>
-                                                <td style="text-align: right">
-                                                    ¢{{ incapacidad.monto_total }}
-                                                </td>
-                                        </tr>
-                                        {% endfor %}
-                                    {% endfor %}
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td style="text-align: right">
-                                                        <em><strong>Total: ¢{{ datos_economicos.incapacidades.total }}</strong></em></td>
-                                                </tr>
-                                {% endif %}
-                                 </tbody>
-
-                            </table>
-                        </div>
-                    </td>
-                    </tr>
-
-                    <!--<tr style="visibility: hidden">
-                        <td colspan="9">Aqui van los detalles de cada empleado</td>
-                    </tr>-->
-                    {% endfor %}
-                    {% else %}
+                    {% set datos_personales=entity.datos_personales %}
+                    {% set datos_economicos=entity.datos_economicos %}
                     <tr>
-                        <td colspan="11">
-                             No hay datos que mostrar
+                        <td align="left">{{ datos_personales.cedula }}</td>
+                        <td>{{ datos_personales.nombre }}  {{ datos_personales.apellidos }}</td>
+                        <td>¢{{ datos_economicos.salario_base }}</td>
+                        <td>¢{{ datos_economicos.bonificaciones.total }}</td>
+                        <td>¢{{ datos_economicos.dias_extra.total }}</td>
+                        <td>¢{{ datos_economicos.dias_menos.total }}</td>
+                        <td>¢{{ datos_economicos.incapacidades.total }}</td>
+                        <td>¢{{ datos_economicos.horas_extras.total }}</td>
+                        <td>¢{{ datos_economicos.deudas.total }}</td>
+                        <td>¢{{ datos_economicos.salario_total_empleado }} </td>
+                        <td>
+                            <a href="#" id="details_{{ datos_personales.id }}" class="btn btn-primary"
+                               title="Detalles de la planilla">
+                                <i class="glyphicon glyphicon-eye-open"></i> Detalles</a>
                         </td>
                     </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-            <fieldset>
-                <input type="hidden" name="id" value="{% if entities.id_planilla >0%} {{ entities.id_planilla }}{% endif%}">
-                <legend></legend>
-                {% if entities.id_planilla <1 %}
-                <div class="btn-group">
-
-                    <button type="submit" class="btn btn-primary" name="btn-save" value="guardar">Guardar</button>
-
-                </div>
-                {% endif %}
-                <div class="btn-group">
-                    <button type="submit" class="btn btn-default" name="btn-exportar" value="generar">Exportar Planilla</button>
-                </div>
-
-            </fieldset>
-        </div>
+                    <tr>
+                        <td colspan="11">
+                            {% include 'PlanillasCoreBundle:CPlanillas:_datos_empleado_planilla.html.twig'
+                                with {'datos_personales': datos_personales, 'datos_economicos':datos_economicos} %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="11">No existen elementos que mostrar.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+        </table>
     </div>
-    </form>
+</div>
+{% endblock %}
+
+{% block foot_script %}
+{{ parent() }}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input#payments_periodo_planilla_fechaInicio').datepicker({
+            format: "yyyy-mm-dd"
+        });
+        $('input#payments_periodo_planilla_fechaFin').datepicker({
+            format: "yyyy-mm-dd"
+        });
+
+        $('a[id^="details_"]').on('click', function (event) {
+            event.preventDefault();
+
+            var id = $(this).attr('id');
+            var data = id.split('_');
+
+            $("#salario_" + data[1]).slideToggle(300);
+        });
+    })
+</script>
 {% endblock %}

@@ -10,14 +10,20 @@
 namespace Planillas\CoreBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 
 class CHorasExtrasRepository extends EntityRepository
 {
 
+    /**
+     * Obtiene las horas extras dado filtro
+     *
+     * @param array $filtros
+     * @return array
+     */
     public function filterHorasExtras($filtros = array())
     {
         try {
-
             $sql = "SELECT s  FROM PlanillasCoreBundle:CHorasExtras s INNER JOIN s.empleado e WHERE e.activo=1";
             $case = true;
 
@@ -42,6 +48,24 @@ class CHorasExtrasRepository extends EntityRepository
             $sql .= ' ORDER BY s.fechaHorasExtras DESC';
             $query = $this->_em->createQuery($sql);
 
+            return $query->getResult();
+        } catch (NoResultException $e) {
+            return array();
+        }
+    }
+
+    public function getEmpleadoHorasExtrasEnPeriodo($idEmpleado, \DateTime $fechaInicio, \DateTime $fechaFin)
+    {
+        $sql = 'SELECT c  FROM PlanillasCoreBundle:CHorasExtras c INNER Join c.empleado e WHERE  e.id=' . $idEmpleado;
+
+        if ($fechaInicio !== null && $fechaFin !== null) {
+            $sql .= ' and c.fechaHorasExtras >= \'' . $fechaInicio->format('Y-m-d') . '\'';
+            $sql .= ' and c.fechaHorasExtras <= \'' . $fechaFin->format('Y-m-d') . '\'';
+        }
+
+        $query = $this->_em->createQuery($sql);
+
+        try {
             return $query->getResult();
         } catch (NoResultException $e) {
             return array();

@@ -1,0 +1,226 @@
+<div id="salario_{{ datos_personales.id }}" style="display: none">
+    {# bonificaciones #}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Bonificaciones</th>
+                <th style="text-align: right">Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if datos_economicos.bonificaciones|length >0 %}
+            {% for bonificaciones in datos_economicos.bonificaciones %}
+                {% for bonificacion in bonificaciones %}
+                <tr>
+                    <td>
+                        {% if  bonificacion.descripcion == null %}
+
+                            Fecha Vencimiento: {{ bonificacion.fecha_inicio}}
+                        {% else %}
+                            {{ bonificacion.descripcion }}
+                        {% endif %}
+                    </td>
+                    <td style="text-align: right">
+                        ¢{{ bonificacion.monto_total }}
+                    </td>
+
+                </tr>
+                {% endfor %}
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td style="text-align: right">
+                    <em><strong>Total: ¢{{ datos_economicos.bonificaciones.total }}</strong></em>
+                </td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    {# rebajos #}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Rebajos</th>
+            <th>Periodo de pago</th>
+            <th style="text-align: right">Monto</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if datos_economicos.deudas|length >0 %}
+            {% for deudas in datos_economicos.deudas %}
+                {% for deuda in deudas %}
+                    <tr>
+                        <td>
+                            {% for key, deudatext in tipodeuda %}
+                                {% if key==deuda.componente %}
+                                    {{ deudatext }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if deuda.permanente %}
+                                {{ 'Permanente' }}
+                            {% else %}
+                                {{ deuda.fecha_inicio }}
+                            {% endif %}
+                        </td>
+                        <td style="text-align: right">
+                            ¢{{ deuda.monto_total }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td style="text-align: right">
+                    <em><strong>Total: ¢{{ datos_economicos.deudas.total }}</strong></em></td>
+            </tr>
+        {% endif %}
+        </tbody>
+
+    </table>
+    {# dias extras #}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+
+            <th>Días extras</th>
+
+            <th style="text-align: right">Monto</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% if datos_economicos.dias_extra|length >0 %}
+
+            {% for dias_extra in datos_economicos.dias_extra %}
+                {% for dia in dias_extra %}
+
+
+                    <tr>
+
+                        <td>
+                            {{ dia.fecha }}
+                        </td>
+                        <td style="text-align: right">
+                            ¢{{ dia.monto_total }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+
+            {% endfor %}
+            <tr>
+                <td></td>
+
+                <td style="text-align: right">
+                    <em><strong>Total: ¢{{ datos_economicos.dias_extra.total }}</strong></em></td>
+            </tr>
+        {% endif %}
+        </tbody>
+
+    </table>
+    {# horas extras #}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Cantidad Horas</th>
+            <th style="text-align: right">Monto</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if datos_economicos.horas_extras|length >0 %}
+
+            {% for horas_extras in datos_economicos.horas_extras %}
+                {% for hora in horas_extras %}
+                    <tr>
+                        <td>{{ hora.fecha }}</td>
+                        <td>{{ hora.cantidad }}</td>
+                        <td style="text-align: right">
+                            ¢{{ hora.monto_total }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            <tr>
+                <td colspan="3" style="text-align: right">
+                    <em><strong>Total: ¢{{ datos_economicos.horas_extras.total }}</strong></em></td>
+            </tr>
+        {% endif %}
+        </tbody>
+
+    </table>
+    {# dias menos #}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+
+            <th>Días menos</th>
+
+            <th style="text-align: right">Monto</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% if datos_economicos.dias_menos|length >0 %}
+
+            {% for dias_menos in datos_economicos.dias_menos %}
+                {% for menos in dias_menos %}
+                    <tr>
+                        <td>
+                            {{ menos.fecha }}
+                        </td>
+                        <td style="text-align: right">
+                            ¢{{ menos.monto_total }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            <tr>
+                <td></td>
+
+                <td style="text-align: right">
+                    <em><strong>Total: ¢{{ datos_economicos.dias_menos.total }}</strong></em></td>
+            </tr>
+        {% endif %}
+        </tbody>
+
+    </table>
+    {# incapacidades #}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Tipo Incapacidad</th>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th style="text-align: right">Monto</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set tipoIncapacidad={'incapacidad_ccss':'Incapacidades CCSS',
+        'incapacidad_ins':'Incapacidades INS'} %}
+        {% if datos_economicos.incapacidades|length >0 %}
+
+            {% for incapacidades in datos_economicos.incapacidades %}
+                {% for incapacidad in incapacidades %}
+                    <tr>
+                        <td>{{ tipoIncapacidad[incapacidad.incapacidad] }}</td>
+                        <td>{{ incapacidad.fecha }}</td>
+                        <td>{{ incapacidad.descripcion }}</td>
+                        <td style="text-align: right">¢{{ incapacidad.monto_total }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+            <tr>
+                <td colspan="4" style="text-align: right">
+                    <em><strong>Total: ¢{{ datos_economicos.incapacidades.total }}</strong></em></td>
+            </tr>
+        {% endif %}
+        </tbody>
+
+    </table>
+</div>

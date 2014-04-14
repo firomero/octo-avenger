@@ -29,6 +29,7 @@ class CDeudas
      * @Assert\Range(min = 1)
      */
     private $montoTotal;
+
     /**
      * @var float
      *
@@ -36,12 +37,14 @@ class CDeudas
      * @Assert\Range(min = 1)
      */
     private $montoReducir;
+
     /**
      * @var float
      *
      * @ORM\Column(name="numero_cuotas", type="decimal", scale=2, nullable=false)
      */
     private $numeroCuotas;
+
     /**
      * @var float
      *
@@ -49,24 +52,28 @@ class CDeudas
      * @Assert\Range(min = 1)
      */
     private $montoRestante;
-     /**
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
      */
     private $fechaInicio;
+
     /**
      * @var \Boolean
      *
      * @ORM\Column(name="pagado", type="boolean", nullable=false)
      */
     private $pagado;
+
     /**
      * @var string
      *
      * @ORM\Column(name="tipo_deuda", type="string", nullable=false)
      */
     private $tipoDeuda;
+
     /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
@@ -75,11 +82,11 @@ class CDeudas
     private $empleado;
 
     /**
-     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     * @var  \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", inversedBy="deudas")
      */
-    private $planilla;
+    private $planillaEmpleado;
 
     /**
      * Get id
@@ -284,6 +291,7 @@ class CDeudas
     {
         return $this->tipoDeuda;
     }
+
     public function getJson()
     {
         $obj= new \stdClass();
@@ -300,25 +308,18 @@ class CDeudas
     }
 
     /**
-     * Set planilla
-     *
-     * @param  \Planillas\CoreBundle\Entity\CPlanillas $planilla
-     * @return CDeudas
+     * @param \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
      */
-    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
+    public function setPlanillaEmpleado(CPlanillasEmpleado $planillaEmpleado)
     {
-        $this->planilla = $planilla;
-
-        return $this;
+        $this->planillaEmpleado = $planillaEmpleado;
     }
 
     /**
-     * Get planilla
-     *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas
+     * @return \Planillas\CoreBundle\Entity\CPlanillasEmpleado
      */
-    public function getPlanilla()
+    public function getPlanillaEmpleado()
     {
-        return $this->planilla;
+        return $this->planillaEmpleado;
     }
 }
