@@ -131,7 +131,7 @@ class ECuentaBancoController extends Controller
     }
 
     /**
-     * Displays a form to create a new ECursos entity.
+     * Displays a form to create a new ECuentaBanco entity.
      *
      */
     public function newAction($id_empleado)
@@ -147,27 +147,6 @@ class ECuentaBancoController extends Controller
                     'entity' => $eEmpleado,
                     'form' => $form->createView(),
                 ));
-    }
-
-    /**
-     * Finds and displays a ECursos entity.
-     *
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('PlanillasEntidadesBundle:ECursos')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ECursos entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('PlanillasEntidadesBundle:ECursos:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
