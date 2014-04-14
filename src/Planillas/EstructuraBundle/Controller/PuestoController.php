@@ -36,7 +36,8 @@ class PuestoController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $paginator = $this->get('knp_paginator');
-
+        $query = $em->createQuery();
+        $query->execute();
         $query = $em->getRepository('PlanillasEstructuraBundle:Puesto')->findAllNotDeleted();
         $entities = $paginator->paginate(
             $query,

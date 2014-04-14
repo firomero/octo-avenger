@@ -18,9 +18,11 @@ class PuestoType extends AbstractType
             ->add('nombre')
             ->add('salario')
             ->add('rol')
-            ->add('bonificacion', null, array(
-                'label'     => 'Bonificación',
-                'multiple'  => true,
+            ->add('bonificaciones', 'collection', array(
+                'label'     => 'Bonificaciones',
+                'data_class' => 'Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto',
+                'allow_add' => true,
+                'allow_delete' => true,
             ))
             ->add('turno')
             ->add('sucursal')

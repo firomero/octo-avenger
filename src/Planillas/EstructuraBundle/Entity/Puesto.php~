@@ -268,45 +268,11 @@ class Puesto implements EntityEstructuraInterface
     }
 
     /**
-     * Add bonificaciones
-     *
-     * @param \Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto $bonificaciones
-     * @return Puesto
-     */
-    public function addBonificacione(\Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto $bonificaciones)
-    {
-        $bonificaciones->setPuesto($this);
-
-        $this->bonificaciones[] = $bonificaciones;
-    
-        return $this;
-    }
-
-    /**
-     * Remove bonificaciones
-     *
-     * @param \Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto $bonificaciones
-     */
-    public function removeBonificacione(\Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto $bonificaciones)
-    {
-        $this->bonificaciones->removeElement($bonificaciones);
-    }
-
-    /**
-     * Get bonificaciones
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getBonificaciones()
-    {
-        return $this->bonificaciones;
-    }
-
-    /**
      * @return string
      */
     public function __toString()
     {
         return $this->nombre;
     }
+
 }
