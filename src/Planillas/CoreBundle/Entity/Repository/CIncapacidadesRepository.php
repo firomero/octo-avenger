@@ -10,6 +10,7 @@
 namespace Planillas\CoreBundle\Entity\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 
 class CIncapacidadesRepository extends EntityRepository
 {
@@ -77,4 +78,30 @@ class CIncapacidadesRepository extends EntityRepository
         }
     }
 
+    /**
+     * Obtiene las incapacidades anteriores a la fecha de inicio pasada por parámetros y pertenecientes al propio mes
+     *
+     * @param $id_empleado
+     * @param \DateTime $fecha_inicio
+     * @return array
+     */
+    public function findIncapacidadesAnterioresAPeriodo($id_empleado, \DateTime $fecha_inicio)
+    {
+        $query = $this->_em->createQueryBuilder()
+            ->select('i')
+            ->from('PlanillasCoreBundle:CIncapacidades', 'i')
+            ->where('i.empleado = :idempleado AND DATE_FORMAT(i.fecha,\'%m\') = :mesfecha AND i.fecha < :fechainicio')
+            ->setParameters(array(
+                'idempleado'    => $id_empleado,
+                'mesfecha'      => $fecha_inicio->format('m'),
+                'fechainicio'   => $fecha_inicio,
+            ))
+            ->getQuery();
+
+        try {
+            return $query->getResult();
+        } catch (NoResultException $e) {
+            return array();
+        }
+    }
 }

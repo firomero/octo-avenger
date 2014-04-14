@@ -15,5 +15,9 @@ services:
         arguments: [@doctrine.orm.entity_manager, @payments.planilla_empleado.manager, @logger]
 
     payments.planilla_empleado.manager:
-            class: Planillas\PaymentsBundle\Managers\PlanillaEmpleadoManager
-            arguments: [@logger]
+        class: Planillas\PaymentsBundle\Managers\PlanillaEmpleadoManager
+        arguments: [@logger]
+
+    payments.incapacidades.manager:
+        class: Planillas\PaymentsBundle\Managers\IncapacidadesManager
+        arguments: [@doctrine.orm.entity_manager, @logger]

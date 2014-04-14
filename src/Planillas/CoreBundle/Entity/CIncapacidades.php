@@ -41,7 +41,7 @@ class CIncapacidades
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_inicio", type="date", nullable=false)
+     * @ORM\Column(name="fecha_inicio", type="date", nullable=true)
      * @Assert\NotBlank()
      */
     private $fechaInicio;
@@ -49,15 +49,22 @@ class CIncapacidades
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_fin", type="date", nullable=false)
+     * @ORM\Column(name="fecha_fin", type="date", nullable=true)
      * @Assert\NotBlank()
      */
     private $fechaFin;
 
     /**
+     * @var  \DateTime $fecha
+     *
+     * @ORM\Column(name="fecha", type="date", nullable=false)
+     */
+    private $fecha;
+
+    /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="incapacidades")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank()
      */
@@ -219,12 +226,30 @@ class CIncapacidades
         return $this->planillaEmpleado;
     }
 
+    /**
+     * @param \DateTime $fecha
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+
+
     public function getJson()
     {
         $obj= new \stdClass();
         $obj->id=$this->id;
-        $obj->fechaInicio=$this->fechaInicio->format('Y-m-d');
-        $obj->fechaFin=$this->fechaFin->format('Y-m-d');
+        $obj->fechaInicio=$this->fecha->format('Y-m-d');
+        $obj->fechaFin=null;//$this->fechaFin->format('Y-m-d');
         $obj->tipoIncapacidad=$this->tipoIncapacidad;
         $obj->empleado=$this->empleado->getId();
         $obj->motivo=$this->motivo;

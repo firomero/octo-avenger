@@ -563,7 +563,7 @@ class CPlanillasManagers {
                     $aSalida['total'] += $sDeuda->getMontoTotal();
                     continue;
                 }
-                if ($sDeuda->getPlanilla() != null) {
+                if ($sDeuda->getPlanillaEmpleado() != null) {
                     continue;
                 }
                 if ($update === true) {
@@ -871,7 +871,7 @@ class CPlanillasManagers {
             $query = $this->em->createQuery($sql);
             $oHorasExtras = $query->getResult();*/
             $oHorasExtras = $this->salarioManager
-                ->findHorasExtrasByEmpleado($empleado, $this->fechaInicio, $this->fechaFin, $this->planilla, true, $planillaEmpleado);
+                ->findHorasExtrasByEmpleado($empleado, $this->fechaInicio, $this->fechaFin, null, true, $planillaEmpleado);
         }
         /*if (count($oHorasExtras) > 0) {
             foreach ($oHorasExtras as $oHoraExtra) {
@@ -1054,12 +1054,23 @@ class CPlanillasManagers {
 
             $oIncapacidades = $query->getResult();
         } else {
-            $sql = 'SELECT c  FROM PlanillasCoreBundle:CIncapacidades c INNER Join c.empleado e WHERE  e.id=' . $empleado->getId();
-            if ($this->fechaInicio !== null && $this->fechaFin !== null) {
-                $sql .= ' and c.fechaInicio >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
-                $sql .= ' and c.fechaFin <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
-            }
-            $query = $this->em->createQuery($sql);
+            $query = $this->em->createQueryBuilder()
+                ->select('i')
+                ->from('PlanillasCoreBundle:CIncapacidades', 'i')
+                ->innerJoin('i.empleado','e')
+                ->where('e.id = :idempleado AND i.fecha >= :fechainicio AND i.fecha <= :fechafin')
+                ->setParameters(array(
+                    'idempleado'    => $empleado->getId(),
+                    'fechainicio'   => $this->fechaInicio,
+                    'fechafin'      => $this->fechaFin,
+                ))
+                ->getQuery();
+            //$sql = 'SELECT c  FROM PlanillasCoreBundle:CIncapacidades c INNER Join c.empleado e WHERE  e.id=' . $empleado->getId();
+            //if ($this->fechaInicio !== null && $this->fechaFin !== null) {
+            //    $sql .= ' and c.fechaInicio >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
+            //    $sql .= ' and c.fechaFin <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
+            //}
+            //$query = $this->em->createQuery($sql);
             $oIncapacidades = $query->getResult();
         }
         $iIndicador = 0;
@@ -1068,102 +1079,116 @@ class CPlanillasManagers {
          */
         //$iPagados = 0;
         $iCount = $this->getTotalIncapacidadesAnteriores($empleado->getId());
-        $iPagados = ($iCount>=3)?3:$iCount;
+        $iPagados = ($iCount >= 3) ? 3 : $iCount;
         if (count($oIncapacidades) > 0) {
-            $dImporteT = $this->getSalarioDiarioByEmpleado($empleado->getId()); //arriba para no estar haciendo una consulta
+            $salarioDiario = $this->getSalarioDiarioByEmpleado($empleado->getId()); //arriba para no estar haciendo una consulta
             //en cada ciclo
             foreach ($oIncapacidades as $oIncapacidad) {
-                $dImporte = 0;
-                if ($oIncapacidad->getPlanilla() != null) {
-                    continue;
-                }
+                $dImporteT = 0;
+                /** @var  \Planillas\CoreBundle\Entity\CIncapacidades $oIncapacidad */
+
+                //if ($oIncapacidad->getPlanillaEmpleado() != null) {
+                //    continue;
+                //}
                 if ($update === true && $bIndicador === false) {
                     $planillaEmpleado->addIncapacidad($oIncapacidad);
                     //$oIncapacidad->setPlanilla($this->planilla);
                     //$this->em->persist($oIncapacidad);
                     //$this->em->flush();
                 } else {
-                    if ($oIncapacidad->getTipoIncapacidad() == 1) { //Inicapacidades INS
-                        $fechaInicio = $oIncapacidad->getFechaInicio();
-                        $fechaFin = $oIncapacidad->getFechaFin();
-                        $diff = date_diff($fechaFin, $fechaInicio);
-                        if ($diff->days > 0) {
-                            $dImporte +=$dImporteT * $diff->days;
-                        }
+                    if ($oIncapacidad->getTipoIncapacidad() === 'incapacidad_ins') { //Inicapacidades INS
+                        //$fechaInicio = $oIncapacidad->getFechaInicio();
+                        //$fechaFin = $oIncapacidad->getFechaFin();
+                        //$diff = date_diff($fechaFin, $fechaInicio);
+                        //if ($diff->days > 0) {
+                        //    $dImporteT += $salarioDiario * $diff->days;
+                        //}
+                        $dImporteT = $salarioDiario;
                         $aSalida['incapacidades'][] = array(
                             'id' => $oIncapacidad->getId(),
                             'incapacidad' => $oIncapacidad->getTipoIncapacidad(),
                             'descripcion' => $oIncapacidad->getMotivo(),
-                            'fecha' => $oIncapacidad->getFechaInicio()->format('Y-m-d') . '/' . $oIncapacidad->getFechaFin()->format('Y-m-d'),
-                            'monto_total' => number_format($dImporte, 2, '.', ''));
+                            'fecha' => $oIncapacidad->getFecha()->format('Y-m-d'),
+                            'monto_total' => number_format($dImporteT, 2, '.', ''));
 
-                        $aSalida['total'] += number_format($dImporte, 2, '.', '');
+                        $aSalida['total'] += number_format($dImporteT, 2, '.', '');
                     } else { //incapacidades CCSS
-                        $month = $this->getFechaInicio()->format('m');
-                        $monthTemp = $oIncapacidad->getFechaInicio()->format('m');
+                        //$month = $this->getFechaInicio()->format('m');
+                        //$monthTemp = $oIncapacidad->getFechaInicio()->format('m');
                         //if ($month == $monthTemp) { //estamos en el mismo mes
-                            //le rebajamos el dia
-                            $fechaInicio = $oIncapacidad->getFechaInicio();
-                            $fechaFin = $oIncapacidad->getFechaFin();
-                            $diff = date_diff($fechaFin, $fechaInicio);
-                            if ($diff->days < 0) {
-                                continue;
-                            }
-                            $iCount += ($diff->days == 0) ? 1 : $diff->days;
-                            $iCountInc = ($diff->days == 0) ? 1 : $diff->days;
 
-                            /**
-                             * Siempre que la cantidad de dias total del periodo analizado sea menor que 2
-                             * debemos descontar medio dia
-                             */
-                            if ($iCount <= 3) {//caso en que vamos a descontar medio dia
-                                if ($iCountInc == 1) {
-                                    $iPagados +=1;
-                                    $dImporte = ($dImporteT / 2) * 1;
-                                } else if ($iCountInc == 2) {
-                                    $iPagados += 2;
-                                    $dImporte = ($dImporteT / 2) * 2;
-                                } else {
-                                    $iPagados += 3;
-                                    $dImporte = ($dImporteT / 2) * 3;
-                                }
+                        //le rebajamos el dia
+                        //$fechaInicio = $oIncapacidad->getFechaInicio();
+                        //$fechaFin = $oIncapacidad->getFechaFin();
+                        //$diff = date_diff($fechaFin, $fechaInicio);
+                        //if ($diff->days < 0) {
+                        //    continue;
+                        //}
+                        //$iCount += ($diff->days == 0) ? 1 : $diff->days;
+                        //$iCountInc = ($diff->days == 0) ? 1 : $diff->days;
 
+                        /**
+                         * Siempre que la cantidad de dias total del periodo analizado sea menor que 2
+                         * debemos descontar medio dia
+                         */
 
-                                $aSalida['incapacidades'][] = array(
-                                    'id' => $oIncapacidad->getId(),
-                                    'incapacidad' => $oIncapacidad->getTipoIncapacidad(),
-                                    'descripcion' => $oIncapacidad->getMotivo(),
-                                    'fecha' => $oIncapacidad->getFechaInicio()->format('Y-m-d') . '/' . $oIncapacidad->getFechaFin()->format('Y-m-d'),
-                                    'monto_total' => number_format($dImporte, 2, '.', ''));
+                        if($iPagados == 3){
+                            $dImporteT = $salarioDiario;
+                        } else {
+                            $dImporteT = $salarioDiario / 2;
+                            $iPagados++;
+                        }
 
-                                $aSalida['total'] += number_format($dImporte, 2, '.', '');
+                        $aSalida['incapacidades'][] = array(
+                            'id' => $oIncapacidad->getId(),
+                            'incapacidad' => $oIncapacidad->getTipoIncapacidad(),
+                            'descripcion' => $oIncapacidad->getMotivo(),
+                            'fecha' => $oIncapacidad->getFecha()->format('d/m/Y'),
+                            'monto_total' => number_format($dImporteT, 2, '.', ''));
+
+                        $aSalida['total'] += number_format($dImporteT, 2, '.', '');
+
+                        /*if ($iCount <= 3) {//caso en que vamos a descontar medio dia
+                            if ($iCountInc == 1) {
+                                $iPagados +=1;
+                                $dImporteT = ($salarioDiario / 2) * 1;
+                            } else if ($iCountInc == 2) {
+                                $iPagados += 2;
+                                $dImporteT = ($salarioDiario / 2) * 2;
                             } else {
-                                if ($iPagados < 3) {//caso en que no se han pagado todos los medios dias
-                                    if ($iPagados == 0) {
-                                        $resto = 3; //$iCountInc - 3;
-                                        $iPagados+=3;
-                                    } else if ($iPagados == 1) {
-                                        $resto = 2; //$iCountInc - 2;
-                                        $iPagados+=2;
-                                    } else {
-                                        $resto = 1; //$iCountInc - 1;
-                                        $iPagados+=1;
-                                    }
-                                    $dImporte += ($dImporteT / 2) * $resto;
-                                    $dImporte +=$dImporteT * ($iCountInc - $resto);
-                                } else {
-                                    $dImporte = $dImporteT * $iCountInc;
-                                }
-
-                                $aSalida['incapacidades'][] = array(
-                                    'id' => $oIncapacidad->getId(),
-                                    'incapacidad' => $oIncapacidad->getTipoIncapacidad(),
-                                    'descripcion' => $oIncapacidad->getMotivo(),
-                                    'fecha' => $oIncapacidad->getFechaInicio()->format('Y-m-d') . '/' . $oIncapacidad->getFechaFin()->format('Y-m-d'),
-                                    'monto_total' => number_format($dImporte, 2, '.', ''));
-
-                                $aSalida['total'] += number_format($dImporte, 2, '.', '');
+                                $iPagados += 3;
+                                $dImporteT = ($salarioDiario / 2) * 3;
                             }
+
+
+
+                        } else {
+                            if ($iPagados < 3) {//caso en que no se han pagado todos los medios dias
+                                if ($iPagados == 0) {
+                                    $resto = 3; //$iCountInc - 3;
+                                    $iPagados+=3;
+                                } else if ($iPagados == 1) {
+                                    $resto = 2; //$iCountInc - 2;
+                                    $iPagados+=2;
+                                } else {
+                                    $resto = 1; //$iCountInc - 1;
+                                    $iPagados+=1;
+                                }
+                                $dImporteT += ($salarioDiario / 2) * $resto;
+                                $dImporteT +=$salarioDiario * ($iCountInc - $resto);
+                            } else {
+                                $dImporteT = $salarioDiario * $iCountInc;
+                            }
+
+                            $aSalida['incapacidades'][] = array(
+                                'id' => $oIncapacidad->getId(),
+                                'incapacidad' => $oIncapacidad->getTipoIncapacidad(),
+                                'descripcion' => $oIncapacidad->getMotivo(),
+                                'fecha' => $oIncapacidad->getFechaInicio()->format('Y-m-d') . '/' . $oIncapacidad->getFechaFin()->format('Y-m-d'),
+                                'monto_total' => number_format($dImporteT, 2, '.', ''));
+
+                            $aSalida['total'] += number_format($dImporteT, 2, '.', '');
+                        }*/
                        // }
                     }
                 }
@@ -1189,6 +1214,8 @@ class CPlanillasManagers {
      * funcion que obtiene el salario bruto de un empleado
      * @param type $idEmpleado
      * @return int
+     *
+     * @deprecated
      */
     public function getSalarioBaseByEmpleado($idEmpleado) {
 
@@ -1207,6 +1234,8 @@ class CPlanillasManagers {
      * @param type $idEmpleado
      * @return type
      * @throws Exception
+     *
+     * @deprecated
      */
     public function getSalarioPeriodoByEmpleado($idEmpleado) {
         //ojo que el horario no esta entrando en juego, ya veremos mas adelante
@@ -1219,23 +1248,35 @@ class CPlanillasManagers {
         return round(($dSalariobase / 30) * $oPeriodo->getCantdias(), 2);
     }
 
+    /**
+     * @param $idEmpleado
+     * @return float
+     * @throws Exception
+     *
+     * @deprecated Use SalarioManager->getSalarioPorDia insteed
+     */
     public function getSalarioDiarioByEmpleado($idEmpleado) {
-        $dSalariobase = $this->getSalarioBaseByEmpleado($idEmpleado);
-        $oPeriodo = $this->getPeriodoPagoActivo();
-        if ($oPeriodo === false) {
-            throw new Exception("No existe período de pago activo");
-        }
-        return round(($dSalariobase / 30), 2);
+        //$dSalariobase = $this->getSalarioBaseByEmpleado($idEmpleado);
+        //$oPeriodo = $this->getPeriodoPagoActivo();
+        //if ($oPeriodo === false) {
+        //    throw new Exception("No existe período de pago activo");
+        //}
+        //return round(($dSalariobase / 30), 2);
+        return $this->salarioManager->getSalarioPorDia($this->salarioManager->getSalarioEmpleado($idEmpleado));
     }
 
     /**
      * funcion que calcula el salario de una empleado por horas
      * @param type $idEmpleado
      * @return type
+     *
+     * @deprecated Use SalarioManager->getSalarioPorHora insteed
      */
-    public function getSalarioPorHorasByEmpleado($idEmpleado) {
-        $dSalarioDiario = $this->getSalarioDiarioByEmpleado($idEmpleado);
-        return $dSalarioDiario / cantHorasDiarias;
+    public function getSalarioPorHorasByEmpleado($idEmpleado)
+    {
+        //$dSalarioDiario = $this->getSalarioDiarioByEmpleado($idEmpleado);
+        //return $dSalarioDiario / cantHorasDiarias;
+        return $this->salarioManager->getSalarioPorHora($this->salarioManager->getSalarioEmpleado($idEmpleado));
     }
 
     /**
@@ -1332,18 +1373,19 @@ class CPlanillasManagers {
      * @return type
      */
     public function getTotalIncapacidadesAnteriores($idEmpleado) {
-        $sql = 'SELECT c  FROM PlanillasCoreBundle:CIncapacidades c where c.empleado=' . $idEmpleado;
-        $sql .= ' and c.fechaFin < \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
-        $query = $this->em->createQuery($sql);
-        $oIncapacidades = $query->getResult();
-        $dTotal = 0;
+        //$sql = 'SELECT c  FROM PlanillasCoreBundle:CIncapacidades c where c.empleado=' . $idEmpleado;
+        //$sql .= ' and c.fechaFin < \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
+        //$query = $this->em->createQuery($sql);
+        $oIncapacidades = $this->em->getRepository('PlanillasCoreBundle:CIncapacidades')
+            ->findIncapacidadesAnterioresAPeriodo($idEmpleado, $this->fechaInicio);
+        /**$dTotal = 0;
         if (count($oIncapacidades) > 0) {
             foreach ($oIncapacidades as $incapacidad) {
                 $diff = date_diff($incapacidad->getfechaFin(), $incapacidad->getfechaInicio());
                 $dTotal+=($diff->days == 0) ? 1 : $diff->days;
             }
-        }
-        return $dTotal;
+        }**/
+        return count($oIncapacidades);
     }
 
 

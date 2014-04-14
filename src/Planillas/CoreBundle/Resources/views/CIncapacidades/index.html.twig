@@ -6,82 +6,7 @@
 {% block headline %}
     {{ headline }}
 {% endblock headline %}
-{% block foot_script %}
-    {{ parent() }}
-    <!--<script src="{# asset('bundles/planillascore/js/jquery.ui.1.8.16.js') #}"></script>-->
-    <script>
-        $(function () {
 
-
-            $('#planillas_corebundle_buscar_incapacidades_fechaInicio').datepicker
-            ({
-                format: "yyyy-mm-dd"
-            });
-            $('#planillas_corebundle_buscar_incapacidades_fechaFin').datepicker
-            ({
-                format: "yyyy-mm-dd"
-            });
-            $('#planillas_corebundle_cincapacidades_fechaInicio').datepicker
-            ({
-                format: "yyyy-mm-dd"
-            });
-            $('#planillas_corebundle_cincapacidades_fechaFin').datepicker
-            ({
-                format: "yyyy-mm-dd"
-            });
-
-            $('#add_new').click(function () {
-                //$.resetForm()
-                //$('#horasextrasForm').resetForm();
-                $('#planillas_corebundle_cincapacidades_empleado').val(0);
-                $('#planillas_corebundle_cincapacidades_tipoIncapacidad').val(0);
-                $('#planillas_corebundle_cincapacidades_fechaInicio').val("");
-                $('#planillas_corebundle_cincapacidades_fechaFin').val("");
-                $('#planillas_corebundle_cincapacidades_motivo').val("");
-                $('#planillas_corebundle_cincapacidades_id').val("");
-                $('#btn_actualizar').html('Crear');
-                $('#myTab a:first').tab('show');
-
-            })
-
-
-        })
-
-        function buscar(id) {
-            $('#progreso').css('display', 'block');
-        
-            $.ajax({
-                url: '{{ path('ceditajaxincapacidades') }}',
-                data: {id: id},
-                dataType: 'json',
-                success: function (data) {
-                    $('#progreso').css('display', 'none');
-                    if (data.success) {
-                        $('#planillas_corebundle_cincapacidades_empleado').val(data.data.empleado);
-                        $('#planillas_corebundle_cincapacidades_tipoIncapacidad').val(data.data.tipoIncapacidad);
-                        $('#planillas_corebundle_cincapacidades_fechaInicio').val(data.data.fechaInicio);
-                        $('#planillas_corebundle_cincapacidades_fechaFin').val(data.data.fechaFin);
-                        $('#planillas_corebundle_cincapacidades_motivo').val(data.data.motivo);
-                        $('#planillas_corebundle_cincapacidades_id').val(data.data.id);
-                        $('#btn_actualizar').html('Actualizar');
-                        $('#myTab a:first').tab('show')
-                    }
-                    else {
-                       $('#progreso').css('display', 'none');
-                        alert(data.mensaje)
-
-                    }
-
-                },
-                failure: function () {
-                    alert("Ocurrió un error al obtener los datos");
-                }
-
-            })
-        }
-
-    </script>
-{% endblock %}
 {% block content_content %}
 
     {% block content %}
@@ -235,22 +160,21 @@
                             <tr>
                                 <th>Empleado</th>
                                 <th>Incapacidad</th>
-                                <th>Desde</th>
-                                <th>Hasta</th>
+                                <th>Fecha</th>
                                 <th>Motivo</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
                             <tbody>
-                                {% set tipoIncapacidad=['Incapacidades CCSS','Incapacidades INS'] %}
+                                {% set tipoIncapacidad={'incapacidad_ccss':'Incapacidades CCSS',
+                                'incapacidad_ins':'Incapacidades INS'} %}
                             {% for entity in pagination %}
                                 <tr>
                                     <td>{{ entity.empleado.nombre }} {{ entity.empleado.primerApellido }}</td>
                                     <td>
                                             {{ tipoIncapacidad[entity.tipoIncapacidad] }}
                                        </td>
-                                    <td>{% if entity.fechaInicio %}{{ entity.fechaInicio|date('Y-m-d') }}{% endif %}</td>
-                                    <td>{% if entity.fechaFin %}{{ entity.fechaFin|date('Y-m-d') }}{% endif %}</td>
+                                    <td>{% if entity.fecha %}{{ entity.fecha|date('d/m/Y') }}{% endif %}</td>
                                     <td>{{ entity.motivo }}</td>
                                     <td>
 
@@ -291,3 +215,79 @@
 
 {% endblock %}
 
+{% block foot_script %}
+    {{ parent() }}
+    <!--<script src="{# asset('bundles/planillascore/js/jquery.ui.1.8.16.js') #}"></script>-->
+    <script>
+        $(function () {
+
+
+            $('#planillas_corebundle_buscar_incapacidades_fechaInicio').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+            $('#planillas_corebundle_buscar_incapacidades_fechaFin').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+            $('#planillas_corebundle_cincapacidades_fechaInicio').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+            $('#planillas_corebundle_cincapacidades_fechaFin').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+
+            $('#add_new').click(function () {
+                //$.resetForm()
+                //$('#horasextrasForm').resetForm();
+                $('#planillas_corebundle_cincapacidades_empleado').val(0);
+                $('#planillas_corebundle_cincapacidades_tipoIncapacidad').val(0);
+                $('#planillas_corebundle_cincapacidades_fechaInicio').val("");
+                $('#planillas_corebundle_cincapacidades_fechaFin').val("");
+                $('#planillas_corebundle_cincapacidades_motivo').val("");
+                $('#planillas_corebundle_cincapacidades_id').val("");
+                $('#btn_actualizar').html('Crear');
+                $('#myTab a:first').tab('show');
+
+            })
+
+
+        })
+
+        function buscar(id) {
+            $('#progreso').css('display', 'block');
+
+            $.ajax({
+                url: '{{ path('ceditajaxincapacidades') }}',
+                data: {id: id},
+                dataType: 'json',
+                success: function (data) {
+                    $('#progreso').css('display', 'none');
+                    if (data.success) {
+                        $('#planillas_corebundle_cincapacidades_empleado').val(data.data.empleado);
+                        $('#planillas_corebundle_cincapacidades_tipoIncapacidad').val(data.data.tipoIncapacidad);
+                        $('#planillas_corebundle_cincapacidades_fechaInicio').val(data.data.fechaInicio);
+                        $('#planillas_corebundle_cincapacidades_fechaFin').val(data.data.fechaFin);
+                        $('#planillas_corebundle_cincapacidades_motivo').val(data.data.motivo);
+                        $('#planillas_corebundle_cincapacidades_id').val(data.data.id);
+                        $('#btn_actualizar').html('Actualizar');
+                        $('#myTab a:first').tab('show')
+                    }
+                    else {
+                        $('#progreso').css('display', 'none');
+                        alert(data.mensaje)
+
+                    }
+
+                },
+                failure: function () {
+                    alert("Ocurrió un error al obtener los datos");
+                }
+
+            })
+        }
+
+    </script>
+{% endblock %}

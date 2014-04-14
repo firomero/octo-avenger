@@ -127,11 +127,9 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-
-            <th>Horas extras</th>
-
+            <th>Fecha</th>
+            <th>Cantidad Horas</th>
             <th style="text-align: right">Monto</th>
-
         </tr>
         </thead>
         <tbody>
@@ -140,9 +138,8 @@
             {% for horas_extras in datos_economicos.horas_extras %}
                 {% for hora in horas_extras %}
                     <tr>
-                        <td>
-                            {{ hora.fecha }}
-                        </td>
+                        <td>{{ hora.fecha }}</td>
+                        <td>{{ hora.cantidad }}</td>
                         <td style="text-align: right">
                             ¢{{ hora.monto_total }}
                         </td>
@@ -150,9 +147,7 @@
                 {% endfor %}
             {% endfor %}
             <tr>
-                <td></td>
-
-                <td style="text-align: right">
+                <td colspan="3" style="text-align: right">
                     <em><strong>Total: ¢{{ datos_economicos.horas_extras.total }}</strong></em></td>
             </tr>
         {% endif %}
@@ -199,37 +194,29 @@
     <table class="table table-bordered">
         <thead>
         <tr>
-
-            <th>Incapacidades</th>
+            <th>Tipo Incapacidad</th>
+            <th>Fecha</th>
             <th>Descripción</th>
             <th style="text-align: right">Monto</th>
-
-
         </tr>
         </thead>
         <tbody>
-        {% set incapacidadesArray=['Incapacidades CCSS','Incapacidades INS']%}
+        {% set tipoIncapacidad={'incapacidad_ccss':'Incapacidades CCSS',
+        'incapacidad_ins':'Incapacidades INS'} %}
         {% if datos_economicos.incapacidades|length >0 %}
 
             {% for incapacidades in datos_economicos.incapacidades %}
                 {% for incapacidad in incapacidades %}
                     <tr>
-                        <td>
-                            {{ incapacidad.fecha }}
-                        </td>
-                        <td>
-                            {{ incapacidadesArray[incapacidad.incapacidad] }}
-                        </td>
-                        <td style="text-align: right">
-                            ¢{{ incapacidad.monto_total }}
-                        </td>
+                        <td>{{ tipoIncapacidad[incapacidad.incapacidad] }}</td>
+                        <td>{{ incapacidad.fecha }}</td>
+                        <td>{{ incapacidad.descripcion }}</td>
+                        <td style="text-align: right">¢{{ incapacidad.monto_total }}</td>
                     </tr>
                 {% endfor %}
             {% endfor %}
             <tr>
-                <td></td>
-                <td></td>
-                <td style="text-align: right">
+                <td colspan="4" style="text-align: right">
                     <em><strong>Total: ¢{{ datos_economicos.incapacidades.total }}</strong></em></td>
             </tr>
         {% endif %}

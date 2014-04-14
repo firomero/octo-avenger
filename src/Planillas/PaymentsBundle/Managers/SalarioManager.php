@@ -152,6 +152,7 @@ class SalarioManager
                     $aSalida['dias_extras'][] = array(
                         'id' => $oHoraExtra->getId(),
                         'fecha' => $oHoraExtra->getFechaHorasExtras()->format('Y-m-d'),
+                        'cantidad' => $oHoraExtra->getCantidadHoras(),
                         'monto_total' => $this->horasExtrasManager
                                 ->getSalarioHorasExtras($salarioHora, $oHoraExtra->getCantidadHoras()),
                     );
