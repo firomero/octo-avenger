@@ -41,7 +41,7 @@ class Puesto implements EntityEstructuraInterface
     private $salario;
 
     /**
-     * @var \Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto
+     * @var \Doctrine\Common\Collections\ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto", mappedBy="puesto", cascade={"persist","remove"})
      * @Assert\Valid()
@@ -81,13 +81,12 @@ class Puesto implements EntityEstructuraInterface
     private $empresa;
 
     /**
-     * Constructor
+     * @var  \Doctrine\Common\Collections\ArrayCollection $roles
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\EstructuraBundle\Entity\RolesPuesto", mappedBy="puesto", cascade={"persist","remove"})
      */
-    public function __construct()
-    {
-        $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
+    private $roles;
+
     /**
      * Get id
      *
@@ -242,5 +241,73 @@ class Puesto implements EntityEstructuraInterface
     public function __toString()
     {
         return $this->nombre;
+    }
+
+    /**
+     * Add bonificaciones
+     *
+     * @param \Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto $bonificaciones
+     * @return Puesto
+     */
+    public function addBonificacione(\Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto $bonificaciones)
+    {
+        $bonificaciones->setPuesto($this);
+
+        $this->bonificaciones->add($bonificaciones);
+    
+        return $this;
+    }
+
+    /**
+     * Remove bonificaciones
+     *
+     * @param \Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto $bonificaciones
+     */
+    public function removeBonificacione(\Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto $bonificaciones)
+    {
+        $this->bonificaciones->removeElement($bonificaciones);
+    }
+
+    /**
+     * Get bonificaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBonificaciones()
+    {
+        return $this->bonificaciones;
+    }
+
+    /**
+     * Add roles
+     *
+     * @param \Planillas\EstructuraBundle\Entity\RolesPuesto $roles
+     * @return Puesto
+     */
+    public function addRole(\Planillas\EstructuraBundle\Entity\RolesPuesto $roles)
+    {
+        $this->roles[] = $roles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Planillas\EstructuraBundle\Entity\RolesPuesto $roles
+     */
+    public function removeRole(\Planillas\EstructuraBundle\Entity\RolesPuesto $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Get roles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }

@@ -1,0 +1,10 @@
+{% include '@PlanillasEstructura/RolesPuesto/form.html.twig' %}
+
+<div class="panel panel-default" data-content="rolespuesto">
+    <div class="panel-heading">
+        <h3 class="panel-title">Listado de Roles por Puesto</h3>
+    </div>
+    <div class="panel-body" id="rolespuesto-body">
+        {% render path('estructura_rolespuesto_list') %}
+    </div>
+</div>

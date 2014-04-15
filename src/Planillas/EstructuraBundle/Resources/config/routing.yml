@@ -21,3 +21,7 @@ planillas_estructura_turno:
 planillas_estructura_puesto:
     resource: '@PlanillasEstructuraBundle/Resources/config/routing/puesto.yml'
     prefix: /puesto
+
+planillas_estructura_rolespuesto:
+    resource: '@PlanillasEstructuraBundle/Resources/config/routing/rolespuesto.yml'
+    prefix: /rolespuesto

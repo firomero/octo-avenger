@@ -81,13 +81,21 @@ class Puesto implements EntityEstructuraInterface
     private $empresa;
 
     /**
+     * @var  \Doctrine\Common\Collections\ArrayCollection $roles
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\EstructuraBundle\Entity\RolesPuesto", mappedBy="puesto", cascade={"persist","remove"})
+     */
+    private $roles;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
@@ -277,5 +285,40 @@ class Puesto implements EntityEstructuraInterface
     public function getBonificaciones()
     {
         return $this->bonificaciones;
+    }
+
+    /**
+     * Add roles
+     *
+     * @param \Planillas\EstructuraBundle\Entity\RolesPuesto $roles
+     * @return Puesto
+     */
+    public function addRole(\Planillas\EstructuraBundle\Entity\RolesPuesto $roles)
+    {
+        $roles->setPuesto($this);
+
+        $this->roles[] = $roles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Planillas\EstructuraBundle\Entity\RolesPuesto $roles
+     */
+    public function removeRole(\Planillas\EstructuraBundle\Entity\RolesPuesto $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Get roles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }

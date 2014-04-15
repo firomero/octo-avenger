@@ -1,0 +1,5 @@
+{% for rol in roles %}
+    <option value="{{ rol.id }}" {{ (loop.index == 1) ? 'selected=""' }}>{{ rol.nombre }}</option>
+{% else %}
+    <option value="">No existen roles</option>
+{% endfor %}

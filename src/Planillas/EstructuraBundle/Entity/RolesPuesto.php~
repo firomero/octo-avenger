@@ -1,0 +1,38 @@
+<?php
+
+namespace Planillas\EstructuraBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * RolesPuesto
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Planillas\EstructuraBundle\Entity\Repository\RolesPuestoRepository")
+ */
+class RolesPuesto
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var  \Planillas\EstructuraBundle\Entity\Puesto $puesto
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\EstructuraBundle\Entity\Puesto", inversedBy="roles")
+     */
+    private $puesto;
+
+    /**
+     * @var  \Planillas\CoreBundle\Entity\CHorario $rol
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CHorario")
+     */
+    private $rol;
+
+}

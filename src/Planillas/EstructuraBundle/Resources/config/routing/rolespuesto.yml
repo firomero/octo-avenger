@@ -1,0 +1,22 @@
+estructura_rolespuesto_index:
+  path: /
+  defaults: { _controller: "PlanillasEstructuraBundle:RolesPuesto:index" }
+
+estructura_rolespuesto_list:
+  path: /list
+  defaults: { _controller: "PlanillasEstructuraBundle:RolesPuesto:list" }
+  options:
+    expose: true
+
+estructura_rolespuesto_create:
+  path: /create
+  defaults: { _controller: "PlanillasEstructuraBundle:RolesPuesto:create" }
+  requirements: { _method: post }
+  options:
+    expose: true
+
+estructura_rolespuesto:
+  path: /{id}/rolespuesto
+  defaults: { _controller: "PlanillasEstructuraBundle:RolesPuesto:rolesCombo" }
+  options:
+    expose: true
