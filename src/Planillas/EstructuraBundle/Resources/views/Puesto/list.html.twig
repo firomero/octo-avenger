@@ -7,8 +7,7 @@
         <th>Sucursal</th>
         <th>Turno</th>
         <th>Salario</th>
-        <th>Rol</th>
-        <th>Bonificación</th>
+        <th>Bonificaciones</th>
         <th>Acciones</th>
     </tr>
     </thead>
@@ -21,11 +20,10 @@
             <td>{{ e.sucursal }}</td>
             <td>{{ e.turno }}</td>
             <td>{{ e.salario }}</td>
-            <td>{{ e.rol }}</td>
             <td>
                 <ul>
-                {% for b in e.bonificacion %}
-                    <li>{{ b }}</li>
+                {% for b in e.bonificaciones %}
+                    <li>{{ b.bonificacion ~ ' Monto: ' ~ b.monto }}</li>
                 {% endfor %}
                 </ul>
             </td>

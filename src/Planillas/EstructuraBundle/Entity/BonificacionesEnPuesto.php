@@ -3,6 +3,7 @@
 namespace Planillas\EstructuraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * BonificacionesEnPuesto
@@ -32,6 +33,7 @@ class BonificacionesEnPuesto
      * @var  \Planillas\NomencladorBundle\Entity\NBonificacionPuesto $bonificacion
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NBonificacionPuesto")
+     * @Assert\NotBlank()
      */
     private $bonificacion;
 
@@ -39,6 +41,7 @@ class BonificacionesEnPuesto
      * @var float
      *
      * @ORM\Column(name="monto", type="float")
+     * @Assert\NotBlank()
      */
     private $monto;
 

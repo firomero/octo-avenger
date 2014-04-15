@@ -33,14 +33,6 @@ class Puesto implements EntityEstructuraInterface
     private $nombre;
 
     /**
-     * @var \Planillas\CoreBundle\Entity\CHorario
-     *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CHorario")
-     * @Assert\NotBlank()
-     */
-    private $rol;
-
-    /**
      * @var float
      *
      * @ORM\Column(name="salario", type="float")
@@ -49,10 +41,10 @@ class Puesto implements EntityEstructuraInterface
     private $salario;
 
     /**
-     * @var \Planillas\NomencladorBundle\Entity\NBonificacionPuesto
+     * @var \Doctrine\Common\Collections\ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto", mappedBy="puesto")
-     * @Assert\NotBlank()
+     * @ORM\OneToMany(targetEntity="Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto", mappedBy="puesto", cascade={"persist","remove"})
+     * @Assert\Valid()
      */
     private $bonificaciones;
 
@@ -245,26 +237,11 @@ class Puesto implements EntityEstructuraInterface
     }
 
     /**
-     * Set rol
-     *
-     * @param  \Planillas\CoreBundle\Entity\CHorario $rol
-     * @return Puesto
+     * @return string
      */
-    public function setRol(\Planillas\CoreBundle\Entity\CHorario $rol = null)
+    public function __toString()
     {
-        $this->rol = $rol;
-
-        return $this;
-    }
-
-    /**
-     * Get rol
-     *
-     * @return \Planillas\CoreBundle\Entity\CHorario
-     */
-    public function getRol()
-    {
-        return $this->rol;
+        return $this->nombre;
     }
 
     /**
@@ -277,7 +254,7 @@ class Puesto implements EntityEstructuraInterface
     {
         $bonificaciones->setPuesto($this);
 
-        $this->bonificaciones[] = $bonificaciones;
+        $this->bonificaciones->add($bonificaciones);
     
         return $this;
     }
@@ -300,13 +277,5 @@ class Puesto implements EntityEstructuraInterface
     public function getBonificaciones()
     {
         return $this->bonificaciones;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->nombre;
     }
 }

@@ -97,8 +97,13 @@ sonata_admin:
 mopa_bootstrap:
     menu: ~
     form:
-      render_required_asterisk: true
-      render_optional_text:  false
+        render_required_asterisk: true
+        render_optional_text:  false
+        collection:
+            widget_remove_btn:
+                icon: trash
+            widget_add_btn:
+                icon: plus-sign
 
 #KnpPaginator
 knp_paginator:

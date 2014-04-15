@@ -29,7 +29,7 @@ class SalarioBasePuestoType extends AbstractType
                 ),
                 'attr' => array(
                     'class' => 'col-lg-1',
-                    'placeholder' => 'col-lg-1',
+                    'placeholder' => 'Salario base',
                 )
             ))
             ->add('seguro','checkbox',array(

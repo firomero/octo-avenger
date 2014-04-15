@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ClienteType extends AbstractType
+class BonificacionesPuestoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,8 +15,18 @@ class ClienteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('empresa')
-            ->add('nombre')
+            ->add('bonificacion',null, array(
+                'required' => true,
+                'horizontal_label_class' => 'col-lg-2',
+                'horizontal_input_wrapper_class' => 'col-lg-3',
+                'widget_form_group' => false,
+            ))
+            ->add('monto', null, array(
+                'required' => true,
+                'horizontal_label_class' => 'col-lg-2',
+                'horizontal_input_wrapper_class' => 'col-lg-2',
+                'widget_form_group' => false,
+            ))
         ;
     }
 
@@ -26,7 +36,7 @@ class ClienteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Planillas\EstructuraBundle\Entity\Cliente',
+            'data_class' => 'Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto',
             'csrf_protection' => false,
         ));
     }
@@ -36,6 +46,6 @@ class ClienteType extends AbstractType
      */
     public function getName()
     {
-        return 'planillas_estructurabundle_cliente';
+        return 'bonificaciones_puesto_type';
     }
-}
+} 

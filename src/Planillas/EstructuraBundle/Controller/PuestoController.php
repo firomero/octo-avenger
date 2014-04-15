@@ -36,8 +36,7 @@ class PuestoController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $paginator = $this->get('knp_paginator');
-        $query = $em->createQuery();
-        $query->execute();
+
         $query = $em->getRepository('PlanillasEstructuraBundle:Puesto')->findAllNotDeleted();
         $entities = $paginator->paginate(
             $query,
@@ -63,11 +62,12 @@ class PuestoController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->get('doctrine.orm.entity_manager');
+
             try {
                 $em->persist($entity);
                 $em->flush();
 
-                return new Response("Se ha creado una nueva Sucursal.", 200);
+                return new Response("Se ha creado un nuevo Puesto.", 200);
             } catch (\Exception $e) {
                 $logger = $this->get('logger');
                 $logger->addCritical($e->getMessage());

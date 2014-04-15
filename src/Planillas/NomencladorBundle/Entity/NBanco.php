@@ -36,11 +36,6 @@ class NBanco
     private $tamannoNumeroCuenta;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", mappedBy="cuentasBancos")
-     **/
-    private $empleados;
-
-    /**
      * Get bancoId
      *
      * @return integer
@@ -71,19 +66,6 @@ class NBanco
     public function getNombre()
     {
         return $this->nombre;
-    }
-
-    /**
-     * Set empleado
-     *
-     * @return void
-     */
-    public function addEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado)
-    {
-        $empleado->addCuentasBanco($this);
-        $this->empleados->add($empleado);
-
-        return $this;
     }
 
     /**
@@ -127,25 +109,5 @@ class NBanco
     public function getTamannoNumeroCuenta()
     {
         return $this->tamannoNumeroCuenta;
-    }
-
-    /**
-     * Remove empleados
-     *
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleados
-     */
-    public function removeEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleados)
-    {
-        $this->empleados->removeElement($empleados);
-    }
-
-    /**
-     * Get empleados
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEmpleados()
-    {
-        return $this->empleados;
     }
 }
