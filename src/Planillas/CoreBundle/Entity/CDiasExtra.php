@@ -22,7 +22,6 @@ class CDiasExtra
      */
     private $id;
 
-
     /**
      * @var \DateTime
      * @Assert\Date(),
@@ -39,12 +38,11 @@ class CDiasExtra
     private $empleado;
 
     /**
-     * @var $planilla Planillas/CoreBundle/Entity/CPlanillas
+     * @var  Planillas/CoreBundle/Entity/CPlanillasEmpleado $planillaEmpleado
      *
-     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillas")
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", inversedBy="diasExtras")
      */
-    private $planilla;
-
+    private $planillaEmpleado;
 
 
     public function getJson()
@@ -117,32 +115,29 @@ class CDiasExtra
     }
 
     /**
-     * Set planilla
-     *
-     * @param \Planillas\CoreBundle\Entity\CPlanillas $planilla
-     * @return CDiasExtra
-     */
-    public function setPlanilla(\Planillas\CoreBundle\Entity\CPlanillas $planilla = null)
-    {
-        $this->planilla = $planilla;
-    
-        return $this;
-    }
-
-    /**
-     * Get planilla
-     *
-     * @return \Planillas\CoreBundle\Entity\CPlanillas 
-     */
-    public function getPlanilla()
-    {
-        return $this->planilla;
-    }
-    /**
     * @Assert\True(message = "La fecha seleccionada no puede ser mayor que la fecha actual")
     */
     public function isFechaValid()
     {
        return $this->fecha->getTimestamp() <  time();        
     }
+
+    /**
+     * @param \Planillas\CoreBundle\Entity\CPlanillasEmpleado $planillaEmpleado
+     */
+    public function setPlanillaEmpleado(CPlanillasEmpleado $planillaEmpleado)
+    {
+        $this->planillaEmpleado = $planillaEmpleado;
+    }
+
+    /**
+     * @return \Planillas\CoreBundle\Entity\CPlanillasEmpleado
+     */
+    public function getPlanillaEmpleado()
+    {
+        return $this->planillaEmpleado;
+    }
+
+
+
 }

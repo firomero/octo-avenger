@@ -61,7 +61,7 @@ class CEmpleado {
     private $activo;
 
     /**
-     * @var $sexo Planillas/NomencladorBundle/Entity/NSexo
+     * @var $sexo \Planillas\NomencladorBundle\Entity\NSexo
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NSexo")
      */
@@ -102,60 +102,25 @@ class CEmpleado {
     private $fechaexcepcional;
 
     /**
-     * @var decimal
+     * @var double
 
      * @ORM\Column(name="salario", type="decimal", nullable=true)
      */
     private $salario;
 
     /**
-     * @var $tipoPagoCasa Planillas/NomencladorBundle/Entity/NTipoPagoCasa
+     * @var $tipoPagoCasa \Planillas\NomencladorBundle\Entity\NTipoPagoCasa
      *
      * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NTipoPagoCasa")
      */
     private $tipoPagoCasa;
 
     /**
-     * @var $domicilios Doctrine/Common/Collections/ArrayCollection
+     * @var $domicilios \Doctrine\Common\Collections\ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Planillas\EntidadesBundle\Entity\EDomicilio", mappedBy="empleado")
      */
     private $domicilios;
-
-    /**
-     * @var $domicilios Doctrine/Common/Collections/ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CAusencias", mappedBy="empleado")
-     */
-    private $ausencias;
-
-    /**
-     * @var $domicilios Doctrine/Common/Collections/ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CIncapacidades", mappedBy="empleado")
-     */
-    private $incapacidades;
-
-    /**
-     * @var $domicilios Doctrine/Common/Collections/ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CDiasExtra", mappedBy="empleado")
-     */
-    private $diasextra;
-
-    /**
-     * @var $domicilios Doctrine/Common/Collections/ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CHorasExtras", mappedBy="empleado")
-     */
-    private $horasextras;
-
-    /**
-     * @var $domicilios Doctrine/Common/Collections/ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CDeudas", mappedBy="empleado")
-     */
-    private $deudas;
 
     /**
      * @var string
@@ -279,11 +244,6 @@ class CEmpleado {
     {
         $this->fechaexcepcional = new \Doctrine\Common\Collections\ArrayCollection();
         $this->domicilios = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->ausencias = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->incapacidades = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->diasextra = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->horasextras = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->deudas = new \Doctrine\Common\Collections\ArrayCollection();
         $this->cuentasBancos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->gastosPrincipales = new \Doctrine\Common\Collections\ArrayCollection();
         $this->historiasTrabajos = new \Doctrine\Common\Collections\ArrayCollection();
@@ -829,171 +789,6 @@ class CEmpleado {
     }
 
     /**
-     * Add ausencias
-     *
-     * @param \Planillas\CoreBundle\Entity\CAusencias $ausencias
-     * @return CEmpleado
-     */
-    public function addAusencia(\Planillas\CoreBundle\Entity\CAusencias $ausencias)
-    {
-        $this->ausencias[] = $ausencias;
-    
-        return $this;
-    }
-
-    /**
-     * Remove ausencias
-     *
-     * @param \Planillas\CoreBundle\Entity\CAusencias $ausencias
-     */
-    public function removeAusencia(\Planillas\CoreBundle\Entity\CAusencias $ausencias)
-    {
-        $this->ausencias->removeElement($ausencias);
-    }
-
-    /**
-     * Get ausencias
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getAusencias()
-    {
-        return $this->ausencias;
-    }
-
-    /**
-     * Add incapacidades
-     *
-     * @param \Planillas\CoreBundle\Entity\CIncapacidades $incapacidades
-     * @return CEmpleado
-     */
-    public function addIncapacidade(\Planillas\CoreBundle\Entity\CIncapacidades $incapacidades)
-    {
-        $this->incapacidades[] = $incapacidades;
-    
-        return $this;
-    }
-
-    /**
-     * Remove incapacidades
-     *
-     * @param \Planillas\CoreBundle\Entity\CIncapacidades $incapacidades
-     */
-    public function removeIncapacidade(\Planillas\CoreBundle\Entity\CIncapacidades $incapacidades)
-    {
-        $this->incapacidades->removeElement($incapacidades);
-    }
-
-    /**
-     * Get incapacidades
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getIncapacidades()
-    {
-        return $this->incapacidades;
-    }
-
-    /**
-     * Add diasextra
-     *
-     * @param \Planillas\CoreBundle\Entity\CDiasExtra $diasextra
-     * @return CEmpleado
-     */
-    public function addDiasextra(\Planillas\CoreBundle\Entity\CDiasExtra $diasextra)
-    {
-        $this->diasextra[] = $diasextra;
-    
-        return $this;
-    }
-
-    /**
-     * Remove diasextra
-     *
-     * @param \Planillas\CoreBundle\Entity\CDiasExtra $diasextra
-     */
-    public function removeDiasextra(\Planillas\CoreBundle\Entity\CDiasExtra $diasextra)
-    {
-        $this->diasextra->removeElement($diasextra);
-    }
-
-    /**
-     * Get diasextra
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDiasextra()
-    {
-        return $this->diasextra;
-    }
-
-    /**
-     * Add horasextras
-     *
-     * @param \Planillas\CoreBundle\Entity\CHorasExtras $horasextras
-     * @return CEmpleado
-     */
-    public function addHorasextra(\Planillas\CoreBundle\Entity\CHorasExtras $horasextras)
-    {
-        $this->horasextras[] = $horasextras;
-    
-        return $this;
-    }
-
-    /**
-     * Remove horasextras
-     *
-     * @param \Planillas\CoreBundle\Entity\CHorasExtras $horasextras
-     */
-    public function removeHorasextra(\Planillas\CoreBundle\Entity\CHorasExtras $horasextras)
-    {
-        $this->horasextras->removeElement($horasextras);
-    }
-
-    /**
-     * Get horasextras
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getHorasextras()
-    {
-        return $this->horasextras;
-    }
-
-    /**
-     * Add deudas
-     *
-     * @param \Planillas\CoreBundle\Entity\CDeudas $deudas
-     * @return CEmpleado
-     */
-    public function addDeuda(\Planillas\CoreBundle\Entity\CDeudas $deudas)
-    {
-        $this->deudas[] = $deudas;
-    
-        return $this;
-    }
-
-    /**
-     * Remove deudas
-     *
-     * @param \Planillas\CoreBundle\Entity\CDeudas $deudas
-     */
-    public function removeDeuda(\Planillas\CoreBundle\Entity\CDeudas $deudas)
-    {
-        $this->deudas->removeElement($deudas);
-    }
-
-    /**
-     * Get deudas
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDeudas()
-    {
-        return $this->deudas;
-    }
-
-    /**
      * Add cuentasBancos
      *
      * @param \Planillas\NomencladorBundle\Entity\NBanco $cuentasBancos
@@ -1204,39 +999,8 @@ class CEmpleado {
         return $this->salarioBase;
     }
 
-    /**
-     * Add componentesSalariales
-     *
-     * @param \Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales
-     * @return CEmpleado
-     */
-    public function addComponentesSalariale(\Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales)
+    public function __toString()
     {
-        $this->componentesSalariales[] = $componentesSalariales;
-    
-        return $this;
-    }
-
-    /**
-     * Remove componentesSalariales
-     *
-     * @param \Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales
-     */
-    public function removeComponentesSalariale(\Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales)
-    {
-        $this->componentesSalariales->removeElement($componentesSalariales);
-    }
-
-    /**
-     * Get componentesSalariales
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getComponentesSalariales()
-    {
-        return $this->componentesSalariales;
-    }
-     public function __toString() {
         return $this->nombre . ' ' . $this->primerApellido;
     }
 

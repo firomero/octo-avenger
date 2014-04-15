@@ -2,6 +2,22 @@ parameters:
 #    planillas_payments.example.class: Planillas\PaymentsBundle\Example
 
 services:
-    planillas_payments.payment.manager:
-        class: Planillas\PaymentsBundle\Managers\PaymentManager
+    payments.salario.manager:
+        class: Planillas\PaymentsBundle\Managers\SalarioManager
         arguments: [@service_container]
+
+    payments.horas_extras.manager:
+        class: Planillas\PaymentsBundle\Managers\HorasExtrasManager
+        arguments: [@doctrine.orm.entity_manager, %payments.indice_horas_extras%, @logger]
+
+    payments.planillas.manager:
+        class: Planillas\PaymentsBundle\Managers\PlanillasManager
+        arguments: [@doctrine.orm.entity_manager, @payments.planilla_empleado.manager, @logger]
+
+    payments.planilla_empleado.manager:
+        class: Planillas\PaymentsBundle\Managers\PlanillaEmpleadoManager
+        arguments: [@logger]
+
+    payments.incapacidades.manager:
+        class: Planillas\PaymentsBundle\Managers\IncapacidadesManager
+        arguments: [@doctrine.orm.entity_manager, @logger]

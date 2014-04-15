@@ -42,6 +42,11 @@ cplanillas_buscar:
     pattern:   /planillas/pagos
     defaults: { _controller: "PlanillasCoreBundle:CPlanillas:pagos" }
 
+cplanillas_create:
+    pattern: /planillas/create
+    defaults: { _controller: "PlanillasCoreBundle:CPlanillas:createPlanilla" }
+    requirements: { _method: post }
+
 cplanillas_listar:
     pattern:   /planillas/listar
     defaults: { _controller: "PlanillasCoreBundle:CPlanillas:listar" }

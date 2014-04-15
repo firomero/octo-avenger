@@ -25,7 +25,9 @@ class PlanillasPaymentsExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        $container->setParameter('payments.days_in_month',$config['days_in_month']);
-        $container->setParameter('payments.insurance',$config['insurance']);
+        $container->setParameter('payments.dias_por_mes',$config['dias_por_mes']);
+        $container->setParameter('payments.factor_seguro',$config['factor_seguro']);
+        $container->setParameter('payments.horas_diurno',$config['horas_diurno']);
+        $container->setParameter('payments.indice_horas_extras',$config['indice_horas_extras']);
     }
 }

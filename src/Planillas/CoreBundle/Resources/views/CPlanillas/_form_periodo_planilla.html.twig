@@ -1,0 +1,31 @@
+<form class="form-horizontal" action="{{ path('cplanillas_buscar') }}"
+      method="get" {{ form_enctype(search_form) }}>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Periodo de pago</h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <legend><h5>Último pago generado : {{ ultimoPeriodoPago }}</h5></legend>
+                <div class="row">
+                    <div class="col-lg-12">
+                        {{ form_errors(search_form) }}
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="col-lg-4">
+                        {{ form_row(search_form.fechaInicio) }}
+                    </div>
+                    <div class="col-lg-4">
+                        {{ form_row(search_form.fechaFin) }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <hr/>
+
+            <button type="submit" name="btn_actualizar" class="btn btn-primary">Buscar</button>
+            <a href="{{ path('cplanillas_listar') }}" class="btn btn-default">Cancelar</a>
+        </div>
+    </div>
+</form>
