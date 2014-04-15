@@ -17,12 +17,14 @@ class BonificacionesPuestoType extends AbstractType
         $builder
             ->add('bonificacion',null, array(
                 'required' => true,
+                'horizontal' => true,
                 'horizontal_label_class' => 'col-lg-2',
                 'horizontal_input_wrapper_class' => 'col-lg-3',
                 'widget_form_group' => false,
             ))
             ->add('monto', null, array(
                 'required' => true,
+                'horizontal' => true,
                 'horizontal_label_class' => 'col-lg-2',
                 'horizontal_input_wrapper_class' => 'col-lg-2',
                 'widget_form_group' => false,

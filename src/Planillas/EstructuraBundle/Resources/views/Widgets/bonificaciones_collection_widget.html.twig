@@ -1,7 +1,6 @@
 {% block form_widget_remove_btn %}
     {% spaceless %}
         {% if widget_remove_btn.wrapper_div is not sameas(false) %}
-            <div class="col-lg-3">
             <div class="{{ widget_remove_btn.wrapper_div.class }}">
         {% endif %}
         {% if widget_remove_btn|default(null) %}
@@ -10,7 +9,6 @@
             {{ block('collection_button') }}
         {% endif %}
         {% if widget_remove_btn.wrapper_div is not sameas(false) %}
-            </div>
             </div>
         {% endif %}
     {% endspaceless %}
