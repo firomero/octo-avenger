@@ -280,7 +280,7 @@ class CSalarioBaseController extends Controller {
           }exit; */
         $salida = array();
         foreach ($results as $r) {
-            if ($r->getPlanilla() != null) {
+            if ($r->getPlanillaEmpleado() != null) {
                 if ($r->getComponente() == 0 && $r->getPermanente() == false) {
 
                     $salida[] = array(
@@ -288,7 +288,9 @@ class CSalarioBaseController extends Controller {
                         'tipoDeuda' => $r->getTipoDeuda(),
                         'montoTotal' => $r->getMontoTotal(),
                         'moneda' => $r->getMoneda(),
-                        'planilla' => array('fechaInicio' => $r->getPlanilla()->getFechaInicio(), 'fechaFin' => $r->getPlanilla()->getFechaFin()),
+                        'planilla' => array(
+                            'fechaInicio' => $r->getPlanillaEmpleado()->getPlanilla()->getFechaInicio(),
+                            'fechaFin' => $r->getPlanillaEmpleado()->getPlanilla()->getFechaFin()),
                     );
                 }
             } else {
@@ -301,7 +303,9 @@ class CSalarioBaseController extends Controller {
                                 'tipoDeuda' => $r->getTipoDeuda(),
                                 'cantidad' => $r->getCantidad(),
                                 'moneda' => $r->getMoneda(),
-                                'planilla' => array('fechaInicio' => $comp->getPlanilla()->getFechaInicio(), 'fechaFin' => $comp->getPlanilla()->getFechaFin()),
+                                'planilla' => array(
+                                    'fechaInicio' => $comp->getPlanillaEmpleado()->getPlanilla()->getFechaInicio(),
+                                    'fechaFin' => $comp->getPlanillaEmpleado()->getPlanilla()->getFechaFin()),
                             );
                         } else {
                             $salida[] = array(
@@ -309,7 +313,9 @@ class CSalarioBaseController extends Controller {
                                 'tipoDeuda' => $r->getTipoDeuda(),
                                 'montoTotal' => $r->getMontoTotal(),
                                 'moneda' => $r->getMoneda(),
-                                'planilla' => array('fechaInicio' => $comp->getPlanilla()->getFechaInicio(), 'fechaFin' => $comp->getPlanilla()->getFechaFin()),
+                                'planilla' => array(
+                                    'fechaInicio' => $comp->getPlanillaEmpleado()->getPlanilla()->getFechaInicio(),
+                                    'fechaFin' => $comp->getPlanillaEmpleado()->getPlanilla()->getFechaFin()),
                             );
                         }
                     }
