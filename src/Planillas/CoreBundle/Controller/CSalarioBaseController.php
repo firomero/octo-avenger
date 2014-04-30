@@ -280,7 +280,8 @@ class CSalarioBaseController extends Controller
           RIGHT JOIN `c_planillas_componentes` ON (`e_componentes_salariales`.id = `c_planillas_componentes`.componentePermanente_id)";
           $query =  $em->createQuery($sql);
           $data = $query->getArrayResult(); */
-        /* foreach ($data as $d) {
+        /* foreach($data as $d)
+          {
           print_r($d->getComponentePermenante());
           }exit; */
         $salida = array();
@@ -313,7 +314,9 @@ class CSalarioBaseController extends Controller
                                 'tipoDeuda' => $r->getTipoDeuda(),
                                 'cantidad' => $r->getCantidad(),
                                 'moneda' => $r->getMoneda(),
-                                'planilla' => array('fechaInicio' => $comp->getPlanilla()->getFechaInicio(), 'fechaFin' => $comp->getPlanilla()->getFechaFin()),
+                                'planilla' => array(
+                                    'fechaInicio' => $comp->getPlanillaEmpleado()->getPlanilla()->getFechaInicio(),
+                                    'fechaFin' => $comp->getPlanillaEmpleado()->getPlanilla()->getFechaFin()),
                             );
                         } else {
                             $salida[] = array(
@@ -321,7 +324,9 @@ class CSalarioBaseController extends Controller
                                 'tipoDeuda' => $r->getTipoDeuda(),
                                 'montoTotal' => $r->getMontoTotal(),
                                 'moneda' => $r->getMoneda(),
-                                'planilla' => array('fechaInicio' => $comp->getPlanilla()->getFechaInicio(), 'fechaFin' => $comp->getPlanilla()->getFechaFin()),
+                                'planilla' => array(
+                                    'fechaInicio' => $comp->getPlanillaEmpleado()->getPlanilla()->getFechaInicio(),
+                                    'fechaFin' => $comp->getPlanillaEmpleado()->getPlanilla()->getFechaFin()),
                             );
                         }
                     }
@@ -332,7 +337,7 @@ class CSalarioBaseController extends Controller
         return $salida; //$query->getArrayResult();
     }
     /**
-     *  public function findStadisticsYear($costumer_id, $year) {
+     *  public function findStadisticsYear($costumer_id, $year){
     $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
     $rsm->addScalarResult('month', 'month');
     $rsm->addScalarResult('num_invoices', 'num_invoices');
