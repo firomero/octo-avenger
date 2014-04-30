@@ -286,7 +286,6 @@ class CSalarioBaseController extends Controller
           }exit; */
         $salida = array();
         foreach ($results as $r) {
-            /** @var  \Planillas\EntidadesBundle\Entity\EcomponentesSalariales $r */
             if ($r->getPlanillaEmpleado() != null) {
                 if ($r->getComponente() == 0 && $r->getPermanente() == false) {
 
