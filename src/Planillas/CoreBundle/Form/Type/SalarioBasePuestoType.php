@@ -60,6 +60,10 @@ class SalarioBasePuestoType extends AbstractType
                 'class'     => 'PlanillasEstructuraBundle:Puesto',
                 'required'  => false,
             ))
+            ->add('rol', 'entity', array(
+                'class'     => 'PlanillasEstructuraBundle:RolesPuesto',
+                'required'  => false,
+            ))
         ;
         if ($this->bDestruyeEmpleado) {
             $builder->remove('empleado');

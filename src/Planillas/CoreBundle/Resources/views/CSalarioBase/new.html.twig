@@ -76,9 +76,9 @@ Gestionar Salario
                                     {% endif%}
                                 </td>
                                 <td>
-                                    {% if entitys.planillaEmpleado is not null %}
-                                        {{ entitys.planillaEmpleado.planilla.fechaInicio | date('d-m-Y') ~ ' al ' ~
-                                        entitys.planillaEmpleado.planilla.fechaFin | date('d-m-Y')}}
+                                    {% if entitys.planilla is not null %}
+                                        {{ entitys.planilla.fechaInicio | date('d-m-Y') ~ ' al ' ~
+                                        entitys.planilla.fechaFin | date('d-m-Y')}}
                                     {% else %}
 
                                     {% endif %}
@@ -128,6 +128,7 @@ Gestionar Salario
             var $sucursal = $('#planillas_corebundle_salariobasepuesto_sucursal');
             var $turno = $('#planillas_corebundle_salariobasepuesto_turno');
             var $puesto = $('#planillas_corebundle_salariobasepuesto_puesto');
+            var $rol = $('#planillas_corebundle_salariobasepuesto_rol');
             var $progress_bar = '<div class="progress progress-striped active"><div class="progress-bar" style="width: 100%;"></div></div>';
             loadSelectedPuestoDetalles ();
 
@@ -160,10 +161,13 @@ Gestionar Salario
                     });
             $puesto.on('change', function (e) {
                         loadSelectedPuestoDetalles();
+                        reloadRolSelect($(this).val());
                     })
                     .on('blur', function (e) {
                         loadSelectedPuestoDetalles();
+                        reloadRolSelect($(this).val());
                     });
+
 
             $('a#asignar-salario').on('click', function(e) {
                 e.preventDefault();
@@ -219,6 +223,17 @@ Gestionar Salario
                     });
                 } else {
                     $puesto.attr('disabled','disabled');
+                }
+            }
+
+            function reloadRolSelect (puesto) {
+                if(puesto != "") {
+                    $.get(Routing.generate('estructura_rolespuesto',{'id':puesto}), function (data) {
+                        $rol.removeAttr('disabled');
+                        $rol.html(data);
+                    });
+                } else {
+                    $rol.attr('disabled','disabled');
                 }
             }
 

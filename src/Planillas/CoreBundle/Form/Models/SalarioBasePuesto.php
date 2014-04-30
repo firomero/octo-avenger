@@ -49,6 +49,11 @@ class SalarioBasePuesto
      */
     private $puesto;
 
+    /**
+     * @var \Planillas\EstructuraBundle\Entity\RolesPuesto
+     */
+    private $rol;
+
     public function __construct(CEmpleado $empleado = null)
     {
         if ($empleado != null) {
@@ -64,6 +69,7 @@ class SalarioBasePuesto
                 $this->setSucursal($puesto->getSucursal());
                 $this->setTurno($puesto->getTurno());
                 $this->setPuesto($puesto->getPuesto());
+                $this->setRol($puesto->getRol());
             }
             $this->setEmpleado($empleado);
         }
@@ -195,4 +201,22 @@ class SalarioBasePuesto
     {
         return $this->turno;
     }
+
+    /**
+     * @param \Planillas\EstructuraBundle\Entity\RolesPuesto $rol
+     */
+    public function setRol($rol)
+    {
+        $this->rol = $rol;
+    }
+
+    /**
+     * @return \Planillas\EstructuraBundle\Entity\RolesPuesto
+     */
+    public function getRol()
+    {
+        return $this->rol;
+    }
+
+
 }

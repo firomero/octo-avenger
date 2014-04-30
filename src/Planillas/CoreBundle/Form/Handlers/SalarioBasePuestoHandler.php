@@ -77,8 +77,9 @@ class SalarioBasePuestoHandler
                         $puesto->setSucursal($model->getSucursal());
                         $puesto->setTurno($model->getTurno());
                         $puesto->setPuesto($model->getPuesto());
+                        $puesto->setRol($model->getRol());
                         // asignando el horario establecido para el puesto al empleado
-                        $entity->setHorario($model->getPuesto()->getRol());
+                        $entity->setHorario($model->getRol()->getRol());
                     }
 
                     $this->em->persist($puesto);

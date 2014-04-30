@@ -56,6 +56,12 @@ class CPuestoEmpleado
     private $puesto;
 
     /**
+     * @var \Planillas\EstructuraBundle\Entity\RolesPuesto
+     * @ORM\ManyToOne(targetEntity="Planillas\EstructuraBundle\Entity\RolesPuesto")
+     */
+    private $rol;
+
+    /**
      * @var $empleado \Planillas\CoreBundle\Entity\CEmpleado
      *
      * @ORM\OneToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado", inversedBy="puesto")
@@ -214,4 +220,22 @@ class CPuestoEmpleado
     {
         return $this->empleado;
     }
+
+    /**
+     * @param \Planillas\EstructuraBundle\Entity\RolesPuesto $rol
+     */
+    public function setRol(\Planillas\EstructuraBundle\Entity\RolesPuesto $rol)
+    {
+        $this->rol = $rol;
+    }
+
+    /**
+     * @return \Planillas\EstructuraBundle\Entity\RolesPuesto
+     */
+    public function getRol()
+    {
+        return $this->rol;
+    }
+
+
 }

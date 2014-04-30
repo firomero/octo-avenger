@@ -216,4 +216,9 @@ class RolesPuesto
     {
         return $this->turno;
     }
+
+    public function __toString()
+    {
+        return $this->rol->getTitulo();
+    }
 }
