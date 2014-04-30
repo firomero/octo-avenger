@@ -12,10 +12,11 @@
         <div class="col-lg-4">{{ form_row(form.nombre) }}</div>
     </div>
 
-    <fieldset>
-        <legend><h5>{{ form_label(form.bonificaciones) }}</h5></legend>
-        {{ form_widget(form.bonificaciones) }}
-    </fieldset>
+    <hr/>
+    {{ form_label(form.bonificaciones) }}
+    <div class="row" style="margin-bottom: 8px;">
+        <div class="col-lg-8">{{ form_widget(form.bonificaciones) }}</div>
+    </div>
 
     <hr/>
     <div><a class="btn btn-primary submit-button" href="#" data-content="puesto"><i class="glyphicon glyphicon-plus"></i> Adicionar</a></div>
