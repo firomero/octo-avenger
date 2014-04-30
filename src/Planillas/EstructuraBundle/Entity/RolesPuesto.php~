@@ -3,11 +3,12 @@
 namespace Planillas\EstructuraBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * RolesPuesto
  *
- * @ORM\Table()
+ * @ORM\Table(name="e_estructura_roles_puesto")
  * @ORM\Entity(repositoryClass="Planillas\EstructuraBundle\Entity\Repository\RolesPuestoRepository")
  */
 class RolesPuesto
@@ -20,6 +21,38 @@ class RolesPuesto
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var Empresa
+     *
+     * @ORM\ManyToOne(targetEntity="Empresa")
+     * @Assert\NotBlank()
+     */
+    private $empresa;
+
+    /**
+     * @var Sucursal
+     *
+     * @ORM\ManyToOne(targetEntity="Sucursal")
+     * @Assert\NotBlank()
+     */
+    private $sucursal;
+
+    /**
+     * @var Cliente
+     *
+     * @ORM\ManyToOne(targetEntity="Cliente")
+     * @Assert\NotBlank()
+     */
+    private $cliente;
+
+    /**
+     * @var Turno
+     *
+     * @ORM\ManyToOne(targetEntity="Turno", inversedBy="puestos")
+     * @Assert\NotBlank()
+     */
+    private $turno;
 
     /**
      * @var  \Planillas\EstructuraBundle\Entity\Puesto $puesto
@@ -35,4 +68,60 @@ class RolesPuesto
      */
     private $rol;
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set puesto
+     *
+     * @param \Planillas\EstructuraBundle\Entity\Puesto $puesto
+     * @return RolesPuesto
+     */
+    public function setPuesto(\Planillas\EstructuraBundle\Entity\Puesto $puesto = null)
+    {
+        $this->puesto = $puesto;
+    
+        return $this;
+    }
+
+    /**
+     * Get puesto
+     *
+     * @return \Planillas\EstructuraBundle\Entity\Puesto 
+     */
+    public function getPuesto()
+    {
+        return $this->puesto;
+    }
+
+    /**
+     * Set rol
+     *
+     * @param \Planillas\CoreBundle\Entity\CHorario $rol
+     * @return RolesPuesto
+     */
+    public function setRol(\Planillas\CoreBundle\Entity\CHorario $rol = null)
+    {
+        $this->rol = $rol;
+    
+        return $this;
+    }
+
+    /**
+     * Get rol
+     *
+     * @return \Planillas\CoreBundle\Entity\CHorario 
+     */
+    public function getRol()
+    {
+        return $this->rol;
+    }
 }

@@ -67,6 +67,19 @@ function reloadTurnoSelect (sucursal_id, select) {
         $.get(Routing.generate('estructura_turnos',{'id':sucursal_id}), function (data) {
             $(select).removeAttr('disabled');
             $(select).html(data);
+            reloadPuestoSelect($(select).find('option:first').val(), findSelectType('puesto'));
+        });
+    } else {
+        $(select).attr('disabled','disabled');
+        reloadPuestoSelect("", findSelectType('puesto'))
+    }
+}
+
+function reloadPuestoSelect (turno_id, select) {
+    if(turno_id != "" && turno_id != undefined && !$.isEmptyObject(select)) {
+        $.get(Routing.generate('estructura_puestos',{'id':turno_id}), function (data) {
+            $(select).removeAttr('disabled');
+            $(select).html(data);
         });
     } else {
         $(select).attr('disabled','disabled');
@@ -84,6 +97,7 @@ function findSelectType (type) {
  * @private
  */
 function _submit() {
+    $('div#' + $actual_process +'-body').block($block_ui_config);
     var data = $('form#' + $actual_process + '-form').serialize();
     $.ajax({
         'url': Routing.generate('estructura_' + $actual_process + '_create'),
@@ -97,12 +111,16 @@ function _submit() {
             appendAlertMessage(alert);
             cleanFormErrors('planillas_estructurabundle_' + $actual_process + '_');
 
+
             $.ajax({
                 'url': Routing.generate('estructura_' + $actual_process + '_list'),
                 'type': 'GET'
             })
                 .done(function (htmltable) {
                     $('div#' + $actual_process + '-body').html(htmltable);
+                })
+                .always(function(){
+                    $('div#' + $actual_process +'-body').unblock();
                 });
         })
         .fail(function (error) {
@@ -112,6 +130,7 @@ function _submit() {
             //appendAlertMessage(alert);
             proccessErrors(errors, '#planillas_estructurabundle_' + $actual_process + '_');
 
+            $('div#' + $actual_process +'-body').unblock();
         })
         .always();
 }

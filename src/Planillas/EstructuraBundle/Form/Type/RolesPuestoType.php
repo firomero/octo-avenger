@@ -15,8 +15,14 @@ class RolesPuestoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('empresa')
+            ->add('sucursal')
+            ->add('cliente')
+            ->add('turno')
             ->add('puesto')
-            ->add('rol')
+            ->add('rol', null, array(
+                'required' => true,
+            ))
         ;
     }
 
