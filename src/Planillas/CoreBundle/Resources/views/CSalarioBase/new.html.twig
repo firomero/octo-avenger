@@ -98,7 +98,7 @@ Gestionar Salario
                                     {% endif%}
                                 </td>
                                 <td>
-                                   {{entitys.planilla.fechaInicio|date('d-m-Y')}} al {{entitys.planilla.fechaFin|date('d-m-Y')}}
+                                   {{entitys.planillaEmpleado.planilla.fechaInicio|date('d-m-Y')}} al {{entitys.planillaEmpleado.planilla.fechaFin|date('d-m-Y')}}
                                  
                                 </td>
                                 <td>{% if entitys.moneda==0%}Colón{% else %}USD{%endif%}</td>
