@@ -208,6 +208,7 @@
             {% for incapacidades in datos_economicos.incapacidades %}
                 {% for incapacidad in incapacidades %}
                     <tr>
+
                         <td>{{ tipoIncapacidad[incapacidad.incapacidad] }}</td>
                         <td>{{ incapacidad.fecha }}</td>
                         <td>{{ incapacidad.descripcion }}</td>
