@@ -1,0 +1,12 @@
+componentes_salariales:
+    path: /
+    defaults: { _controller: "PlanillasCoreBundle:ComponentesSalariales:index" }
+    options:
+        expose: true
+
+componentes_salariales_create:
+    path: /create/{componente}
+    defaults: { _controller: "PlanillasCoreBundle:ComponentesSalariales:create" }
+    requirements: { componente: 'rebajo|bonificacion', _method:'post' }
+    options:
+        expose: true

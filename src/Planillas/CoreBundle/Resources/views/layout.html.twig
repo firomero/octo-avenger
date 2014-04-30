@@ -1,1 +1,11 @@
 {% extends '::base.html.twig' %}
+
+{% block headline %}{% endblock headline %}
+
+{% block content_content %}
+{% endblock content_content %}
+
+{% block foot_script %}
+    {{ parent() }}
+    {% block javascripts %}{% endblock javascripts %}
+{% endblock foot_script %}

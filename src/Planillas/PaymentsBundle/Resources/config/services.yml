@@ -21,3 +21,11 @@ services:
     payments.incapacidades.manager:
         class: Planillas\PaymentsBundle\Managers\IncapacidadesManager
         arguments: [@doctrine.orm.entity_manager, @logger]
+
+    payments.componente_rebajo.manager:
+        class: Planillas\PaymentsBundle\Managers\ComponenteRebajosManager
+        arguments: [@doctrine.orm.entity_manager, @logger]
+
+    payments.componente_bonificacion.manager:
+        class: Planillas\PaymentsBundle\Managers\ComponenteBonificacionesManager
+        arguments: [@doctrine.orm.entity_manager, @logger]

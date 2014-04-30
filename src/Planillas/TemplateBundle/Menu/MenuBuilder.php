@@ -44,6 +44,9 @@ class MenuBuilder
         $empleado->addChild('Días menos', array(
             'route' => 'causencias'
         ));
+        $empleado->addChild('Componentes Salariales', array(
+            'route' => 'componentes_salariales'
+        ));
 
         //configuracion
         $config = $menu->addChild('Configuración', array(

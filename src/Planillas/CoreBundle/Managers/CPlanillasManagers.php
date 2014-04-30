@@ -406,15 +406,15 @@ class CPlanillasManagers
                         $aSalida['bonificaciones'][] = array(
                             'id' => $oBonificacion->getId(),
                             'descripcion' => $oBonificacion->getDescripcion(),
-                            'fecha_inicio' => $oBonificacion->getFechaVencimiento()->format('Y-m-d'),
-                            'monto_total' => number_format($oBonificacion->getCantidad(), 2, '.', ''));
+                            'fecha_inicio' => $oBonificacion->getFecha()->format('d/m/Y'),
+                            'monto_total' => number_format($oBonificacion->getMontoTotal(), 2, '.', ''));
 
-                        $aSalida['total'] += $oBonificacion->getCantidad();
+                        $aSalida['total'] += $oBonificacion->getMontoTotal();
                     }
                     continue;
                 }
 
-                if ($oBonificacion->getFechaVencimiento() < $this->fechaInicio && $oBonificacion->getPermanente() == 0) {
+                if ($oBonificacion->getFecha() < $this->fechaInicio && $oBonificacion->getPermanente() == 0) {
                     continue; //ya se vencio la bonificacion
                 }
                 if ($update === true) {
@@ -442,10 +442,10 @@ class CPlanillasManagers
                         $aSalida['bonificaciones'][] = array(
                             'id' => $oBonificacion->getId(),
                             'descripcion' => $oBonificacion->getDescripcion(),
-                            'fecha_inicio' => ($oBonificacion->getFechaVencimiento() == null) ? "Indefinido" : $oBonificacion->getFechaVencimiento()->format('Y-m-d'),
-                            'monto_total' => number_format($oBonificacion->getCantidad(), 2, '.', ''));
+                            'fecha_inicio' => $oBonificacion->getFecha()->format('d/m/Y'),
+                            'monto_total' => number_format($oBonificacion->getMontoTotal(), 2, '.', ''));
 
-                        $aSalida['total'] += $oBonificacion->getCantidad();
+                        $aSalida['total'] += $oBonificacion->getMontoTotal();
                     }
                 }
             }
@@ -536,8 +536,8 @@ class CPlanillasManagers
             $sql .= ' and c.componente=0'; //componente ==0 para que solo verifique las deudas
 
             if ($this->fechaInicio !== null && $this->fechaFin !== null) {
-                $sql .= ' and (c.fechaInicio >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
-                $sql .= ' and c.fechaVencimiento <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
+                $sql .= ' and (c.fecha >= \'' . date_format($this->fechaInicio, 'Y-m-d') . '\'';
+                $sql .= ' and c.fecha <= \'' . date_format($this->fechaFin, 'Y-m-d') . '\'';
             }
             $sql .= ' or c.permanente=1)';
             $query = $this->em->createQuery($sql);
@@ -552,7 +552,7 @@ class CPlanillasManagers
                 if ($bIndicador) {
                     $aSalida['deudas'][] = array(
                         'id' => $sDeuda->getId(),
-                        'fecha_inicio' => $sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
+                        'fecha_inicio' => $sDeuda->getFecha()->format('d/m/Y'),
                         'componente' => $sDeuda->getComponente(),
                         'monto_total' => number_format($sDeuda->getMontoTotal(), 2, '.', ''),
                         'permanente' => $sDeuda->getPermanente(),
@@ -579,7 +579,7 @@ class CPlanillasManagers
                     if ($sDeuda->getDeletedAt() == null) {
                         $aSalida['deudas'][] = array(
                             'id' => $sDeuda->getId(),
-                            'fecha_inicio' => ($sDeuda->getFechaInicio() == null) ? "Indefinido" : $sDeuda->getFechaInicio()->format('Y-m-d') . '/' . $sDeuda->getFechaVencimiento()->format('Y-m-d'),
+                            'fecha_inicio' => $sDeuda->getFecha()->format('d/m/Y'),
                             'componente' => $sDeuda->getComponente(),
                             'monto_total' => number_format($sDeuda->getMontoTotal(), 2, '.', ''),
                             'permanente' => $sDeuda->getPermanente(),

@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * EComponentesSalariales
  *
  * @ORM\Table(name="e_componentes_salariales")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Planillas\EntidadesBundle\Entity\Repository\EComponentesSalarialesRepository")
  */
 class EComponentesSalariales
 {
@@ -52,9 +52,23 @@ class EComponentesSalariales
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="fecha_inicio", type="date", nullable=true)
+     */
+    private $fechaInicio;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="fecha_vencimiento", type="date", nullable=true)
      */
     private $fechaVencimiento;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="date")
+     */
+    private $fecha;
 
     /**
      * @var float
@@ -90,13 +104,6 @@ class EComponentesSalariales
      * @ORM\Column(name="monto_restante", type="decimal", scale=2, nullable=true)
      */
     private $montoRestante;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_inicio", type="date", nullable=true)
-     */
-    private $fechaInicio;
 
     /**
      * @var boolean
@@ -536,5 +543,28 @@ class EComponentesSalariales
     public function __toString()
     {
         return $this->getPermanente();
+    }
+
+    /**
+     * Set fecha
+     *
+     * @param \DateTime $fecha
+     * @return EComponentesSalariales
+     */
+    public function setFecha($fecha)
+    {
+        $this->fecha = $fecha;
+    
+        return $this;
+    }
+
+    /**
+     * Get fecha
+     *
+     * @return \DateTime 
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
     }
 }

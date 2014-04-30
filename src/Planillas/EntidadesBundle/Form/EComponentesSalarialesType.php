@@ -23,7 +23,7 @@ class EComponentesSalarialesType extends AbstractType
         $builder
             ->add('componente','choice',array('choices'=>self::componentesChoices()))
             ->add('moneda','choice',array('choices'=>self::monedaChoices()))
-            ->add('tipoDeuda','choice',array('choices'=>array('Uniformes','Sanciones','Préstamos')))
+            ->add('tipoDeuda','choice',array('choices'=>self::tipoDeudas()))
             ->add('cantidad',null,array('required'=>true,'pattern'=>"\d+([,.]\d+)?"))
             ->add('montoTotal',null,array('required'=>true,'pattern'=>"\d+([,.]\d+)?"))
 
@@ -45,6 +45,11 @@ class EComponentesSalarialesType extends AbstractType
     public static function componentesChoices()
     {
         return array('Rebajo','Bonificación');
+    }
+
+    public static function tipoDeudas()
+    {
+        return array('Uniformes','Sanciones','Préstamos');
     }
     /**
      * @param OptionsResolverInterface $resolver

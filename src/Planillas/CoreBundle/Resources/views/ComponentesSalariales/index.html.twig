@@ -1,0 +1,43 @@
+{% extends 'PlanillasCoreBundle::layout.html.twig' %}
+
+{% block headline 'planillas.componentessalariales.headline'|trans %}
+
+{% block content_content %}
+    <ul id="hierarchical-structure" class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#rebajos">Rebajos</a></li>
+        <li><a data-toggle="tab" href="#bonificaciones">Bonificaciones</a></li>
+        <li><a data-toggle="tab" href="#busqueda">Búsqueda Historial</a></li>
+    </ul>
+    <div id="hierarchical-content" class="tab-content">
+        <div id="rebajos" class="tab-pane fade in active">
+            {% include 'PlanillasCoreBundle:ComponentesSalariales:_rebajo_form.html.twig' with {form : rebajos_form} %}
+        </div>
+        <div id="bonificaciones" class="tab-pane fade">
+            {% include 'PlanillasCoreBundle:ComponentesSalariales:_bonificacion_form.html.twig' with {form : bonificaciones_form} %}
+        </div>
+        <div id="busqueda" class="tab-pane fade disabled">
+            <form class="form-horizontal" action="{{ path('componentes_salariales') }}" method="get"
+                    {{ form_enctype(busqueda_historial_form) }} style="padding-top: 8px;">
+                {{ form_row(busqueda_historial_form.empleado) }}
+                {{ form_row(busqueda_historial_form.tipoComponente) }}
+                {{ form_row(busqueda_historial_form.fechaInicio) }}
+                {{ form_row(busqueda_historial_form.fechaFin) }}
+                <button id="buscar_historial" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Buscar</button>
+            </form>
+        </div>
+    </div>
+    <hr/>
+
+    <div id="results-panel">
+       {% include 'PlanillasCoreBundle:ComponentesSalariales:results_list.html.twig' with {entities: results} %}
+    </div>
+{% endblock content_content %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/planillascore/js/componentessalariales/componentessalariales.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            bind_events();
+        });
+    </script>
+{% endblock javascripts %}

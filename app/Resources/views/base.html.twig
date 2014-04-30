@@ -50,7 +50,7 @@
         {% block content_div_start %}<div class="content">{% endblock content_div_start %}
         {% block page_header %}
             <div class="page-header">
-                <h1>{% block headline %}{{ 'system_tittle' | trans({},'PlanillasCoreBundle') }}{% endblock headline %}</h1>
+                <h2>{% block headline %}{{ 'system_tittle' | trans({},'PlanillasCoreBundle') }}{% endblock headline %}</h2>
                 {#{{ mopa_bootstrap_navbar('sandboxNavbarsSubNavbar') }}#}
             </div>
         {% endblock page_header %}
@@ -98,6 +98,7 @@
         '@PlanillasTemplateBundle/Resources/public/js/bootstrap-timepicker.js'
         '@PlanillasTemplateBundle/Resources/public/js/bootstrap-datepicker.js'
         '@PlanillasTemplateBundle/Resources/public/js/jquery.blockUI.js'
+        '@PlanillasTemplateBundle/Resources/public/js/base.js'
         '@MopaBootstrapBundle/Resources/public/bootstrap/dist/js/bootstrap.min.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-subnav.js'

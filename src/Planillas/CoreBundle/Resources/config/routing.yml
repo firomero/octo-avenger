@@ -1,6 +1,7 @@
 planillas_core_homepage:
     pattern:  /
-    defaults: { _controller: PlanillasCoreBundle:Default:index }
+    defaults: { _controller: "PlanillasCoreBundle:Default:index" }
+
 planillas_core_empleados:
     resource: "@PlanillasCoreBundle/Resources/config/routing/empleado.yml"
     prefix:   /empleado
@@ -36,18 +37,23 @@ planillas_core_familia:
 planillas_core_persona_depende:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/epersonadependen.yml"
     prefix:   /empleado/
+
 planillas_core_historia_trabajo:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/ehistoriatrabajo.yml"
     prefix:   /empleado/
+
 planillas_core_salario:
     resource: "@PlanillasCoreBundle/Resources/config/routing/csalariobase.yml"
     prefix:   /empleado/
+
 planillas_entidades_componentes_salariales:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/ecomponentessalariales.yml"
     prefix:   /empleado/
+
 planillas_core_trabajo:
     resource: "@PlanillasCoreBundle/Resources/config/routing/ctrabajo.yml"
     prefix:   /empleado/
+
 planillas_core_licencias:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/elicencia.yml"
     prefix:   /empleado/licencias
@@ -62,9 +68,11 @@ planillas_core_solicitud_empleo:
 planillas_core_horario:
     resource: "@PlanillasCoreBundle/Resources/config/routing/chorario.yml"
     prefix:   /horario/
+
 planillas_core_ausencias:
     resource: "@PlanillasCoreBundle/Resources/config/routing/causencias.yml"
     prefix:   /ausencias/
+
 planillas_core_historias_salud:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/ehistoriasalud.yml"
     prefix:   /empleado/historiasalud
@@ -72,15 +80,19 @@ planillas_core_historias_salud:
 planillas_core_cuentas_bancos:
     resource: "@PlanillasEntidadesBundle/Resources/config/routing/ecuentabanco.yml"
     prefix:   /empleado/cuentasbanco
+
 planillas_core_horas_extras:
     resource: "@PlanillasCoreBundle/Resources/config/routing/chorasextras.yml"
     prefix:   /extras/
+
 planillas_core_incapacidades:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cincapacidades.yml"
     prefix:   /incapacidades/
+
 planillas_core_deudas:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cdeudas.yml"
     prefix:   /deudas/
+
 planillas_core_incapacidades:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cincapacidades.yml"
     prefix:   /incapacidades/
@@ -88,3 +100,7 @@ planillas_core_incapacidades:
 planillas_core_dias_extra:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cdiasextra.yml"
     prefix:   /dias-extra/
+
+planillas_core_componentes_salariales:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/componentessalariales.yml"
+    prefix: /compsalariales

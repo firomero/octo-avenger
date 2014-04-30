@@ -1,0 +1,9 @@
+<form action="#" method="POST" {{ form_enctype(form) }} class="form-horizontal" style="padding-top: 8px;">
+    {{ form_row(form.empleado) }}
+    {{ form_row(form.tipoDeuda) }}
+    {{ form_row(form.fechaInicio) }}
+    {{ form_row(form.permanente) }}
+    {{ form_row(form.montoTotal) }}
+    {{ form_row(form.numeroCuotas) }}
+    <button id="btn-submit-rebajo" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Crear</button>
+</form>

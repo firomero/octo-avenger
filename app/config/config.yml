@@ -123,7 +123,7 @@ planillas_payments:
     # dias contables en el mes
     dias_por_mes: 30
     # porciento del seguro
-    factor_seguro: 0.09
+    factor_seguro: 0.0917
     # horas por turno diurno
     horas_diurno: 8
     # factor horas extras

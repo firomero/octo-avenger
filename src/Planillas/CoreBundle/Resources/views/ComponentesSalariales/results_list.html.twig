@@ -1,0 +1,32 @@
+<table class="table table-bordered table-striped table-condensed table-responsive">
+    <thead>
+        <tr>
+            <th>Empleado</th>
+            <th>Componente</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th>Pagado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>{{ entity.empleado }}</td>
+                <td>{{ entity.componente == 0 ? 'Rebajo' : 'Bonificación' }}</td>
+                <td>{{ entity.permanente ? 'Permanente' : entity.fecha | date('d/m/Y') }}</td>
+                <td>₡ {{ entity.montoTotal }}</td>
+                <td>
+                    {% if entity.planillaEmpleado is null %}
+                        <i class="glyphicon glyphicon-remove" title="No pagado"></i>
+                    {% else %}
+                        <i class="glyphicon glyphicon-ok" title="Pagado"></i>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5">No se encontraron resultados que mostrar.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{{ knp_pagination_render(entities) }}

@@ -1,0 +1,8 @@
+<form action="#" method="POST" {{ form_enctype(form) }} class="form-horizontal" style="padding-top: 8px;">
+    {{ form_row(form.empleado) }}
+    {{ form_row(form.fechaVencimiento) }}
+    {{ form_row(form.monto) }}
+    {{ form_row(form.permanente) }}
+    {{ form_row(form.descripcion) }}
+    <button id="btn-submit-bonificacion" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Crear</button>
+</form>
