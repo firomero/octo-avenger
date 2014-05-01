@@ -40,21 +40,21 @@ class CPlanillasEmpleado
      /**
      * @var float
      *
-     * @ORM\Column(name="salario_periodo", type="decimal", nullable=false)
+     * @ORM\Column(name="salario_periodo", type="decimal", nullable=false, scale=2)
      */
     private $salario_periodo;
 
      /**
      * @var float
      *
-     * @ORM\Column(name="salario_total", type="decimal", nullable=false)
+     * @ORM\Column(name="salario_total", type="decimal", nullable=false, scale=2)
      */
     private $salario_total;
 
      /**
      * @var float
      *
-     * @ORM\Column(name="salario_seguro", type="decimal", nullable=true)
+     * @ORM\Column(name="salario_seguro", type="decimal", nullable=true, scale=2)
      */
     private $salario_seguro;
 
@@ -71,7 +71,6 @@ class CPlanillasEmpleado
      * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CDiasExtra", mappedBy="planillaEmpleado", cascade={"persist","remove"})
      */
     private $diasExtras;
-
 
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection $ausencias
@@ -108,19 +107,26 @@ class CPlanillasEmpleado
      */
     private $componentesSalariales;
 
+    /**
+     * @var  \Doctrine\Common\Collections\ArrayCollection $bonificacionesPuesto
+     *
+     * @ORM\OneToMany(targetEntity="Planillas\CoreBundle\Entity\CPlanillasBonificacionesPuesto", mappedBy="planillaEmpleado", cascade={"persist","remove"})
+     */
+    private $bonificacionesPuesto;
 
     /**
      * Constructor
      */
-    public function __constructor()
+    public function __construct()
     {
-        $this->horasExtras              = new ArrayCollection();
-        $this->diasExtras               = new ArrayCollection();
-        $this->ausencias                = new ArrayCollection();
-        $this->incapacidades            = new ArrayCollection();
-        $this->deudas                   = new ArrayCollection();
-        $this->componentesPermanentes   = new ArrayCollection();
-        $this->componentesSalariales    = new ArrayCollection();
+        $this->horasExtras = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->diasExtras = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ausencias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->incapacidades = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->deudas = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->componentesPermanentes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->componentesSalariales = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->bonificacionesPuesto = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -453,5 +459,153 @@ class CPlanillasEmpleado
         return $this->componentesSalariales;
     }
 
+    /**
+     * Remove horasExtras
+     *
+     * @param \Planillas\CoreBundle\Entity\CHorasExtras $horasExtras
+     */
+    public function removeHorasExtra(\Planillas\CoreBundle\Entity\CHorasExtras $horasExtras)
+    {
+        $this->horasExtras->removeElement($horasExtras);
+    }
 
+    /**
+     * Remove diasExtras
+     *
+     * @param \Planillas\CoreBundle\Entity\CDiasExtra $diasExtras
+     */
+    public function removeDiasExtra(\Planillas\CoreBundle\Entity\CDiasExtra $diasExtras)
+    {
+        $this->diasExtras->removeElement($diasExtras);
+    }
+
+    /**
+     * Remove ausencias
+     *
+     * @param \Planillas\CoreBundle\Entity\CAusencias $ausencias
+     */
+    public function removeAusencia(\Planillas\CoreBundle\Entity\CAusencias $ausencias)
+    {
+        $this->ausencias->removeElement($ausencias);
+    }
+
+    /**
+     * Add incapacidades
+     *
+     * @param \Planillas\CoreBundle\Entity\CIncapacidades $incapacidades
+     * @return CPlanillasEmpleado
+     */
+    public function addIncapacidade(\Planillas\CoreBundle\Entity\CIncapacidades $incapacidades)
+    {
+        $incapacidades->setPlanillaEmpleado($this);
+
+        $this->incapacidades[] = $incapacidades;
+    
+        return $this;
+    }
+
+    /**
+     * Remove incapacidades
+     *
+     * @param \Planillas\CoreBundle\Entity\CIncapacidades $incapacidades
+     */
+    public function removeIncapacidade(\Planillas\CoreBundle\Entity\CIncapacidades $incapacidades)
+    {
+        $this->incapacidades->removeElement($incapacidades);
+    }
+
+    /**
+     * Remove deudas
+     *
+     * @param \Planillas\CoreBundle\Entity\CDeudas $deudas
+     */
+    public function removeDeuda(\Planillas\CoreBundle\Entity\CDeudas $deudas)
+    {
+        $this->deudas->removeElement($deudas);
+    }
+
+    /**
+     * Add componentesPermanentes
+     *
+     * @param \Planillas\CoreBundle\Entity\CPlanillasComponentesPermanentes $componentesPermanentes
+     * @return CPlanillasEmpleado
+     */
+    public function addComponentesPermanente(\Planillas\CoreBundle\Entity\CPlanillasComponentesPermanentes $componentesPermanentes)
+    {
+        $componentesPermanentes->setPlanillaEmpleado($this);
+
+        $this->componentesPermanentes[] = $componentesPermanentes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove componentesPermanentes
+     *
+     * @param \Planillas\CoreBundle\Entity\CPlanillasComponentesPermanentes $componentesPermanentes
+     */
+    public function removeComponentesPermanente(\Planillas\CoreBundle\Entity\CPlanillasComponentesPermanentes $componentesPermanentes)
+    {
+        $this->componentesPermanentes->removeElement($componentesPermanentes);
+    }
+
+    /**
+     * Add componentesSalariales
+     *
+     * @param \Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales
+     * @return CPlanillasEmpleado
+     */
+    public function addComponentesSalariale(\Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales)
+    {
+        $componentesSalariales->setPlanillaEmpleado($this);
+
+        $this->componentesSalariales[] = $componentesSalariales;
+    
+        return $this;
+    }
+
+    /**
+     * Remove componentesSalariales
+     *
+     * @param \Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales
+     */
+    public function removeComponentesSalariale(\Planillas\EntidadesBundle\Entity\EComponentesSalariales $componentesSalariales)
+    {
+        $this->componentesSalariales->removeElement($componentesSalariales);
+    }
+
+    /**
+     * Add bonificacionesPuesto
+     *
+     * @param \Planillas\CoreBundle\Entity\CPlanillasBonificacionesPuesto $bonificacionesPuesto
+     * @return CPlanillasEmpleado
+     */
+    public function addBonificacionesPuesto(\Planillas\CoreBundle\Entity\CPlanillasBonificacionesPuesto $bonificacionesPuesto)
+    {
+        $bonificacionesPuesto->setPlanillaEmpleado($this);
+
+        $this->bonificacionesPuesto[] = $bonificacionesPuesto;
+    
+        return $this;
+    }
+
+    /**
+     * Remove bonificacionesPuesto
+     *
+     * @param \Planillas\CoreBundle\Entity\CPlanillasBonificacionesPuesto $bonificacionesPuesto
+     */
+    public function removeBonificacionesPuesto(\Planillas\CoreBundle\Entity\CPlanillasBonificacionesPuesto $bonificacionesPuesto)
+    {
+        $this->bonificacionesPuesto->removeElement($bonificacionesPuesto);
+    }
+
+    /**
+     * Get bonificacionesPuesto
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBonificacionesPuesto()
+    {
+        return $this->bonificacionesPuesto;
+    }
 }

@@ -1,0 +1,52 @@
+<?php
+
+namespace Planillas\CoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CPlanillasBonificacionesPuesto
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Planillas\CoreBundle\Entity\Repository\CPlanillasBonificacionesPuestoRepository")
+ */
+class CPlanillasBonificacionesPuesto
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var $bonificacionPuesto \Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto")
+     */
+    private $bonificacionPuesto;
+
+    /**
+     * @var $planilla \Planillas\CoreBundle\Entity\CPlanillasEmpleado
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CPlanillasEmpleado", inversedBy="bonificacionesPuesto")
+     */
+    private $planillaEmpleado;
+
+    /**
+     * @var $empleado \Planillas\CoreBundle\Entity\CEmpleado
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
+     */
+    private $empleado;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="monto", type="float")
+     */
+    private $monto;
+
+}

@@ -9,12 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SalarioBasePuestoType extends AbstractType
 {
-    public $bDestruyeEmpleado;
-
-    public function __construct($bDestruyeEmpleado=false)
-    {
-        $this->bDestruyeEmpleado = $bDestruyeEmpleado;
-    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -35,10 +29,6 @@ class SalarioBasePuestoType extends AbstractType
             ->add('seguro','checkbox',array(
                 'label'     => null,
                 'required'  => false
-            ))
-            ->add('empleado','hidden',array(
-                'data_class'    =>'Planillas\CoreBundle\Entity\CEmpleado',
-                'property_path' =>'id'
             ))
             ->add('empresa', 'entity', array(
                 'class'     => 'PlanillasEstructuraBundle:Empresa',
@@ -65,9 +55,6 @@ class SalarioBasePuestoType extends AbstractType
                 'required'  => false,
             ))
         ;
-        if ($this->bDestruyeEmpleado) {
-            $builder->remove('empleado');
-        }
     }
 
     /**

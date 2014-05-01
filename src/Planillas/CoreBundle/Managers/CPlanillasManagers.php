@@ -1,13 +1,5 @@
 <?php
 
-/**
- * Created by JetBrains PhpStorm.
- * User: jose
- * Date: 26/01/14
- * Time: 22:57
- * To change this template use File | Settings | File Templates.
- */
-
 namespace Planillas\CoreBundle\Managers;
 
 use Doctrine\ORM\EntityManager;
@@ -16,7 +8,9 @@ use Planillas\CoreBundle\Entity\CPlanillas;
 use Planillas\CoreBundle\Entity\CPlanillasEmpleado;
 use Planillas\CoreBundle\Entity\CPlanillasComponentesPermanentes;
 use Planillas\EntidadesBundle\Entity\EComponentesSalariales;
+use Planillas\PaymentsBundle\Managers\ComponenteBonificacionesManager;
 use Planillas\PaymentsBundle\Managers\SalarioManager;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Planillas\CoreBundle\Util\PdfObject;
 
@@ -46,17 +40,29 @@ class CPlanillasManagers
     private $idplanilla;
 
     /**
-     * @var SalarioManager
+     * @var $salarioManager \Planillas\PaymentsBundle\Managers\SalarioManager
      */
     private $salarioManager;
 
-    public function __construct(EntityManager $em, Request $request, SalarioManager $salarioManager, $id = null) 
+    /**
+     * @var $bonificacionesManager \Planillas\PaymentsBundle\Managers\ComponenteBonificacionesManager
+     */
+    private $bonificacionesManager;
+
+    /**
+     * @var $logger \Symfony\Bridge\Monolog\Logger
+     */
+    private $logger;
+
+    public function __construct(Container $container)
     {
-        $this->em = $em;
-        $this->prequest = $request;
+        $this->em = $container->get('doctrine.orm.entity_manager');
+        $this->prequest = $container->get('request');
         $this->planilla = null;
-        $this->idplanilla = $id;
-        $this->salarioManager = $salarioManager;
+        //$this->idplanilla = $id;
+        $this->salarioManager = $container->get('payments.salario.manager');
+        $this->bonificacionesManager = $container->get('payments.componente_bonificacion.manager');
+        $this->logger = $container->get('logger');
 
         $this->initialize();
     }
@@ -126,6 +132,9 @@ class CPlanillasManagers
 
             return true;
         } catch (\Exception $e) {
+            $this->logger->addCritical(sprintf('Ha ocurrido un error persistiendo la planilla. Detalles: ',
+                $e->getMessage()));
+
             $this->em->rollback();
 
             //$this->em->remove($planilla);
@@ -151,7 +160,10 @@ class CPlanillasManagers
                     //$this->em->flush();
 
 
-                    $this->findBonificacionesByEmpleado($oEmpleado, true, null, $planillaEmpleado); //ok
+                    //$this->findBonificacionesByEmpleado($oEmpleado, true, null, $planillaEmpleado); //ok
+                    $this->bonificacionesManager
+                        ->persistBonificacionesToPlanillaEmpleado($oEmpleado, $this->fechaInicio, $this->fechaFin,
+                            $planillaEmpleado);
                     $this->findDeudasByEmpleado($oEmpleado, true, null, $planillaEmpleado); //ok
                     $this->findDiasExtrasByEmpleado($oEmpleado, true, null, $planillaEmpleado); //ok
                     $this->findHorasExtrasByEmpleado($oEmpleado, true, null, $planillaEmpleado); //ok
@@ -281,7 +293,9 @@ class CPlanillasManagers
                 /**
                  * Buscamos sus bonificaciones
                  */
-                $aBonificionesTotalTemp = $this->findBonificacionesByEmpleado($oEmpleado, false, $oPlanilla);
+                //$aBonificionesTotalTemp = $this->findBonificacionesByEmpleado($oEmpleado, false, $oPlanilla);
+                $aBonificionesTotalTemp = $this->bonificacionesManager
+                    ->getBonificacionesInDataArray($oEmpleado, $this->fechaInicio, $this->fechaFin, $oPlanilla);
                 /**
                  * Buscamos sus deudas
                  */
@@ -1414,6 +1428,24 @@ class CPlanillasManagers
         return $this;
     }
 
+    /**
+     * @param mixed $idplanilla
+     */
+    public function setIdplanilla($idplanilla)
+    {
+        $this->idplanilla = $idplanilla;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdplanilla()
+    {
+        return $this->idplanilla;
+    }
+
+
+
 
     /*
      * Zona de reportes
@@ -1599,5 +1631,6 @@ class CPlanillasManagers
 
         $pdf->Output('planillaPago.pdf', 'FD');
     }
+
 
 }

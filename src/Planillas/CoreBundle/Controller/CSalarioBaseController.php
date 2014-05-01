@@ -15,55 +15,26 @@ use Planillas\CoreBundle\Entity\CSalarioBase;
  */
 class CSalarioBaseController extends Controller
 {
-    /**
-     * Lists all CSalarioBase entities.
-     *
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('PlanillasCoreBundle:CSalarioBase')->findByPagado(array('pagado' => 0)); //los no pagados
-
-        return $this->render('PlanillasCoreBundle:CSalarioBase:index.html.twig', array(
-                    'entities' => $entities,
-        ));
-    }
 
     /**
      * Creates a new CSalarioBase entity.
      *
      */
-    public function createAction(Request $request, $id_empleado)
+    public function createAction(Request $request, $id)
     {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
-        $eEmpleado = $em->getRepository('PlanillasCoreBundle:CEmpleado')->find($id_empleado);
-        if (!$eEmpleado) {
-            throw $this->createNotFoundException('Unable to find CEmpleado entity.');
+        $handler = $this->get('core.salario_base_puesto.handler');
+
+        if ($handler->handle_create($request, $id)) {
+            $this->get('session')->getFlashBag()->add('success', 'Se actualizaron los datos de salario satisfactoriamente');
+            return $this->redirect($this->generateUrl('csalariobase_new', array('id' => $id)));
         }
-        $entity = new CSalarioBase();
-        $entity->setEmpleado($eEmpleado);
 
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-
-            $periodoPago = $em->getRepository('PlanillasNomencladorBundle:NPeriodoPago')->findOneBy(array(
-                'activo' => true,
-            ));
-            $entity->setPeriodoPago($periodoPago);
-
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('csalariobase_new', array('id' => $entity->getEmpleado()->getId())));
-        }
+        $entities = $this->getComponentesPagadas($id);
 
         return $this->render('PlanillasCoreBundle:CSalarioBase:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'form' => $handler->getForm()->createView(),
+            'entities' => $entities,
+            'eEmpleado' => $handler->getForm()->getData()->getEmpleado(),
         ));
     }
 
@@ -104,7 +75,7 @@ class CSalarioBaseController extends Controller
         }
 
         if ($eEmpleado->getSalarioBase() == null) {
-            $form = $handler->createNewForm($eEmpleado->getId());
+            $form = $handler->createNewForm($eEmpleado);
         } else {
             $form = $handler->createEditForm($eEmpleado);
         }
@@ -199,15 +170,14 @@ class CSalarioBaseController extends Controller
         $handler = $this->get('core.salario_base_puesto.handler');
 
         if ($handler->handle_update($request, $id)) {
+            $this->get('session')->getFlashBag()->add('success', 'Se actualizaron los datos de salario satisfactoriamente');
             return $this->redirect($this->generateUrl('csalariobase_new', array('id' => $id)));
         }
 
         $entities = $this->getComponentesPagadas($id);
-        //$deleteForm = $this->createDeleteForm($id);
+
         return $this->render('PlanillasCoreBundle:CSalarioBase:new.html.twig', array(
-            //'entity' => $entity,
             'form' => $handler->getForm()->createView(),
-            //'delete_form' => $deleteForm->createView(),
             'entities' => $entities,
             'eEmpleado' => $handler->getForm()->getData()->getEmpleado(),
         ));

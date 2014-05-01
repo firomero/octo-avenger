@@ -2,6 +2,10 @@ parameters:
     planillas.core.empleado.manager: Planillas\CoreBundle\Form\Managers\EmpleadoManager
 
 services:
+    core.cplanillas.manager:
+        class: Planillas\CoreBundle\Managers\CPlanillasManagers
+        arguments: [@service_container]
+
     core.empleado.manager:
         class: %planillas.core.empleado.manager%
         arguments:

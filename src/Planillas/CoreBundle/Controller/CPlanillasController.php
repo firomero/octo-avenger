@@ -41,7 +41,7 @@ class CPlanillasController extends Controller
 
         $search_form->handleRequest($request);
         if ($search_form->isValid()) {
-            $manager = new CPlanillasManagers($em, $request, $salarioManager);
+            $manager = $this->get('core.cplanillas.manager');
             $manager->setFechaInicio($periodoPlanillaModel->getFechaInicio());
             $manager->setFechaFin($periodoPlanillaModel->getFechaFin());
 
@@ -138,7 +138,7 @@ class CPlanillasController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $salarioManager = $this->get('payments.salario.manager');
 
-                $manager = new CPlanillasManagers($em, $request, $salarioManager);
+                $manager = $this->get('core.cplanillas.manager');
                 $manager->setFechaInicio($fecha_inicio);
                 $manager->setFechaFin($fecha_fin);
 
@@ -174,7 +174,7 @@ class CPlanillasController extends Controller
         $empleados = array();
         $params = array();
 
-        $manager = new CPlanillasManagers($em, $request, $salarioManager);
+        $manager = $this->get('core.cplanillas.manager');
         $manager->setFechaInicio($periodoPlanillaModel->getFechaInicio());
         $manager->setFechaFin($periodoPlanillaModel->getFechaFin());
 
@@ -215,22 +215,22 @@ class CPlanillasController extends Controller
      */
     public function searchPlanillaAction(Request $request)
     {
-        if ($bExistePeriodo == false /*|| is_array($bExistePeriodo)*/) {
-
-            $this->get('session')->getFlashBag()->add('danger', 'Existen coincidencias en las fechas con la planilla del período ' . $bExistePeriodo[1]);
-            $entities = array('id_planilla' => 0);
-            $entities['periodo']['inicio'] = "";
-            $entities['periodo']['fin'] = "";
-            $entities['empleados'] = array();
-        } else {
-            $entities = $manager->resultHtmlPlanillas();
-        }
-
-        return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
-            'entities' => $entities,
-            'ultimoPeriodoPago'=>$ultimoPeriodoPago,//CPlanilla
-            'periodo' => $oPeriodoPagoActivo
-        ));
+//        if ($bExistePeriodo == false /*|| is_array($bExistePeriodo)*/) {
+//
+//            $this->get('session')->getFlashBag()->add('danger', 'Existen coincidencias en las fechas con la planilla del período ' . $bExistePeriodo[1]);
+//            $entities = array('id_planilla' => 0);
+//            $entities['periodo']['inicio'] = "";
+//            $entities['periodo']['fin'] = "";
+//            $entities['empleados'] = array();
+//        } else {
+//            $entities = $manager->resultHtmlPlanillas();
+//        }
+//
+//        return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
+//            'entities' => $entities,
+//            'ultimoPeriodoPago'=>$ultimoPeriodoPago,//CPlanilla
+//            'periodo' => $oPeriodoPagoActivo
+//        ));
     }
 
     /**
@@ -243,7 +243,7 @@ class CPlanillasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $paymentManager = $this->get('payments.salario.manager');
 
-        $manager = new CPlanillasManagers($em, $request, $paymentManager);
+        $manager = $this->get('core.cplanillas.manager');
         $entities = $manager->getPlanillas();
         $fechaInicio=false;
         $fechaFin=false;
@@ -293,7 +293,9 @@ class CPlanillasController extends Controller
 
         $entity = $em->getRepository('PlanillasCoreBundle:CPlanillas')->find($id);
 
-        $manager = new CPlanillasManagers($em, $request, $salarioManager, $id);
+        $manager = $this->get('core.cplanillas.manager');
+        $manager->setIdplanilla($id);
+
         $manager->setFechaInicio($entity->getFechaInicio());
         $manager->setFechaFin($entity->getFechaFin());
         $entities = $manager->resultHtmlPlanillas();
@@ -319,7 +321,7 @@ class CPlanillasController extends Controller
         $em = $this->getDoctrine()->getManager();
         $paymentManager = $this->get('payments.salario.manager');
 
-        $manager = new CPlanillasManagers($em, $request, $paymentManager);
+        $manager = $this->get('core.cplanillas.manager');
         $manager->reportePagoPDF();
     }
 

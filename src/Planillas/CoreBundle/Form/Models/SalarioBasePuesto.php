@@ -7,11 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class SalarioBasePuesto
 {
-    /**
-     * @var $empleado \Planillas\CoreBundle\Entity\CEmpleado
-     * @Assert\NotBlank()
-     */
-    private $empleado;
+    private $id;
 
     /**
      * @var float
@@ -71,7 +67,7 @@ class SalarioBasePuesto
                 $this->setPuesto($puesto->getPuesto());
                 $this->setRol($puesto->getRol());
             }
-            $this->setEmpleado($empleado);
+            $this->id = $empleado->getId();
         }
     }
     /**
@@ -88,22 +84,6 @@ class SalarioBasePuesto
     public function getCliente()
     {
         return $this->cliente;
-    }
-
-    /**
-     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
-     */
-    public function setEmpleado($empleado)
-    {
-        $this->empleado = $empleado;
-    }
-
-    /**
-     * @return \Planillas\CoreBundle\Entity\CEmpleado
-     */
-    public function getEmpleado()
-    {
-        return $this->empleado;
     }
 
     /**
@@ -217,6 +197,23 @@ class SalarioBasePuesto
     {
         return $this->rol;
     }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
 
 
 }

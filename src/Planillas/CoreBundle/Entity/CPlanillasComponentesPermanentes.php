@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * CPlanillasEmpleado
  *
  * @ORM\Table(name="c_planillas_componentes")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Planillas\CoreBundle\Entity\Repository\CPlanillasComponentesPermanentesRepository")
  */
 class CPlanillasComponentesPermanentes
 {
@@ -22,7 +22,7 @@ class CPlanillasComponentesPermanentes
     private $id;
 
     /**
-     * @var $componentePermanente Planillas/EntidadesBundle/Entity/EComponentesSalariales
+     * @var $componentePermanente \Planillas\EntidadesBundle\Entity\EComponentesSalariales
      *
      * @ORM\ManyToOne(targetEntity="Planillas\EntidadesBundle\Entity\EComponentesSalariales")
      */
@@ -36,7 +36,7 @@ class CPlanillasComponentesPermanentes
    private $planillaEmpleado;
 
    /**
-     * @var $empleado Planillas/CoreBundle/Entity/CPlanillas
+     * @var $empleado \Planillas\CoreBundle\Entity\CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
      */

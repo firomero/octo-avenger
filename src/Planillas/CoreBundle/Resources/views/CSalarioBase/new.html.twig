@@ -1,12 +1,11 @@
 {% extends '::base.html.twig' %}
 {% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
-{% block title %}
-Gestionar Salario
-{% endblock %}
+
+{% block title 'Gestionar Salario' %}
 
 {% block content_content %}
     {% for mensaje in app.session.flashbag.all() %}
-<div class="alert alert-info">{{ mensaje }}</div>
+     <div class="alert alert-info">{{ mensaje }}</div>
     {% endfor %}
 
     {% block content %}
