@@ -184,7 +184,10 @@ class ComponenteBonificacionesManager
                 /** @var $bonificacion \Planillas\EstructuraBundle\Entity\BonificacionesEnPuesto */
                 $salida['bonificaciones'][] = array(
                     'id'            => $bonificacion->getId(),
-                    'descripcion'   => sprintf('Bonificación para el puesto %s',$bonificacion->getPuesto()->getNombre()),
+                    'descripcion'   => sprintf('Bonificación %s para el puesto %s',
+                        $bonificacion->getBonificacion()->getNombre(),
+                        $bonificacion->getPuesto()->getNombre()
+                    ),
                     'fecha_inicio'  => 'Permanente',
                     'monto_total'   => number_format($bonificacion->getMonto(),2,'.',''),
                 );
