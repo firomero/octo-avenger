@@ -29,3 +29,7 @@ services:
     payments.componente_bonificacion.manager:
         class: Planillas\PaymentsBundle\Managers\ComponenteBonificacionesManager
         arguments: [@doctrine.orm.entity_manager, @logger]
+
+    payments.excel.prepayment:
+        class: Planillas\PaymentsBundle\Managers\ExcelExport\PrePaymentsExcel
+        arguments: [@phpexcel]

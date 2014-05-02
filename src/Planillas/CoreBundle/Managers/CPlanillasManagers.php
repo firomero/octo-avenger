@@ -54,6 +54,8 @@ class CPlanillasManagers
      */
     private $logger;
 
+    private $container;
+
     public function __construct(Container $container)
     {
         $this->em = $container->get('doctrine.orm.entity_manager');
@@ -63,6 +65,7 @@ class CPlanillasManagers
         $this->salarioManager = $container->get('payments.salario.manager');
         $this->bonificacionesManager = $container->get('payments.componente_bonificacion.manager');
         $this->logger = $container->get('logger');
+        $this->container = $container;
 
         $this->initialize();
     }
@@ -304,7 +307,7 @@ class CPlanillasManagers
                  * Buscamos sus Dias extras
                  */
                 $aDiasExtraTemp = $this->findDiasExtrasByEmpleado($oEmpleado, false, $oPlanilla);
-                /*
+                /**
                  * Buscamos sus horas extras
                  */
                 $aHorasExtrasTemp = $this->findHorasExtrasByEmpleado($oEmpleado, false, $oPlanilla);
@@ -358,6 +361,26 @@ class CPlanillasManagers
                  * Asignando sus datos enconomicos
                  */
                 $this->aEmpleadosSalario['empleados'][$i]['datos_economicos'] = $aTemp;
+
+                /**
+                 * Buscando la empresa para el puesto asignado
+                 */
+                $puestoEmpleado = $this->em->getRepository('PlanillasCoreBundle:CPuestoEmpleado')
+                    ->getEmpresaByEmpleadoId($oEmpleado->getId());
+                if($puestoEmpleado) {
+                    $nombreEmpresa = $puestoEmpleado->getEmpresa()->getNombre();
+                    $this->aEmpleadosSalario['empleados'] [$i]['datos_personales']['empresa'] = $nombreEmpresa;
+                }
+
+                /**
+                 * Buscando tipo de pago asignado al empleado
+                 */
+                $tipoPago = $this->em->getRepository('PlanillasEntidadesBundle:ECuentaBanco')
+                    ->findOneByEmpleado($oEmpleado);
+                if ($tipoPago) {
+                    $tipo = $tipoPago->getTipo();
+                    $this->aEmpleadosSalario['empleados'] [$i]['datos_personales']['tipo_pago'] = $tipo;
+                }
 
                 $i++;
             }
@@ -1632,5 +1655,12 @@ class CPlanillasManagers
         $pdf->Output('planillaPago.pdf', 'FD');
     }
 
+    public function reportePrePagoExcel()
+    {
+        $prePayment = $this->container->get('payments.excel.prepayment');
+        $data = $this->resultHtmlPlanillas();
+        $prePayment->export($data);
+        $prePayment->Output('pre-planillapago.xlsx');
+    }
 
 }

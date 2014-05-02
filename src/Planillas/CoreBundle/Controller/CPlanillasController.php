@@ -106,8 +106,14 @@ class CPlanillasController extends Controller
                     'class' => 'btn btn-primary'
                 )
             ))
-            ->add('exportar', 'submit', array(
-                'label' => 'Exportar',
+            ->add('exportar_pdf', 'submit', array(
+                'label' => 'Exportar PDF',
+                'attr' => array(
+                    'class' => 'btn btn-default'
+                )
+            ))
+            ->add('exportar_excel', 'submit', array(
+                'label' => 'Exportar Excel',
                 'attr' => array(
                     'class' => 'btn btn-default'
                 )
@@ -135,9 +141,6 @@ class CPlanillasController extends Controller
 
         if ($form->isValid()) {
             if ($form->get('guardar')->isClicked()) { // guardar planilla
-                $em = $this->getDoctrine()->getManager();
-                $salarioManager = $this->get('payments.salario.manager');
-
                 $manager = $this->get('core.cplanillas.manager');
                 $manager->setFechaInicio($fecha_inicio);
                 $manager->setFechaFin($fecha_fin);
@@ -149,8 +152,16 @@ class CPlanillasController extends Controller
                 } else {
                     $this->get('session')->getFlashBag()->add('danger', 'Error al guardar la planilla de efectivo.');
                 }
-            } else { // exportar planilla
-
+            } elseif ($form->get('exportar_pdf')->isClicked()) { // exportar planilla
+                $manager = $this->get('core.cplanillas.manager');
+                $manager->setFechaInicio($fecha_inicio);
+                $manager->setFechaFin($fecha_fin);
+                $manager->reportePagoPDF();
+            } else {
+                $manager = $this->get('core.cplanillas.manager');
+                $manager->setFechaInicio($fecha_inicio);
+                $manager->setFechaFin($fecha_fin);
+                $manager->reportePrePagoExcel();
             }
         }
 
@@ -317,10 +328,8 @@ class CPlanillasController extends Controller
      *
      * @param Request $request
      */
-    public function reporteAction(Request $request) {
-        $em = $this->getDoctrine()->getManager();
-        $paymentManager = $this->get('payments.salario.manager');
-
+    public function reporteAction(Request $request)
+    {
         $manager = $this->get('core.cplanillas.manager');
         $manager->reportePagoPDF();
     }

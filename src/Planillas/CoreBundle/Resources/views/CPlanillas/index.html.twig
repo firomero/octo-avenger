@@ -22,7 +22,8 @@
                 {{ form_widget(form._token) }}
                 <div class="form-actions">
                     {{ form_widget(form.guardar) }}
-                    {{ form_widget(form.exportar) }}
+                    {{ form_widget(form.exportar_pdf) }}
+                    {{ form_widget(form.exportar_excel) }}
                 </div>
             {{ form_end(form) }}
             {% endif %}
