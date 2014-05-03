@@ -1476,185 +1476,193 @@ class CPlanillasManagers
      * Zona de reportes
      */
 
-    public function reportePrePagoPDF() {
+//    public function reportePrePagoPDF() {
+//
+//        $periodo = $this->fechaInicio->format('Y-m-d') . 'al ' . $this->fechaInicio->format('Y-m-d');
+//        $periodo = sprintf("Periodo: %s al %s ", $this->fechaInicio->format('d-m-Y'), $this->fechaFin->format('d-m-Y'));
+//        // create new PDF document
+//        $pdf = new PdfObject();
+//        $pdf->SetCreator(PDF_CREATOR);
+//        $pdf->SetAuthor('Jose Mojena Alpizar');
+//        $pdf->SetTitle('Reporte general');
+//        $pdf->SetSubject('Periodo');
+//
+//        $pdf->SetHeaderData('', '', "Planilla Efectivo", $periodo, array(0, 64, 255), array(0, 64, 128));
+//        $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
+//
+//        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+//        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+//        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+//        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+//        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+//        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+//        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+//        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+//        $pdf->setFontSubsetting(true);
+//        $pdf->SetFont('dejavusans', '', 9, '', true);
+//
+//        $aComplementos = array();
+//        $tableHeaders = array(
+//            'Cédula',
+//            'Empleado',
+//            'Salario',
+//            'Bonificaciones',
+//            'Rebajos',
+//            'Días Extras',
+//            'Horas Extras',
+//            'Ausencias',
+//            'Incapacidades',
+//            'Total');
+//        $html = '<table border="0" cellspacing="5" cellpadding="5">
+//             <tr>
+//
+//                <td style="width:150px;text-align: left">' . $tableHeaders[1] . '</td>
+//                <td style="width:65px;text-align: left">' . $tableHeaders[2] . '
+//                </td>
+//                <td style="width:100px;text-align: left">' . $tableHeaders[3] . '
+//                </td>
+//                 <td style="width:85px;text-align: left">' . $tableHeaders[4] . '
+//                </td>
+//                <td style="text-align: left">' . $tableHeaders[5] . '
+//                </td>
+//                <td style="text-align: left">' . $tableHeaders[6] . '
+//                </td>
+//                <td style="text-align: left">' . $tableHeaders[7] . '
+//                </td>
+//                <td style="width:100px;text-align: left">' . $tableHeaders[8] . '</td>
+//                <td style="width:70px;text-align: left">' . $tableHeaders[9] . '
+//                </td></tr>';
+//
+//        $aData = $this->resultHtmlPlanillas();
+//        $dSalarioTotalTodos = 0;
+//
+//        for ($i = 0; $i < count($aData['empleados']); $i++) {
+//            $empleado = $aData['empleados'][$i];
+//            $datos_economicos = $aData['empleados'][$i]['datos_economicos'];
+//
+//            $bonificaciones = $datos_economicos['bonificaciones'];
+//            //print_r($bonificaciones['bonificaciones']);exit;
+//            $deudas = $datos_economicos['deudas'];
+//            $dSalarioTotalTodos += $empleado['datos_economicos']['salario_total_empleado'];
+//            $html .= '<tr>
+//
+//                    <td style="text-align: left">' . $empleado['datos_personales']['nombre'] . ' ' . $empleado['datos_personales']['apellidos'] . '</td>
+//                    <td style="text-align: left">¢' . $empleado['datos_economicos']['salario_base'] . '</td>
+//                    <td style="text-align: left">¢' . $empleado['datos_economicos']['bonificaciones']['total'] . '</td>
+//                    <td style="text-align: left">¢' . $empleado['datos_economicos']['deudas']['total'] . '</td>
+//                    <td style="text-align: left">¢' . $empleado['datos_economicos']['dias_extra']['total'] . '</td>
+//                    <td style="text-align: left">¢' . $empleado['datos_economicos']['horas_extras']['total'] . '</td>
+//                    <td style="text-align: left">¢' . $empleado['datos_economicos']['dias_menos']['total'] . '</td>
+//                    <td style="text-align: left">¢' . $empleado['datos_economicos']['incapacidades']['total'] . '</td>
+//                    <td style="text-align: left">¢' . $empleado['datos_economicos']['salario_total_empleado'] . '</td>';
+//
+//            $html .= '</tr>';
+//
+//            $componentesHtml = '
+//                   <h3>Empleado: ' . $empleado['datos_personales']['nombre'] . ' ' . $empleado['datos_personales']['apellidos'] . '</h3>
+//
+//                   <table>
+//
+//                                <tr>
+//
+//                                    <td>Bonificaciones</td>
+//                                    <td style="text-align: right">Monto</td>
+//
+//                                </tr>
+//                                ';
+//
+//            if (count($bonificaciones) > 0 && array_key_exists('bonificaciones', $bonificaciones)) {
+//                $temp = $bonificaciones['bonificaciones'][0];
+//                foreach ($bonificaciones['bonificaciones'] as $b) {
+//                    $componentesHtml .= '
+//                                            <tr>
+//                                                <td>
+//                                                   ' . $b['descripcion'] . '
+//                                                </td>
+//                                                <td style="text-align: right">
+//                                                   ' . $b['monto_total'] . '
+//                                                </td>
+//
+//                                            </tr>';
+//                    //echo $b['descripcion'];exit;
+//                }
+//                $componentesHtml .= '
+//                                     <tr>
+//                                     <td style="text-align: right">
+//                                      <strong>Total</strong>
+//                                     </td>
+//                                     <td>' . $bonificaciones['total'] . '</td>
+//                                     </tr>
+//                                   ';
+//                $componentesHtml .= '
+//                            </table>';
+//            }
+//            //print_r($componentesHtml);exit;
+//            $componentesHtml .= '
+//
+//                   <h4>Deudas</h4>
+//                   <table class="table table-bordered">
+//                                <thead>
+//                                <tr>
+//
+//                                    <th>Deuda</th>
+//                                    <th style="text-align: right">Monto</th>
+//
+//                                </tr>
+//                                </thead>
+//                                <tbody>';
+//            if (count($deudas) && array_key_exists('deudas', $deudas)) {
+//                $temp = $deudas['deudas'];
+//                foreach ($temp as $b) {
+//                    $componentesHtml . '
+//                                            <tr>
+//                                                <td>
+//                                                   holaa
+//                                                </td>
+//                                                <td style="text-align: right">
+//                                                   fdime mano
+//                                                </td>
+//
+//                                            </tr>';
+//                }
+//                $componentesHtml .= '</tbody>
+//                            </table>';
+//            }
+//            $aComplementos[] = $componentesHtml;
+//        }
+//        $html .= '<tr>
+//
+//                    <td></td>
+//                    <td></td>
+//                    <td></td>
+//                    <td></td>
+//                    <td></td>
+//                    <td></td>
+//                    <td></td>
+//                    <td style="text-align: right"><strong>Total:</strong></td>
+//                    <td>¢' . $dSalarioTotalTodos . '</td>';
+//
+//        $html .= '</tr>';
+//        $html .= '</table>';
+//
+//        $pdf->AddPage('L');
+//        $pdf->writeHTML($html, true, false, true, false, '');
+//
+//        /* $pdf->AddPage();
+//          foreach ($aComplementos as $complemento) {
+//
+//          $pdf->writeHTML($complemento, true, false, true, false, '');
+//          } */
+//
+//        $pdf->Output('planillaPago.pdf', 'FD');
+//    }
 
-        $periodo = $this->fechaInicio->format('Y-m-d') . 'al ' . $this->fechaInicio->format('Y-m-d');
-        $periodo = sprintf("Periodo: %s al %s ", $this->fechaInicio->format('d-m-Y'), $this->fechaFin->format('d-m-Y'));
-        // create new PDF document
-        $pdf = new PdfObject();
-        $pdf->SetCreator(PDF_CREATOR);
-        $pdf->SetAuthor('Jose Mojena Alpizar');
-        $pdf->SetTitle('Reporte general');
-        $pdf->SetSubject('Periodo');
-
-        $pdf->SetHeaderData('', '', "Planilla Efectivo", $periodo, array(0, 64, 255), array(0, 64, 128));
-        $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
-
-        $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-        $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-        $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-        $pdf->setFontSubsetting(true);
-        $pdf->SetFont('dejavusans', '', 9, '', true);
-
-        $aComplementos = array();
-        $tableHeaders = array(
-            'Cédula',
-            'Empleado',
-            'Salario',
-            'Bonificaciones',
-            'Rebajos',
-            'Días Extras',
-            'Horas Extras',
-            'Ausencias',
-            'Incapacidades',
-            'Total');
-        $html = '<table border="0" cellspacing="5" cellpadding="5">
-             <tr>
-
-                <td style="width:150px;text-align: left">' . $tableHeaders[1] . '</td>
-                <td style="width:65px;text-align: left">' . $tableHeaders[2] . '
-                </td>
-                <td style="width:100px;text-align: left">' . $tableHeaders[3] . '
-                </td>
-                 <td style="width:85px;text-align: left">' . $tableHeaders[4] . '
-                </td>
-                <td style="text-align: left">' . $tableHeaders[5] . '
-                </td>
-                <td style="text-align: left">' . $tableHeaders[6] . '
-                </td>
-                <td style="text-align: left">' . $tableHeaders[7] . '
-                </td>
-                <td style="width:100px;text-align: left">' . $tableHeaders[8] . '</td>
-                <td style="width:70px;text-align: left">' . $tableHeaders[9] . '
-                </td></tr>';
-
-        $aData = $this->resultHtmlPlanillas();
-        $dSalarioTotalTodos = 0;
-
-        for ($i = 0; $i < count($aData['empleados']); $i++) {
-            $empleado = $aData['empleados'][$i];
-            $datos_economicos = $aData['empleados'][$i]['datos_economicos'];
-
-            $bonificaciones = $datos_economicos['bonificaciones'];
-            //print_r($bonificaciones['bonificaciones']);exit;
-            $deudas = $datos_economicos['deudas'];
-            $dSalarioTotalTodos += $empleado['datos_economicos']['salario_total_empleado'];
-            $html .= '<tr>
-
-                    <td style="text-align: left">' . $empleado['datos_personales']['nombre'] . ' ' . $empleado['datos_personales']['apellidos'] . '</td>
-                    <td style="text-align: left">¢' . $empleado['datos_economicos']['salario_base'] . '</td>
-                    <td style="text-align: left">¢' . $empleado['datos_economicos']['bonificaciones']['total'] . '</td>
-                    <td style="text-align: left">¢' . $empleado['datos_economicos']['deudas']['total'] . '</td>
-                    <td style="text-align: left">¢' . $empleado['datos_economicos']['dias_extra']['total'] . '</td>
-                    <td style="text-align: left">¢' . $empleado['datos_economicos']['horas_extras']['total'] . '</td>
-                    <td style="text-align: left">¢' . $empleado['datos_economicos']['dias_menos']['total'] . '</td>
-                    <td style="text-align: left">¢' . $empleado['datos_economicos']['incapacidades']['total'] . '</td>
-                    <td style="text-align: left">¢' . $empleado['datos_economicos']['salario_total_empleado'] . '</td>';
-
-            $html .= '</tr>';
-
-            $componentesHtml = '
-                   <h3>Empleado: ' . $empleado['datos_personales']['nombre'] . ' ' . $empleado['datos_personales']['apellidos'] . '</h3>
-
-                   <table>
-
-                                <tr>
-
-                                    <td>Bonificaciones</td>
-                                    <td style="text-align: right">Monto</td>
-
-                                </tr>
-                                ';
-
-            if (count($bonificaciones) > 0 && array_key_exists('bonificaciones', $bonificaciones)) {
-                $temp = $bonificaciones['bonificaciones'][0];
-                foreach ($bonificaciones['bonificaciones'] as $b) {
-                    $componentesHtml .= '
-                                            <tr>
-                                                <td>
-                                                   ' . $b['descripcion'] . '
-                                                </td>
-                                                <td style="text-align: right">
-                                                   ' . $b['monto_total'] . '
-                                                </td>
-
-                                            </tr>';
-                    //echo $b['descripcion'];exit;
-                }
-                $componentesHtml .= '
-                                     <tr>
-                                     <td style="text-align: right">
-                                      <strong>Total</strong>
-                                     </td>
-                                     <td>' . $bonificaciones['total'] . '</td>
-                                     </tr>
-                                   ';
-                $componentesHtml .= '
-                            </table>';
-            }
-            //print_r($componentesHtml);exit;
-            $componentesHtml .= '
-
-                   <h4>Deudas</h4>
-                   <table class="table table-bordered">
-                                <thead>
-                                <tr>
-
-                                    <th>Deuda</th>
-                                    <th style="text-align: right">Monto</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>';
-            if (count($deudas) && array_key_exists('deudas', $deudas)) {
-                $temp = $deudas['deudas'];
-                foreach ($temp as $b) {
-                    $componentesHtml . '
-                                            <tr>
-                                                <td>
-                                                   holaa
-                                                </td>
-                                                <td style="text-align: right">
-                                                   fdime mano
-                                                </td>
-
-                                            </tr>';
-                }
-                $componentesHtml .= '</tbody>
-                            </table>';
-            }
-            $aComplementos[] = $componentesHtml;
-        }
-        $html .= '<tr>
-
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: right"><strong>Total:</strong></td>
-                    <td>¢' . $dSalarioTotalTodos . '</td>';
-
-        $html .= '</tr>';
-        $html .= '</table>';
-
-        $pdf->AddPage('L');
-        $pdf->writeHTML($html, true, false, true, false, '');
-
-        /* $pdf->AddPage();
-          foreach ($aComplementos as $complemento) {
-
-          $pdf->writeHTML($complemento, true, false, true, false, '');
-          } */
-
-        $pdf->Output('planillaPago.pdf', 'FD');
+    public function reportePrePagoPDF()
+    {
+        $prePayment = $this->container->get('payments.pdf.prepayment.manager');
+        $data = $this->resultHtmlPlanillas();
+        $prePayment->export($data);
+        $prePayment->Output('pre-planillapago.pdf');
     }
 
     public function reportePrePagoExcel()

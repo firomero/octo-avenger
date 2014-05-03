@@ -40,3 +40,6 @@ services:
 
     payments.pdf.payment.manager:
         class: Planillas\PaymentsBundle\Managers\PDFExport\PaymentsPDF
+
+    payments.pdf.prepayment.manager:
+        class: Planillas\PaymentsBundle\Managers\PDFExport\PrePaymentsPDF
