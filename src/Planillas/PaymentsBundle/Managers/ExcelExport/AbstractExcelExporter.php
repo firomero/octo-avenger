@@ -17,14 +17,28 @@ abstract class AbstractExcelExporter
     protected $excelObject;
 
     /**
-     * @var array
+     * @var  array
      */
     private $abc;
 
     /**
-     * @var array
+     * @var  array
      */
     protected $headers;
+
+    /**
+     * Columnas del excel
+     *
+     * @var  array
+     */
+    protected $columns;
+
+    /**
+     * Columnas con tipos de datos
+     *
+     * @var  array
+     */
+    protected $columnsTypes;
 
     /**
      * Constructor Abstracto para una nueva instancia del ExcelExporter
@@ -104,13 +118,22 @@ abstract class AbstractExcelExporter
 
     public abstract function export($data);
 
-    public function Output($filename)
+    /**
+     * @param $filename
+     * @param string $filetype
+     */
+    public function Output($filename, $filetype = 'Excel2007')
     {
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        if ($filetype === 'Excel2007') {
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        } else {
+            header('Content-Type: application/vnd.ms-excel');
+        }
+
         header(sprintf('Content-Disposition: attachment;filename="%s"',$filename));
         header('Cache-Control: max-age=0');
 
-        $objWriter = \PHPExcel_IOFactory::createWriter($this->excelObject, 'Excel2007');
+        $objWriter = \PHPExcel_IOFactory::createWriter($this->excelObject, $filetype);
         $objWriter->save('php://output');
     }
 } 

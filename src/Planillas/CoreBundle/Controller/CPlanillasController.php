@@ -125,6 +125,36 @@ class CPlanillasController extends Controller
     }
 
     /**
+     * Crea el formulario para la vista de detalles de planilla
+     *
+     * @param $planillaId
+     * @return \Symfony\Component\Form\Form
+     */
+    public function createDetallesPlanillaForm($planillaId)
+    {
+        $form = $this->createFormBuilder(array(
+            'csrf_protection' => false,
+        ));
+        $form
+            ->add('exportar_pdf', 'submit', array(
+                'label' => 'Exportar PDF',
+                'attr' => array(
+                    'class' => 'btn btn-default'
+                )
+            ))
+            ->add('exportar_excel', 'submit', array(
+                'label' => 'Exportar Excel',
+                'attr' => array(
+                    'class' => 'btn btn-default'
+                )
+            ))
+            ->setAction($this->generateUrl('cplanillas_detalles', array('id' => $planillaId)))
+            ->setMethod('GET');
+
+        return $form->getForm();
+    }
+
+    /**
      * Crea una nueva planilla
      *
      * @param Request $request
@@ -152,16 +182,18 @@ class CPlanillasController extends Controller
                 } else {
                     $this->get('session')->getFlashBag()->add('danger', 'Error al guardar la planilla de efectivo.');
                 }
-            } elseif ($form->get('exportar_pdf')->isClicked()) { // exportar planilla
+            } elseif ($form->get('exportar_pdf')->isClicked()) { // exportar planilla pdf
                 $manager = $this->get('core.cplanillas.manager');
                 $manager->setFechaInicio($fecha_inicio);
                 $manager->setFechaFin($fecha_fin);
-                $manager->reportePagoPDF();
-            } else {
+                $manager->reportePrePagoPDF();
+            } elseif ($form->get('exportar_excel')->isClicked()) { // exportar planilla excel
                 $manager = $this->get('core.cplanillas.manager');
                 $manager->setFechaInicio($fecha_inicio);
                 $manager->setFechaFin($fecha_fin);
                 $manager->reportePrePagoExcel();
+            } else {
+                throw new \Exception('Debe seleccionar una opción válida en el formulario.');
             }
         }
 
@@ -299,27 +331,36 @@ class CPlanillasController extends Controller
     public function detallesAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $salarioManager = $this->get('payments.salario.manager');
-        $planillasManager = $this->get('payments.planillas.manager');
-
         $entity = $em->getRepository('PlanillasCoreBundle:CPlanillas')->find($id);
+
+        if (!$entity) {
+            $this->createNotFoundException(sprintf('No se encuentra la planilla con id: %s', $id));
+        }
 
         $manager = $this->get('core.cplanillas.manager');
         $manager->setIdplanilla($id);
-
         $manager->setFechaInicio($entity->getFechaInicio());
         $manager->setFechaFin($entity->getFechaFin());
+
+        $form = $this->createDetallesPlanillaForm($id);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            if ($form->get('exportar_pdf')->isClicked()) {
+                $manager->reportePagoPDF();
+            } elseif ($form->get('exportar_excel')->isClicked()) {
+                $manager->reportePagoExcel();
+            } else {
+                throw new \Exception('Debe seleccionar una opción válida en el formulario.');
+            }
+        }
+
         $entities = $manager->resultHtmlPlanillas();
         $empleados = $entities['empleados'];
 
-       /*Obtener el ultimo periodo de pago hecho como datos para mostrar*/
-        $ultimoPeriodoPago = $planillasManager->getUltimoPeriodoPagado();
-
-        /*Fin obtener ultimo periodo de pago*/
-
-        return $this->render('PlanillasCoreBundle:CPlanillas:index.html.twig', array(
-                    'empleados' => $empleados,
-                    'ultimoPeriodoPago'=>$ultimoPeriodoPago
+        return $this->render('PlanillasCoreBundle:CPlanillas:detalles_planilla.html.twig', array(
+            'empleados' => $empleados,
+            'form' => $form->createView(),
         ));
     }
 

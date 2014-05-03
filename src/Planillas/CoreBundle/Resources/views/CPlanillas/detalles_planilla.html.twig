@@ -1,0 +1,94 @@
+{% extends '::base.html.twig' %}
+
+{% block headline %}
+    Planilla de pago
+{% endblock headline %}
+{% block content_content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Planilla de efectivo</h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                {% if form is defined %}
+                    {{ form_start(form) }}
+                    <div class="form-actions">
+                        {{ form_widget(form.exportar_pdf) }}
+                        {{ form_widget(form.exportar_excel) }}
+                    </div>
+                    {{ form_end(form) }}
+                {% endif %}
+            </fieldset>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Cédula</th>
+                    <th>Empleado</th>
+                    <th>Bruto</th>
+                    <th>Bonificaciones</th>
+                    <th>Días Extras</th>
+                    <th>Días Menos</th>
+                    <th>Incapacidades</th>
+                    <th>Horas Extras</th>
+                    <th>Rebajos</th>
+                    <th>Total</th>
+                    <th>Detalles</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if empleados | length > 0 %}
+                    {% set tipodeuda=['Uniformes','Sanciones','Préstamos'] %}
+                    {% for entity in empleados %}
+                        {% set datos_personales=entity.datos_personales %}
+                        {% set datos_economicos=entity.datos_economicos %}
+                        <tr>
+                            <td align="left">{{ datos_personales.cedula }}</td>
+                            <td>{{ datos_personales.nombre }}  {{ datos_personales.apellidos }}</td>
+                            <td>¢{{ datos_economicos.salario_base }}</td>
+                            <td>¢{{ datos_economicos.bonificaciones.total }}</td>
+                            <td>¢{{ datos_economicos.dias_extra.total }}</td>
+                            <td>¢{{ datos_economicos.dias_menos.total }}</td>
+                            <td>¢{{ datos_economicos.incapacidades.total }}</td>
+                            <td>¢{{ datos_economicos.horas_extras.total }}</td>
+                            <td>¢{{ datos_economicos.deudas.total }}</td>
+                            <td>¢{{ datos_economicos.salario_total_empleado }} </td>
+                            <td>
+                                <a href="#" id="details_{{ datos_personales.id }}" class="btn btn-primary"
+                                   title="Detalles de la planilla">
+                                    <i class="glyphicon glyphicon-eye-open"></i> Detalles</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="11">
+                                {% include 'PlanillasCoreBundle:CPlanillas:_datos_empleado_planilla.html.twig'
+                                with {'datos_personales': datos_personales, 'datos_economicos':datos_economicos} %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="11">No existen elementos que mostrar.</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[id^="details_"]').on('click', function (event) {
+                event.preventDefault();
+
+                var id = $(this).attr('id');
+                var data = id.split('_');
+
+                $("#salario_" + data[1]).slideToggle(300);
+            });
+        })
+    </script>
+{% endblock %}

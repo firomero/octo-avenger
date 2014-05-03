@@ -363,13 +363,15 @@ class CPlanillasManagers
                 $this->aEmpleadosSalario['empleados'][$i]['datos_economicos'] = $aTemp;
 
                 /**
-                 * Buscando la empresa para el puesto asignado
+                 * Buscando la empresa y sucursal para el puesto asignado
                  */
                 $puestoEmpleado = $this->em->getRepository('PlanillasCoreBundle:CPuestoEmpleado')
                     ->getEmpresaByEmpleadoId($oEmpleado->getId());
                 if($puestoEmpleado) {
                     $nombreEmpresa = $puestoEmpleado->getEmpresa()->getNombre();
+                    $nombreSucursal = $puestoEmpleado->getSucursal()->getNombre();
                     $this->aEmpleadosSalario['empleados'] [$i]['datos_personales']['empresa'] = $nombreEmpresa;
+                    $this->aEmpleadosSalario['empleados'] [$i]['datos_personales']['sucursal'] = $nombreSucursal;
                 }
 
                 /**
@@ -1474,7 +1476,7 @@ class CPlanillasManagers
      * Zona de reportes
      */
 
-    public function reportePagoPDF() {
+    public function reportePrePagoPDF() {
 
         $periodo = $this->fechaInicio->format('Y-m-d') . 'al ' . $this->fechaInicio->format('Y-m-d');
         $periodo = sprintf("Periodo: %s al %s ", $this->fechaInicio->format('d-m-Y'), $this->fechaFin->format('d-m-Y'));
@@ -1657,10 +1659,26 @@ class CPlanillasManagers
 
     public function reportePrePagoExcel()
     {
-        $prePayment = $this->container->get('payments.excel.prepayment');
+        $prePayment = $this->container->get('payments.excel.prepayment.manager');
         $data = $this->resultHtmlPlanillas();
         $prePayment->export($data);
         $prePayment->Output('pre-planillapago.xlsx');
+    }
+
+    public function reportePagoExcel()
+    {
+        $payment = $this->container->get('payments.excel.payment.manager');
+        $data = $this->resultHtmlPlanillas();
+        $payment->export($data);
+        $payment->Output('planillapago.xlsx');
+    }
+
+    public function reportePagoPDF()
+    {
+        $payment = $this->container->get('payments.pdf.payment.manager');
+        $data = $this->resultHtmlPlanillas();
+        $payment->export($data);
+        $payment->Output('planillapago.pdf');
     }
 
 }

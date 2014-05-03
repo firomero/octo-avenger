@@ -6,8 +6,6 @@ use Liuggio\ExcelBundle\Factory;
 
 class PrePaymentsExcel extends AbstractExcelExporter
 {
-    private $columns;
-    private $columnsTypes;
 
     function __construct(Factory $factory)
     {
