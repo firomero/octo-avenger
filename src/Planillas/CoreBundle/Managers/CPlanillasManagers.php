@@ -398,9 +398,9 @@ class CPlanillasManagers
                             $salario_total = (int)$salario_total + 10;
                         }
                     } else {
-                        $ultimaCifra = substr($salario_total, strpos($salario_total, '.'), -1);
+                        $ultimaCifra = substr($salario_total, strpos($salario_total, '.') - 1, 1);
                         if ((int)$ultimaCifra > 0) {
-                            $salario_total = substr($salario_total, 0, strpos($salario_total, '.') - 1);
+                            $salario_total = substr($salario_total, 0, strpos($salario_total, '.'));
                             $salario_total[strlen($salario_total) - 1] = 0;
                             //$salario_total[strlen($salario_total) - 2] = (int)$salario_total[strlen($salario_total) - 2] + 1;
                             $salario_total = (int)$salario_total + 10;
