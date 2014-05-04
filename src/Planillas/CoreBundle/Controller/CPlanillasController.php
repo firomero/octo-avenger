@@ -142,8 +142,20 @@ class CPlanillasController extends Controller
                     'class' => 'btn btn-default'
                 )
             ))
+            ->add('exportar_billetes_pdf', 'submit', array(
+                'label' => 'Exportar Billetes PDF',
+                'attr' => array(
+                    'class' => 'btn btn-default'
+                )
+            ))
             ->add('exportar_excel', 'submit', array(
                 'label' => 'Exportar Excel',
+                'attr' => array(
+                    'class' => 'btn btn-default'
+                )
+            ))
+            ->add('exportar_billetes_excel', 'submit', array(
+                'label' => 'Exportar Billetes Excel',
                 'attr' => array(
                     'class' => 'btn btn-default'
                 )
@@ -350,6 +362,10 @@ class CPlanillasController extends Controller
                 $manager->reportePagoPDF();
             } elseif ($form->get('exportar_excel')->isClicked()) {
                 $manager->reportePagoExcel();
+            } elseif ($form->get('exportar_billetes_pdf')->isClicked()) {
+                $manager->reportePagoBilletesPDF();
+            } elseif ($form->get('exportar_billetes_excel')->isClicked()) {
+                $manager->reportePagoBilletesExcel();
             } else {
                 throw new \Exception('Debe seleccionar una opción válida en el formulario.');
             }

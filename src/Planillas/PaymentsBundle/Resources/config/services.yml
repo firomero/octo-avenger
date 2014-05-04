@@ -38,8 +38,20 @@ services:
         class: Planillas\PaymentsBundle\Managers\ExcelExport\PaymentsExcel
         arguments: [@phpexcel]
 
+    payments.excel.billsinsolated.manager:
+        class: Planillas\PaymentsBundle\Managers\ExcelExport\PaymentsCurrencyBillsInsolatedExcel
+        arguments: [@phpexcel, @currency.bills.insolation]
+
     payments.pdf.payment.manager:
         class: Planillas\PaymentsBundle\Managers\PDFExport\PaymentsPDF
 
     payments.pdf.prepayment.manager:
         class: Planillas\PaymentsBundle\Managers\PDFExport\PrePaymentsPDF
+
+    payments.pdf.billsinsolated.manager:
+        class: Planillas\PaymentsBundle\Managers\PDFExport\PaymentsCurrencyBillsInsolatedPDF
+        arguments: [@currency.bills.insolation]
+
+
+    currency.bills.insolation:
+        class: Planillas\PaymentsBundle\Util\CurrencyBillsInsolation

@@ -1689,4 +1689,20 @@ class CPlanillasManagers
         $payment->Output('planillapago.pdf');
     }
 
+    public function reportePagoBilletesPDF()
+    {
+        $payment = $this->container->get('payments.pdf.billsinsolated.manager');
+        $data = $this->resultHtmlPlanillas();
+        $payment->export($data);
+        $payment->Output('planillapagomonedas.pdf');
+    }
+
+    public function reportePagoBilletesExcel()
+    {
+        $payment = $this->container->get('payments.excel.billsinsolated.manager');
+        $data = $this->resultHtmlPlanillas();
+        $payment->export($data);
+        $payment->Output('planillapagomonedas.xlsx');
+    }
+
 }
