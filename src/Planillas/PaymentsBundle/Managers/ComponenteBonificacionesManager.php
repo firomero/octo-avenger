@@ -121,16 +121,19 @@ class ComponenteBonificacionesManager
         return $bonificaciones;
     }
 
-    public function findBonificacionesInPuestoByPlanilla(CPlanillas $planillas)
+    public function findBonificacionesInPuestoByPlanilla(CPlanillas $planillas, CEmpleado $empleado)
     {
         $query = $this->em->createQueryBuilder()
             ->select('b')
             ->from('PlanillasCoreBundle:CPlanillasBonificacionesPuesto', 'b')
             ->innerJoin('b.planillaEmpleado', 'pe')
             ->innerJoin('pe.planilla', 'p')
-            ->where('p = :planilla')
+            ->innerJoin('b.empleado', 'e')
+            ->where('p = :planilla AND e = :empleado')
             ->setParameter('planilla', $planillas)
+            ->setParameter('empleado', $empleado)
             ->getQuery();
+
         try {
             $planillasBonificacionesPuesto = $query->getResult();
             $bonificacionesResult = array();
@@ -167,7 +170,7 @@ class ComponenteBonificacionesManager
         if ($planillas === null) {
             $bonificacionesEnPuesto = $this->findBonificacionesInPuestoByEmpleado($empleado);
         } else {
-            $bonificacionesEnPuesto = $this->findBonificacionesInPuestoByPlanilla($planillas);
+            $bonificacionesEnPuesto = $this->findBonificacionesInPuestoByPlanilla($planillas, $empleado);
         }
 
 
