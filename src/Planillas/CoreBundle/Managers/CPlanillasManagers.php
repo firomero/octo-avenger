@@ -357,6 +357,7 @@ class CPlanillasManagers
                     'cedula' => $oEmpleado->getCedula(),
                     'id' => $oEmpleado->getId()
                 );
+
                 /**
                  * Asignando sus datos enconomicos
                  */
@@ -382,6 +383,30 @@ class CPlanillasManagers
                 if ($tipoPago) {
                     $tipo = $tipoPago->getTipo();
                     $this->aEmpleadosSalario['empleados'] [$i]['datos_personales']['tipo_pago'] = $tipo;
+                }
+
+                /**
+                 * Generando salario total aplicando redondeo última cifra cuando ya se encuentra generada la planilla
+                 */
+                if ($salarioPlanillaEmpleado) {
+                    $salario_total = $aTemp['salario_total_empleado'].'';
+                    if (strpos($salario_total,'.') === false) {
+                        $ultimaCifra = substr($salario_total, strlen($salario_total) - 1, 1);
+                        if ((int)$ultimaCifra > 0) {
+                            $salario_total[strlen($salario_total) - 1] = 0;
+                            //$salario_total[strlen($salario_total) - 2] = (int)$salario_total[strlen($salario_total) - 2] + 1;
+                            $salario_total = (int)$salario_total + 10;
+                        }
+                    } else {
+                        $ultimaCifra = substr($salario_total, strpos($salario_total, '.'), -1);
+                        if ((int)$ultimaCifra > 0) {
+                            $salario_total = substr($salario_total, 0, strpos($salario_total, '.') - 1);
+                            $salario_total[strlen($salario_total) - 1] = 0;
+                            //$salario_total[strlen($salario_total) - 2] = (int)$salario_total[strlen($salario_total) - 2] + 1;
+                            $salario_total = (int)$salario_total + 10;
+                        }
+                    }
+                    $this->aEmpleadosSalario['empleados'][$i]['datos_economicos']['salario_total_empleado'] = $salario_total;
                 }
 
                 $i++;
