@@ -133,7 +133,13 @@ class ComponenteBonificacionesManager
             ->getQuery();
         try {
             $planillasBonificacionesPuesto = $query->getResult();
-            return $planillasBonificacionesPuesto;
+            $bonificacionesResult = array();
+            foreach ($planillasBonificacionesPuesto as $bonificacion) {
+                /** @var $bonificacion \Planillas\CoreBundle\Entity\CPlanillasBonificacionesPuesto */
+                $bonificacionesResult[] = $bonificacion->getBonificacionPuesto();
+            }
+
+            return $bonificacionesResult;
         } catch (NoResultException $e) {
             return array();
         }
