@@ -37,7 +37,7 @@ class CurrencyBillsInsolation
 
         $div = $total / $this->currencyBills[$iterator];
 
-        if(strpos($div.'','.') !== 0) {
+        if(strpos($div.'','.') !== false) {
             $div = (int)substr($div.'',0,strpos($div.'','.'));
         }
 
