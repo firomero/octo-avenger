@@ -66,6 +66,21 @@ class PaymentsCurrencyBillsInsolatedExcel extends AbstractExcelExporter
     {
         $row = 2;
         $totalGeneral = 0;
+        $montosTotal = array(
+            'nombre_empleado'   => 'Totales',
+            '20000'             => 0,
+            '10000'             => 0,
+            '5000'              => 0,
+            '2000'              => 0,
+            '1000'              => 0,
+            '500'               => 0,
+            '100'               => 0,
+            '50'                => 0,
+            '25'                => 0,
+            '10'                => 0,
+            '5'                 => 0,
+            'monto_total'       => 0
+        );
         // iterando empleados
         foreach ($data['empleados'] as $empleado) {
             $datosEconomicos = $empleado['datos_economicos'];
@@ -90,6 +105,22 @@ class PaymentsCurrencyBillsInsolatedExcel extends AbstractExcelExporter
                 'monto_total'       => $total
             );
 
+            $montosTotal = array(
+                'nombre_empleado'   => 'Totales',
+                '20000'             => $montosTotal['20000'] + $bills['20000'],
+                '10000'             => $montosTotal['10000'] + $bills['10000'],
+                '5000'              => $montosTotal['5000'] + $bills['5000'],
+                '2000'              => $montosTotal['2000'] + $bills['2000'],
+                '1000'              => $montosTotal['1000'] + $bills['1000'],
+                '500'               => $montosTotal['500'] + $bills['500'],
+                '100'               => $montosTotal['100'] + $bills['100'],
+                '50'                => $montosTotal['50'] + $bills['50'],
+                '25'                => $montosTotal['25'] + $bills['25'],
+                '10'                => $montosTotal['10'] + $bills['10'],
+                '5'                 => $montosTotal['5'] + $bills['5'],
+                'monto_total'       => $montosTotal['monto_total'] + $total
+            );
+
             // iterando columnas
             foreach ($this->columns as $column => $headerTitle) {
                 $pCoordinate = $this->headers[$column].$row;
@@ -107,15 +138,22 @@ class PaymentsCurrencyBillsInsolatedExcel extends AbstractExcelExporter
             }
 
             $row++;
-            $totalGeneral += $datosEconomicos['salario_total_empleado'];
         }
 
-//        $pCoordinate = $this->headers['monto_total'].$row;
-//        $this->excelObject->getActiveSheet()
-//            ->setCellValue($pCoordinate, $totalGeneral);
-//        $this->excelObject->getActiveSheet()
-//            ->getStyle($pCoordinate)
-//            ->getNumberFormat()
-//            ->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+        //montos totales
+        foreach ($this->columns as $column => $headerTitle) {
+            $pCoordinate = $this->headers[$column].$row;
+
+            $this->excelObject->getActiveSheet()
+                ->setCellValue($pCoordinate, $montosTotal[$column]);
+
+            // set cell format
+            if($this->columnsTypes[$column] !== 'string') {
+                $this->excelObject->getActiveSheet()
+                    ->getStyle($pCoordinate)
+                    ->getNumberFormat()
+                    ->setFormatCode($this->columnsTypes[$column]);
+            }
+        }
     }
 }

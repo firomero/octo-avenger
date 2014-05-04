@@ -126,6 +126,21 @@ class PaymentsCurrencyBillsInsolatedPDF extends AbstractPDFExporter
 
         // iterando empleados
         $fill = 0;
+        $montosTotal = array(
+            'nombre_empleado'   => 'Totales',
+            '20000'             => 0,
+            '10000'             => 0,
+            '5000'              => 0,
+            '2000'              => 0,
+            '1000'              => 0,
+            '500'               => 0,
+            '100'               => 0,
+            '50'                => 0,
+            '25'                => 0,
+            '10'                => 0,
+            '5'                 => 0,
+            'monto_total'       => 0
+        );
         foreach ($data['empleados'] as $empleado) {
             $datosEconomicos = $empleado['datos_economicos'];
             $total = $datosEconomicos['salario_total_empleado'];
@@ -149,6 +164,22 @@ class PaymentsCurrencyBillsInsolatedPDF extends AbstractPDFExporter
                 'monto_total'       => $total
             );
 
+            $montosTotal = array(
+                'nombre_empleado'   => 'Totales',
+                '20000'             => $montosTotal['20000'] + $bills['20000'],
+                '10000'             => $montosTotal['10000'] + $bills['10000'],
+                '5000'              => $montosTotal['5000'] + $bills['5000'],
+                '2000'              => $montosTotal['2000'] + $bills['2000'],
+                '1000'              => $montosTotal['1000'] + $bills['1000'],
+                '500'               => $montosTotal['500'] + $bills['500'],
+                '100'               => $montosTotal['100'] + $bills['100'],
+                '50'                => $montosTotal['50'] + $bills['50'],
+                '25'                => $montosTotal['25'] + $bills['25'],
+                '10'                => $montosTotal['10'] + $bills['10'],
+                '5'                 => $montosTotal['5'] + $bills['5'],
+                'monto_total'       => $montosTotal['monto_total'] + $total
+            );
+
             // iterando columnas
             foreach ($this->headers as $key => $header) {
                 $data = $rowData[$key];
@@ -165,6 +196,22 @@ class PaymentsCurrencyBillsInsolatedPDF extends AbstractPDFExporter
             $this->pdfObject->Ln();
             $fill=!$fill;
         }
+
+        //montos totales
+        foreach ($this->headers as $key => $header) {
+            $data = $montosTotal[$key];
+            $align = 'L';
+            if ($this->columnsTypes[$key] === 'int') {
+                $data = number_format($data, 0, '.',' ');
+                $align = 'R';
+            } elseif ($this->columnsTypes[$key] === 'decimal') {
+                $data = number_format($data, 2, '.',' ');
+                $align = 'R';
+            }
+            $this->pdfObject->Cell($this->columnsWith[$key], 6, $data, 'LR', 0, $align, $fill);
+        }
+        $this->pdfObject->Ln();
+
         $this->pdfObject->Cell(array_sum($this->columnsWith), 0, '', 'T');
     }
 }
