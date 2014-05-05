@@ -165,6 +165,7 @@ class PaymentsCurrencyBillsInsolatedPDF extends AbstractPDFExporter
             );
 
             $montosTotal = array(
+                'nombre_empleado'   => 'Totales',
                 '20000'             => $montosTotal['20000'] + $bills['20000'],
                 '10000'             => $montosTotal['10000'] + $bills['10000'],
                 '5000'              => $montosTotal['5000'] + $bills['5000'],
