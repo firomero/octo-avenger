@@ -7,77 +7,7 @@
 {% block headline %}
     {{ headline }}
 {% endblock headline %}
-{% block foot_script %}
-    {{ parent() }}
-    <!--<script src="{# asset('bundles/planillascore/js/jquery.ui.1.8.16.js') #}"></script>-->
-    <script>
-        $(function() {
 
-
-            $('#planillas_corebundle_buscar_horas_extras_fechaHorasExtras').datepicker
-            ({
-                format: "yyyy-mm-dd"
-            });
-
-            $('#planillas_corebundle_chorasextras_fechaHorasExtras').datepicker
-            ({
-                format: "yyyy-mm-dd"
-            });
-            $('#add_new').click(function(){
-                //$.resetForm()
-                //$('#horasextrasForm').resetForm();
-                $('#planillas_corebundle_chorasextras_empleado').val();
-                $('#planillas_corebundle_chorasextras_cantidadHoras').val("");
-                $('#planillas_corebundle_chorasextras_fechaHorasExtras').val("");
-
-                $('#planillas_corebundle_chorasextras_motivo').val("");
-                $('#planillas_corebundle_chorasextras_id').val("");
-                $('#btn_actualizar').html('Crear');
-                $('#myTab a:first').tab('show');
-
-            })
-
-
-
-
-        })
-
-        function buscar(id){
-            $('#progreso').css('display', 'block');
-            $.ajax({
-                url:'{{ path('ceditajax') }}',
-                data:{id:id},
-                dataType:'json',
-                success:function(data)
-                {
-                    $('#progreso').css('display', 'none');
-                    if(data.success){
-                    $('#planillas_corebundle_chorasextras_empleado').val(data.data.empleado);
-                    $('#planillas_corebundle_chorasextras_cantidadHoras').val(data.data.cantidadHoras);
-                    $('#planillas_corebundle_chorasextras_fechaHorasExtras').val(data.data.fechaHorasExtras);
-
-                    $('#planillas_corebundle_chorasextras_motivo').val(data.data.motivo);
-                    $('#planillas_corebundle_chorasextras_id').val(data.data.id);
-                    $('#btn_actualizar').html('Actualizar');
-                    $('#myTab a:first').tab('show')
-                    }
-                    else
-                     {
-                        alert(data.mensaje);
-                     }
-
-                },
-                failure:function(data)
-                {
-                    $('#progreso').css('display', 'none');
-                    alert("Ocurrio un error al salvar los datos");
-                }
-
-            })
-        }
-
-    </script>
-{% endblock %}
 {% block content_content %}
 
     {% block content %}
@@ -263,3 +193,79 @@
 
 
 {% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <!--<script src="{# asset('bundles/planillascore/js/jquery.ui.1.8.16.js') #}"></script>-->
+    <script>
+        $(function() {
+
+
+            $('#planillas_corebundle_buscar_horas_extras_fechaHorasExtras').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+
+            $('#planillas_corebundle_chorasextras_fechaHorasExtras').datepicker
+            ({
+                format: "yyyy-mm-dd"
+            });
+
+            $('select.chosen-select').chosen({
+                width: "100%",
+                no_results_text: "No se encontraron elementos"
+            });
+
+
+
+            $('#add_new').click(function(){
+                //$.resetForm()
+                //$('#horasextrasForm').resetForm();
+                $('#planillas_corebundle_chorasextras_empleado').val();
+                $('#planillas_corebundle_chorasextras_cantidadHoras').val("");
+                $('#planillas_corebundle_chorasextras_fechaHorasExtras').val("");
+
+                $('#planillas_corebundle_chorasextras_motivo').val("");
+                $('#planillas_corebundle_chorasextras_id').val("");
+                $('#btn_actualizar').html('Crear');
+                $('#myTab a:first').tab('show');
+
+            })
+        })
+
+        function buscar(id){
+            $('#progreso').css('display', 'block');
+            $.ajax({
+                url:'{{ path('ceditajax') }}',
+                data:{id:id},
+                dataType:'json',
+                success:function(data)
+                {
+                    $('#progreso').css('display', 'none');
+                    if(data.success){
+                        $('#planillas_corebundle_chorasextras_empleado').val(data.data.empleado);
+                        $('#planillas_corebundle_chorasextras_cantidadHoras').val(data.data.cantidadHoras);
+                        $('#planillas_corebundle_chorasextras_fechaHorasExtras').val(data.data.fechaHorasExtras);
+
+                        $('#planillas_corebundle_chorasextras_motivo').val(data.data.motivo);
+                        $('#planillas_corebundle_chorasextras_id').val(data.data.id);
+                        $('#btn_actualizar').html('Actualizar');
+                        $('#myTab a:first').tab('show')
+                    }
+                    else
+                    {
+                        alert(data.mensaje);
+                    }
+
+                },
+                failure:function(data)
+                {
+                    $('#progreso').css('display', 'none');
+                    alert("Ocurrio un error al salvar los datos");
+                }
+
+            })
+        }
+
+    </script>
+{% endblock foot_script%}

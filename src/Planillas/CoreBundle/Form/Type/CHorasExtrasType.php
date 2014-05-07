@@ -18,7 +18,13 @@ class CHorasExtrasType extends AbstractType
             ->add('cantidadHoras')
             ->add('motivo','textarea')
             ->add('fechaHorasExtras','date',array('attr'=>array('id'=>'datetimepickercomienzo'),'widget'=>'single_text','label'=>'Fecha Inicio'))
-            ->add('empleado',null,array('required'=>true))
+            ->add('empleado','entity', array(
+                'required' => true,
+                'class' => 'Planillas\CoreBundle\Entity\CEmpleado',
+                'attr' => array(
+                    'class' => 'chosen-select'
+                ),
+            ))
         ;
     }
 
