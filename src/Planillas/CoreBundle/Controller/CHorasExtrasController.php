@@ -66,12 +66,25 @@ class CHorasExtrasController extends Controller
                 $form = $this->createEditForm($entity);
             }
         } else {
-            $form = $this->createCreateForm($entity);
+            $form = $this->createCreateForm();
         }
         $form->handleRequest($request);
         if ($form->isValid()) {
+            $values = $form->getData();
+            $empleados = $values['empleado'];
 
-            $em->persist($entity);
+            foreach($empleados as $empleado) {
+                $entity = new CHorasExtras();
+                $entity->setEmpleado($empleado);
+                $entity->setCantidadHoras($values['cantidadHoras']);
+                $entity->setFechaHorasExtras($values['fechaHorasExtras']);
+                $entity->setMotivo($values['motivo']);
+
+                $em->persist($entity);
+            }
+
+            //$em->persist($entity);
+
             $em->flush();
             //poner un mensaje flash
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido salvados correctamente');
@@ -91,9 +104,9 @@ class CHorasExtrasController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(CHorasExtras $entity)
+    private function createCreateForm()
     {
-        $form = $this->createForm(new CHorasExtrasType(), $entity, array(
+        $form = $this->createForm(new CHorasExtrasType(), null, array(
             'action' => $this->generateUrl('chorasextras_create'),
             'method' => 'POST',
         ));

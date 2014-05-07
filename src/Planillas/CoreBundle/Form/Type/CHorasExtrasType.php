@@ -20,9 +20,10 @@ class CHorasExtrasType extends AbstractType
             ->add('fechaHorasExtras','date',array('attr'=>array('id'=>'datetimepickercomienzo'),'widget'=>'single_text','label'=>'Fecha Inicio'))
             ->add('empleado','entity', array(
                 'required' => true,
+                'multiple' => true,
                 'class' => 'Planillas\CoreBundle\Entity\CEmpleado',
                 'attr' => array(
-                    'class' => 'chosen-select'
+                    'class' => 'chosen-select',
                 ),
             ))
         ;
@@ -34,7 +35,7 @@ class CHorasExtrasType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Planillas\CoreBundle\Entity\CHorasExtras'
+            //'data_class' => 'Planillas\CoreBundle\Entity\CHorasExtras'
         ));
     }
 
