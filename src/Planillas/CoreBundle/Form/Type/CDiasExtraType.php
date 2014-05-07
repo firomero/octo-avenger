@@ -16,7 +16,16 @@ class CDiasExtraType extends AbstractType
     {
         $builder
             ->add('fecha','date',array('required'=>true,'attr'=>array('id'=>'datetimepickerdia'),'widget'=>'single_text','label'=>'Día'))
-            ->add('empleado')
+            ->add('descripcion', 'textarea')
+            ->add('motivo')
+            ->add('empleado','entity', array(
+                'required' => true,
+                'multiple' => true,
+                'class' => 'Planillas\CoreBundle\Entity\CEmpleado',
+                'attr' => array(
+                    'class' => 'chosen-select',
+                ),
+            ))
         ;
     }
 
@@ -26,7 +35,7 @@ class CDiasExtraType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Planillas\CoreBundle\Entity\CDiasExtra'
+            //'data_class' => 'Planillas\CoreBundle\Entity\CDiasExtra'
         ));
     }
 

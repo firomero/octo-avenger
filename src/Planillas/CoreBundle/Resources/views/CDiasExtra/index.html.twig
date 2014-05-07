@@ -19,6 +19,12 @@
             $('#planillas_corebundle_cdiasextra_fecha').datepicker({
                 format: "yyyy-mm-dd"
             });
+
+            $('select#planillas_corebundle_cdiasextra_empleado').chosen({
+                width: "100%",
+                no_results_text: "No se encontraron elementos"
+            });
+
             $('#add_new').click(function () {
                 $('#planillas_corebundle_cdiasextra_empleado').val(0);
                 $('#planillas_corebundle_cdiasextra_fecha').val("");

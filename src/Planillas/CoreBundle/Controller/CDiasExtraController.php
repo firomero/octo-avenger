@@ -91,12 +91,23 @@ class CDiasExtraController extends Controller
                 $form = $this->createEditForm($entity);
             }
         } else {
-            $form = $this->createCreateForm($entity);
+            $form = $this->createCreateForm();
         }
         $form->handleRequest($request);
         if ($form->isValid()) {
+            $values = $form->getData();
+            $empleados = $values['empleado'];
 
-            $em->persist($entity);
+            foreach($empleados as $empleado) {
+                $entity = new CDiasExtra();
+                $entity->setEmpleado($empleado);
+                $entity->setFecha($values['fecha']);
+                $entity->setDescripcion($values['descripcion']);
+                $entity->setMotivo($values['motivo']);
+
+                $em->persist($entity);
+            }
+
             $em->flush();
             //poner un mensaje flash
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido guardados correctamente');
@@ -116,9 +127,9 @@ class CDiasExtraController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(CDiasExtra $entity)
+    private function createCreateForm()
     {
-        $form = $this->createForm(new CDiasExtraType(), $entity, array(
+        $form = $this->createForm(new CDiasExtraType(), null, array(
             'action' => $this->generateUrl('cdiasextra_create'),
             'method' => 'POST',
         ));

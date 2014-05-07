@@ -30,6 +30,23 @@ class CDiasExtra
     private $fecha;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="string", length=255, nullable=false)
+     * @Assert\NotBlank()
+     */
+    private $descripcion;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motivo", type="string", length=254, nullable=false)
+     * @Assert\NotBlank()
+     */
+    private $motivo;
+
+
+    /**
      * @var $empleado Planillas/CoreBundle/Entity/CEmpleado
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
@@ -134,5 +151,51 @@ class CDiasExtra
     public function getPlanillaEmpleado()
     {
         return $this->planillaEmpleado;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return CDiasExtra
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+    
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * Set motivo
+     *
+     * @param string $motivo
+     * @return CDiasExtra
+     */
+    public function setMotivo($motivo)
+    {
+        $this->motivo = $motivo;
+    
+        return $this;
+    }
+
+    /**
+     * Get motivo
+     *
+     * @return string 
+     */
+    public function getMotivo()
+    {
+        return $this->motivo;
     }
 }
