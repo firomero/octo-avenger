@@ -110,7 +110,7 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: "Tipos Horas Extras"}
 
-    planillas_nomenclador.admin.n_horas_extras:
+    planillas_nomenclador.admin.n_motivo_dia_extra:
         class: Planillas\NomencladorBundle\Admin\NMotivoDiaExtraAdmin
         arguments: [~, Planillas\NomencladorBundle\Entity\NMotivoDiaExtra, PlanillasNomencladorBundle:NMotivoDiaExtra]
         tags:

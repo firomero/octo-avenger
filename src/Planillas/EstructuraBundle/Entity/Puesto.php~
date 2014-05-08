@@ -88,6 +88,22 @@ class Puesto implements EntityEstructuraInterface
     private $roles;
 
     /**
+     * @var  \Planillas\NomencladorBundle\Entity\NHorasExtras
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NHorasExtras")
+     */
+    private $tipoHoraExtra;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->bonificaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -286,6 +302,8 @@ class Puesto implements EntityEstructuraInterface
      */
     public function addRole(\Planillas\EstructuraBundle\Entity\RolesPuesto $roles)
     {
+        $roles->setPuesto($this);
+
         $this->roles[] = $roles;
     
         return $this;

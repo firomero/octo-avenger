@@ -88,6 +88,14 @@ class Puesto implements EntityEstructuraInterface
     private $roles;
 
     /**
+     * @var  \Planillas\NomencladorBundle\Entity\NHorasExtras
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NHorasExtras")
+     * @Assert\NotBlank()
+     */
+    private $tipoHoraExtra;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -320,5 +328,28 @@ class Puesto implements EntityEstructuraInterface
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Set tipoHoraExtra
+     *
+     * @param \Planillas\NomencladorBundle\Entity\NHorasExtras $tipoHoraExtra
+     * @return Puesto
+     */
+    public function setTipoHoraExtra(\Planillas\NomencladorBundle\Entity\NHorasExtras $tipoHoraExtra = null)
+    {
+        $this->tipoHoraExtra = $tipoHoraExtra;
+    
+        return $this;
+    }
+
+    /**
+     * Get tipoHoraExtra
+     *
+     * @return \Planillas\NomencladorBundle\Entity\NHorasExtras 
+     */
+    public function getTipoHoraExtra()
+    {
+        return $this->tipoHoraExtra;
     }
 }

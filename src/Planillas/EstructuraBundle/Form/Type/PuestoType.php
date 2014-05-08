@@ -38,6 +38,7 @@ class PuestoType extends AbstractType
             ->add('sucursal')
             ->add('cliente')
             ->add('empresa')
+            ->add('tipoHoraExtra')
         ;
     }
 
