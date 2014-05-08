@@ -103,3 +103,9 @@ services:
         arguments: [~, Planillas\NomencladorBundle\Entity\NBonificacionPuesto, PlanillasNomencladorBundle:NBonificacionPuestoAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: "Bonificación de Puesto"}
+
+    planillas_nomenclador.admin.n_horas_extras:
+        class: Planillas\NomencladorBundle\Admin\NHorasExtrasAdmin
+        arguments: [~, Planillas\NomencladorBundle\Entity\NHorasExtras, PlanillasNomencladorBundle:NHorasExtras]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Tipos Horas Extras"}
