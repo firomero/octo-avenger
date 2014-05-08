@@ -40,7 +40,7 @@ class CDiasExtra
     /**
      * @var string
      *
-     * @ORM\Column(name="motivo", type="string", length=254, nullable=false)
+     * @ORM\ManyToOne(targetEntity="Planillas\NomencladorBundle\Entity\NMotivoDiaExtra")
      * @Assert\NotBlank()
      */
     private $motivo;
@@ -51,6 +51,7 @@ class CDiasExtra
      *
      * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $empleado;
 
