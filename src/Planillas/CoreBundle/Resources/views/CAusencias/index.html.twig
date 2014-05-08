@@ -25,6 +25,12 @@
         $("#myModal").on("hidden", function() { // remove the actual elements from the DOM when fully hidden
             $("#myModal").remove();
         });
+
+        $('select.chosen-select').chosen({
+            width: "100%",
+            no_results_text: "No se encontraron elementos"
+        });
+
        $('#planillas_corebundle_causencias_fechaInicio').datepicker(options);
        $('#planillas_corebundle_causencias_fechaFin').datepicker(options);
        $('#planillas_corebundle_buscar_ausencia_fechaInicio').datepicker(options);

@@ -53,7 +53,7 @@ class CAusenciasController extends Controller
                 $form = $this->createEditForm($entity);
             }
         } else {
-            $form = $this->createCreateForm($entity);
+            $form = $this->createCreateForm();
         }
 
         $form->handleRequest($request);
@@ -65,12 +65,26 @@ class CAusenciasController extends Controller
                 return $this->redirect($this->generateUrl('causencias'));
             }
 
-            if ($entity->getPlanilla() != null || $entity->getPlanilla() != 0) {
+            if ($entity->getPlanillaEmpleado() != null || $entity->getPlanillaEmpleado() != 0) {
                 $this->get('session')->getFlashBag()->add('danger', 'No se puede modificar ya que está asociada a un planilla de pago');
 
                 return $this->redirect($this->generateUrl('causencias'));
             }
-            $em->persist($entity);
+
+            $values = $form->getData();
+            $empleados = $values['empleado'];
+
+            foreach($empleados as $empleado) {
+                $entity = new CAusencias();
+                $entity->setEmpleado($empleado);
+                $entity->setFechaInicio($values['fechaInicio']);
+                $entity->setFechaInicio($values['fechaFin']);
+                $entity->setTipoAusencia($values['tipoAusencia']);
+                $entity->setMotivo($values['motivo']);
+
+                $em->persist($entity);
+            }
+
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('info', 'Los datos han sido guardados correctamente');
@@ -123,9 +137,9 @@ class CAusenciasController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(CAusencias $entity)
+    private function createCreateForm()
     {
-        $form = $this->createForm(new CAusenciasType(), $entity, array(
+        $form = $this->createForm(new CAusenciasType(), null, array(
             'action' => $this->generateUrl('causencias_create'),
             'method' => 'POST',
         ));
