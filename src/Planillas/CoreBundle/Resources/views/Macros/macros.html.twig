@@ -45,20 +45,20 @@
 
     <div class="panel panel-default desplegable-menu">
         <div class="panel-heading" style="cursor: pointer;">
-            <h2 class="panel-title">Información Personal</h2>
+            <h2 class="panel-title">Solicitud de personal</h2>
         </div>
         <div class="panel-body" style="display: none;">
             <ul class="nav nav-pills nav-stacked">
                 {% if(active=='personales') %}
-                    <li class="active"><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a></li>
+                    <li class="active"><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos personales</a></li>
                 {% else %}
-                    <li class><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos Personales</a></li>
+                    <li class><a href="{{ path('empleado_edit',{ 'id': eEmpleado.id }) }}">Datos personales</a></li>
                 {% endif %}
 
                 {% if(active=='familiares') %}
-                    <li class="active"><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos Familiares</a></li>
+                    <li class="active"><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos familiares</a></li>
                 {% else %}
-                    <li><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos Familiares</a></li>
+                    <li><a href="{{ path('familia',{ 'id': eEmpleado.id }) }}">Datos familiares</a></li>
                 {% endif %}
 
                 {% if(active=='personadepende') %}
@@ -107,7 +107,7 @@
 
     <div class="panel panel-default desplegable-menu">
         <div class="panel-heading" style="cursor: pointer;">
-            <h2 class="panel-title">Información de Puesto</h2>
+            <h2 class="panel-title">Información de planillas</h2>
         </div>
         <div class="panel-body" style="display: none;">
             <ul class="nav nav-pills nav-stacked">
@@ -133,6 +133,28 @@
                 {% else %}
                     <li><a href="{{ path('cuentasbancos',{ 'id_empleado': eEmpleado.id }) }}">Bancos</a></li>
                 {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel panel-default desplegable-menu">
+        <div class="panel-heading" style="cursor: pointer;">
+            <h2 class="panel-title">Otra información del empleado</h2>
+        </div>
+        <div class="panel-body" style="display: none;">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a class="header-subnav" href="#">Referencias</a>
+                    <ul class="nav">
+                        <li><a href="#">Verificación de referencias</a></li>
+                        <li><a href="#">Estudio base de datos digital</a></li>
+                        <li><a href="#">Hoja de delincuencia</a></li>
+                        <li><a href="#">Cartas de recomendación</a></li>
+                        <li><a href="#">Otras anotaciones</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Registro laboral</a></li>
+                <li><a href="#">Trámites portación de armas</a></li>
+                <li><a href="#">Datos adjuntos RRHH</a></li>
             </ul>
         </div>
     </div>

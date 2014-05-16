@@ -9,3 +9,34 @@ var block_css = {
     color: '#000'
 }
 var $block_ui_config = {message: block_message , css: block_css};
+
+$(function() {
+    var subnavs = $('ul.nav ul.nav');
+    $.each(subnavs, function(key, value) {
+        $(value).css('display','none');
+        var link = $(value).parent().find('a.header-subnav');
+        var text = link.text();
+        text = '<span class="glyphicon glyphicon-plus"></span> ' + text;
+        link.html(text);
+        link.css('padding-left','1px');
+        link.data('index', 0);
+
+        link.on('click', function(e) {
+            e.preventDefault();
+            var text = $(this).text();
+
+            var index = $(this).data('index');
+            if (index == 0) {
+                text = '<span class="glyphicon glyphicon-minus"></span> ' + text;
+                $(this).data('index', 1);
+            } else {
+                text = '<span class="glyphicon glyphicon-plus"></span> ' + text;
+                $(this).data('index', 0);
+            }
+            $(this).html(text);
+
+            $(value).slideToggle();
+        });
+    });
+
+});
