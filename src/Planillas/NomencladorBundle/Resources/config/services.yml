@@ -115,3 +115,9 @@ services:
         arguments: [~, Planillas\NomencladorBundle\Entity\NMotivoDiaExtra, PlanillasNomencladorBundle:NMotivoDiaExtra]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: "Motivo para Día Extra"}
+
+    planillas_nomenclador.admin.n_clasificacion_referencia:
+        class: Planillas\NomencladorBundle\Admin\NClasificacionReferenciaAdmin
+        arguments: [~, Planillas\NomencladorBundle\Entity\NClasificacionReferencia, PlanillasNomencladorBundle:NClasificacionReferencia]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Clasificación de referencia"}
