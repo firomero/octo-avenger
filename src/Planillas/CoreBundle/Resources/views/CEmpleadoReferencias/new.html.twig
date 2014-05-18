@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+
+{% block title 'Crear nueva referencia' %}
+
+{% block headline 'Crear nueva referencia' %}
+
+{% block content %}
+    <div class="col-lg-9">
+        {% include '@PlanillasCore/CEmpleadoReferencias/_referencias_laboral_form.html.twig' with {'form': reflaboral_form} %}
+    </div>
+    <div class="col-lg-3">
+        {{ macros.empleado_foto(eEmpleado) }}
+        {{ macros.menu_empleado('sueldo',eEmpleado) }}
+    </div>
+{% endblock content %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('input.datepicker-widget').datepicker($datepicker_config);
+        });
+    </script>
+{% endblock foot_script %}

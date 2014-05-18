@@ -61,4 +61,11 @@ class NClasificacionReferencia
     {
         return $this->nombre;
     }
+
+    function __toString()
+    {
+        return $this->nombre;
+    }
+
+
 }

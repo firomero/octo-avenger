@@ -1,0 +1,11 @@
+empleado_referencias:
+    pattern: /
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoReferencias:index" }
+
+empleado_referencias_new:
+    pattern: /new
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoReferencias:new" }
+
+empleado_referencias_create:
+    pattern: /create
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoReferencias:create" }

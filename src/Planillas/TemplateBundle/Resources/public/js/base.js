@@ -7,8 +7,12 @@ var block_css = {
     '-moz-border-radius': '10px',
     opacity: .5,
     color: '#000'
-}
+};
 var $block_ui_config = {message: block_message , css: block_css};
+
+var $datepicker_config = {
+    'format': "dd/mm/yyyy"
+};
 
 $(function() {
     var subnavs = $('ul.nav ul.nav');

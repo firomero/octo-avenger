@@ -104,3 +104,7 @@ planillas_core_dias_extra:
 planillas_core_componentes_salariales:
     resource: "@PlanillasCoreBundle/Resources/config/routing/componentessalariales.yml"
     prefix: /compsalariales
+
+planillas_core_empleado_referencias:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadoreferencias.yml"
+    prefix: /empleado/{id_empleado}/referencias

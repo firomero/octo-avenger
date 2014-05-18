@@ -1,0 +1,50 @@
+{% extends '::base.html.twig' %}
+
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+
+{% block title 'Listado de Referencias' %}
+
+{% block headline 'Listado de Referencias' %}
+
+{% block content %}
+
+    <div class="col-sm-9">
+        <div style="margin-bottom: 8px;">
+            <a class="btn btn-primary" href="{{ path('empleado_referencias_new', {'id_empleado': eEmpleado.id}) }}">
+                <span class="glyphicon glyphicon-plus"></span> Crear Nueva</a>
+        </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Tipo Referencia</th>
+                    <th>Fecha</th>
+                    <th>Clasificación</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ref in referencias %}
+                    <tr>
+                        <td>{{ ref | referencia_type }}</td>
+                        <td>{{ ref.fechaCompletado | date('d/m/Y') }}</td>
+                        <td>{{ ref.clasificacionReferencia }}</td>
+                        <td></td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="4">No existen resultados que mostrar.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="col-sm-3">
+        {{ macros.empleado_foto(eEmpleado) }}
+        {{ macros.menu_empleado('sueldo',eEmpleado) }}
+    </div>
+{% endblock content %}
+
+
+
+
+{% block foot_script %}{{ parent() }}{% endblock foot_script %}

@@ -13,12 +13,8 @@
         $(function () {
 
 
-            $('#planillas_corebundle_buscar_diasextra_fecha').datepicker({
-                format: "yyyy-mm-dd"
-            });
-            $('#planillas_corebundle_cdiasextra_fecha').datepicker({
-                format: "yyyy-mm-dd"
-            });
+            $('#planillas_corebundle_buscar_diasextra_fecha').datepicker($datepicker_config);
+            $('#planillas_corebundle_cdiasextra_fecha').datepicker($datepicker_config);
 
             $('select#planillas_corebundle_cdiasextra_empleado').chosen({
                 width: "100%",

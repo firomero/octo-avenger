@@ -15,7 +15,15 @@ class CDiasExtraType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fecha','date',array('required'=>true,'attr'=>array('id'=>'datetimepickerdia'),'widget'=>'single_text','label'=>'Día'))
+            ->add('fecha', 'date', array(
+                'required' => true,
+                'attr' => array(
+                    'id' => 'datetimepickerdia'
+                ),
+                'widget' => 'single_text',
+                'format' => 'd/M/y',
+                'label'=>'Día'
+            ))
             ->add('descripcion', 'textarea')
             ->add('motivo', 'entity', array(
                 'class' => 'Planillas\NomencladorBundle\Entity\NMotivoDiaExtra',

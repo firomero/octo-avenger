@@ -18,3 +18,8 @@ services:
             - @form.factory
             - @router
             - @logger
+
+    core.twig.empleado_referencia_extension:
+        class: Planillas\CoreBundle\Twig\EmpleadoReferenciasTypeExtension
+        tags:
+            - { name: twig.extension }

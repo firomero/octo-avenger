@@ -1,40 +1,40 @@
 <?php
 
-namespace Planillas\CoreBundle\Form\Type\Filters;
+namespace Planillas\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class BuscarDiasExtraType extends AbstractType
+class CEmpleadoReferenciaType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fecha','date',array(
-                'required' => false,
-                'attr' => array(
-                    'id' => 'datetimepickerfecha'
-                ),
+            ->add('clasificacionReferencia')
+            ->add('fechaCompletado', 'date', array(
                 'widget' => 'single_text',
                 'format' => 'd/M/y',
-                'label'=>'Día'
+                'attr' => array(
+                    'class' => 'datepicker-widget',
+                    'placeholder' => 'dd/mm/yyyy'
+                ),
             ))
-            ->add('empleado','text',array('required'=>false))
+            ->add('compentarios')
         ;
     }
-
+    
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-
+            'inherit_data' => true,
         ));
     }
 
@@ -43,6 +43,6 @@ class BuscarDiasExtraType extends AbstractType
      */
     public function getName()
     {
-        return 'planillas_corebundle_buscar_diasextra';
+        return 'empleado_referencia_type';
     }
 }
