@@ -106,18 +106,18 @@ services:
 
     planillas_nomenclador.admin.n_horas_extras:
         class: Planillas\NomencladorBundle\Admin\NHorasExtrasAdmin
-        arguments: [~, Planillas\NomencladorBundle\Entity\NHorasExtras, PlanillasNomencladorBundle:NHorasExtras]
+        arguments: [~, Planillas\NomencladorBundle\Entity\NHorasExtras, PlanillasNomencladorBundle:NHorasExtrasAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: "Tipos Horas Extras"}
 
     planillas_nomenclador.admin.n_motivo_dia_extra:
         class: Planillas\NomencladorBundle\Admin\NMotivoDiaExtraAdmin
-        arguments: [~, Planillas\NomencladorBundle\Entity\NMotivoDiaExtra, PlanillasNomencladorBundle:NMotivoDiaExtra]
+        arguments: [~, Planillas\NomencladorBundle\Entity\NMotivoDiaExtra, PlanillasNomencladorBundle:NMotivoDiaExtraAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: "Motivo para Día Extra"}
 
     planillas_nomenclador.admin.n_clasificacion_referencia:
         class: Planillas\NomencladorBundle\Admin\NClasificacionReferenciaAdmin
-        arguments: [~, Planillas\NomencladorBundle\Entity\NClasificacionReferencia, PlanillasNomencladorBundle:NClasificacionReferencia]
+        arguments: [~, Planillas\NomencladorBundle\Entity\NClasificacionReferencia, PlanillasNomencladorBundle:NClasificacionReferenciaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: "Clasificación de referencia"}

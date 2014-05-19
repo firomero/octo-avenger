@@ -22,6 +22,12 @@ abstract class CEmpleadoReferencias
     private $id;
 
     /**
+     * @var \Planillas\CoreBundle\Entity\CEmpleado
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
+     */
+    private $empleado;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="fechaCompletado", type="date")
@@ -45,9 +51,9 @@ abstract class CEmpleadoReferencias
     /**
      * @var string
      *
-     * @ORM\Column(name="compentarios", type="string", length=1000)
+     * @ORM\Column(name="comentarios", type="string", length=1000, nullable=true)
      */
-    private $compentarios;
+    private $comentarios;
 
     /**
      * @var \Planillas\NomencladorBundle\Entity\NClasificacionReferencia
@@ -100,17 +106,17 @@ abstract class CEmpleadoReferencias
     /**
      * @param string $compentarios
      */
-    public function setCompentarios($compentarios)
+    public function setComentarios($compentarios)
     {
-        $this->compentarios = $compentarios;
+        $this->comentarios = $compentarios;
     }
 
     /**
      * @return string
      */
-    public function getCompentarios()
+    public function getComentarios()
     {
-        return $this->compentarios;
+        return $this->comentarios;
     }
 
     /**
@@ -159,5 +165,28 @@ abstract class CEmpleadoReferencias
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set empleado
+     *
+     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @return CEmpleadoReferencias
+     */
+    public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
+    {
+        $this->empleado = $empleado;
+    
+        return $this;
+    }
+
+    /**
+     * Get empleado
+     *
+     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     */
+    public function getEmpleado()
+    {
+        return $this->empleado;
     }
 }

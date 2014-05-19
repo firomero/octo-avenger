@@ -7,8 +7,21 @@
 {% block headline 'Crear nueva referencia' %}
 
 {% block content %}
-    <div class="col-lg-9">
-        {% include '@PlanillasCore/CEmpleadoReferencias/_referencias_laboral_form.html.twig' with {'form': reflaboral_form} %}
+    <div class="col-lg-9" style="padding: 8px;">
+        <ul id="referencias-tabs" class="nav nav-tabs">
+            <li {% if (activetab is defined and activetab == 'laboral') or (activetab is not defined) %}class="active"{% endif %}>
+                <a href="#laboral"  data-toggle="tab">Laboral</a></li>
+            <li {% if activetab is defined and activetab == 'personal' %}class="active"{% endif %}>
+                <a href="#personal"  data-toggle="tab">Personal</a></li>
+        </ul>
+        <div id="referencias-tab-content" class="tab-content">
+            <div id="laboral" class="tab-pane fade{% if (activetab is defined and activetab == 'laboral') or (activetab is not defined) %}{{ ' in active' }}{% endif %}" style="padding: 8px;">
+                {% include '@PlanillasCore/CEmpleadoReferencias/_referencias_laboral_form.html.twig' with {'form': reflaboral_form} %}
+            </div>
+            <div id="personal" class="tab-pane fade{% if activetab is defined and activetab == 'personal' %}{{ ' in active' }}{% endif %}" style="padding: 8px;">
+                {% include '@PlanillasCore/CEmpleadoReferencias/_referencias_personal_form.html.twig' with {'form': refpersonal_form} %}
+            </div>
+        </div>
     </div>
     <div class="col-lg-3">
         {{ macros.empleado_foto(eEmpleado) }}

@@ -16,10 +16,16 @@ class CEmpleadoReferenciaPersonalType extends AbstractType
     {
         $builder
             ->add('nombrePersona')
-            ->add('tiempoConocerlo')
-            ->add('poseeHijos')
+            ->add('tiempoConocerlo', 'text', array(
+                'label' => 'Tiempo que lo conoce',
+            ))
+            ->add('poseeHijos', 'checkbox', array(
+                'required' => false,
+            ))
             ->add('lugarResidencia')
-            ->add('conocePQDejoLaborar')
+            ->add('conocePQDejoLaborar', 'text', array(
+                'label' => 'Conoce por qué dejó de laborar'
+            ))
             ->add('estadoCivil');
 
         $builder->add('_referencia', new CEmpleadoReferenciaType(), array(

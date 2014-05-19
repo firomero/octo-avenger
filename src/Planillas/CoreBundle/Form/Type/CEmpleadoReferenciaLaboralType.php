@@ -37,7 +37,9 @@ class CEmpleadoReferenciaLaboralType extends AbstractType
                 ),
             ))
             ->add('motivoSalida')
-            ->add('recontratable');
+            ->add('recontratable', 'checkbox', array(
+                'required' => false,
+            ));
 
         $builder->add('_referencia', new CEmpleadoReferenciaType(), array(
             'data_class' => 'Planillas\CoreBundle\Entity\CEmpleadoReferenciaLaboral',

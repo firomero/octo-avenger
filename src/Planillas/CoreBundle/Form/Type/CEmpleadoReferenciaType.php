@@ -24,7 +24,13 @@ class CEmpleadoReferenciaType extends AbstractType
                     'placeholder' => 'dd/mm/yyyy'
                 ),
             ))
-            ->add('compentarios')
+            ->add('comentarios', 'textarea', array(
+                'required' => false,
+            ))
+            ->add('empleado', 'hidden', array(
+                'data_class' => 'Planillas\CoreBundle\Entity\CEmpleado',
+                'property_path' => 'id'
+            ))
         ;
     }
     

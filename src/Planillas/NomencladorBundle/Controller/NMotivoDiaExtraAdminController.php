@@ -4,7 +4,7 @@ namespace Planillas\NomencladorBundle\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
 
-class NHorasExtrasController extends CRUDController
+class NMotivoDiaExtraAdminController extends CRUDController
 {
 
 }

@@ -1,3 +1,17 @@
 {{ form_start(form, { 'attr': {'class': 'form-horizontal' }}) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.empresa) }}
+    {{ form_row(form.jefeInmediato) }}
+    {{ form_row(form.puestoDesempennado) }}
+    {{ form_row(form.personaReferencia) }}
+    {{ form_row(form.telefono) }}
+    {{ form_row(form.fechaInicio) }}
+    {{ form_row(form.fechaFinal) }}
+    {{ form_row(form.motivoSalida) }}
+    {{ form_row(form.recontratable) }}
+    {{ form_row(form._referencia.clasificacionReferencia) }}
+    {{ form_row(form._referencia.fechaCompletado) }}
+    {{ form_row(form._referencia.comentarios) }}
+    {{ form_row(form._referencia.empleado) }}
+
+    {{ form_row(form._token) }}
 {{ form_end(form) }}
