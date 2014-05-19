@@ -27,10 +27,6 @@ class CEmpleadoReferenciaType extends AbstractType
             ->add('comentarios', 'textarea', array(
                 'required' => false,
             ))
-            ->add('empleado', 'hidden', array(
-                'data_class' => 'Planillas\CoreBundle\Entity\CEmpleado',
-                'property_path' => 'id'
-            ))
         ;
     }
     

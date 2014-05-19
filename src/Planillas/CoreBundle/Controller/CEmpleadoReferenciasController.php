@@ -23,7 +23,7 @@ class CEmpleadoReferenciasController extends Controller
 
         $empleado = $em->find('PlanillasCoreBundle:CEmpleado', $id_empleado);
         if(!$empleado)
-            $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
+            throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
         $referenciasLaboral = $em->getRepository('PlanillasCoreBundle:CEmpleadoReferenciaLaboral')
             ->findByEmpleado($empleado);
@@ -44,7 +44,7 @@ class CEmpleadoReferenciasController extends Controller
 
         $empleado = $em->find('PlanillasCoreBundle:CEmpleado', $id_empleado);
         if(!$empleado)
-            $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
+            throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
         $reflaboral_form = $this->createFormReferenciasLaboral($id_empleado);
         $refpersonal_form = $this->createFormReferenciasPersonal($id_empleado);
@@ -56,52 +56,13 @@ class CEmpleadoReferenciasController extends Controller
         ));
     }
 
-    /**
-     * @param $id_empleado
-     * @param null $entity
-     * @return \Symfony\Component\Form\Form
-     */
-    private function createFormReferenciasLaboral($id_empleado, $entity=null)
-    {
-        $form = $this->createForm(new CEmpleadoReferenciaLaboralType(), $entity, array(
-            'method' => 'POST',
-            'action' => $this->generateUrl('empleado_referencias_create', array('id_empleado' => $id_empleado)),
-        ));
-
-        $form->add('sumbit', 'submit', array(
-            'label' => 'Enviar',
-            'attr' => array(
-                'class' => 'btn btn-primary'
-            )
-        ));
-
-        return $form;
-    }
-
-    private function createFormReferenciasPersonal($id_empleado, $entity=null)
-    {
-        $form = $this->createForm(new CEmpleadoReferenciaPersonalType(), $entity, array(
-            'method' => 'POST',
-            'action' => $this->generateUrl('empleado_referencias_create', array('id_empleado' => $id_empleado)),
-        ));
-
-        $form->add('sumbit', 'submit', array(
-            'label' => 'Enviar',
-            'attr' => array(
-                'class' => 'btn btn-primary'
-            )
-        ));
-
-        return $form;
-    }
-
     public function createAction($id_empleado, Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
 
         $empleado = $em->find('PlanillasCoreBundle:CEmpleado', $id_empleado);
         if(!$empleado)
-            $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
+            throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
         $reflaboral = new CEmpleadoReferenciaLaboral();
         $reflaboral->setEmpleado($empleado);
@@ -114,15 +75,17 @@ class CEmpleadoReferenciasController extends Controller
         // referencias laborales
         $reflaboral_form->handleRequest($request);
         if ($reflaboral_form->isSubmitted() && $reflaboral_form->isValid()) {
-            if ($this->persistEmpleadoReferencia($reflaboral, $em))
+            if ($this->persistEmpleadoReferencia($reflaboral, $em)) {
                 return $this->redirect($this->generateUrl('empleado_referencias', array('id_empleado' => $id_empleado)));
+            }
         }
 
         // referencias personales
         $refpersonal_form->handleRequest($request);
         if ($refpersonal_form->isSubmitted() && $refpersonal_form->isValid()) {
-            if ($this->persistEmpleadoReferencia($refpersonal, $em))
+            if ($this->persistEmpleadoReferencia($refpersonal, $em)) {
                 return $this->redirect($this->generateUrl('empleado_referencias', array('id_empleado' => $id_empleado)));
+            }
         }
 
         $activetab = $reflaboral_form->isSubmitted() ? 'laboral' : 'personal';
@@ -133,6 +96,169 @@ class CEmpleadoReferenciasController extends Controller
             'refpersonal_form' => $refpersonal_form->createView(),
             'activetab' => $activetab,
         ));
+    }
+
+    public function editAction($id_empleado, $id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $empleado = $em->find('PlanillasCoreBundle:CEmpleado', $id_empleado);
+        if(!$empleado)
+            throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
+
+        $referencia = $em->getRepository('PlanillasCoreBundle:CEmpleadoReferencias')->find($id);
+        if(!$referencia)
+            throw $this->createNotFoundException('No existe referencia con id: '. $id);
+
+        if ($referencia instanceof CEmpleadoReferenciaLaboral) {
+            $form = $this->createFormReferenciasLaboral($id_empleado, $referencia, true);
+            $type = 'laboral';
+        } else {
+            $form = $this->createFormReferenciasPersonal($id_empleado, $referencia, true);
+            $type = 'personal';
+        }
+
+        return $this->render('PlanillasCoreBundle:CEmpleadoReferencias:edit.html.twig', array(
+            'form' => $form->createView(),
+            'type' => $type,
+            'eEmpleado' => $empleado,
+        ));
+    }
+
+    public function updateAction($id_empleado, $id, Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $empleado = $em->find('PlanillasCoreBundle:CEmpleado', $id_empleado);
+        if(!$empleado)
+            throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
+
+        $referencia = $em->getRepository('PlanillasCoreBundle:CEmpleadoReferencias')->find($id);
+        if(!$referencia)
+            throw $this->createNotFoundException('No existe referencia con id: '. $id);
+
+        if ($referencia instanceof CEmpleadoReferenciaLaboral) {
+            $form = $this->createFormReferenciasLaboral($id_empleado, $referencia, true);
+            $type = 'laboral';
+
+            // referencias laborales
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                if ($this->updateEmpleadoReferencia($referencia, $em)) {
+                    return $this->redirect($this->generateUrl('empleado_referencias', array('id_empleado' => $id_empleado)));
+                }
+            }
+        } else {
+            $form = $this->createFormReferenciasPersonal($id_empleado, $referencia, true);
+            $type = 'personal';
+
+            // referencias personales
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                if ($this->updateEmpleadoReferencia($referencia, $em)) {
+                    return $this->redirect($this->generateUrl('empleado_referencias', array('id_empleado' => $id_empleado)));
+                }
+            }
+        }
+
+        return $this->render('PlanillasCoreBundle:CEmpleadoReferencias:edit.html.twig', array(
+            'form' => $form->createView(),
+            'type' => $type,
+            'eEmpleado' => $empleado,
+        ));
+    }
+
+    public function deleteAction($id_empleado, Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $empleado = $em->find('PlanillasCoreBundle:CEmpleado', $id_empleado);
+        if(!$empleado)
+            throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
+
+        $form = $this->get('form.factory')->createNamedBuilder('delete_form', 'form', null, array(
+            'csrf_protection' => false
+        ))
+            ->add('id','hidden',array())
+            ->setMethod('DELETE')
+            ->setAction($this->generateUrl('empleado_referencias_delete', array('id_empleado' => $id_empleado)))
+            ->getForm();
+
+        $form->handleRequest($request);
+        if($form->isValid()) {
+            $data = $form->getData();
+
+            if ($em->getRepository('PlanillasCoreBundle:CEmpleadoReferencias')->deleteReferenciaById($data['id'])) {
+                $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado la referencia de forma satisfactoria.');
+            } else {
+                $this->get('session')->getFlashBag()->add('error', 'Ha ocurrido un error intentando eliminar la referencia.');
+            }
+        }
+
+        return $this->redirect($this->generateUrl('empleado_referencias', array('id_empleado' => $id_empleado)));
+    }
+
+    /**
+     * @param $id_empleado
+     * @param null $entity
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createFormReferenciasLaboral($id_empleado, CEmpleadoReferencias $entity=null, $edit=false)
+    {
+        if ($edit) {
+            $data = array(
+                'method' => 'PUT',
+                'action' => $this->generateUrl('empleado_referencias_update', array(
+                        'id_empleado' => $id_empleado,
+                        'id' => $entity->getId(),
+                    )),
+            );
+        } else {
+            $data = array(
+                'method' => 'POST',
+                'action' => $this->generateUrl('empleado_referencias_create', array('id_empleado' => $id_empleado)),
+            );
+        }
+
+        $form = $this->createForm(new CEmpleadoReferenciaLaboralType(), $entity, $data);
+
+        $form->add('sumbit', 'submit', array(
+            'label' => $edit ? 'Actualizar': 'Enviar',
+            'attr' => array(
+                'class' => 'btn btn-primary'
+            )
+        ));
+
+        return $form;
+    }
+
+    private function createFormReferenciasPersonal($id_empleado, CEmpleadoReferencias $entity=null, $edit=false)
+    {
+        if ($edit) {
+            $data = array(
+                'method' => 'PUT',
+                'action' => $this->generateUrl('empleado_referencias_update', array(
+                        'id_empleado' => $id_empleado,
+                        'id' => $entity->getId(),
+                    )),
+            );
+        } else {
+            $data = array(
+                'method' => 'POST',
+                'action' => $this->generateUrl('empleado_referencias_create', array('id_empleado' => $id_empleado)),
+            );
+        }
+
+        $form = $this->createForm(new CEmpleadoReferenciaPersonalType(), $entity, $data);
+
+        $form->add('sumbit', 'submit', array(
+            'label' => $edit ? 'Actualizar': 'Enviar',
+            'attr' => array(
+                'class' => 'btn btn-primary'
+            )
+        ));
+
+        return $form;
     }
 
     private function persistEmpleadoReferencia(CEmpleadoReferencias $referencia, EntityManager $em)
@@ -150,6 +276,26 @@ class CEmpleadoReferenciasController extends Controller
                 ->getFlashBag()->add('error', 'Ha ocurrido un error adicionando una nueva referencia.');
             $this->get('logger')
                 ->addCritical(sprintf('Ha ocurrido un error adicionando una nueva referencia. Detalles: %s',
+                    $e->getMessage()));
+            return false;
+        }
+    }
+
+    private function updateEmpleadoReferencia(CEmpleadoReferencias $referencia, EntityManager $em)
+    {
+        try {
+            $em->persist($referencia);
+            $em->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'Se han actualizado los datos de la referencia correctamente.');
+
+            return true;
+
+        } catch (\Exception $e) {
+            $this->get('session')
+                ->getFlashBag()->add('error', 'Ha ocurrido un error actualizando referencia.');
+            $this->get('logger')
+                ->addCritical(sprintf('Ha ocurrido un error actualizando referencia. Detalles: %s',
                     $e->getMessage()));
             return false;
         }

@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+
+{% block title 'Editar referencia' %}
+
+{% block headline 'Editar referencia' %}
+
+{% block content %}
+    <div class="col-lg-9" style="padding: 8px;">
+        {% if type == 'laboral' %}
+            {% include '@PlanillasCore/CEmpleadoReferencias/_referencias_laboral_form.html.twig' %}
+        {% else %}
+            {% include '@PlanillasCore/CEmpleadoReferencias/_referencias_personal_form.html.twig' %}
+        {% endif %}
+    </div>
+    <div class="col-lg-3">
+        {{ macros.empleado_foto(eEmpleado) }}
+        {{ macros.menu_empleado('sueldo',eEmpleado) }}
+    </div>
+{% endblock content %}
+
+{% block foot_script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(function() {
+            $('input.datepicker-widget').datepicker($datepicker_config);
+        });
+    </script>
+{% endblock foot_script %}

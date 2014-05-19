@@ -7,7 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CEmpleadoReferencias
  *
- * @ORM\MappedSuperclass
+ * @ORM\Entity(repositoryClass="Planillas\CoreBundle\Entity\Repository\CEmpleadoReferenciasRepository")
+ * @ORM\Table(name="c_empleado_referencias")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"laboral" = "CEmpleadoReferenciaLaboral", "personal" = "CEmpleadoReferenciaPersonal"})
  * @ORM\HasLifecycleCallbacks
  */
 abstract class CEmpleadoReferencias

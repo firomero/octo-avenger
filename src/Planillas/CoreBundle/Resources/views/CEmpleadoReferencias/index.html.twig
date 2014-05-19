@@ -28,7 +28,14 @@
                         <td>{{ ref | referencia_type }}</td>
                         <td>{{ ref.fechaCompletado | date('d/m/Y') }}</td>
                         <td>{{ ref.clasificacionReferencia }}</td>
-                        <td></td>
+                        <td>
+                            <a class="btn btn-default btn-sm"
+                               href="{{ path('empleado_referencias_edit', {'id_empleado': eEmpleado.id, 'id': ref.id}) }}">
+                                <span class="glyphicon glyphicon-edit"></span> Editar</a>
+                            <a class="btn btn-default btn-sm button-eliminar" href="#"
+                               data-content="{{ ref.id }}" data-toggle="modal" data-target="#deleteModal">
+                                <span class="glyphicon glyphicon-trash"></span> Eliminar</a>
+                        </td>
                     </tr>
                 {% else %}
                     <tr><td colspan="4">No existen resultados que mostrar.</td></tr>
@@ -42,9 +49,55 @@
         {{ macros.empleado_foto(eEmpleado) }}
         {{ macros.menu_empleado('sueldo',eEmpleado) }}
     </div>
+
+
+
+    {# Delete Modal #}
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Atención</h4>
+                </div>
+                <div class="modal-body">
+                    Usted esta intentando eliminar una referencia. ¿Está seguro que desea continuar?
+                </div>
+                <div class="modal-footer">
+                    <form action="{{ path('empleado_referencias_delete', {'id_empleado': eEmpleado.id}) }}" method="post">
+                        <input name="_method" type="hidden" value="DELETE" />
+
+                        <input id="delete_form_id" name="delete_form[id]" type="hidden" />
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock content %}
 
 
 
 
-{% block foot_script %}{{ parent() }}{% endblock foot_script %}
+{% block foot_script %}
+    {{ parent() }}
+<script type="text/javascript">
+    $(function(){
+        $('.modal')
+                .on('shown.bs.modal', function(e){
+                    var link = e.relatedTarget;
+                    var param = $(link).data('content');
+                    var id_input = $(this).find('form input:hidden[id="delete_form_id"]');
+                    id_input.val(param);
+                })
+                .on('hide.bs.modal', function(e) {
+                    var id_input = $(this).find('form input:hidden[id="delete_form_id"]');
+                    id_input.val(null);
+                });
+    });
+</script>
+{% endblock foot_script %}

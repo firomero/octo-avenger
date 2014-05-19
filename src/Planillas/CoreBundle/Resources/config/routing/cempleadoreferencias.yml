@@ -9,3 +9,17 @@ empleado_referencias_new:
 empleado_referencias_create:
     pattern: /create
     defaults: { _controller: "PlanillasCoreBundle:CEmpleadoReferencias:create" }
+
+empleado_referencias_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoReferencias:edit" }
+
+empleado_referencias_update:
+    pattern: /{id}/update
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoReferencias:update" }
+    requirements: { _method: 'PUT' }
+
+empleado_referencias_delete:
+    pattern: /delete
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoReferencias:delete" }
+    requirements: { _method: 'DELETE' }

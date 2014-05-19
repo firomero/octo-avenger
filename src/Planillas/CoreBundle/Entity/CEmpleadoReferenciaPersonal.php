@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * CEmpleadoReferenciaPersonal
  *
- * @ORM\Table(name="c_empleado_refpersonal")
  * @ORM\Entity(repositoryClass="Planillas\CoreBundle\Entity\Repository\CEmpleadoReferenciaPersonalRepository")
  */
 class CEmpleadoReferenciaPersonal extends CEmpleadoReferencias
