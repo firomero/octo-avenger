@@ -168,6 +168,27 @@ class CEmpleadoReferenciasController extends Controller
         ));
     }
 
+    public function showAction($id_empleado, $id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+
+        $empleado = $em->find('PlanillasCoreBundle:CEmpleado', $id_empleado);
+        if(!$empleado)
+            throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
+
+        $referencia = $em->getRepository('PlanillasCoreBundle:CEmpleadoReferencias')->find($id);
+        if(!$referencia)
+            throw $this->createNotFoundException('No existe referencia con id: '. $id);
+
+        $delete_form = $this->createDeleteFormReferencias($id_empleado, $id, true);
+
+        return $this->render('PlanillasCoreBundle:CEmpleadoReferencias:show.html.twig', array(
+            'referencia' => $referencia,
+            'eEmpleado' => $empleado,
+            'delete_form' => $delete_form->createView(),
+        ));
+    }
+
     public function deleteAction($id_empleado, Request $request)
     {
         $em = $this->get('doctrine.orm.entity_manager');
@@ -176,13 +197,7 @@ class CEmpleadoReferenciasController extends Controller
         if(!$empleado)
             throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
-        $form = $this->get('form.factory')->createNamedBuilder('delete_form', 'form', null, array(
-            'csrf_protection' => false
-        ))
-            ->add('id','hidden',array())
-            ->setMethod('DELETE')
-            ->setAction($this->generateUrl('empleado_referencias_delete', array('id_empleado' => $id_empleado)))
-            ->getForm();
+        $form = $this->createDeleteFormReferencias($id_empleado);
 
         $form->handleRequest($request);
         if($form->isValid()) {
@@ -196,6 +211,25 @@ class CEmpleadoReferenciasController extends Controller
         }
 
         return $this->redirect($this->generateUrl('empleado_referencias', array('id_empleado' => $id_empleado)));
+    }
+
+    /**
+     * @param $id_empleado
+     * @param null $id
+     * @param bool $csrf
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createDeleteFormReferencias($id_empleado, $id=null, $csrf=false)
+    {
+        $form = $this->get('form.factory')->createNamedBuilder('delete_form', 'form', array('id' => $id), array(
+            'csrf_protection' => $csrf,
+        ))
+            ->add('id','hidden',array())
+            ->setMethod('DELETE')
+            ->setAction($this->generateUrl('empleado_referencias_delete', array('id_empleado' => $id_empleado)))
+            ->getForm();
+
+        return $form;
     }
 
     /**

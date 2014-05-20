@@ -30,6 +30,9 @@
                         <td>{{ ref.clasificacionReferencia }}</td>
                         <td>
                             <a class="btn btn-default btn-sm"
+                               href="{{ path('empleado_referencias_show', {'id_empleado': eEmpleado.id, 'id': ref.id}) }}">
+                                <span class="glyphicon glyphicon-eye-open"></span> Ver</a>
+                            <a class="btn btn-default btn-sm"
                                href="{{ path('empleado_referencias_edit', {'id_empleado': eEmpleado.id, 'id': ref.id}) }}">
                                 <span class="glyphicon glyphicon-edit"></span> Editar</a>
                             <a class="btn btn-default btn-sm button-eliminar" href="#"
