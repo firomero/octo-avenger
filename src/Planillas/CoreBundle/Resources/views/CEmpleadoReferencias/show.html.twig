@@ -8,7 +8,11 @@
 
 {% block content %}
     <div class="col-lg-9" style="padding: 8px;">
-        {% include '@PlanillasCore/CEmpleadoReferencias/_referencias_laboral_detalles.html.twig' with {'ref': referencia} %}
+        {% if type is same as('laboral') %}
+            {% include '@PlanillasCore/CEmpleadoReferencias/_referencias_laboral_detalles.html.twig' with {'ref': referencia} %}
+        {% else %}
+            {% include '@PlanillasCore/CEmpleadoReferencias/_referencias_personal_detalles.html.twig' with {'ref': referencia} %}
+        {% endif %}
         {# -- no mostrar boton de eliminar --
         {{ form_start(delete_form) }}
         {{ form_widget(delete_form.id) }}

@@ -1,15 +1,14 @@
-<div class="row">
-    <div class="col-lg-3">Empresa: </div><div class="col-lg-9">{{ ref.empresa }}</div>
-    <div class="col-lg-3">Jefe inmediato: </div><div class="col-lg-9">{{ ref.jefeInmediato }}</div>
-    <div class="col-lg-3">Puesto desempeñado: </div><div class="col-lg-9">{{ ref.puestoDesempennado }}</div>
-    <div class="col-lg-3">Persona de referencia: </div><div class="col-lg-9">{{ ref.personaReferencia }}</div>
-    <div class="col-lg-3">Teléfono: </div><div class="col-lg-9">{{ ref.telefono }}</div>
-    <div class="col-lg-3">Fecha inicio: </div><div class="col-lg-9">{{ ref.fechaInicio|date('d/m/Y') }}</div>
-    <div class="col-lg-3">Fecha final: </div><div class="col-lg-9">{{ ref.fechaFinal|date('d/m/Y') }}</div>
-    <div class="col-lg-3">Motivo de Salida: </div><div class="col-lg-9">{{ ref.motivoSalida }}</div>
-    <div class="col-lg-3">Recontratable: </div><div class="col-lg-9">{{ ref.recontratable }}</div>
-    <div class="col-lg-3">Referencia: </div><div class="col-lg-9">{{ ref.clasificacionReferencia }}</div>
-    <div class="col-lg-3">Fecha Completado: </div><div class="col-lg-9">{{ ref.fechaCompletado|date('d/m/Y') }}</div>
-    <div class="col-lg-3">comentarios: </div><div class="col-lg-9">{{ ref.Comentarios }}</div>
-</div>
-
+<table class="table table-striped table-hover">
+    <tr><th style="width: 30%;">Empresa: </th><td style="width: 70%;">{{ ref.empresa }}</td></tr>
+    <tr><th>Jefe inmediato: </th><td>{{ ref.jefeInmediato }}</td></tr>
+    <tr><th>Puesto desempeñado: </th><td>{{ ref.puestoDesempennado }}</td></tr>
+    <tr><th>Persona de referencia: </th><td>{{ ref.personaReferencia }}</td></tr>
+    <tr><th>Teléfono: </th><td>{{ ref.telefono }}</td></tr>
+    <tr><th>Fecha inicio: </th><td>{{ ref.fechaInicio|date('d/m/Y') }}</td></tr>
+    <tr><th>Fecha final: </th><td>{{ ref.fechaFinal|date('d/m/Y') }}</td></tr>
+    <tr><th>Motivo de Salida: </th><td>{{ ref.motivoSalida }}</td></tr>
+    <tr><th>Recontratable: </th><td>{{ ref.recontratable }}</td></tr>
+    <tr><th>Referencia: </th><td>{{ ref.clasificacionReferencia }}</td></tr>
+    <tr><th>Fecha Completado: </th><td>{{ ref.fechaCompletado|date('d/m/Y') }}</td></tr>
+    <tr><th>Comentarios: </th><td>{{ ref.comentarios }}</td></tr>
+</table>

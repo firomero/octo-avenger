@@ -180,12 +180,19 @@ class CEmpleadoReferenciasController extends Controller
         if(!$referencia)
             throw $this->createNotFoundException('No existe referencia con id: '. $id);
 
+        if ($referencia instanceof CEmpleadoReferenciaLaboral) {
+            $type = 'laboral';
+        } else {
+            $type = 'personal';
+        }
+
         $delete_form = $this->createDeleteFormReferencias($id_empleado, $id, true);
 
         return $this->render('PlanillasCoreBundle:CEmpleadoReferencias:show.html.twig', array(
             'referencia' => $referencia,
             'eEmpleado' => $empleado,
             'delete_form' => $delete_form->createView(),
+            'type' => $type,
         ));
     }
 

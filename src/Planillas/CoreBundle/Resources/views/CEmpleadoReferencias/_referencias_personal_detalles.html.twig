@@ -1,14 +1,11 @@
-{{ form_start(form, { 'attr': {'class': 'form-horizontal' }}) }}
-    {{ form_row(form.nombrePersona) }}
-    {{ form_row(form.tiempoConocerlo) }}
-    {{ form_row(form.poseeHijos) }}
-    {{ form_row(form.lugarResidencia) }}
-    {{ form_row(form.conocePQDejoLaborar) }}
-    {{ form_row(form.estadoCivil) }}
-    {{ form_row(form._referencia.clasificacionReferencia) }}
-    {{ form_row(form._referencia.fechaCompletado) }}
-    {{ form_row(form._referencia.comentarios) }}
-
-
-    {{ form_row(form._token) }}
-{{ form_end(form) }}
+<table class="table table-striped table-hover">
+    <tr><th style="width: 30%;">Nombre Persona: </th><td style="width: 70%;">{{ ref.nombrePersona }}</td></tr>
+    <tr><th>Tiempo que lo conoce: </th><td>{{ ref.tiempoConocerlo }}</td></tr>
+    <tr><th>Posee Hijos: </th><td>{{ ref.poseeHijos }}</td></tr>
+    <tr><th>Lugar de residencia: </th><td>{{ ref.lugarResidencia }}</td></tr>
+    <tr><th>Conoce porque dejó laborar: </th><td>{{ ref.conocePQDejoLaborar }}</td></tr>
+    <tr><th>Estado civil: </th><td>{{ ref.estadoCivil }}</td></tr>
+    <tr><th>Referencia: </th><td>{{ ref.clasificacionReferencia }}</td></tr>
+    <tr><th>Fecha Completado: </th><td>{{ ref.fechaCompletado|date('d/m/Y') }}</td></tr>
+    <tr><th>Comentarios: </th><td>{{ ref.comentarios }}</td></tr>
+</table>
