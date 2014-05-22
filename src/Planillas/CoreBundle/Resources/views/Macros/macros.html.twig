@@ -154,7 +154,7 @@
                         <li {{ active=='recomendacion' ? 'class="active"' }}>
                             <a href="{{ path('empleado_cartas_recomendacion', {'id_empleado': eEmpleado.id }) }}">Cartas de recomendación</a></li>
                         <li {{ active=='anotaciones' ? 'class="active"' }}>
-                            <a href="#">Otras anotaciones</a></li>
+                            <a href="{{ path('empleado_otras_anotaciones', {'id_empleado': eEmpleado.id }) }}">Otras anotaciones</a></li>
                     </ul>
                 </li>
                 <li {{ active=='registrolaboral' ? 'class="active"' }}>

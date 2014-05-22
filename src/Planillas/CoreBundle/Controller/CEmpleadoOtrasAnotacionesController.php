@@ -2,12 +2,12 @@
 
 namespace Planillas\CoreBundle\Controller;
 
-use Planillas\CoreBundle\Entity\CEmpleadoHojaDelincuencia;
-use Planillas\CoreBundle\Form\Type\CEmpleadoHojaDelincuenciaType;
+use Planillas\CoreBundle\Entity\CEmpleadoOtrasAnotaciones;
+use Planillas\CoreBundle\Form\Type\CEmpleadoOtrasAnotacionesType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class CEmpleadoHojaDelincuenciaController extends Controller
+class CEmpleadoOtrasAnotacionesController extends Controller
 {
     public function indexAction($id_empleado)
     {
@@ -17,10 +17,10 @@ class CEmpleadoHojaDelincuenciaController extends Controller
         if(!$eEmpleado)
             throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
-        $bddigital = $em->getRepository('PlanillasCoreBundle:CEmpleadoHojaDelincuencia')->findAll();
+        $otrasanotaciones = $em->getRepository('PlanillasCoreBundle:CEmpleadoOtrasAnotaciones')->findAll();
 
-        return $this->render('PlanillasCoreBundle:CEmpleadoHojaDelincuencia:index.html.twig',array(
-            'hojasdelincuencia' => $bddigital,
+        return $this->render('PlanillasCoreBundle:CEmpleadoOtrasAnotaciones:index.html.twig',array(
+            'otrasanotaciones' => $otrasanotaciones,
             'eEmpleado' => $eEmpleado,
         ));
     }
@@ -33,16 +33,16 @@ class CEmpleadoHojaDelincuenciaController extends Controller
         if(!$eEmpleado)
             throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
-        $entity = new CEmpleadoHojaDelincuencia();
-        $form = $this->createForm(new CEmpleadoHojaDelincuenciaType(), $entity, array(
+        $entity = new CEmpleadoOtrasAnotaciones();
+        $form = $this->createForm(new CEmpleadoOtrasAnotacionesType(), $entity, array(
             'method' => 'POST',
-            'action' => $this->generateUrl('empleado_hojadelincuencia_new', array('id_empleado' => $id_empleado)),
+            'action' => $this->generateUrl('empleado_otras_anotaciones_new', array('id_empleado' => $id_empleado)),
         ));
 
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             if ($form->get('cancelar')->isClicked()) {
-                return $this->redirect($this->generateUrl('empleado_hojadelincuencia', array(
+                return $this->redirect($this->generateUrl('empleado_otras_anotaciones', array(
                     'id_empleado' => $id_empleado,
                 )));
             }
@@ -53,7 +53,7 @@ class CEmpleadoHojaDelincuenciaController extends Controller
 
                 $this->get('session')->getFlashBag()->add('success', 'Se ha adicionado el archivo satisfactoriamente.');
 
-                return $this->redirect($this->generateUrl('empleado_hojadelincuencia', array(
+                return $this->redirect($this->generateUrl('empleado_otras_anotaciones', array(
                     'id_empleado' => $id_empleado,
                 )));
             } catch (\Exception $e) {
@@ -67,7 +67,7 @@ class CEmpleadoHojaDelincuenciaController extends Controller
             }
         }
 
-        return $this->render('PlanillasCoreBundle:CEmpleadoHojaDelincuencia:new.html.twig', array(
+        return $this->render('PlanillasCoreBundle:CEmpleadoOtrasAnotaciones:new.html.twig', array(
             'form' => $form->createView(),
             'eEmpleado' => $eEmpleado,
         ));
@@ -87,10 +87,10 @@ class CEmpleadoHojaDelincuenciaController extends Controller
         if($form->isValid()) {
             $data = $form->getData();
 
-            $archivo_bddigital = $em->getRepository('PlanillasCoreBundle:CEmpleadoHojaDelincuencia')->find($data['id']);
-            if ($archivo_bddigital) {
+            $archivo_otrasanotaciones = $em->getRepository('PlanillasCoreBundle:CEmpleadoOtrasAnotaciones')->find($data['id']);
+            if ($archivo_otrasanotaciones) {
                 try {
-                    $em->remove($archivo_bddigital);
+                    $em->remove($archivo_otrasanotaciones);
                     $em->flush();
 
                     $this->get('session')->getFlashBag()->add('success', 'Se ha eliminado el archivo de forma satisfactoria.');
@@ -99,14 +99,14 @@ class CEmpleadoHojaDelincuenciaController extends Controller
                         ->getFlashBag()->add('error', 'Ha ocurrido un error intentando eliminar la referencia.');
                     $this->get('logger')
                         ->addCritical(
-                            sprintf('Ha ocurrido un error intentando eliminar hoja de delincuencia. Detalles: %s',
+                            sprintf('Ha ocurrido un error intentando eliminar anotación en empleado. Detalles: %s',
                                 $e->getMessage())
                         );
                 }
             }
         }
 
-        return $this->redirect($this->generateUrl('empleado_hojadelincuencia', array('id_empleado' => $id_empleado)));
+        return $this->redirect($this->generateUrl('empleado_otras_anotaciones', array('id_empleado' => $id_empleado)));
     }
 
 
@@ -123,9 +123,10 @@ class CEmpleadoHojaDelincuenciaController extends Controller
         ))
             ->add('id','hidden',array())
             ->setMethod('DELETE')
-            ->setAction($this->generateUrl('empleado_hojadelincuencia_delete', array('id_empleado' => $id_empleado)))
+            ->setAction($this->generateUrl('empleado_otras_anotaciones_delete', array('id_empleado' => $id_empleado)))
             ->getForm();
 
         return $form;
     }
+
 }

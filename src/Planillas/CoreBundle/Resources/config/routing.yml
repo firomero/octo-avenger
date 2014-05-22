@@ -117,6 +117,10 @@ planillas_core_empleado_hoja_delincuencia:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadohojadelincuencia.yml"
     prefix: /empleado/{id_empleado}/hojadelincuencia
 
-planillas_core_empleaso_cartas_recomendacion:
+planillas_core_empleado_cartas_recomendacion:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadocartasrecomendacion.yml"
     prefix: /empleado/{id_empleado}/cartasrecomendacion
+
+planillas_core_empleado_otras_anotaciones:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadootrasanotaciones.yml"
+    prefix: /empleado/{id_empleado}/otrasanotaciones

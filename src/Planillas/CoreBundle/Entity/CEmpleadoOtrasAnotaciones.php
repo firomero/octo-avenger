@@ -1,0 +1,120 @@
+<?php
+
+namespace Planillas\CoreBundle\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+use Planillas\CoreBundle\Helper\DocumentModel;
+
+/**
+ * CEmpleadoOtrasAnotaciones
+ *
+ * @ORM\Table(name="d_empleado_otras_anotaciones")
+ * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
+ */
+class CEmpleadoOtrasAnotaciones extends DocumentModel
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255)
+     * @Assert\NotBlank()
+     */
+    private $nombre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="string", length=255, nullable=true)
+     */
+    private $descripcion;
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return CEmpleadoOtrasAnotaciones
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set descripcion
+     *
+     * @param string $descripcion
+     * @return CEmpleadoOtrasAnotaciones
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
+    
+        return $this;
+    }
+
+    /**
+     * Get descripcion
+     *
+     * @return string 
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->path = $filename.'.'.$this->getFile()->guessExtension();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        $this->getFile()->move($this->getUploadRootDir(), $this->path);
+
+        if (isset($this->temp)) {
+            unlink($this->getUploadRootDir().'/'.$this->temp);
+            $this->temp = null;
+        }
+
+        $this->file = null;
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+}

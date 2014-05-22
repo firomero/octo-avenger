@@ -1,0 +1,12 @@
+empleado_otras_anotaciones:
+    pattern: /
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoOtrasAnotaciones:index" }
+
+empleado_otras_anotaciones_new:
+    pattern: /new
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoOtrasAnotaciones:new" }
+
+empleado_otras_anotaciones_delete:
+    pattern: /delete
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoOtrasAnotaciones:delete" }
+    requirements: { _method: 'DELETE' }
