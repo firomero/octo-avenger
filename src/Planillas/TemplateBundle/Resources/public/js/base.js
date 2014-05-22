@@ -43,4 +43,9 @@ $(function() {
         });
     });
 
+    $('div.desplegable-menu .panel-heading').on('click', function(event) {
+        event.preventDefault();
+        $(this).parent().find('div.panel-body').fadeToggle(300);
+    });
+
 });
