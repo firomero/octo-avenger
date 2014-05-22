@@ -108,3 +108,7 @@ planillas_core_componentes_salariales:
 planillas_core_empleado_referencias:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadoreferencias.yml"
     prefix: /empleado/{id_empleado}/referencias
+
+planillas_core_empleado_basedatos_digital:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadobasedatosdigital.yml"
+    prefix: /empleado/{id_empleado}/bddigital

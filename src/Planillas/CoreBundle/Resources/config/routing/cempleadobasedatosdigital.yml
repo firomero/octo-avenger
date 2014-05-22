@@ -1,0 +1,12 @@
+empleado_basedatos_digital:
+    pattern: /
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoBaseDatosDigital:index" }
+
+empleado_basedatos_digital_new:
+    pattern: /new
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoBaseDatosDigital:new" }
+
+empleado_basedatos_digital_delete:
+    pattern: /delete
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoBaseDatosDigital:delete" }
+    requirements: { _method: 'DELETE' }
