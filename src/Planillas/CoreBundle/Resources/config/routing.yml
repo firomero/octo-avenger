@@ -112,3 +112,7 @@ planillas_core_empleado_referencias:
 planillas_core_empleado_basedatos_digital:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadobasedatosdigital.yml"
     prefix: /empleado/{id_empleado}/bddigital
+
+planillas_core_empleado_hoja_delincuencia:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadohojadelincuencia.yml"
+    prefix: /empleado/{id_empleado}/hojadelincuencia

@@ -1,0 +1,12 @@
+empleado_hojadelincuencia:
+    pattern: /
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoHojaDelincuencia:index" }
+
+empleado_hojadelincuencia_new:
+    pattern: /new
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoHojaDelincuencia:new" }
+
+empleado_hojadelincuencia_delete:
+    pattern: /delete
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoHojaDelincuencia:delete" }
+    requirements: { _method: 'DELETE' }

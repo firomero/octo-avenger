@@ -2,14 +2,14 @@
 
 {% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
 
-{% block title 'Listado de archivos de estudio basedatos digital' %}
+{% block title 'Listado de archivos Hoja de Delincuencia' %}
 
-{% block headline 'Listado de archivos de estudio basedatos digital' %}
+{% block headline 'Listado de archivos Hoja de Delincuencia' %}
 
 {% block content %}
     <div class="col-sm-9">
         <div style="margin-bottom: 8px;">
-            <a class="btn btn-primary" href="{{ path('empleado_basedatos_digital_new', {'id_empleado': eEmpleado.id}) }}">
+            <a class="btn btn-primary" href="{{ path('empleado_hojadelincuencia_new', {'id_empleado': eEmpleado.id}) }}">
                 <span class="glyphicon glyphicon-plus"></span> Crear Nueva</a>
         </div>
         <table class="table table-striped table-bordered table-hover">
@@ -21,7 +21,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for value in bddigital %}
+            {% for value in hojasdelincuencia %}
                 <tr>
                     <td>{{ value.nombre }}</td>
                     <td>{{ value.descripcion }}</td>
@@ -43,7 +43,7 @@
 
     <div class="col-sm-3">
         {{ macros.empleado_foto(eEmpleado) }}
-        {{ macros.menu_empleado('bddigital',eEmpleado) }}
+        {{ macros.menu_empleado('hojadelincuencia',eEmpleado) }}
     </div>
 
     {# Delete Modal #}
@@ -58,7 +58,7 @@
                     Usted esta intentando eliminar un dato adjunto. ¿Está seguro que desea continuar?
                 </div>
                 <div class="modal-footer">
-                    <form action="{{ path('empleado_basedatos_digital_delete', {'id_empleado': eEmpleado.id}) }}" method="post">
+                    <form action="{{ path('empleado_hojadelincuencia_delete', {'id_empleado': eEmpleado.id}) }}" method="post">
                         <input name="_method" type="hidden" value="DELETE" />
 
                         <input id="delete_form_id" name="delete_form[id]" type="hidden" />

@@ -6,7 +6,7 @@ use Planillas\CoreBundle\Helper\DocumentModelAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CEmpleadoBaseDatosDigitalType extends DocumentModelAbstractType
+class CEmpleadoHojaDelincuenciaType extends DocumentModelAbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -33,7 +33,7 @@ class CEmpleadoBaseDatosDigitalType extends DocumentModelAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Planillas\CoreBundle\Entity\CEmpleadoBaseDatosDigital',
+            'data_class' => 'Planillas\CoreBundle\Entity\CEmpleadoHojaDelincuencia'
         ));
     }
 
@@ -42,6 +42,6 @@ class CEmpleadoBaseDatosDigitalType extends DocumentModelAbstractType
      */
     public function getName()
     {
-        return 'planillas_corebundle_cempleadobasedatosdigital';
+        return 'planillas_corebundle_cempleadohojadelincuencia';
     }
 }

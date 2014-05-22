@@ -144,17 +144,25 @@
         <div class="panel-body" style="display: none;">
             <ul class="nav nav-pills nav-stacked">
                 <li><a class="header-subnav" href="#">Referencias</a>
-                    <ul class="nav">
-                        <li><a href="{{ path('empleado_referencias', {'id_empleado': eEmpleado.id }) }}">Verificación de referencias</a></li>
-                        <li><a href="{{ path('empleado_basedatos_digital', {'id_empleado': eEmpleado.id }) }}">Estudio base de datos digital</a></li>
-                        <li><a href="#">Hoja de delincuencia</a></li>
-                        <li><a href="#">Cartas de recomendación</a></li>
-                        <li><a href="#">Otras anotaciones</a></li>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li {{ active=='referencias' ? 'class="active"' }} >
+                            <a href="{{ path('empleado_referencias', {'id_empleado': eEmpleado.id }) }}">Verificación de referencias</a></li>
+                        <li {{ active=='bddigital' ? 'class="active"' }}>
+                            <a href="{{ path('empleado_basedatos_digital', {'id_empleado': eEmpleado.id }) }}">Estudio base de datos digital</a></li>
+                        <li {{ active=='hojadelincuencia' ? 'class="active"' }}>
+                            <a href="{{ path('empleado_hojadelincuencia', {'id_empleado': eEmpleado.id }) }}">Hoja de delincuencia</a></li>
+                        <li {{ active=='recomendacion' ? 'class="active"' }}>
+                            <a href="#">Cartas de recomendación</a></li>
+                        <li {{ active=='anotaciones' ? 'class="active"' }}>
+                            <a href="#">Otras anotaciones</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Registro laboral</a></li>
-                <li><a href="#">Trámites portación de armas</a></li>
-                <li><a href="#">Datos adjuntos RRHH</a></li>
+                <li {{ active=='registrolaboral' ? 'class="active"' }}>
+                    <a href="#">Registro laboral</a></li>
+                <li {{ active=='tramites-portacionarmas' ? 'class="active"' }}>
+                    <a href="#">Trámites portación de armas</a></li>
+                <li {{ active=='adjuntosrrhh' ? 'class="active"' }}>
+                    <a href="#">Datos adjuntos RRHH</a></li>
             </ul>
         </div>
     </div>
