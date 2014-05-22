@@ -152,7 +152,7 @@
                         <li {{ active=='hojadelincuencia' ? 'class="active"' }}>
                             <a href="{{ path('empleado_hojadelincuencia', {'id_empleado': eEmpleado.id }) }}">Hoja de delincuencia</a></li>
                         <li {{ active=='recomendacion' ? 'class="active"' }}>
-                            <a href="#">Cartas de recomendación</a></li>
+                            <a href="{{ path('empleado_cartas_recomendacion', {'id_empleado': eEmpleado.id }) }}">Cartas de recomendación</a></li>
                         <li {{ active=='anotaciones' ? 'class="active"' }}>
                             <a href="#">Otras anotaciones</a></li>
                     </ul>

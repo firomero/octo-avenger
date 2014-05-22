@@ -1,0 +1,11 @@
+empleado_cartas_recomendacion:
+    pattern: /
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoCartasRecomendacion:index" }
+
+empleado_cartas_recomendacion_new:
+    pattern: /new
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoCartasRecomendacion:new" }
+
+empleado_cartas_recomendacion_delete:
+    pattern: /delete
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoCartasRecomendacion:delete" }

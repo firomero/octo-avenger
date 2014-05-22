@@ -2,18 +2,18 @@
 
 namespace Planillas\CoreBundle\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Planillas\CoreBundle\Helper\DocumentModel;
 
 /**
- * CEmpleadoHojaDelincuencia
+ * CEmpleadoCartasRecomendacion
  *
- * @ORM\Table(name="d_empleado_hoja_delincuencia")
+ * @ORM\Table(name="d_empleado_cartas_recomendacion")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class CEmpleadoHojaDelincuencia extends DocumentModel
+class CEmpleadoCartasRecomendacion extends DocumentModel
 {
     /**
      * @var string
@@ -34,7 +34,7 @@ class CEmpleadoHojaDelincuencia extends DocumentModel
      * Set nombre
      *
      * @param string $nombre
-     * @return CEmpleadoHojaDelincuencia
+     * @return CEmpleadoCartasRecomendacion
      */
     public function setNombre($nombre)
     {
@@ -57,7 +57,7 @@ class CEmpleadoHojaDelincuencia extends DocumentModel
      * Set descripcion
      *
      * @param string $descripcion
-     * @return CEmpleadoHojaDelincuencia
+     * @return CEmpleadoCartasRecomendacion
      */
     public function setDescripcion($descripcion)
     {
