@@ -17,7 +17,7 @@ class CEmpleadoOtrasAnotacionesController extends Controller
         if(!$eEmpleado)
             throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
-        $otrasanotaciones = $em->getRepository('PlanillasCoreBundle:CEmpleadoOtrasAnotaciones')->findAll();
+        $otrasanotaciones = $em->getRepository('PlanillasCoreBundle:CEmpleadoOtrasAnotaciones')->findBy(array('empleado' => $eEmpleado));
 
         return $this->render('PlanillasCoreBundle:CEmpleadoOtrasAnotaciones:index.html.twig',array(
             'otrasanotaciones' => $otrasanotaciones,
@@ -48,6 +48,8 @@ class CEmpleadoOtrasAnotacionesController extends Controller
             }
 
             try {
+                $entity->setEmpleado($eEmpleado);
+
                 $em->persist($entity);
                 $em->flush();
 

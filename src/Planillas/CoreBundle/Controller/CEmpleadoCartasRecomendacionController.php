@@ -17,7 +17,7 @@ class CEmpleadoCartasRecomendacionController extends Controller
         if(!$eEmpleado)
             throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
-        $cartasrecomendacion = $em->getRepository('PlanillasCoreBundle:CEmpleadoCartasRecomendacion')->findAll();
+        $cartasrecomendacion = $em->getRepository('PlanillasCoreBundle:CEmpleadoCartasRecomendacion')->findBy(array('empleado' => $eEmpleado));
 
         return $this->render('PlanillasCoreBundle:CEmpleadoCartasRecomendacion:index.html.twig',array(
             'cartasrecomendacion' => $cartasrecomendacion,
@@ -48,6 +48,8 @@ class CEmpleadoCartasRecomendacionController extends Controller
             }
 
             try {
+                $entity->setEmpleado($eEmpleado);
+
                 $em->persist($entity);
                 $em->flush();
 

@@ -17,7 +17,7 @@ class CEmpleadoHojaDelincuenciaController extends Controller
         if(!$eEmpleado)
             throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
-        $bddigital = $em->getRepository('PlanillasCoreBundle:CEmpleadoHojaDelincuencia')->findAll();
+        $bddigital = $em->getRepository('PlanillasCoreBundle:CEmpleadoHojaDelincuencia')->findBy(array('empleado' => $eEmpleado));
 
         return $this->render('PlanillasCoreBundle:CEmpleadoHojaDelincuencia:index.html.twig',array(
             'hojasdelincuencia' => $bddigital,
@@ -48,6 +48,8 @@ class CEmpleadoHojaDelincuenciaController extends Controller
             }
 
             try {
+                $entity->setEmpleado($eEmpleado);
+
                 $em->persist($entity);
                 $em->flush();
 

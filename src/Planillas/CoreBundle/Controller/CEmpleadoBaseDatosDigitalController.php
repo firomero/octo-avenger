@@ -17,7 +17,7 @@ class CEmpleadoBaseDatosDigitalController extends Controller
         if(!$eEmpleado)
             throw $this->createNotFoundException('No existe empleado con id: '. $id_empleado);
 
-        $bddigital = $em->getRepository('PlanillasCoreBundle:CEmpleadoBaseDatosDigital')->findAll();
+        $bddigital = $em->getRepository('PlanillasCoreBundle:CEmpleadoBaseDatosDigital')->findBy(array('empleado' => $eEmpleado));
 
         return $this->render('PlanillasCoreBundle:CEmpleadoBaseDatosDigital:index.html.twig',array(
             'bddigital' => $bddigital,
@@ -48,6 +48,8 @@ class CEmpleadoBaseDatosDigitalController extends Controller
             }
 
             try {
+                $entity->setEmpleado($eEmpleado);
+
                 $em->persist($entity);
                 $em->flush();
 

@@ -31,6 +31,13 @@ class CEmpleadoOtrasAnotaciones extends DocumentModel
     private $descripcion;
 
     /**
+     * @var  \Planillas\CoreBundle\Entity\CEmpleado
+     *
+     * @ORM\ManyToOne(targetEntity="Planillas\CoreBundle\Entity\CEmpleado")
+     */
+    private $empleado;
+
+    /**
      * Set nombre
      *
      * @param string $nombre
@@ -116,5 +123,28 @@ class CEmpleadoOtrasAnotaciones extends DocumentModel
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
         }
+    }
+
+    /**
+     * Set empleado
+     *
+     * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
+     * @return CEmpleadoOtrasAnotaciones
+     */
+    public function setEmpleado(\Planillas\CoreBundle\Entity\CEmpleado $empleado = null)
+    {
+        $this->empleado = $empleado;
+    
+        return $this;
+    }
+
+    /**
+     * Get empleado
+     *
+     * @return \Planillas\CoreBundle\Entity\CEmpleado 
+     */
+    public function getEmpleado()
+    {
+        return $this->empleado;
     }
 }
