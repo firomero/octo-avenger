@@ -121,3 +121,9 @@ services:
         arguments: [~, Planillas\NomencladorBundle\Entity\NClasificacionReferencia, PlanillasNomencladorBundle:NClasificacionReferenciaAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: "Clasificación de referencia"}
+
+    planillas_nomenclador.admin.n_tipo_registro_laboral:
+        class: Planillas\NomencladorBundle\Admin\NTipoRegistroLaboralAdmin
+        arguments: [~, Planillas\NomencladorBundle\Entity\NTipoRegistroLaboral, PlanillasNomencladorBundle:NTipoRegistroLaboralAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Tipo de Registro Laboral"}
