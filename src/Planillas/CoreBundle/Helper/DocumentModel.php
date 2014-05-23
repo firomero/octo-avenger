@@ -102,4 +102,40 @@ abstract class DocumentModel
         // when displaying uploaded doc/image in the view.
         return 'uploads/documents';
     }
+
+    protected function __preUpload()
+    {
+        if (null !== $this->getFile()) {
+            $filename = sha1(uniqid(mt_rand(), true));
+            $this->path = $filename.'.'.$this->getFile()->guessExtension();
+        }
+    }
+
+
+    protected function __upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+
+        $this->getFile()->move($this->getUploadRootDir(), $this->path);
+
+        if (isset($this->temp)) {
+            unlink($this->getUploadRootDir().'/'.$this->temp);
+            $this->temp = null;
+        }
+
+        $this->file = null;
+    }
+
+    protected function __removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
+    }
+
+    public abstract function preUpload();
+    public abstract function upload();
+    public abstract function removeUpload();
 } 

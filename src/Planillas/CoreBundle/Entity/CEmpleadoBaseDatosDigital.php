@@ -78,48 +78,6 @@ class CEmpleadoBaseDatosDigital extends DocumentModel
     }
 
     /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload()
-    {
-        if (null !== $this->getFile()) {
-            $filename = sha1(uniqid(mt_rand(), true));
-            $this->path = $filename.'.'.$this->getFile()->guessExtension();
-        }
-    }
-
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function upload()
-    {
-        if (null === $this->getFile()) {
-            return;
-        }
-
-        $this->getFile()->move($this->getUploadRootDir(), $this->path);
-
-        if (isset($this->temp)) {
-            unlink($this->getUploadRootDir().'/'.$this->temp);
-            $this->temp = null;
-        }
-
-        $this->file = null;
-    }
-
-    /**
-     * @ORM\PostRemove()
-     */
-    public function removeUpload()
-    {
-        if ($file = $this->getAbsolutePath()) {
-            unlink($file);
-        }
-    }
-
-    /**
      * Set empleado
      *
      * @param \Planillas\CoreBundle\Entity\CEmpleado $empleado
@@ -140,5 +98,31 @@ class CEmpleadoBaseDatosDigital extends DocumentModel
     public function getEmpleado()
     {
         return $this->empleado;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        parent::__preUpload();
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        parent::__upload();
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        parent::__removeUpload();
     }
 }
