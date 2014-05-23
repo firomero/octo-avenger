@@ -124,3 +124,7 @@ planillas_core_empleado_cartas_recomendacion:
 planillas_core_empleado_otras_anotaciones:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadootrasanotaciones.yml"
     prefix: /empleado/{id_empleado}/otrasanotaciones
+
+planillas_core_empleado_registro_laboral:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadoregistrolaboral.yml"
+    prefix:   /empleado/{id_empleado}/registrolaboral

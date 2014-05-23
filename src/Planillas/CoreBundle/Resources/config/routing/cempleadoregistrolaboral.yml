@@ -1,0 +1,12 @@
+empleado_registrolaboral:
+    pattern:  /
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoRegistroLaboral:index" }
+
+empleado_registrolaboral_new:
+    pattern:  /new
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoRegistroLaboral:new" }
+
+empleado_registrolaboral_delete:
+    pattern:  /delete
+    defaults: { _controller: "PlanillasCoreBundle:CEmpleadoRegistroLaboral:delete" }
+    requirements: { _method: post|delete }

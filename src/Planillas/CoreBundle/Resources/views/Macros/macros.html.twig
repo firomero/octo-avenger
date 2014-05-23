@@ -158,7 +158,7 @@
                     </ul>
                 </li>
                 <li {{ active=='registrolaboral' ? 'class="active"' }}>
-                    <a href="#">Registro laboral</a></li>
+                    <a href="{{ path('empleado_registrolaboral', {'id_empleado': eEmpleado.id }) }}">Registro laboral</a></li>
                 <li {{ active=='tramites-portacionarmas' ? 'class="active"' }}>
                     <a href="#">Trámites portación de armas</a></li>
                 <li {{ active=='adjuntosrrhh' ? 'class="active"' }}>

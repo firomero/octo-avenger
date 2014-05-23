@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * NTipoRegistroLaboral
  *
- * @ORM\Table()
+ * @ORM\Table(name="n_tipo_registro_laboral")
  * @ORM\Entity
  */
 class NTipoRegistroLaboral
@@ -61,4 +61,11 @@ class NTipoRegistroLaboral
     {
         return $this->nombre;
     }
+
+    public function __toString()
+    {
+        return $this->nombre;
+    }
+
+
 }
