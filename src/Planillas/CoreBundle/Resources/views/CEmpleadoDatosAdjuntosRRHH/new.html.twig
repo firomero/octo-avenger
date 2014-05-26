@@ -1,0 +1,43 @@
+{% extends "::base.html.twig" %}
+
+{% import 'PlanillasCoreBundle:Macros:macros.html.twig' as macros %}
+
+{% block title 'Crear archivo otras anotaciones' %}
+
+{% block headline 'Crear archivo otras anotaciones' %}
+
+{% block content %}
+    <div class="col-sm-9">
+        {{ form_start(form) }}
+
+        {{ form_row(form.tipoDatoAdjunto) }}
+        {{ form_row(form.fecha) }}
+        {{ form_row(form.observaciones) }}
+        {{ form_row(form.file) }}
+
+        <div class="form-actions">
+            {{ form_widget(form.submit) }}
+            {{ form_widget(form.cancelar) }}
+        </div>
+
+        {{ form_widget(form._token) }}
+
+        {{ form_end(form) }}
+    </div>
+
+
+    <div class="col-sm-3">
+        {{ macros.empleado_foto(eEmpleado) }}
+        {{ macros.menu_empleado('adjuntosrrhh',eEmpleado) }}
+    </div>
+{% endblock content %}
+
+{% block foot_script %}
+{{ parent() }}
+<script type="text/javascript">
+    $(function(){
+        $('input#planillas_corebundle_cempleadodatosadjuntosrrhh_fecha').datepicker($datepicker_config);
+    });
+</script>
+
+{% endblock foot_script %}

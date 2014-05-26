@@ -1,0 +1,13 @@
+empleado_datos_adjuntos_rrhh:
+    pattern: /
+    defaults: { _controller: PlanillasCoreBundle:CEmpleadoDatosAdjuntosRRHH:index }
+
+empleado_datos_adjuntos_rrhh_new:
+    pattern: /new
+    defaults: { _controller: PlanillasCoreBundle:CEmpleadoDatosAdjuntosRRHH:new }
+    requirements: { _method: get|post }
+
+empleado_datos_adjuntos_rrhh_delete:
+    pattern: /delete
+    defaults: { _controller: PlanillasCoreBundle:CEmpleadoDatosAdjuntosRRHH:delete }
+    requirements: { _method: delete }

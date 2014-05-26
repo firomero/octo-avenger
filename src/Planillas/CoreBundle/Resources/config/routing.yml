@@ -132,3 +132,7 @@ planillas_core_empleado_registro_laboral:
 planillas_core_empleado_tramite_portacion_arma:
     resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadotramiteportacionarma.yml"
     prefix:   /empleado/{id_empleado}/tramiteportacionarma
+
+planillas_core_empleado_datos_adjuntos_rrhh:
+    resource: "@PlanillasCoreBundle/Resources/config/routing/cempleadodatosadjuntosrrhh.yml"
+    prefix:   /empleado/{id_empleado}/datosadjuntosrrhh
