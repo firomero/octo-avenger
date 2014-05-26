@@ -127,3 +127,9 @@ services:
         arguments: [~, Planillas\NomencladorBundle\Entity\NTipoRegistroLaboral, PlanillasNomencladorBundle:NTipoRegistroLaboralAdmin]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: "Tipo de Registro Laboral"}
+
+    planillas_nomenclador.admin.n_tipo_dato_adjunto_rrhh:
+        class: Planillas\NomencladorBundle\Admin\NTipoDatoAdjuntoRRHHAdmin
+        arguments: [~, Planillas\NomencladorBundle\Entity\NTipoDatoAdjuntoRRHH, PlanillasNomencladorBundle:NTipoDatoAdjuntoRRHHAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: "Tipo de Dato Adjunto RRHH"}
