@@ -160,7 +160,7 @@
                 <li {{ active=='registrolaboral' ? 'class="active"' }}>
                     <a href="{{ path('empleado_registrolaboral', {'id_empleado': eEmpleado.id }) }}">Registro laboral</a></li>
                 <li {{ active=='tramites-portacionarmas' ? 'class="active"' }}>
-                    <a href="#">Trámites portación de armas</a></li>
+                    <a href="{{ path('empleado_tramite_portacion_arma', {'id_empleado': eEmpleado.id }) }}">Trámites portación de armas</a></li>
                 <li {{ active=='adjuntosrrhh' ? 'class="active"' }}>
                     <a href="#">Datos adjuntos RRHH</a></li>
             </ul>

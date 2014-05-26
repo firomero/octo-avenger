@@ -1,0 +1,18 @@
+empleado_tramite_portacion_arma:
+    pattern: /
+    defaults: { _controller: PlanillasCoreBundle:CEmpleadoTramitePortacionArma:index }
+
+empleado_tramite_portacion_arma_new:
+    pattern: /new
+    defaults: { _controller: PlanillasCoreBundle:CEmpleadoTramitePortacionArma:new }
+    requirements: { _method: get|post }
+
+empleado_tramite_portacion_arma_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: PlanillasCoreBundle:CEmpleadoTramitePortacionArma:edit }
+    requirements: { _method: get|put }
+
+empleado_tramite_portacion_arma_delete:
+    pattern: /delete
+    defaults: { _controller: PlanillasCoreBundle:CEmpleadoTramitePortacionArma:delete }
+    requirements: { _method: delete }
